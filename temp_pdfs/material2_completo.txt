@@ -1,0 +1,2117 @@
+
+
+=== PÁGINA 1 ===
+1
+[
+1
+
+
+=== PÁGINA 2 ===
+O Guia de Prescrições da Emergência PS Zerado é um material 
+complementar do Linha de Frente do Treinamento PS Zerado, e 
+que tem como objetivo preparar adequadamente os estudantes de 
+medicina ou recém-formados para as situações práticas que os 
+esperam no dia a dia dos plantões.
+O Guia é um material prático, didático e atualizado que compila 
+as prescrições, doses, diluições e indicações das emergências mais 
+comuns nos hospitais. Com ele, o atendimento dos profissionais 
+da medicina se torna mais simples, ágil e eficiente.
+2
+
+
+=== PÁGINA 3 ===
+SUMÁRIO
+SISTEMA CARDIOVASCULAR........................................... .6
+TAQUICARDIA SUPRAVENTRICULAR............................6
+TAQUICARDIA VENTRICULAR....................................... .7
+FIBRILAÇÃO ATRIAL E FLUTTER................................. .8
+SÍNDROME CORONARIANA AGUDA.............................10
+INSUFICIÊNCIA CARDÍACA AGUDA DESCOMPENSADA 
+(ICAD) E EDEMA AGUDO DE PULMÃO (EAP)..............13
+SISTEMA NERVOSO..........................................................16
+CEFALEIA PRIMÁRIA................................................... .16
+ENXAQUECA.....................................................................17
+VERTIGEM...................................................................... .18
+CRISE CONVULSIVA....................................................... .19
+SISTEMA RESPIRATÓRIO...............................................20
+OTITE MÉDIA AGUDA................................................... .21
+SINUSITE......................................................................... .22
+FARINGOAMIGDALITE................................................. .23
+CRISE ASMÁTICA........................................................... .24
+DPOC.................................................................................25
+PNEUMONIA................................................................... .27
+TVP E TEP...................................................................... .28
+  
+3
+
+
+=== PÁGINA 4 ===
+SISTEMA GASTROINTESTINAL......................................30
+DIARREIA....................................................................... .30
+HEMORRAGIA DIGESTIVA ALTA.................................31
+HEMORRAGIA DIGESTIVA BAIXA...............................33
+ENCEFALOPATIA HEPÁTICA........................................33
+PANCREATITE AGUDA.................................................. .34
+COLANGITE..................................................................... .36
+REFLUXO GASTROESOFÁGICO......................................37
+SISTEMA HEMATOLÓGICO.............................................39
+ANEMIA FERROPRIVA................................................. .39
+SISTEMA ENDÓCRINO METABÓLICO............................40
+CETOACIDOSE DIABÉTICA E ESTADO 
+HIPERGLICÊMICO HIPEROSMOLAR.......................... .40
+CONTROLE GLICÊMICO..................................................42
+SISTEMA GENITO-URINÁRIO........................................ .43
+INFECÇÃO DO TRATO URINÁRIO................................ .43
+CANDIDÍASE VAGINAL...................................................45
+VAGINOSE....................................................................... .45
+TRICOMONÍASE............................................................. .46
+URETRITE - GONOCÓCICA............................................ .46
+URETRITE- NÃO GONOCÓCICA......................................46
+URETEROLITÍASE (CÓLICA NEFRÉTICA)....................47
+SISTEMA OSTEOMUSCULAR...........................................49
+4
+
+
+=== PÁGINA 5 ===
+LOMBALGIA MECÂNICA E TORCICOLO.......................49
+PSIQUIATRIA....................................................................51
+ACATISIA..........................................................................51
+SÍNDROME PSICÓTICA................................................. .51
+DELIRIUM........................................................................53
+AGRESSIVIDADE E AGITAÇÃO PSICOMOTORA..........54
+SÍNDROME SEROTONINÉRGICA...................................54
+SINDROME NEUROLÉPTICA MALIGNA.......................55
+ANSIEDADE AGUDA E CRISE DE PÂNICO...................56
+DISTÚRBIOS HIDROELETROLÍTICOS...........................57
+HIPERCALEMIA............................................................. .57
+HIPOCALEMIA............................................................... .59
+HIPONATREMIA............................................................ .60
+HIPERNATREMIA...........................................................61
+HIPOCALCEMIA............................................................. .63
+HIPERCALCEMIA............................................................63
+HIPOMAGNESEMIA....................................................... .64
+HIPERMAGNESEMIA......................................................66
+INFECÇÕES....................................................................... .67
+SÍFILIS............................................................................ .67
+DENGUE............................................................................68
+HERPES SIMPLES...........................................................71
+CONJUNTIVITE................................................................72
+ANAFILAXIA E ALERGIAS..............................................73
+5
+
+
+=== PÁGINA 6 ===
+CHOQUE ANAFILÁTICO................................................. .73
+ALERGIAS....................................................................... .73
+INTOXICAÇÃO.................................................................. .75
+PARACETAMOL.............................................................. .75
+ORGANOFOSFORADOS/CARBAMATOS........................76
+COCAÍNA...........................................................................76
+HEMOCOMPONENTES......................................................77
+CONCENTRADO DE HEMÁCIAS.................................... .77
+CONCENTRADO DE PLAQUETAS.................................. .78
+CRIOPRECIPITADO....................................................... .79
+PLASMA FRESCO CONGELADO.....................................79
+ANTIMICROBIANOS........................................................ .80
+ANALGÉSICOS.................................................................. .82
+AMINAS VASOATIVAS..................................................... .84
+INTUBAÇÃO...................................................................... .86
+Sedação pós intubação..................................................... .88
+6
+
+
+=== PÁGINA 7 ===
+SISTEMA CARDIOVASCULAR
+ARRITMIAS
+  TAQUICARDIA SUPRAVENTRICULAR
+    Estável hemodinamicamente: 
+        #Bizu
+Manobras vasovagais podem ser utilizadas e podem reverter 
+o quadro sem que seja necessário o uso de medicações.
+Evitar  uso  em  pacientes  com  doenças  pulmonares 
+descompensadas.
+Pacientes que apresentaram bloqueio AV de qualquer grau 
+não devem receber doses adicionais.
+Atenção:  casos  extremos  podem  cursar  com  assistolia, 
+fibrilação ventricular.
+Adenosina (6mg/2ml) — 01 Ampola (dose 6mg)
+Dose inicial: 01 ampola em bolus rapidamente seguida de 
+flush de 20ml de SF 0,9% juntamente com elevação do 
+membro em que foi administrada a medicação. 
+Obs: deve ser feita na fossa cubital, evitando veias distais. 
+Na ausência de resposta → Dobrar a dose 
+Adenosina  (6mg/2ml)  —  02  Ampolas  (dose 
+12mg)
+         Opção: 
+Metoprolol (5mg/5ml) - 01 ampola (dose 5mg)
+7
+
+
+=== PÁGINA 8 ===
+Dose inicial: 2,5-5mg bolus EV 1 mg/minuto. Repetir até 
+controle da frequência cardíaca, até a dose máxima de 15 
+mg (03 ampolas).
+Instáveis hemodinamicamente: 
+Pacientes com sinais de instabilidade devem ser submetidos 
+à cardioversão. 
+Sinais de instabilidade:  Hipotensão ou sinais de choque, 
+rebaixamento  do  nível  de  consciência,  dor  torácica 
+anginosa, e dispneia de origem cardíaca. 
+TAQUICARDIA VENTRICULAR
+Estável hemodinamicamente: 
+Dose de ataque
+Amiodarona  (150mg/3ml)  -  01  ampola  (dose 
+150mg)
+Diluir 1 ampola em 100ml de SGI 5% e correr em 30min. 
+Dose de impregnação
+Amiodarona (150mg/3ml) - 03 ampolas (dose 
+450mg)
+Diluir 3 ampolas em 230ml SGI 5% e correr em BIC a 16 
+ml/h nas primeiras 6 horas e 8ml/h nas próximas 18horas. 
+#Bizu
+O tratamento deve ser descontinuado no caso de 
+aparecimento de bloqueio atrioventricular.
+Opções: em caso de falha
+8
+
+
+=== PÁGINA 9 ===
+Lidocaína 2% (20mg/ml) - 01 ampola (400mg)
+1,5 mg/kg EV lento. Se falha, repetir 0,5 mg/kg da dose.
+Dose máxima: 3-4 mg/kg
+Tratamento ambulatorial: 
+Metoprolol (25,50,100mg) - comprimidos
+25 mg VO de 24/24h. Progredindo até a dose alvo de 100-
+200mg VO 24/24h. 
+Instáveis hemodinamicamente: 
+Pacientes com sinais de instabilidade devem ser submetidos 
+à cardioversão. 
+Sinais de instabilidade: Hipotensão ou sinais de choque, 
+rebaixamento  do  nível  de  consciência,  dor  torácica 
+anginosa, e dispneia de origem cardíaca. 
+ FIBRILAÇÃO ATRIAL E FLUTTER
+    Estável hemodinamicamente: 
+Cardioversão química
+Amiodarona 150mg/3ml 
+Fazer dose de ataque de 5-7 mg/kg + SG 5% 100 ml EV em 
+30-60 min. 
+Dose de manutenção: 18ml (06 ampolas) + SG 5% 482 ml 
+em BIC, 1 mg/min (33 ml/h) nas primeiras 6h e após 0,5 
+mg/min (16,6 ml/h) nas próximas 18h.
+        Controle de frequência: 
+Betabloqueadores
+9
+
+
+=== PÁGINA 10 ===
+Metoprolol 5mg/5ml 
+Fazer 1 ampola EV em 2 min; 
+Pode ser repetida a cada 5 min, até a dose  máxima 
+de 20 mg (04 ampolas). 
+Bloqueadores de canal de cálcio
+Verapamil 5mg/2ml 
+Fazer de 1-2 ampolas EV em 2-5 min. 
+Pode ser repetida após 30 min, até a dose máxima de 20 mg 
+(04 ampolas). 
+Seguido de manutenção de 80-160 mg VO 8/8h, 
+Digitais
+Deslanosídeo 0,4mg/2ml 
+Fazer de 01 a 02 ampolas EV lentamente em 24h. 
+#Bizu
+Lembrar da anticoagulação.
+Não proceder cardioversão em pacientes com FA crônica 
+(>48h) sem realizar exclusão de trombo atrial.
+Instável hemodinamicamente: 
+Realizar cardioversão elétrica sincronizada. 
+#Bizu
+São considerados sinais de instabilidade: hipotensão ou 
+choque, dispneia ou insuficiência respiratória, diminuição 
+do nível de consciência ou dor precordial.
+    Após a cardioversão:
+Amiodarona 100 mg
+10
+
+
+=== PÁGINA 11 ===
+Tomar 03 comprimidos (300mg) VO de 12/12h. 
+Preferível em pacientes com insuficiência cardíaca. 
+Propafenona 300 mg
+Tomar 01 comprimido VO de 12/12h. 
+Preferível em pacientes sem doença cardíaca estrutural.
+SÍNDROME CORONARIANA AGUDA
+Uso oral
+AAS 100mg 
+Tomar 03 comprimidos, dose de ataque; seguido de 01 
+comprimido de 24/24h.
+Ticagrelor 90 mg
+Tomar 02 comprimidos dose de ataque; seguido de 01 
+comprimido de 12/12h.
+OU
+Clopidogrel 75mg
+Pacientes SEM SUPRADESNIVELAMENTO: 
+●Tomar 4 comprimidos (300mg), dose única. Seguido 
+de 1 comprimido de 24/24h.
+● Se paciente for para ICP (angioplastia), fazer bolus de 
+600mg. 
+Pacientes COM SUPRADESNIVELAMENTO: 
+●Tomar 4 comprimidos (300mg), dose única, salvo 
+pacientes maiores de 75 anos, que será apenas 1 
+comprimido (75mg).
+● Se paciente for para ICP (angioplastia): 8 
+comprimidos (600mg). 
+11
+
+
+=== PÁGINA 12 ===
+●Paciente com supra percebido tardiamente: 4 
+comprimidos (300mg).
+#Bizu
+A única situação que será usado 75mg (1 comprimido 
+apenas) de ataque é em paciente com IAM com 
+supradesnivelamento, que será submetido à trombólise (não 
+angioplastado), e tem mais de 75 anos. 
+Atorvastatina 40mg 
+Tomar 1 comprimido de 24/24h.
+Isordil (Mononitrato de isossorbida) 5mg
+Tomar 1 comprimido sublingual se dor torácica.
+Pode ser repetido a cada 5 minutos mais 2 vezes. 
+#Bizu
+Não usar nitrato em paciente com IAM de ventrículo direito. 
+Não usar nitrato em paciente que ingeriram Sildenafil ou 
+Vardenafil nas últimas 24h, ou Tardalafil nas últimas 48h). 
+Uso subcutâneo
+Enoxaparina 60mg
+Aplicar 1 ampola (1mg/kg) de 12/12h. 
+* Se idade maior que 75 anos, reduzir a dose para 0,75 
+mg/kg SC de 12/12h.
+** Pacientes com Clearence de creatinina < 30 ml/min, usar 
+metade da dose. 
+Uso intravenoso
+12
+
+
+=== PÁGINA 13 ===
+Nitroglicerina [Tridil] 25mg/5ml
+Diluir 1 ampola em 230 ml de SF 0,9% e correr em BIC em 
+caso de dor torácica persistente ou sinais congestivos. 
+Iniciar dose baixa: por exemplo 5ml/h.
+Metoprolol 5mg 
+Tomar 1 comprimido VO a cada 5 minutos (máximo de 3 
+doses). 
+#Bizu: 
+Adicionar oxigenoterapia se saturação < 90%. 
+Trombólise 
+         Uso intravenoso
+         Alteplase 1 mg/ml
+Dose máxima: 100 mg
+Fazer Bolus de 15 mg, depois 0,75 mg/Kg durante 30 min 
+(máximo de 50 mg) e depois mais 0,50 mg/Kg durante 60 
+min (máximo de 35 mg).
+ 
+Contraindicações absolutas à trombólise:
+AVC hemorrágico prévio, AVC isquêmico nos últimos 3 
+meses,  lesão  estrutural  do  SNC  (malformação  vascular, 
+câncer  primário  ou  metastático),  cirurgia  do  SNC  ou 
+medular nos últimos 2 mese, suspeita de dissecção de aorta, 
+sangramento ativo (exceto menstruação), trauma facial ou 
+TCE grave nos últimos 3 meses, hipertensão arterial grave e 
+não controlada.
+13
+
+
+=== PÁGINA 14 ===
+INSUFICIÊNCIA CARDÍACA 
+AGUDAMENTE DESCOMPENSADA 
+(ICAD) E EDEMA AGUDO DE PULMÃO 
+(EAP) 
+         #Bizu: 
+A abordagem inicial da descompensação da IC leva em 
+conta o perfil do paciente, de acordo com a perfusão 
+e sinais de congestão. As estratégias iniciais incluem 
+aumento da diurese (em caso de congestão), vasodilatação 
+(para reduzir a resistência periférica) e inotropismo (em caso 
+de baixa perfusão periférica), conforme necessidade. 
+Reduzir a frequência cardíaca em 25% nas primeiras horas. 
+Realizar Ventilação não invasiva (VNI).
+Morfina não é mais usada no EAP devido à ausência de 
+benefício no tratamento.  Também pode haver vasodilatação 
+venosa, tendendo à hipotensão, além de meia vida longa. 
+      Furosemida (20mg/2ml) IV
+      Dose de Ataque: 1,0 a 1,5mg/kg 
+  Dose de Manutenção: mesma dosagem utilizada, porém 
+  distribuída em 24h. 
+Nitroprussiato de Sódio (Nipride) (50mg/2ml) 
+IV
+14
+
+
+=== PÁGINA 15 ===
+Diluir 1 ampola (2ml) em 248ml SF 0,9% (Concentração: 
+200mcg/ml) e infundir em BIC inicialmente a 5ml/h e titular 
+conforme pressão arterial.
+Dose inicial: 0,25 a 0,5mcg/kg/min
+Dose máxima: 10mcg/kg/min
+OU
+Diluir 2 ampolas (4ml) em 246ml SF 0,9% (Concentração: 
+400mcg/ml) e infundir em BIC inicialmente a 2-3ml/h e 
+titular conforme pressão arterial.
+Dose inicial: 0,25 a 0,5mcg/kg/min
+Dose máxima: 10mcg/kg/min
+Nitroglicerina (Tridil) (50mg/10ml) IV
+Diluir 1 ampola (10ml) em 240ml SF 0,9% (Concentração: 
+200mcg/ml) e infundir em BIC inicialmente a 1-2ml/h e 
+titular conforme pressão arterial.
+ Dose inicial: 5mcg/min (No EAP, não há medo em começar
+ em doses altas). 
+Dobutamina (250mg/20ml) IV
+Diluir 4 ampolas (80ml) em 170 ml SF 0,9% (Concentração: 
+4mg/ml) e infundir em BIC inicialmente a 2ml/h
+Dose usual: 2 a 20mcg/kg/min
+ 
+#Bizu: 
+ Nesta apresentação, o valor da velocidade de infusão é   
+aproximadamente o mesmo valor numérico da dose usual.
+OU
+15
+
+
+=== PÁGINA 16 ===
+Diluir 2 ampolas (40ml) em 210 ml SF 0,9% (Concentração: 
+2mg/ml) e infundir em BIC inicialmente a 4ml/h
+Dose usual: 2 a 20mcg/kg/min
+#Bizu: 
+Nesta apresentação, o valor da velocidade de infusão é    
+aproximadamente o dobro do valor numérico da dose usual.
+SISTEMA NERVOSO
+CEFALEIA PRIMÁRIA
+Uso intravenoso
+Cetoprofeno [Profenid] (100mg/2ml) - 01 
+ampola
+Diluir 01 ampola em 100mL de SF 0,9% e correr em 20 
+minutos. 
+Dexametasona (10mg/2,5ml) - 01 ampola
+Fazer 01 ampola EV bólus ou IM. 
+Uso oral
+Ibuprofeno 400mg
+Tomar 01 comprimido de até 6/6h
+Dipirona [Novalgina] 1g
+Tomar 01 comprimido de 6/6h. 
+Paracetamol [Tylenol] 750g
+Tomar 01 comprimido de 8/8h. (6/6h se apresentação de 
+500mg - Dose Máxima 4g)
+16
+
+
+=== PÁGINA 17 ===
+Obs: Atentar para possibilidade de cefaleia por abuso de 
+analgésicos.
+ENXAQUECA
+Uso endovenoso
+Sumatriptano [Sumax] 6mg/0,5ml - 1 ampola
+Aplicar 6mg no subcutâneo, podendo ser aplicada nova 
+injeção subcutânea de 6 mg de sumatriptana após uma hora.
+Obs.: Máximo 02 ampolas por dia.
+#Bizu: Medicamento pouco disponível no PS.
+Opções:
+Cetoprofeno [Profenid] (100mg/2ml) - 01 
+ampola
+Diluir 01 ampola em 100mL de SF 0,9% e correr em 20 
+minutos. 
+Dexametasona (10mg/2,5ml) - 01 ampola
+Fazer 01 ampola EV bólus ou IM. 
+Uso oral
+Sumatriptano + Naproxeno [Sumaxpro®] 
+50/500mg 
+Tomar 01 comprimido no início da crise. Se ausência de 
+melhora, repetir dose após 2h. 
+Obs.: Dose máxima de 02 comprimidos ao dia. 
+17
+
+
+=== PÁGINA 18 ===
+Opções:
+Naproxeno [Flanax] 500mg
+Tomar 01 comprimido de até 12/12h
+Dipirona [Novalgina] 1g
+Tomar 01 comprimido de 6/6h. 
+Obs: Atentar para possibilidade de cefaleia por abuso de 
+analgésicos.
+VERTIGEM
+Uso endovenoso
+Dimenidrato + Piridoxina [Dramin B6] 50mg 
+Fazer EV de 6/6h.
+Uso oral
+Dimenidrato 50mg 
+Tomar 01 comprimido de 4/4 ou 6/6h. 
+Cinarizina [Fluxon] 25mg
+Tomar 01 comprimido de 8/8h 
+Meclozina [Meclin] 50mg
+Tomar 01 comprimido de 8/8h 
+Dimenidrato + Piridoxina [Dramin B6] 50mg + 
+10mg
+Tomar 01 comprimido de até 4/4h. Não exceder 400mg (8 
+comprimidos).
+18
+
+
+=== PÁGINA 19 ===
+#Bizu: Medicamentos que podem ser usados para suprimir 
+o sistema vestibular: anti-histamínicos, benzodiazepínicos e 
+antieméticos.
+ 
+CRISE CONVULSIVA
+Esquema inicial
+Diazepam (10mg/2ml) 
+Fazer 01 ampola IV em bólus lentamente. 
+Opção na falta de acesso venoso:
+Midazolam 10mg
+Fazer 01 ampola IM 
+Refratário após 5 min
+Repetir benzodiazepínico
+Diazepam (10mg/2ml) 
+Fazer 01 ampola IV em bólus lentamente. 
+Midazolam 10mg
+Fazer 01 ampola IM 
+Refratário após 10min
+Fenitoína [Hidantal] 250mg/5ml
+DIluir 02 ampolas em 40 ml de NaCL 0,9% (concentração 
+de 10mg/ml). Fazer 5-10 mg/kg = 0,5-1 ml/kg
+Fenobarbital 200mg/2ml
+19
+
+
+=== PÁGINA 20 ===
+Diluir 05 ampolas em 90 ml de NaCL 0,9% (concentração 
+de 10mg/ml). Fazer 10 mg/kg = 1 ml/kg
+Refratariedade
+Proceder à intubação orotraqueal
+Midazolam 50mg/10ml 
+Diluir 03 ampolas (30ml) em 120 ml de NaCL 0,9% 
+(concentração de 1mg/ml)
+Dose ataque: 0,2 mg/kg EV
+Dose Manutenção: 0,1-0,4 mg/kg/h
++ Propofol 200mg/20ml (10mg/ml)
+Diluir 01 ampolas (20ml) em 180ml de NaCL 0,9% 
+(concentração de 1mg/ml)
+Dose ataque: 1-2 mg/kg EV
+Dose Manutenção: 5-10 mg/kg/h
++ Tiopental 500mg
+Diluir 02 frascos em 40ml de NaCL 0,9% (concentração de 
+25mg/ml)
+Dose ataque: 100-250 mg EV
+Dose Manutenção: 3-5 mg/kg/h
+SISTEMA RESPIRATÓRIO
+OTITE MÉDIA AGUDA
+Uso oral
+20
+
+
+=== PÁGINA 21 ===
+Amoxicilina+Clavulanato [Clavulin®] (875+125 
+mg) - 20 comprimidos
+Tomar 01 comprimido de 12/12h por 10 dias. 
+Amoxicilina+Clavulanato [Clavulin®] (500+125 
+mg) - 30 comprimidos [SUS]
+Tomar 01 comprimido de 8/8h por 10 dias. 
+Falha terapêutica: 
+Cefuroxima [Zinnat®] 500 mg - 20 
+comprimidos
+Tomar 01 comprimido de 12/12 horas, por 10 dias
+Alergia a penicilinas
+Azitromicina  500 mg - 05 comprimidos
+Tomar 01 comprimido de 24/24 horas, por 5 dias
+Claritromicina  500 mg - 20 comprimidos
+Tomar 01 comprimido de 12/12 horas, por 10 dias
+Levofloxacino  750 mg - 05 comprimidos
+Tomar 01 comprimido de 24/24 horas, por 5 dias
+#Bizu: Sinais de falha terapêutica:  Febre, otalgia e 
+otorreia persistentes após 48-72 horas do início da 
+antibioticoterapia.
+Prescrever analgesia adequada e lavagem com solução 
+fisiológica de 2 a 4 vezes ao dia. 
+21
+
+
+=== PÁGINA 22 ===
+SINUSITE
+Uso oral
+Amoxicilina+Clavulanato [Clavulin®] (875+125 
+mg) - 20 comprimidos
+Tomar 01 comprimido de 12/12h por 10 dias. 
+Alergia a penicilinas
+Levofloxacino  750 mg - 05 comprimidos
+Tomar 01 comprimido de 24/24 horas, por 5 dias
+Uso oral
+Dipirona [Novalgina] 1g
+Tomar 01 comprimido de 6/6h, se dor ou febre. 
++
+Prednisolona 20mg 
+Tomar 02 comprimidos de manhã por 5 dias. 
++
+Uso inalatório
+Budesonida 32mcg/jato
+Aplicar 02 jatos em cada narina de 12/12h por 10 dias. 
+#Bizu: são necessários três dos seguintes marcadores 
+para definição de sinusite bacteriana:
+1. Muco com coloração alterada
+2. Dor local intensa 
+3. Febre > 38°C;
+4. Proteína C reativa/VHS elevado;
+5. Piora de sintomas.
+22
+
+
+=== PÁGINA 23 ===
+FARINGOAMIGDALITE
+Uso Intramuscular
+Penicilina benzatina [Benzetacil] 1,2 milhões 
+UN
+Fazer Intramuscular dose única.
+Uso oral
+Amoxicilina+Clavulanato [Clavulin®] (875+125 
+mg) - 20 comprimidos
+Tomar 01 comprimido de 12/12h por 10 dias. 
+Alergia a penicilinas
+Azitromicina 500 mg - 05 comprimidos
+Tomar 01 comprimido de 24/24 horas, por 5 dias.
+Dipirona [Novalgina] 1g
+Tomar 01 comprimido de 6/6h, se dor ou febre. 
+Ibuprofeno 400mg
+Tomar 01 comprimido de até 6/6h
+Prednisolona 20mg 
+Tomar 03 comprimidos de manhã por 3 dias. 
+CRISE ASMÁTICA
+Leve e moderada
+Uso inalatório
+Salbutamol spray [Aerolin] 100mcg/jato
+23
+
+
+=== PÁGINA 24 ===
+Fazer 4 jatos de 20/20min na primeira hora e 4 jatos de 2/2h 
+após controle.
++
+Uso oral
+Prednisolona 20mg 
+Tomar 03 comprimidos de manhã por 5 dias. 
+Grave
+Uso inalatório
+Salbutamol spray [Aerolin] 100mcg/jato
+Fazer 4-10 jatos de 20/20 min na primeira hora, seguidos de 
+1/1h se broncoespasmo intenso e a cada 2 a 6 horas após 
+controle.
++ Ipratrópio [Atrovent] 25 mcg/jato 
+Fazer 4 jatos de 20/20 min na primeira hora, seguidos de 
+1/1h se broncoespasmo intenso e a cada 2 a 6 horas após 
+controle.
++ Hidrocortisona 500mg
+Diluir em 10ml de ABD. Para dose de ataque.
+DPOC
+Exacerbação
+Uso oral
+Prednisolona 20mg 
+Tomar 02 comprimidos de manhã por 7 dias.
+ 
+Uso inalatório
+Salbutamol spray [Aerolin] 100mcg/jato
+24
+
+
+=== PÁGINA 25 ===
+Fazer inalação de 2 jatos de 4/4h ou 6/6h por 7 dias.
++
+Ipratrópio spray [Atrovent] 25 mcg/jato 
+Fazer inalação de 2 jatos de 6/6h por 7 dias.
+Uso oral
+Amoxicilina+Clavulanato [Clavulin®] (875+125 
+mg) - 14 comprimidos
+Tomar 01 comprimido de 12/12h por 7 dias. 
+Amoxicilina+Clavulanato [Clavulin®] (500+125 
+mg) - 21 comprimidos 
+Tomar 01 comprimido de 8/8h por 7 dias. 
+Azitromicina  500 mg - 05 comprimidos
+Tomar 01 comprimido de 24/24 horas, por 5 dias
+Claritromicina  500 mg - 14 comprimidos
+Tomar 01 comprimido de 12/12 horas, por 7 dias
+Com risco para pseudomonas
+Levofloxacino  750 mg - 05 comprimidos
+Tomar 01 comprimido de 24/24 horas, por 5 dias
+Grupo A
+Broncodilatador de curta duração para resgate
+Salbutamol spray [Aerolin] 100mcg/jato
+Fazer inalação de 2 jatos de 6/6horas. 
+Grupo B
+Broncodilatador de curta duração para resgate + 
+25
+
+
+=== PÁGINA 26 ===
+Broncodilatador beta-2-agonista de longa duração + 
+Antimuscarínico de longa duração
+Salbutamol spray [Aerolin] 100mcg/jato
+Fazer inalação de 2 jatos de 6/6horas.
++
+Fumarato de formoterol  12 mcg/cápsula 
+Fazer inalação de 12-24 mcg (1-2 cápsulas) de 12/12 horas
++
+Brometo de tiotrópio  2,5 mcg/dose 
+Fazer inalação de 02 puff/dose via inalatória de 24/24 horas;
+PNEUMONIA
+Sem comorbidades, sem uso recente de ATB
+Uso oral
+Amoxicilina+Clavulanato [Clavulin®] (875+125 
+mg) - 14 comprimidos
+Tomar 01 comprimido de 12/12h por 7 dias. 
+Amoxicilina+Clavulanato [Clavulin®] (500+125 
+mg) - 21 comprimidos 
+Tomar 01 comprimido de 8/8h por 7 dias. 
+Azitromicina  500 mg - 05 comprimidos
+Tomar 01 comprimido de 24/24 horas, por 5 dias
+Claritromicina  500 mg - 14 comprimidos
+Tomar 01 comprimido de 12/12 horas, por 7 dias
+Dipirona [Novalgina] 1g
+26
+
+
+=== PÁGINA 27 ===
+Tomar 01 comprimido de 6/6h, se dor ou febre. 
+Com fatores de risco, doença mais grave ou uso recente de ATB
+Uso oral
+Amoxicilina+Clavulanato [Clavulin®] (875+125 
+mg) - 14 comprimidos
+Tomar 01 comprimido de 12/12h por 7 dias. 
++ Azitromicina  500 mg - 07 comprimidos
+Tomar 01 comprimido de 24/24 horas, por 7 dias
+OU
+Claritromicina  500 mg - 14 comprimidos
+Tomar 01 comprimido de 12/12 horas, por 7 dias
+Dipirona [Novalgina] 1g
+Tomar 01 comprimido de 6/6h, se dor ou febre. 
+TVP E TEP
+Profilaxia: 
+Subcutâneo
+Enoxaparina [Clexane®] 40mg/0,4ml - 1 
+seringa preenchida
+Aplicar 01 seringa de 24/24h. 
+Ou 0,5mg/kg.
+ 
+Terapêutico:
+27
+
+
+=== PÁGINA 28 ===
+Subcutâneo
+Enoxaparina [Clexane®] 40mg/0,4ml - 2 
+seringas preenchidas
+Aplicar 02 seringas de 12/12h. 
+Ou 1mg/kg 12/12h
+Heparina não fracionada 25.000 unidades/5 
+ml
+Diluir 5 ml (25.000 UI) em SF 0,9 % 245 mL 
+(concentração: 100 UI/mL). 
+Dose de ataque de 80 UI/kg EV. Seguido de dose de 
+manutenção de 18 UI/kg/hora EV, em BI. 
+Realizar o Controle pelo PTTa mantido 1,5-2x o valor 
+normal.
+Via oral
+Rivaroxabana 15 mg - contínuo
+Tomar 01 comprimido VO de 12/12 horas, por 3 semanas. 
+Após 20 mg de 24/24 horas, por no mínimo 3 meses
+SISTEMA GASTROINTESTINAL
+DIARREIA
+Aguda não infecciosa 
+Floratil® (200mg/cp) 
+Tomar 01 comprimido de 12/12h por 3 dias. 
+28
+
+
+=== PÁGINA 29 ===
+#Bizu: o uso de probióticos, pode reduzir em média 1-2 
+dias de sintomas. 
+Racecadotrila [Tiorfan®] (100mg/cp) 
+Tomar 01 comprimido de 12/12h ou 8/8h enquanto 
+permanecer a diarreia (Dose máx de 400mg)
+#Bizu: Diferentemente da loperamida [Imosec] a 
+racecadotrila pode ser utilizada em contexto de diarreias 
+agudas. 
+Sais para reidratação oral (Rehidrat®)
+Diluir 1 envelope em 500ml de água e beber durante todo o 
+dia associado a água e outros líquidos. Interromper o uso 
+após 24h sem diarreia. 
+#Bizu: suspender uso de cafeína, leite e medicamentos que 
+podem provocar diarreia. 
+Aguda infecciosa
+Medidas acima associadas à: 
+Ciprofloxacino 500mg - 10 comprimidos
+Tomar 01 comprimido de 12/12h por 5 dias
++
+Metronidazol 400mg - 21 comprimidos
+Tomar 01 comprimido de 8/8h por 7 dias
+29
+
+
+=== PÁGINA 30 ===
+HEMORRAGIA DIGESTIVA ALTA
+Varicosa
+        #Bizu
+Prioridade deve ser a estabilização hemodinâmica e garantir 
+a perfusão tecidual, realizar controle da hemorragia após 
+estabilização. 
+EDA nas primeiras 12-24 horas quando a estabilidade 
+permitir. 
+Atentar para sinais de choque.
+Omeprazol (40mg/10ml)
+Fazer 01 ampola (40mg) de 12/12h.
+Suspender após EDA se não houver indicação. 
+Terlipressina (1mg/1ml) 
+Fazer 02 mg (02 amp) EV em bolus + 01 ampolas 4/4h. 
+OU
+        Octreotide (0,5mg/ml) 
+Diluir 01 ampola em 250ml de SF 0,9%, fazer 50 mcg EV 
+em bólus e infusão contínua de 50 mcg/h EV
+Ondansetrona (4mg/ml) - 01 ampola
+Diluir 01 ampola em 100ml de SF 0,9% e correr em 20 min, 
+de 8/8 horas. 
+Profilaxia de PBE:
+Ceftriaxona [Rocefim®] 1g
+Aplicar 01 ampola (1g) EV de 24/24 horas, por 7 dias.
+Ciprofloxacino [Cipro®] 400mg/200ml 
+30
+
+
+=== PÁGINA 31 ===
+Administrar 01 bolsa EV 12/12 horas, por 7 dias.
+Norfloxacino 400mg 
+Tomar 01 comprimido VO 12/12 horas, por 7 dias. 
+Profilaxia de Encefalopatia:
+Lactulose 667mg/ml
+Iniciar com 20-40 ml de 12/12h e ajustar para 2-3 
+evacuações diárias se sinais de encefalopatia.
+Não varicosa
+        #Bizu
+Prioridade deve ser a estabilização hemodinâmica e garantir 
+a perfusão tecidual, realizar controle da hemorragia após 
+estabilização. 
+EDA nas primeiras 24 horas quando a e
+stabilidade 
+permitir.
+Atentar para sinais de choque.
+Omeprazol (40mg/10ml)
+Fazer 01 ampola (40mg) de 12/12h.
+Suspender após EDA se não houver indicação. 
+Ondansetrona (4mg/ml) - 01 ampola
+Diluir 01 ampola em 100ml de SF 0,9% e correr em 20 min, 
+de 8/8 horas. 
+HEMORRAGIA DIGESTIVA BAIXA
+31
+
+
+=== PÁGINA 32 ===
+        #Bizu
+Prioridade deve ser a estabilização hemodinâmica e garantir 
+a perfusão tecidual, realizar controle da hemorragia após 
+estabilização. 
+Atentar para sinais de choque.
+Dieta suspensa
+Omeprazol (40mg/10ml)
+Fazer 01 ampola (40mg) de 12/12h.
+Ondansetrona (4mg/ml) - 01 ampola
+Diluir 01 ampola em 100ml de SF 0,9% e correr em 20 min, 
+de 8/8 horas. 
+ENCEFALOPATIA HEPÁTICA
+Lactulose 667mg/ml
+Iniciar com 20-40 ml de 12/12h e ajustar para 2-3 
+evacuações diárias se sinais de encefalopatia.
+Metronidazol 400mg 
+Tomar 01 comprimido de 8/8h por 14 dias.
+Ou
+Rifaximina 550mg 
+Tomar 01 comprimido de 12/12h por 14 dias.
+Ondansetrona (4mg/ml) 
+Diluir 01 ampola em 100ml de SF 0,9% e correr em 20 min, 
+de 8/8 horas. 
+Em casos refratários: 
+32
+
+
+=== PÁGINA 33 ===
+Aspartato de Ornitina 5g
+Diluir 01 envelope em um copo de líquido VO de 12/12 ou 
+24/24 horas. 
+Orientações: 
+Cabeceira elevada, curva térmica, sinais vitais 6/6 horas. 
+PANCREATITE AGUDA
+Dieta suspensa
+Nas primeiras 48 horas, ajustando para oral conforme 
+evolução.
+Cloreto de sódio 0,9% 
+Fazer 3 ml/kg/h EV por 8 a 12 horas.
+Ringer lactato
+Se hipotensão 20-30 ml/kg EV em 30 min. 
+Dipirona 1g/2ml - 01 ampola
+Fazer 01 ampola EV em bolus lento, de 6/6 horas.
+Tramadol 100mg/2ml - 01 ampola
+Diluir 01 ampola em 100 ml SF 0,9% e fazer IV em 30 min, 
+de 8/8 horas. 
+Morfina (10mg/ml) - 01 ampola
+Diluir 01 ampola em 10ml de ABD e fazer 4-5ml, de 6/6 
+horas. 
+33
+
+
+=== PÁGINA 34 ===
+Ondansetrona (4mg/ml) [Vonau®] - 01 ampola
+Diluir 01 ampola em 100ml de SF 0,9% e correr em 20 min, 
+de 8/8 horas. 
+Enoxaparina 40mg
+Aplicar 01 ampola de 24/24 horas. 
+Se infecção: 
+Meropenem (1g) 
+Diluir em 10 ml de ABD e fazer EV de 8/8h. 
+Orientações:
+Solicitar exames para cálculo do Score de Ranson. 
+Observar sinais infecciosos, sinais de choque e falências 
+orgânicas, necessidade de terapia nutricional parenteral. 
+COLANGITE
+Dipirona 1g/2ml - 01 ampola
+Fazer 01 ampola EV em bolus lento, de 6/6 horas.
+Tramadol 100mg/2ml - 01 ampola
+Diluir 01 ampola em 100 ml SF 0,9% e fazer IV em 30 min, 
+de 8/8 horas. 
+Morfina (10mg/ml) - 01 ampola
+Diluir 01 ampola em 10ml de ABD e fazer 4-5ml, de 6/6 
+horas.
+Ondansetrona (4mg/ml) - 01 ampola
+Diluir 01 ampola em 100ml de SF 0,9% e correr em 20 min, 
+de 8/8 horas. 
+34
+
+
+=== PÁGINA 35 ===
+Monoterapia
+Ciprofloxacino [Cipro®] 400mg/200ml 
+Administrar 01 bolsa EV 12/12 horas por 7-10 dias.
+Piperacilina + Tazobactam 4g + 500mg  
+Administrar EV de 8/8 horas por 7-10 dias. 
+Terapia com associação
+Metronidazol 5 mg/ml 
+Fazer 01 bolsa (500mg) EV de 8/8 horas por 7-10 dias. 
++
+Cefepima 1g 
+Administrar 02 ampolas (2g) EV de 8/8 horas por 7-10dias.
+Profilaxia de TVP
+Enoxaparina 40mg
+Aplicar 01 ampola de 24/24 horas.
+Orientações:
+Proceder aos exames e terapias para desobstrução da via 
+biliar. 
+Observar critérios de choque séptico (Pêntade de Reynolds). 
+Balanço hídrico e sinais vitais.
+REFLUXO GASTROESOFÁGICO
+Tratamento empírico (4-12 semanas)
+Omeprazol 20-40 mg
+35
+
+
+=== PÁGINA 36 ===
+Tomar 01 comprimido de 24/24h, pela manhã em jejum, ao 
+menos 30min antes de se alimentar. Ou fracionado em 12/12 
+horas. 
+Esomeprazol 20-40 mg
+Tomar 01 comprimido de 24/24h, pela manhã em jejum, ao 
+menos 30min antes de se alimentar. Ou fracionado em 12/12 
+horas.
+Domperidona 10mg 
+Tomar 01 comprimido de 8/8 horas. 
+Bromoprida 10mg 
+Tomar 01 comprimido de 8/8 horas. 
+Orientações:
+Cabeceira elevada ao deitar; 
+Não se alimentar antes de dormir;
+Perda de peso se indicado;
+Cessar tabagismo;
+Evitar refeições volumosas;
+Evitar alimentos que agravam os sintomas como, 
+chocolates, bebidas gaseificadas, café e condimentos
+SISTEMA HEMATÓGICO
+ANEMIA FERROPRIVA
+Via parenteral
+Hidróxido Férrico [Noripurum] (100mg/5ml)
+36
+
+
+=== PÁGINA 37 ===
+Diluir de 5-10ml de noripurum em 250ml de SF 0,9% 
+infundir em no mínimo 30 minutos.
+Aplicar de 1 a 3 vezes por semana, conforme cálculo de 
+deficiência de ferro.
+Via oral
+Sulfato ferroso 300 mg (60mg Ferro elementar) 
+Tomar 01 comprimido antes do café, almoço e jantar. 
+Preferir alimentos ácidos concomitantes e evitar consumo de 
+laticínios concomitante.
+SISTEMA ENDÓCRINO 
+METABÓLICO
+CETOACIDOSE DIABÉTICA E ESTADO 
+HIPERGLICÊMICO HIPEROSMOLAR
+Insulinoterapia
+Apenas prescrever insulina se o K inicial > 3,3 mEq/L
+Insulina regular 100ui/ml 
+Diluir 01 ml em  SF 0,9% 100 mL (solução 1:1) 1Ui/ml
+Dose de ataque (bolus): 0,1 a 0,15 Ui/Kg IV
+Dose de manutenção: iniciar a 0,1 Ui/Kg/h em BIC
+Monitorização:
+Glicemia capilar 1/1h
+Taxa ideal de queda da glicemia: 50-70 mg/dL em 1h ou 
+50% em 2h
+37
+
+
+=== PÁGINA 38 ===
+Cuidados
+Se queda superior ao ideal ou HGT < 200-250 mg/d:  
+reduzir velocidade de infusão para 0,02-0,05 U/Kg/h e 
+adicionar SG 5%.
+Se queda inferior ao ideal: dobrar velocidade de infusão.
+Suspender a BIC com insulina: se Glicemia < 200 mg/dL + 
+pH > 7,3 + HCO3 > 18 mEq/L + AG < 12 (ou ausência de 
+cetose)
+Antes de suspender a insulina IV: 
+Prescrever 10 U de insulina regular SC e aguardar uma hora 
+para suspensão. 
+Iniciar esquema Basal-Bolus: 0,2-0,5 U/Kg/dia de insulina, 
+sendo:
+50% NPH: ⅔ pela manhã e ⅓ à noite
+50% regular: ⅓ em cada refeição
+Hidratação Venosa
+Cloreto de sódio 0,9% 
+Fazer 15 a 20 mL/Kg em 1h e após 100 mL/Kg em 48h
+Caso concentração sérica de Sódio > 150 (corrigido pela 
+HGT) - usar SF 0,45%
+Caso paciente hipervolêmico, realizar hidratação com 
+parcimônia. 
+Reposição de Íons
+Potássio: 
+Iniciar reposição se < 5,2 conforme item “Hipocalemia” 
+neste material
+38
+
+
+=== PÁGINA 39 ===
+Se K < 3,3 - repor 10-30 mEq/L KCL
+Se K 3,3 a 5,2 - repor 10-20 mEq/L KCl
+Se K > 5,3 - não repor, mas acompanhar valores
+CONTROLE GLICÊMICO
+Apenas em caso de hiperglicemias sintomáticas com difícil 
+tratamento com doses isoladas de insulina regular.
+Iniciar sempre que 2 glicemias > 180mg/dL 
+Objetivo de manter glicemias entre 140 e 180 mg/dL.
+Insulina regular 100Ui/ml 
+Diluir 01 ml (100Ui) em  SF 0,9% 100 mL (solução 1:1) 
+1Ui/ml
+Glicemias > 180: programar BIC para 2ml/h 
+Glicemias > 220: programar BIC para  4ml/h
+Evolução:
+Glicemia < 60: desligar a bomba; administrar 40 ml de SG 
+50%
+Glicemia < 100: desligar a bomba
+Glicemia > 160-180: Manter velocidade de infusão 1ml/h
+Glicemia > 189: aumentar 2ml/h
+Após desligar bomba, se paciente diabético ou 
+mantendo descontrole glicêmico:
+Iniciar esquema Basal-Bolus: 0,2-0,5 U/Kg/dia de insulina, 
+sendo:
+50% NPH: ⅔ pela manhã e ⅓ à noite
+50% regular: ⅓ em cada refeição
+39
+
+
+=== PÁGINA 40 ===
+SISTEMA GENITO-URINÁRIO
+INFECÇÃO DO TRATO URINÁRIO
+Baixa (cistite)
+Nitrofurantoína [Macrodantina®] 100 mg - 28 
+comprimidos
+Tomar 01 comprimido VO de 6/6 horas, por 7 dias.
+Fosfomicina  [Monouril®]  (3  g/envelope)  -  01 
+envelope 
+Tomar 01 envelope VO em dose única, ao deitar.
+Amoxicilina + Clavulanato [Clavulim®] 500 + 
+125mg - 30 comprimidos
+Tomar 01 comprimido VO de 8/8 horas, por 7-10 dias.
+Ciprofloxacino  [Cipro®]  500  mg  -  10 
+comprimidos
+Tomar 01 comprimido VO de 12/12 horas, por 5 dias.
+Levofloxacino  [Alevo®]  750  mg  -  05 
+comprimidos
+Tomar 01 comprimido VO de 24/24 horas, por 5 dias.
+Sulfametoxazol  +  Trimetoprima  [Bactrim®] 
+800 + 160 mg - 10 comprimidos
+Tomar 01 comprimido VO de 12/12 horas, por 3-5 dias.
+Se disúria:
+40
+
+
+=== PÁGINA 41 ===
+Fenazopiridina [Pyridium®] 200 mg - 01 caixa
+Tomar 01 comprimido VO de 8/8 horas, se disúria
+Alta (pielonefrite)
+Não complicada por sepse: 
+Amoxicilina + Clavulanato [Clavulim®] 875 + 
+125 mg - 30 comprimidos
+Tomar 01 comprimido VO de 12/12 horas, por 10-14 dias.
+Ciprofloxacino [Cipro®] 400mg/200ml 
+Administrar 01 bolsa EV 12/12 horas por 10-14 dias.
+Ciprofloxacino  [Cipro®]  500  mg  -  20 
+comprimidos
+Tomar 01 comprimido VO de 12/12 horas, por 10 dias.
+Levofloxacino [Alevo®] 500mg/100ml 
+Administrar 01 bolsa EV 24/24 horas por 10-14 dias.
+Ceftriaxona [Rocefim®] 1g
+Aplicar 01 ampola (1g) EV de 24/24horas por 10-14 dias. 
+Complicada com sepse:
+Piperacilina  +  Tazobactam  [Tazocin®]  4g  + 
+500mg  
+Administrar EV de 8/8 horas por 10-14 dias.
+Cefepima 1g 
+Administrar EV de 12/12 horas por 10-14 dias.
+Meropeném 1g 
+Administrar 01 ampola EV de 8/8 horas por 10-14 dias.
+41
+
+
+=== PÁGINA 42 ===
+#Bizu:
+Prescrever hidratação venosa, analgésicos, antitérmicos e 
+antieméticos 
+CANDIDÍASE VAGINAL
+Intravaginal:
+Clotrimazol 50mg/5g (creme) - 01 frascos
+Aplicar  01  aplicador  cheio  (aproximadamente  5g) 
+endovaginal, ao deitar, durante 6 dias consecutivos. Orientar 
+o paciente a aplicar o mais profundo possível. 
+Miconazol 2% (creme) - 02 frascos
+Aplicar  01  aplicador  cheio  (aproximadamente  5g) 
+endovaginal,  ao  deitar,  durante  14  dias  consecutivos. 
+Orientar o paciente a aplicar o mais profundo possível. 
+Monoterapia oral:
+Fluconazol 150mg - 01 comprimido
+Tomar 01 comprimido dose única.
+Itraconazol 100 mg - 02 comprimidos
+Tomar 02 comprimidos dose única.
+VAGINOSE
+Monoterapia oral: 
+Metronidazol 250 mg - 28 comprimidos
+Tomar 02 comprimidos de 12/12h por 7 dias.
+Clindamicina 150 mg - 28 comprimidos
+Tomar 02 comprimidos de 12/12h por 7 dias. 
+42
+
+
+=== PÁGINA 43 ===
+#Bizu: Em caso de recorrência utilizar metronidazol por 
+período de 10-14 dias. 
+TRICOMONÍASE
+Monoterapia oral:
+Metronidazol 400 mg - 5 comprimidos
+Tomar 05 comprimidos (total de 2g) VO, dose única. 
+Metronidazol 250 mg - 28 comprimidos
+Tomar 02 comprimidos de 12/12h por 7 dias.
+Bizus: Deve-se tratar os parceiros. 
+URETRITE - GONOCÓCICA
+Terapia dupla:
+Ceftriaxona  (500mg/2ml)  [Rocefin®]  -  01 
+ampola 
+Aplicar 01 ampola IM, dose única. 
++
+Azitromicina 500mg - 02 comprimidos (1g)
+Tomar 02 comprimidos em dose única.
+Ou
+Doxiciclina 100 mg - 14 comprimidos
+Tomar 01 comprimido VO de 12/12 horas, por 7 dias
+URETRITE- NÃO GONOCÓCICA
+Monoterapia
+Azitromicina 500mg [Astro®] - 02 comprimidos 
+(1g)
+Tomar 02 comprimidos em dose única.
+Doxiciclina 100 mg - 14 comprimidos
+43
+
+
+=== PÁGINA 44 ===
+Tomar 01 comprimido VO de 12/12 horas, por 7 dias
+URETEROLITÍASE (CÓLICA 
+NEFRÉTICA)
+Uso Intravenoso
+Cetoprofeno [Profenid®] (100mg/2ml) - 1 
+ampola
+Diluir 01 ampola em 100ml de SF 0,9% e correr em 20 min
+Dipirona (1g/2ml) - 01 ampola
+Fazer 01 ampola EV em bolus lento. 
+Morfina (10mg/ml) - 01 ampola
+Diluir 01 ampola em 10ml de ABD e fazer 4-5ml.
+Ondansetrona (4mg/ml) [Vonau®] - 01 ampola
+Diluir 01 ampola em 100ml de SF 0,9% e correr em 20 min.
+Uso Oral
+Dipirona [Novalgina] 1g
+Tomar 01 comprimido de 6/6h. 
+Diclofenaco 50mg
+Tomar 01 comprimido de 12/12h, por no máximo 5 dias. 
+Tansulosina 0,4mg 
+Tomar 01 comprimido à noite por até 10 dias.
+44
+
+
+=== PÁGINA 45 ===
+Opção.:
+Nifedipino 10mg
+Tomar 01 comprimido de 8/8h por 10 dias. 
+Bizu: Orientar paciente sobre retorno se sinais de alarme, 
+infecções ou refratariedade ao tratamento, cálculos com 
+mais de 10mm irão precisar de procedimento cirúrgico. 
+Maior efetividade da terapia até 4-5mm. 
+SISTEMA OSTEOMUSCULAR
+LOMBALGIA MECÂNICA E TORCICOLO
+Uso intravenoso
+Cetoprofeno [Profenid] 100mg/2ml - 01 
+ampola
+Diluir 01 ampola em 100mL de SF 0,9% e correr em 20 
+minutos
+Dipirona 1g/2ml - 01 ampola
+Fazer 01 ampola EV em bolus lento.
+Tramadol 100mg/2ml - 01 ampola
+Diluir 01 ampola em 100 ml SF 0,9% e fazer IV em 30 min
+Uso oral
+45
+
+
+=== PÁGINA 46 ===
+Paracetamol 300 + Cafeína 30 + Carisoprodol 
+125 + Diclofenaco 50 [Torsilax, tandrilax] 
+Tomar 01 comprimido de 12/12h, ou até de 8/8h, por no 
+máximo 7 dias. 
+Ciclobenzaprina [Miosan] 10mg
+Tomar 01 comprimido de 12/12h, por 5 dias. 
+Dipirona [Novalgina] 1g
+Tomar 01 comprimido de 6/6h. 
+Paracetamol [Tylenol] 750g
+Tomar 01 comprimido de 8/8h. (6/6h se apresentação de 
+500mg - Dose Máxima 4g)
+Cetoprofeno 150mg 
+Tomar 01 comprimido de até 12/12h, por no máximo 5 dias.
+ 
+Ibuprofeno 400mg
+Tomar 01 comprimido de até 6/6h, por no máximo 5 dias.
+Orientações:
+Aplicar calor local de 8/8 horas nas lesões mecânicas. 
+Realizar repouso relativo. 
+Retirar fator de piora. 
+PSIQUIATRIA
+ACATISIA
+Propranolol 10 mg VO 2 vezes ao dia
+46
+
+
+=== PÁGINA 47 ===
+Opção caso falha terapêutica com benzodiazepínico
+Dose máxima 60 mg em 3 tomadas diárias
+Contraindicados em: Asma, DPOC 
+         + 
+         Clonazepam 0,5 a 2,5 mg/dia VO
+         OU
+Lorazepam 0,5 mg VO 2x ao dia
+Dose pode ser aumentada até no máximo 6  a 10 mg/dia
+Outras opções:
+Mirtazapina 15 mg/dia VO 
+Biperideno 2 a 6 mg/dia
+SÍNDROME PSICÓTICA 
+Antipsicóticos atípicos (1.º linha)
+  
+         Haloperidol 1 a 5 mg VO 
+Dose máxima 40 mg/dia 
+Atentar-se a síndormes extrapiramidiais 
+Haloperidol (5mg/ml) 2 a 4 mg  IM
+Dose: 0,4 a 0,5 ml 
+OU
+Risperidona 2 a 8 mg VO
+Utilizado em pacientes intolerantes ao haloperidol 
+Se necessário aumentar 1 mg a cada dia até controle dos 
+sintomas 
+Dose máxima: 16 mg/dia
+OU
+47
+
+
+=== PÁGINA 48 ===
+Olanzapina 10 a 20 mg VO
+Utilizado se refratariedade e sintomas extrapiramidais 
+importantes
+Se necessário aumentar 5mg a cada semana até controle dos 
+sintomas
+Dose máxima: 20 mg/dia
+Benzodiazepínicos (Tratamento adjuvante) 
+Indicados se o paciente tiver ansiedade ou insônia
+Midazolam 15 mg/1ml 
+Administrar 0,5 ampola 
+Lorazepam 2 mg VO 
+Dose máxima: 12 mg/dia
+Diazepam 10 mg EV
+Dose máxima 30 mg/dia
+ Bloqueador H1 não seletivo (Tratamento adjuvante) 
+         Prometazina 50 mg/2ml 1 ampola 
+Repetir a dose de 30 em 30 minutos até no máximo 3vezes
+DELIRIUM
+Misto ou hiperativo
+Haloperidol 0,5-5 mg VO 
+Repetir progredindo a dose de 30 em 30 minutos se 
+necessário até estabilização
+Dose máxima: 5 mg/dia
+Haloperidol 5mg/ml IM ou EV 
+48
+
+
+=== PÁGINA 49 ===
+Aplicar 0,5 ampola de 30 em 30 minutos até a estabilização 
+no máximo 3 vezes
+BIZU:  sendo recomendada a realização de 
+eletrocardiograma antes de seu uso, evitar o haloperidol 
+caso o QTc seja maior que 500 milissegundos
+Risperidona 0,5 a 6 mg/dia VO 
+Sugestão: Iniciar com 0,5 mg à noite e ajustar conforme 
+resposta. 
+Caso paciente tenha sintomas diurnos, pode-se fracionar em 
+duas tomadas por dia. 
+Dose máxima: 6 mg/dia
+Olanzapina 2,5 a 7,5 mg/dia VO
+Sugestão: Iniciar com 5 mg à noite e aumentar 2,5 mg 
+conforme resposta. 
+Dose máxima: 800 mg/dia
+Quetiapina 12,5 a 150 mg/dia VO
+Sugestão: Iniciar com 25 mg à noite e aumentar 50 
+mg conforme resposta. 
+Dose máxima: 800 mg/dia
+AGRESSIVIDADE E AGITAÇÃO 
+PSICOMOTORA
+Se paciente manejável verbalmente: 
+Clorpromazina 25 mg VO 
+Administrar de 30 em 30 minutos até tranquilização
+Dose máxima: 2g/dia
+49
+
+
+=== PÁGINA 50 ===
+Se paciente não manejável verbalmente ou colocando em risco a 
+si próprio ou a terceiros:
+Haloperidol (1 ampola-5mg/ml) IM ou EV
+Dose: 0,2 a 0,8 ml
++  Midazolam (1 ampola- 15mg/3ml) 
+Dose: 0,5 ampola 
+Ou 
+Prometazina (1 ampola- 50mg /2ml) 
+Realizar 1 ampola de 30 em 30 minutos por até 3 vezes se 
+necessário
+SÍNDROME SEROTONINÉRGICA 
+Casos leves:
+Diazepam 0,1 a 0,2 mg/Kg EV
+Repetir de 8/8h até o desaparecimento dos sintomas
+#BIZU: A retirada dos inibidores da recaptação de 
+serotonina e noradrenalina é fundamental para resolução do 
+quadro. 
+Casos moderados/Graves
+RL 20 a 30 ml/kg EV
+Meta diurese acima de 50 a 100 ml/h
+Diazepam 0,1 a 0,2 mg/Kg EV
+Repetir de 8/8h até o desaparecimento dos sintomas
+Ciproeptadina 12 mg VO ou 2 mg SNG 
+50
+
+
+=== PÁGINA 51 ===
+Pode repetir adcionando 2 mg a cada 2 horas até remissão 
+dos sintomas
+Dose máxima: 32 mg/dia
+#BIZU: Evitar contenção mecânica devido ao risco de 
+rabdomiólise.
+SINDROME NEUROLÉPTICA MALIGNA 
+Bromocriptina 2 a 10 mg a cada 8 horas VO ou 
+via sonda nasogástrica (SNG)
+Manter por até 10 dias com redução gradual da dose 
+Dose máxima: 40 mg/dia
+Ou
+Amantadina 100 mg VO ou SNG 
+É uma alternativa à bromocriptina
+Dose máxima de 400 mg/dia
+Dantroleno sódico 1 a 10 mg/kg IV por 8 dias
+Administrar se hipertermia ou extrema rigidez
+Após os 8 dias IV, mudar para uso VO por mais 7 dias
+Dose máxima 10 mg/kg/dia. 
+Contraindicado em caso de prejuízo de função hepática.
+ANSIEDADE AGUDA E CRISE DE 
+PÂNICO
+Clonazepam 2 mg VO
+Dose de manutenção 0,25 a 4 mg/dia
+Lorazepam 0,5 a 2 mg VO
+51
+
+
+=== PÁGINA 52 ===
+Dose de manutenção 2 a 3 mg/dia
+Dose máxima: 10 mg/dia
+Diazepam 5 a 10 mg VO
+Dose de manutenção: 5 a 40 mg/dia
+Alprazolam 0,25 a 1 mg VO
+Dose de manutenção 0, 5 a 4 mg/dia
+DISTÚRBIOS 
+HIDROELETROLÍTICOS
+POTÁSSIO
+HIPERCALEMIA
+Se repercussão eletrocardiográfica:
+Gluconato de Cálcio 10% (Ampola 10 mL)
+Diluir 1 ampola em 50-100 mL de SF 0,9% e fazer EV em 
+3-5 minutos
+Pode ser repetido até normalização do ECG (algumas fontes 
+citam 3x)
+Lembrete: NÃO reduz os níveis de K, mas atua na 
+estabilização elétrica do coração impedindo 
+surgimento de arritmias potencialmente fatais
+Medidas que alteram a calemia:
+52
+
+
+=== PÁGINA 53 ===
+Fenoterol gotas (micronebulização)
+Diluir 10-15 gotas em 5ml de SF 0,9% e fazer nebulização 
+de 4/4 horas
+Ou
+Salbutamol gotas (micronebulização)
+Diluir 40 gotas em 3-5 mL de SF 0,9% e fazer nebulização 
+de até 4/4 horas
+Solução Polarizante de Glicoinsulina
+Insulina Regular 10 UI + 100 mL de SG 50% ou 500 mL de 
+SG 10%
+Correr em BIC durante 1 hora
+Pode ser repetida de até 4/4 horas caso manutenção do 
+quadro
+Atenção aos valores de glicemia capilar e aos demais íons
+Poliestieronosulfonato de Cálcio (Sorcal, 
+envelope 30g) 
+Diluir 30g em 100ml de manitol 10% ou água e fazer VO de 
+até 4/4 horas
+Furosemida (Ampola 20 mg/mL)
+Infundir 0,5-1 mg/Kg IV de até 4/4 horas
+Uso conforme tolerância do paciente
+Hemodiálise
+Apenas se urgência dialítica ou hipercalemia refratária
+53
+
+
+=== PÁGINA 54 ===
+HIPOCALEMIA
+   Hipocalemia Leve (K > 3,0) 
+Reposição VO
+KCI xarope 6% (60 mg/mL)
+Tomar de 10 a 30 mL de 6/6 horas
+KCI (6 mEq/cp ou 600 mg/cp)
+Tomar
+1 cp após as refeições 6/6 horas
+   Hipocalemia Moderada/Grave (K < 3,0) 
+Reposição IV
+KCI 10% (Ampola 10mL)
+Diluir 2 ampolas em 500ml de SF 0,9% e correr em 2-3h 
+(Acesso periférico)
+Em caso de hipocalemia muito importante e paciente com 
+acesso venoso central, concentrações maiores podem ser 
+aceitáveis (Ex: 4 ampolas em 500mL SF 0,9% ou 2 ampolas 
+em 250mL SF 0,9%)
+SÓDIO
+HIPONATREMIA
+PASSO 1: Montar a solução salina 3% (513 mEq/L)
+54
+
+
+=== PÁGINA 55 ===
+890 mL de NaCl 0,9% + 110 mL de NaCl 20% (ou metade 
+das quantidades)
+PASSO 2: calcular a variação esperada de acordo com a 
+fórmula abaixo
+[Na solução preparada] - [Na do paciente] / (Água Corporal 
+Total + 1)
+Sendo [Na solução preparada] = 513 mEq/L
+Sendo Água Corporal Total (ACT) de acordo com lista 
+abaixo:
+Homem < 65 anos = Peso x 0,6
+Homem > 65 anos = Peso x 0,5
+Mulher < 65 anos = Peso x 0,5
+Mulher > 65 anos = Peso x 0,45
+Atenção: o resultado deste PASSO 2 representa o quanto se 
+espera que aumente o sódio sérico do paciente caso se 
+forneça 1 litro da solução salina 3%
+PASSO 3: calcular a quantidade de solução salina 3% de 
+acordo com a variação máxima permitida/desejada de sódio 
+sérico para este paciente
+1000 ml ----------------- VALOR PASSO 2
+X ml ---------------- 8 a 12 mEq/L (variação máxima em 24h)
+O valor de X será a quantidade em mL de solução que será 
+necessário infundir em 24h para elevar o valor de sódio 
+sérico do paciente dentro da variação máxima permitida. O 
+mesmo cálculo pode ser feito caso se deseje infundir uma 
+variação maior nas 3 primeiras horas.
+55
+
+
+=== PÁGINA 56 ===
+PASSO 4: dividir o valor X encontrado no PASSO 3 no 
+número de horas (24h, 3h, etc) que se deseja infundir o 
+volume total necessário. Este, por fim, será a velocidade de 
+infusão necessária para montar a BIC.
+HIPERNATREMIA
+PASSO 1: reposição de volume intravascular com Ringer 
+Lactato ou Soro Fisiológico 0,9% e identificação da causa 
+base para corrigir (Ex: vômitos, diarreia, etc).
+Estimular, se possível, ingesta hídrica via oral.
+PASSO 2: calcular a variação esperada de acordo com a 
+fórmula abaixo
+[Na solução] - [Na do paciente] / (Água Corporal Total + 1)
+Sendo [Na solução] = 0 mEq/L em caso de Soro Glicosado 
+5% ou 77 mEq/L em caso de Soro Fisiológico 0,45%
+Sendo Água Corporal Total (ACT) de acordo com lista 
+abaixo:
+Homem < 65 anos = Peso x 0,6
+Homem > 65 anos = Peso x 0,5
+Mulher < 65 anos = Peso x 0,5
+Mulher > 65 anos = Peso x 0,45
+Atenção: o resultado deste PASSO 2 representa o quanto se 
+espera que reduza o sódio sérico do paciente caso se forneça 
+1 litro de soro glicosado.
+56
+
+
+=== PÁGINA 57 ===
+PASSO 3: calcular a quantidade de soro glicosado 5% ou 
+soro fisiológico 0,45% de acordo com a variação máxima 
+permitida/desejada de sódio sérico para este paciente
+1000 mL--------------- VALOR PASSO 2
+X mL  ---------- 8 a 12 mEq/L (variação máxima em 24h)
+O valor de X será a quantidade em mL de solução que será 
+necessário infundir em 24h para reduzir o valor de sódio 
+sérico do paciente dentro da variação máxima permitida.
+OBS: em casos de hipernatremia crônica ou que não 
+sabemos o tempo de instalação, utilizar, como parâmetro, 
+uma queda de 0.5 mEq/L/h para evitar complicações.
+PASSO 4: dividir o valor X encontrado no PASSO 3 no 
+número de horas (24h, 3h, etc) que se deseja infundir o 
+volume total necessário. Este, por fim, será a velocidade de 
+infusão necessária para montar a BIC.
+CÁLCIO
+ HIPOCALCEMIA
+Se presença de sintomas:
+Gluconato de Cálcio 10% (Ampola 10 mL)
+Diluir 1 ampola em 50-100 mL de SF 0,9% e fazer IV em 1 
+hora
+Diluir 5 ampolas em 500 mL de SF 0,9% e fazer IV em 5-10 
+horas
+Pode ser repetido até melhora dos sintomas
+57
+
+
+=== PÁGINA 58 ===
+OBS: se houver Hiperfosfatemia associada, corrigí-la 
+primeiro para evitar precipitação ao infundir Cálcio
+Se ausência de sintomas:
+Reposição via oral (diversas possibilidades) 1000-2600 
+mg/dia
+HIPERCALCEMIA
+Hidratação venosa vigorosa com 200 a 500 
+mL/h a depender da tolerância do paciente.
+Pode-se associar, após início da reposição de volume, 
+diurético de alça para aumentar a eliminação renal de cálcio.
+Inibição da Reabsorção Óssea:
+Pamidronato 60-90 mg IV a cada 4 horas
+Ácido Zoledrônico 4mg IV em 15 minutos
+HIPOMAGNESEMIA
+   Em caso de Torsades de Pointes:
+Sulfato de Magnésio (10%) 2 ampolas (20mL) + 
+Soro Glicosado 5% (100mL) IV por 2-5 minutos
+Repetir nova administração se arritmia permanecer
+   Em caso de sintomas graves como tetania ou convulsão:
+ATAQUE: 
+58
+
+
+=== PÁGINA 59 ===
+Sulfato de Magnésio (10%) 2 ampolas (20mL) + 
+Soro Glicosado 5% (100mL) IV por 2-5 
+minutos, 
+Repetir nova administração se arritmia permanecer
+MANUTENÇÃO: 
+Sulfato de Magnésio (10%) 4 ampolas (40mL) + 
+Soro Fisiológico 0,9% (460mL) IV em BIC 
+durante 12-24h 
+OBS: pode-se dobrar os volumes e montar solução de 
+1000mL (concentração se mantém), mantendo o tempo de 
+infusão.
+   Se Hipomagnesemia leve (Mg > 1,5):
+Óxido de Magnésio 800-1600 mg/dia dividido 
+em 3-4 doses
+Ou
+Sulfato de Magnésio (10%) 1 ampola (10 mL) + 
+Soro Fisiológico 0,9% ou Glicosado 5% (100mL) 
+IV em 1-2 horas
+Ou
+Sulfato de Magnésio (10%) 2 ampolas (20 mL) + 
+Soro Fisiológico 0,9% ou Glicosado 5% (230mL) 
+IV em 1-2 horas
+Se Hipomagnesemia moderada (Mg > 1,0)
+a) Concentração menor: Sulfato de Magnésio (10%) 2 
+ampolas (20 mL) + Soro Fisiológico 0,9% ou 
+Glicosado 5% (480 mL) IV em 4-8 horas
+59
+
+
+=== PÁGINA 60 ===
+b) Concentração maior: Sulfato de Magnésio (10%) 4 
+ampolas (40 mL) + Soro Fisiológico 0,9% ou 
+Glicosado 5% (460 mL) IV em 8-12 horas 
+         Ou
+Sulfato de Magnésio (50%) 1 ampola (10 mL) + 
+Soro Fisiológico 0,9% ou Glicosado 5% (490 
+mL) IV em 12-24 horas
+Se Hipomagnesemia grave (Mg < 1,0)
+Sulfato de Magnésio (10%) 4 ampolas (40 mL) + 
+Soro Fisiológico 0,9% ou Glicosado 5% (460 
+mL) IV em 12-24 horas
+         Ou
+Sulfato de Magnésio (50%) 1 ampola (10 mL) + 
+Soro Fisiológico 0,9% ou Glicosado 5% (490 
+mL) IV em 12-24 horas
+         Ou
+Sulfato de Magnésio (10%) 8 ampolas (80 mL) + 
+Soro Fisiológico 0,9% ou Glicosado 5% (920 
+mL) IV em 12-24 horas
+ATENÇÃO: independentemente da solução utilizada, 
+recomenda-se uma reposição máxima de 6g de Sulfato de 
+Magnésio ao dia (60 mL solução 10%), ou 3 g (30 mL 
+solução 10%) em caso de ClCr < 30. Idealmente manter o 
+acompanhamento dos valores por 5-7 dias, incluindo demais 
+íons como Ca, P e K.
+60
+
+
+=== PÁGINA 61 ===
+HIPERMAGNESEMIA
+Interromper infusão de possíveis medicações que 
+contenham magnésio, bem como ajuste de dieta com menor 
+quantidade deste íon
+Furosemida (Ampola 20 mg/mL)
+Infundir 0,5-1 mg/Kg IV de até 4/4 horas
+Uso conforme tolerância do paciente
+Se hipermagnesemia grave/sintomática:
+Gluconato de Cálcio 10% (Ampola 10 mL)
+Diluir 1 ampola em 50-100 mL de SF 0,9% e fazer EV em 
+3-5 minutos
+Pode ser repetido até melhora dos sintomas
+Se refratariedade, Terapia de Substituição Renal
+   INFECÇÕES
+  SÍFILIS
+Recente (primária e secundária) 
+Uso intramuscular
+Penicilina Benzatina 1.200.000 U -  2 ampolas 
+(2.400.000)
+61
+
+
+=== PÁGINA 62 ===
+Aplicar via IM 01 ampola em cada nádega (dose única) 
+Opção:
+Doxiciclina 100 mg 
+Tomar  1  comprimido  VO  de  12/12  horas,  por  15  dias 
+(exceto para gestantes).
+Tardia (duração ignorada, terciária ou latente tardia)
+Uso intramuscular
+Penicilina Benzatina 1.200.000 U -  2 ampolas 
+(2.400.000)
+Aplicar via IM 1 ampola em cada nádega, a cada 7 dias, 
+total 3 aplicações (7.200.000 U)
+Opção:
+Doxiciclina 100 mg 
+Tomar  1  comprimido  VO  de  12/12  horas,  por  30  dias 
+(exceto para gestantes).
+DENGUE
+    #Bizu: Classificar o quadro do paciente em seu devido grupo. 
+Grupo A/B
+Dipirona 1g
+Tomar 01 comprimido de 6/6h. 
+Paracetamol 750g
+Tomar 01 comprimido de 8/8h. (6/6h se apresentação de 
+500mg - Dose Máxima 4g)
+62
+
+
+=== PÁGINA 63 ===
+Hidratação oral:
+Adultos: 60ml/kg/dia sendo ⅔ de líquidos livres e ⅓ de 
+solução salina.
+Crianças: <10kg: 130ml/kg/dia | 10-20kg: 100ml/kg/dia | 
+>20kg: 80ml/kg/dia.
+Orientações:
+Não prescrever salicilatos e AINE’s. 
+Orientar repouso.
+Grupo C
+Hidratação venosa
+Fase de expansão:
+10ml//kg de cloreto de sódio 0,9% nas primeiras duas horas. 
+Repetir até 3 vezes, se persistência de resposta inadequada, 
+proceder ao grupo D. 
+Respeitar o máximo de 20ml/kg nas primeiras duas horas. 
+Fase de manutenção:
+Após resposta adequada na fase de expansão. 
+Primeira fase: 25ml/kg de cloreto de sódio 0,9% em 6 horas. 
+Se melhora proceder à segunda fase .
+Segunda fase: 25ml/kg em 8 horas, sendo ⅔ de SG 50%. 
+Dipirona 1g/2ml - 01 ampola
+Fazer 01 ampola EV em bolus lento de 6/6h.
+Paracetamol 750g
+Tomar 01 comprimido de 8/8h. (6/6h se apresentação de 
+500mg - Dose Máxima 4g)
+63
+
+
+=== PÁGINA 64 ===
+Ondansetrona (4mg/ml) - 01 ampola
+Diluir 01 ampola em 100ml de SF 0,9% e correr em 20 min, 
+de 8/8 horas. 
+Omeprazol (40mg/10ml)
+Fazer 01 ampola (40mg) de 24/24h, pela manhã.
+Orientações:
+Glicemia capilar 4/4h. 
+Mensurar diurese e Balanço hídrico. 
+Grupo D
+Hidratação venosa
+Fase de expansão:
+20ml//kg de cloreto de sódio 0,9% ou ringer lactato em até 
+20 min, repetir até 3 vezes. 
+Fase de manutenção:
+Após resposta adequada na fase de expansão. 
+Primeira fase: 25ml/kg de cloreto de sódio 0,9% em 6 horas. 
+Se melhora proceder à segunda fase .
+Segunda fase: 25ml/kg em 8 horas, sendo ⅔ de SG 50%. 
+Dipirona 1g/2ml - 01 ampola
+Fazer 01 ampola EV em bolus lento de 6/6h. 
+Paracetamol 750g
+Tomar 01 comprimido de 8/8h. (6/6h se apresentação de 
+500mg - Dose Máxima 4g)
+Ondansetrona (4mg/ml) - 01 ampola
+64
+
+
+=== PÁGINA 65 ===
+Diluir 01 ampola em 100ml de SF 0,9% e correr em 20 min, 
+de 8/8 horas. 
+Omeprazol (40mg/10ml)
+Fazer 01 ampola (40mg) de 24/24h, pela manhã.
+Orientações:
+Glicemia capilar 4/4h. 
+Mensurar diurese.
+Balanço hídrico. 
+Importante:
+Avaliar necessidade de hemotransfusão em hemorragia, ou 
+controle de coagulopatias. 
+Avaliar sinais indicativos de choque e uso de drogas 
+vasoativas. 
+HERPES SIMPLES
+Primoinfecção ou recorrência
+Uso oral
+Aciclovir 400 mg - 30 comprimidos
+Tomar 01 comprimido VO de 8/8h, por 5-10 dias. 
+Aciclovir 200 mg - 50 comprimidos
+Tomar 01 comprimido VO 5x ao dia, por 5-10 dias. 
+Primoinfecção ou recorrência
+65
+
+
+=== PÁGINA 66 ===
+Uso oral
+Aciclovir 250mg/frasco
+Fazer 5-10 mg/kg EV de 8/8h até melhora clínica. 
+Fazer 20  mg/kg EV de 8/8h até melhora clínica, se herpes 
+neonatal ou encefalite. 
+Terapia supressiva crônica
+Se o paciente apresentar mais do que 5 episódios ao ano.
+Uso oral
+Aciclovir 400 mg 
+Tomar 01 comprimido VO de 12/12h, por 4-6 meses. 
+CONJUNTIVITE
+Viral
+Uso oftálmico
+Hialuronato de sódio colírio 1mg/ml
+Pingar 1 gota no olho acometido de 4/4h, até melhora dos 
+sintomas. 
+Orientações:
+Compressas geladas por 10 minutos de 6/6h. 
+Se pseudomembrana, acrescentar
+Dexametasona colírio 0,1%
+Pingar 01 gota no olho acometido de 6/6h por 5 dias.
+Bacteriana aguda
+Uso oftálmico
+66
+
+
+=== PÁGINA 67 ===
+Moxifloxacino Colírio 0,5% 
+Pingar 01 gota no olho acometido de 4/4h, por 7-14 dias. 
+Gatifloxacino Colírio 0,3% 
+Pingar 01 gota no olho acometido de 4/4h, por 7-14 dias. 
+Se pseudomembrana, acrescentar
+Dexametasona colírio 0,1%
+Pingar 01 gota no olho acometido de 6/6h por 5 dias.
+ANAFILAXIA E ALERGIAS
+CHOQUE ANAFILÁTICO
+Uso intramuscular:
+Adrenalina IM - 0,5 mg em pacientes com mais de 50kg
+Cada ampola de 1mL tem 1mg, então a dose é meia ampola
+Aplicar no músculo vasto lateral (face anterolateral da coxa)
+OBS: 
+Para crianças/baixo peso:
+25 - 50kg: 0,3 mg
+10 - 25kg: 0,15 mg
+< 10kg: 0,01 mL/kg 
+ALERGIAS 
+Uso oral:
+Loratadina 10mg 
+67
+
+
+=== PÁGINA 68 ===
+01 cp via oral à noite por 5 a 7 noites
+#Bizu: Em pacientes muito sintomáticos, pode-se tentar 
+10mg 2x/dia, mas alertar em relação ao risco de sonolência
+Desloratadina 5mg 
+01 cp via oral 1-2x ao dia
+#Bizu: é o anti-histamínico com menor sonolência como 
+efeito colateral
+Hidroxizina 25mg 
+01 cp via oral 1cp via oral à noite
+Uso intramuscular e intravenoso: 
+Bizu: Preferir uso IV em pacientes muito sintomáticos ou 
+com quadro cutâneo disseminado.
+Prometazina (50mg/2mL) 
+25mg IM - pode repetir após 2 horas
+Bizu: EVITAR prometazina IV pelo risco de gangrena por 
+extravasamento ao subcutâneo.
+Hidrocortisona (50mg/2mL) 
+1 ampola IV diluída em 100mL de SF 0,9% ou IM direto
+Dexametasona (4mg/mL) 
+1 ampola IV diluída em 100mL de SF 0,9% ou IM direto 
+68
+
+
+=== PÁGINA 69 ===
+INTOXICAÇÃO
+PARACETAMOL
+N-acetilcisteína oral 
+Dose de ataque (140mg/Kg) diluído em 200ml de SGI 5% 
+ou suco de laranja + 17 doses de manutenção (70mg/Kg) de 
+4/4hrs
+N-acetilcisteína IV 
+Dose de ataque: 150mg/kg IV ao longo de 60 minutos
+Na sequência: 50mg/kg IV ao longo das 4 horas seguintes 
+(ex: infusão de 12,5 mg/kg por hora). 
+Por fim: 100mg/kg ao longo de 16 horas (ex: 6,25 mg/kg 
+por hora).
+Bizus: 
+A efetividade via oral e IV é semelhante. Preferir IV se 
+náuseas/vômitos, rebaixamento do sensório, sinais de 
+hepatotoxicidade. 
+A eficácia aumenta MUITO se administrar nas primeiras 
+OITO horas após ingesta.
+Principais indicações: +7,5g de paracetamol ingeridas e 
+qualquer sinal de injúria hepática.
+69
+
+
+=== PÁGINA 70 ===
+ORGANOFOSFORADOS/CARBAMATOS
+Uso intravenoso
+Atropina (0,5 mg/mL) 
+Fazer 1-2 ampolas em bolus, conforme sintomas 
+muscarínicos. Não há dose máxima estabelecida. Fazer até 
+controle dos sintomas.
+COCAÍNA
+Uso intravenoso
+Midazolam (1mg/ml)
+ATENÇÃO: existem duas apresentações - 
+1mg/mL e 5mg/mL
+Pode aplicar IV direto de 3mg em 3mg, respeitando 
+intervalos de pelo menos 5 minutos. 
+Diazepam (5mg/mL)
+Cada ampola tem 2mL - diluir uma ampola em 8mL de água 
+destilada. 
+Ao contrário do mida, diazepam precisa ser diluído.
+Aplicar 5mL da solução, com possibilidade de repetir a dose 
+a cada 5 - 10 minutos. 
+Bizu: midazolam e diazepam possuem uma absorção 
+intramuscular ERRADICA - sempre preferir IV.
+HEMOCOMPONENTES
+70
+
+
+=== PÁGINA 71 ===
+CONCENTRADO DE HEMÁCIAS
+Velocidade de infusão: 60-120min (ideal), Máx de 4h.
+Acesso venoso exclusivo, não adicionar medicamentos 
+concomitantemente.
+Elevação esperada de HB é de 1-1,5 mg/dl
+Irradiado:
+Prevenção de doença hospedeiro-enxerto pós-transfusional 
+Indicações:
+Pós transplante de medula e de órgãos sólidos 
+imunossuprimidos
+Receptor parente de 7 grau do doador
+ Linfoma de Hodgkin
+Lavado
+Indicação:
+Reação alérgica recorrente, associado a transfusão e 
+não evitadas com uso de medicamentos
+Desleucocitado
+Indicações:
+Prevenção da reação febril hemolitica aguda 
+Prevenção de aloimunização HLA Politransfundidos
+Reação hemolitica mediado por HLA
+Paciente renal crónico candidato ao transplante 
+Prevenção da transmissão de CMV
+CONCENTRADO DE PLAQUETAS
+Dose adulto: 1 unidade/10Kg
+71
+
+
+=== PÁGINA 72 ===
+Indicações:
+Plaquetas < 10.000
+Plaquetas < 20.000: Paciente febril, Mucosite grave, 
+uso de anticoagulante, risco de contagem < 10.000 nos 
+próximos exames
+Plaquetas <50.000: Sangramento importante do TGI 
+ou genitourinário
+Sangramento espontâneo no SNA ou oftálmico com 
+plaquetas < 100.000
+Nível de plaquetas desejados: 
+Acima de 50.000: EDA, broncoscopia com biopsia, 
+cateter central, punção lombar, paracentese, 
+toracocentese, extração dentária
+Acima de 100.000: Cirurgias neurológicas e 
+oftalmológicas
+ 
+CRIOPRECIPITADO
+Indicação: hipofibrinogenemia 
+Cada unidade: 10-20ml
+Dose: 1 unidade/10Kg
+72
+
+
+=== PÁGINA 73 ===
+ PLASMA FRESCO CONGELADO
+  
+   Indicações:
+Deficiência múltipla de fatores de coagulação e 
+sangramento ativo
+Prevenção de sangramento em pacientes com 
+deficiência de fatores de coagulação que serão 
+submetidos a procedimentos invasivos ou com RNI > 
+1,5 ou TTPa > 1,5x o controle
+ANTIMICROBIANOS
+Penicilina benzatina [Benzetacil] 1,2 milhões 
+UN
+Fazer Intramuscular
+Amoxicilina  +  Clavulanato  [Clavulin®]  500  + 
+125mg 
+Tomar 1 comprimido VO de 8/8 horas
+Amoxicilina  +  Clavulanato  [Clavulin®]  875  + 
+125 mg - 30 comprimidos
+Tomar 1 comprimido VO de 12/12 horas
+Cefuroxima [Zinnat®] 500 mg 
+Tomar 1 comprimido de 12/12 horas
+Ceftriaxona [Rocefim®] 1g
+73
+
+
+=== PÁGINA 74 ===
+Aplicar 1 ampola (1g) EV de 24/24horas
+Cefepima 1g 
+Administrar 1 ampola EV de 12/12 horas
+Azitromicina  500 mg
+Tomar 1 comprimido de 24/24 horas.
+Claritromicina  500 mg
+Tomar 1 comprimido de 12/12 horas
+Ciprofloxacino [Cipro®] 500 mg 
+Tomar 1 comprimido VO de 12/12 horas
+Ciprofloxacino [Cipro®] 400mg/200ml 
+Administrar 1 bolsa EV 12/12 horas
+Levofloxacino [Alevo®] 750 mg 
+Tomar 1 comprimido VO de 24/24 horas
+Levofloxacino [Alevo®] 500mg/100ml 
+Administrar 1 bolsa EV 24/24 horas
+Fosfomicina [Monouril®] (3 g/envelope) 
+Tomar 1 envelope VO em dose única, ao deitar.
+Piperacilina  +  Tazobactam  [Tazocin®]  4g  + 
+500mg  
+Administrar EV de 8/8 horas
+74
+
+
+=== PÁGINA 75 ===
+Sulfametoxazol  +  Trimetoprima  [Bactrim®] 
+800 + 160 mg
+Tomar 1 comprimido VO de 12/12 horas
+Doxiciclina 100 mg 
+Tomar 01 comprimido VO de 12/12 horas
+Meropeném 1g 
+Administrar 1 ampola EV de 8/8 horas
+Metronidazol 400mg
+Tomar 1 comprimido de 8/8h
+ANALGÉSICOS
+Dipirona [Novalgina] 1g
+Tomar 1 comprimido de 6/6h. 
+Paracetamol [Tylenol] 750g
+Tomar 1 comprimido de 8/8h. (6/6h se apresentação de 
+500mg - Dose Máxima 4g).
+Ibuprofeno 400mg
+Tomar 1 comprimido de até 6/6h.
+Cetoprofeno 150mg 
+Tomar 1 comprimido de até 12/12h, por no máximo 5 dias.
+ 
+Diclofenaco 50mg
+Tomar 1 comprimido de 12/12h, por no máximo 5 dias. 
+75
+
+
+=== PÁGINA 76 ===
+Naproxeno [Flanax] 500mg
+Tomar 1 comprimido de até 12/12h.
+Paracetamol 300 + Cafeína 30 + Carisoprodol 
+125 + Diclofenaco 50 [Torsilax, tandrilax] 
+Tomar 1 comprimido de 12/12h, ou até de 8/8h, por no 
+máximo 7 dias.
+Dipirona 1g/2ml - 1 ampola
+Fazer 1 ampola EV em bolus lento.
+Tramadol 100mg/2ml - 1 ampola
+Diluir 1 ampola em 100 ml SF 0,9% e fazer IV em 30 min. 
+Cetoprofeno [Profenid] (100mg/2ml) - 1 
+ampola
+Diluir 1 ampola em 100mL de SF 0,9% e correr em 20 
+minutos. 
+Morfina (10mg/ml) - 1 ampola
+Diluir 1 ampola em 10ml de ABD e fazer 4-5ml.
+AMINAS VASOATIVAS
+Noradrenalina (4 mg / 4 ml-ampola)
+Diluir 5 ampolas (20 ml) em 180 ml SF 0,9% ou SG 5%. 
+OU
+Diluir 8 ampolas (32mg) em 218 ml SG 5%. 
+76
+
+
+=== PÁGINA 77 ===
+Fotossensível. 
+Dose usual: 0,05 a 2 mcg/kg/min
+Dobutamina (250mg/20ml) IV
+Diluir 4 ampolas (80ml) em 170 ml SF 0,9% (Concentração: 
+4mg/ml) e infundir em BIC inicialmente a 2ml/h
+Dose usual: 2 a 20mcg/kg/min
+Bizu:  Nesta apresentação, o valor da velocidade de infusão 
+é aproximadamente o mesmo valor numérico da dose usual.
+OU
+Diluir 2 ampolas (40ml) em 210 ml SF 0,9% (Concentração: 
+2mg/ml) e infundir em BIC inicialmente a 4ml/h
+Dose usual: 2 a 20mcg/kg/min
+Bizu: Nesta apresentação, o valor da velocidade de infusão 
+é aproximadamente o dobro do valor numérico da dose 
+usual.
+Nitroglicerina (Tridil) (50mg/10ml) IV
+Diluir 1 ampola (10ml) em 240ml SF 0,9% (Concentração: 
+200mcg/ml) e infundir em BIC inicialmente a 1-2ml/h e 
+titular conforme pressão arterial.
+Dose inicial: 5 mcg/min
+Nitroprussiato de Sódio (Nipride) (50mg/2ml)
+Diluir 1 ampola (2ml) em 248ml SF 0,9% (Concentração: 
+200mcg/ml) e infundir em BIC inicialmente a 5ml/h e titular 
+conforme pressão arterial.
+Dose inicial: 0,25 a 0,5mcg/kg/min
+Dose máxima: 10mcg/kg/min
+77
+
+
+=== PÁGINA 78 ===
+OU
+Diluir 2 ampolas (4ml) em 246ml SF 0,9% (Concentração: 
+400mcg/ml) e infundir em BIC inicialmente a 2-3ml/h e 
+titular conforme pressão arterial.
+Dose inicial: 0,25 a 0,5mcg/kg/min
+Dose máxima: 10mcg/kg/min
+Dopamina (50 mcg / 10 ml - ampola) 
+Diluir 5 ampolas + SF 0,9% ou SGI 5% 200ml Resultado 
+em uma concentração de 1.000 ug/ml
+Vasopressina (20 U / ampola) 
+Diluir 3 ampolas (60UI) em 57 ml de SG 5 % ou SF 0,9% , 
+resultando em uma concentração de 1 U/ml
+Dose: 0,01 a 0,04 mcg/kg/min
+INTUBAÇÃO
+Dose para adulto (70 Kg)
+Fentanil (10ml - ampola – 50 ug/ml)
+Dose: 3ug/Kg
+Paciente 70kg   Fazer 4 mL da ampola IV lentamente
+ATENÇÃO: Não há evidência na literatura de que a 
+intubação seja um procedimento doloroso, por isso a 
+Sequência Rápida de Intubação (SRI) contempla somente 
+sedativo e bloqueador neuromuscular, não analgésico. 
+78
+
+
+=== PÁGINA 79 ===
+NÃO é recomendado realizar em pacientes chocados devido 
+ao efeito de simpatólise. 
+NÃO recomendado realizar em Intubação na Emergência, 
+que é feito em SRI, devido meia vida de 2 a 4 minutos, 
+tendo que esperar para a sequência rápida de sedativo e 
+bloqueador neuromuscular. 
+NÃO realizar de forma rápida quando fizer o bolus, por 
+chance de ocorrer tórax rígido (perda de drive respiratório, 
+revertido somente com bloqueador neuromuscular). 
+Escetamina (Quetamina) (10ml - ampola - 
+50mg/ml)
+Dose: 1,5 mg/Kg. Início da ação em 45 a 60 segundos. 
+Cardioestável. 
+Paciente 70Kg  Fazer 3,0ml da ampola IV lentamente
+Etomidato (10ml- ampola - 2mg/ml)
+Dose: 0,3mg/Kg. Início da ação em 45 a 60 segundos. 
+Cardioestável. 
+Paciente 70Kg  Fazer 10 ml da ampola IV lentamente
+SucciniIcolina (10mL - frasco/ampola - 
+10mg/ml)
+Dose: 1,5mg/Kg. Início da ação em 45 segundos. 
+Paciente 70Kg  Diluir 1 ampola (100mg/10ml) em 10ml 
+de ABD e fazer 10ml IV
+ou
+Rocurônio (5ml- ampola - 10mg/ml)
+Dose: 1,5mg/Kg. Tempo para paralisia: 60 segundos. 
+79
+
+
+=== PÁGINA 80 ===
+Paciente 70Kg  Fazer 7ml da ampola IV lentamente
+Sedação pós intubação
+Fentanil 50mcg/ml - 10ml / ampola
+Diluir 40ml (4 ampolas) de Fentanil em 160ml de NaCl 
+0,9% - Iniciar a 5-8ml/h
+OU
+4 frascos (2000mcg) PURO, em Bomba de infusão contínua 
+(BIC). 
+Concentração: 0,7 a 2 mcg/kg/h.
+Midazolam 50mg/10ml
+Diluir 40ml (4 ampolas) de Midazolam em 60ml de SF 
+0,9% - Iniciar a 5-8ml/h. 
+Concentração: 0,02 a 0,2mg/kg/h.
+Se estado de mal epiléptico: até 1mg/kg/h
+Cetamina 50mg/ml - ampola 10ml
+Diluir 1 ampola em 90ml de SG 5% e iniciar EV em BIC a 
+3 - 6ml/h
+Dose: 0,3 a 1mg/kg/h.
+80
