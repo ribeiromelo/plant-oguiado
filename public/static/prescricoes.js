@@ -12,7 +12,11 @@ const PRESCRICOES_DB = {
         { id: 'hidroeletrolitico', nome: 'Distúrbios Hidroeletrolíticos', icone: 'fas fa-tint', cor: 'cyan' },
         { id: 'dor', nome: 'Dor e Analgesia', icone: 'fas fa-prescription', cor: 'pink' },
         { id: 'pele', nome: 'Dermatologia', icone: 'fas fa-allergies', cor: 'amber' },
-        { id: 'emergencia', nome: 'Emergências', icone: 'fas fa-ambulance', cor: 'rose' }
+        { id: 'emergencia', nome: 'Emergências', icone: 'fas fa-ambulance', cor: 'rose' },
+        { id: 'otorrino', nome: 'Otorrinolaringologia', icone: 'fas fa-ear-listen', cor: 'cyan' },
+        { id: 'oftalmo', nome: 'Oftalmologia', icone: 'fas fa-eye', cor: 'blue' },
+        { id: 'ginecologia', nome: 'Ginecologia e Obstetrícia', icone: 'fas fa-female', cor: 'pink' },
+        { id: 'geriatria', nome: 'Geriatria e Crônicos', icone: 'fas fa-user-clock', cor: 'gray' }
     ],
 
     prescricoes: [
@@ -1855,6 +1859,387 @@ const PRESCRICOES_DB = {
                         '',
                         '# CRITÉRIOS RESOLUÇÃO CAD:',
                         '- Glicemia <200 + pH >7,3 + HCO3 >18 + AG <12'
+                    ]
+                }
+            ]
+        },
+        // ==================== NOVAS INSERÇÕES (GUIA FERM) ====================
+        {
+            id: 'mordeduras',
+            categoria: 'emergencia',
+            nome: 'Mordeduras e Ferimentos (Animal)',
+            tags: ['cachorro', 'gato', 'raiva', 'tétano', 'ferida'],
+            ambiente: 'emergencia',
+            prescricoes: [
+                {
+                    titulo: 'Mordedura de Cão/Gato - Profilaxia',
+                    tipo: 'alta',
+                    itens: [
+                        '# ANTIBIÓTICO (Mordeduras profundas/mãos/gatos)',
+                        '1. Amoxicilina + Clavulanato 875/125mg - 14 cp',
+                        '   - Tomar 1 cp 12/12h por 7 dias',
+                        '',
+                        '# ORIENTAÇÕES:',
+                        '- Lavar ferida com água e sabão abundante',
+                        '- Vacina Antitetânica: reforço se > 10 anos (ou > 5 se ferida suja)',
+                        '- Vacina Antirrábica: avaliar necessidade (se animal não observável)',
+                        '- Observar animal por 10 dias se possível',
+                        '- Sinais de alarme: dor intensa, calor, rubor, secreção'
+                    ]
+                }
+            ]
+        },
+        {
+            id: 'dengue_sintomaticos',
+            categoria: 'infeccoes',
+            nome: 'Dengue / Chikungunya (Sintomáticos)',
+            tags: ['dengue', 'arbovirose', 'febre', 'dor no corpo', 'chikungunya'],
+            ambiente: 'ambulatorial',
+            prescricoes: [
+                {
+                    titulo: 'Dengue - Sintomáticos (Opção 1)',
+                    tipo: 'alta',
+                    itens: [
+                        '1. Dipirona 500mg ou 1g - 20 cp',
+                        '   - Tomar 1 cp 6/6h se dor ou febre',
+                        '',
+                        '2. Bromoprida 10mg - 10 cp',
+                        '   - Tomar 1 cp 8/8h se náuseas',
+                        '',
+                        '3. SRO (Soro de Reidratação) - 10 envelopes',
+                        '   - Diluir 1 env em 1L de água',
+                        '   - Tomar 500ml após cada episódio de diarreia/vômito',
+                        '',
+                        '4. Hidroxizina 25mg - 10 cp (se coceira)',
+                        '   - Tomar 1 cp 8/8h se prurido intenso',
+                        '',
+                        '⚠️ NÃO USAR: AAS, Ibuprofeno, Nimesulida, Diclofenaco'
+                    ]
+                },
+                {
+                    titulo: 'Chikungunya - Fase Aguda',
+                    tipo: 'alta',
+                    itens: [
+                        '1. Dipirona 500mg - uso contínuo',
+                        '   - Tomar 1-2 cp 6/6h por 10 dias',
+                        '',
+                        '2. Paracetamol 500mg - intercalar',
+                        '   - Tomar 1 cp 6/6h intercalado com dipirona',
+                        '',
+                        '3. Hidratação vigorosa (SRO)',
+                        '   - Beber 2-3L de líquidos por dia'
+                    ]
+                }
+            ]
+        },
+        {
+            id: 'respiratorio_outros',
+            categoria: 'respiratorio',
+            nome: 'Síndrome Gripal / IVAS',
+            tags: ['gripe', 'resfriado', 'tosse', 'coriza', 'ivas'],
+            ambiente: 'ambulatorial',
+            prescricoes: [
+                {
+                    titulo: 'Sintomáticos Gripais',
+                    tipo: 'alta',
+                    itens: [
+                        '1. Dipirona 500mg - 20 cp',
+                        '   - Tomar 1 cp 6/6h se febre/dor',
+                        '',
+                        '2. Loratadina 10mg - 10 cp',
+                        '   - Tomar 1 cp 1x/dia (coriza)',
+                        '',
+                        '3. Lavagem Nasal com SF 0,9%',
+                        '   - Aplicar 10-20ml em cada narina várias vezes ao dia',
+                        '',
+                        '4. Nimesulida 100mg - 10 cp (se inflamação intensa)',
+                        '   - Tomar 1 cp 12/12h por 3-5 dias'
+                    ]
+                },
+                {
+                    titulo: 'Tosse Seca Residual',
+                    tipo: 'alta',
+                    itens: [
+                        '1. Clenil (Beclometasona) 250mcg spray',
+                        '   - Aplicar 2 puffs 12/12h por 5 dias',
+                        '   - Lavar a boca após uso',
+                        '',
+                        '2. Dropropizina ou Levodropropizina xarope',
+                        '   - Tomar 10ml 8/8h se tosse intensa'
+                    ]
+                }
+            ]
+        },
+        {
+            id: 'conjuntivite',
+            categoria: 'oftalmo',
+            nome: 'Conjuntivite',
+            tags: ['olho vermelho', 'secreção', 'remela'],
+            ambiente: 'ambulatorial',
+            prescricoes: [
+                {
+                    titulo: 'Conjuntivite Bacteriana',
+                    tipo: 'alta',
+                    itens: [
+                        '1. Ciprofloxacino colírio - 1 frasco',
+                        '   - Pingar 1 gota no olho afetado 4/4h por 5-7 dias',
+                        '',
+                        '2. Compressa com água gelada/SF',
+                        '   - Várias vezes ao dia',
+                        '',
+                        '3. Lubrificante Ocular (Carmelose)',
+                        '   - Pingar 1 gota várias vezes ao dia para alívio'
+                    ]
+                }
+            ]
+        },
+        {
+            id: 'otite_externa',
+            categoria: 'otorrino',
+            nome: 'Otite Externa',
+            tags: ['ouvido', 'dor de ouvido', 'piscina'],
+            ambiente: 'ambulatorial',
+            prescricoes: [
+                {
+                    titulo: 'Otite Externa - Gotas Otológicas',
+                    tipo: 'alta',
+                    itens: [
+                        '# ESCOLHER UMA OPÇÃO:',
+                        '',
+                        '1. Ciprofloxacino + Hidrocortisona (Otociriax) - 1 frasco',
+                        '   - Pingar 3 gotas 8/8h ou 6/6h por 7 dias',
+                        '',
+                        'OU',
+                        '',
+                        '2. Neomicina + Polimixina + Fluocinolona (Otosporin)',
+                        '   - Pingar 3 gotas 8/8h por 7 dias',
+                        '',
+                        '# ANALGESIA ORAL',
+                        '3. Dipirona 1g ou Ibuprofeno 600mg para dor'
+                    ]
+                }
+            ]
+        },
+        {
+            id: 'constipacao',
+            categoria: 'gastrointestinal',
+            nome: 'Constipação Intestinal',
+            tags: ['prisão de ventre', 'intestino preso', 'fezes'],
+            ambiente: 'ambulatorial',
+            prescricoes: [
+                {
+                    titulo: 'Constipação - Manejo',
+                    tipo: 'alta',
+                    itens: [
+                        '1. Lactulose xarope - 1 frasco',
+                        '   - Tomar 15-30ml 12/12h ou 1x/dia',
+                        '   - Ajustar conforme evacuação',
+                        '',
+                        '2. Óleo Mineral - 1 frasco',
+                        '   - Tomar 1 colher de sopa 8/8h ou à noite',
+                        '',
+                        '3. Bisacodil 5mg (se necessário)',
+                        '   - Tomar 1-2 cp à noite para efeito pela manhã',
+                        '',
+                        '# ORIENTAÇÕES:',
+                        '- Aumentar fibras (aveia, mamão, ameixa)',
+                        '- Beber > 2L de água por dia'
+                    ]
+                }
+            ]
+        },
+        {
+            id: 'nauseas_vomitos',
+            categoria: 'gastrointestinal',
+            nome: 'Náuseas e Vômitos',
+            tags: ['enjoo', 'vômito', 'êmese'],
+            ambiente: 'ambulatorial',
+            prescricoes: [
+                {
+                    titulo: 'Antieméticos Orais',
+                    tipo: 'alta',
+                    itens: [
+                        '1. Ondansetrona 8mg - 10 cp',
+                        '   - Tomar 1 cp 8/8h ou 12/12h se náusea',
+                        '',
+                        'OU',
+                        '',
+                        '2. Bromoprida 10mg - 20 cp',
+                        '   - Tomar 1 cp 8/8h antes das refeições',
+                        '',
+                        'OU',
+                        '',
+                        '3. Metoclopramida 10mg - 20 cp',
+                        '   - Tomar 1 cp 8/8h'
+                    ]
+                }
+            ]
+        },
+        {
+            id: 'h_pylori',
+            categoria: 'gastrointestinal',
+            nome: 'H. Pylori (Erradicação)',
+            tags: ['estômago', 'gastrite', 'úlcera'],
+            ambiente: 'ambulatorial',
+            prescricoes: [
+                {
+                    titulo: 'Tratamento Tríplice (14 dias)',
+                    tipo: 'alta',
+                    itens: [
+                        '1. Kit Pylori (Omeprazol + Claritro + Amoxi)',
+                        '   - Omeprazol 20mg 12/12h (jejum)',
+                        '   - Claritromicina 500mg 12/12h',
+                        '   - Amoxicilina 1000mg 12/12h',
+                        '   - Tomar por 14 dias',
+                        '',
+                        '# MANUTENÇÃO',
+                        '2. Omeprazol 20mg manhã por + 14-28 dias'
+                    ]
+                }
+            ]
+        },
+        {
+            id: 'balanite',
+            categoria: 'geniturinario',
+            nome: 'Balanite',
+            tags: ['pênis', 'glande', 'inflamação', 'coceira'],
+            ambiente: 'ambulatorial',
+            prescricoes: [
+                {
+                    titulo: 'Balanite Infecciosa',
+                    tipo: 'alta',
+                    itens: [
+                        '1. Creme (Cetoconazol + Betametasona + Neomicina)',
+                        '   - Aplicar na região afetada 2x/dia por 7 dias',
+                        '   - Higienizar bem e secar antes de aplicar',
+                        '',
+                        '2. Fluconazol 150mg (se candidíase)',
+                        '   - Tomar 1 cp dose única'
+                    ]
+                }
+            ]
+        },
+        {
+            id: 'ginecologia_geral',
+            categoria: 'ginecologia',
+            nome: 'Ginecologia Geral',
+            tags: ['sangramento', 'menstruação', 'cólica', 'anticoncepcional'],
+            ambiente: 'ambulatorial',
+            prescricoes: [
+                {
+                    titulo: 'Sangramento Uterino Anormal (Agudo)',
+                    tipo: 'alta',
+                    itens: [
+                        '1. Ácido Tranexâmico (Transamin) 250mg - 12 cp',
+                        '   - Tomar 2 cp (500mg) 8/8h por 2-3 dias',
+                        '',
+                        '2. Sulfato Ferroso 40mg (se anemia)',
+                        '   - Tomar 1 cp 1-2x/dia longe das refeições'
+                    ]
+                },
+                {
+                    titulo: 'Dismenorreia (Cólica Menstrual)',
+                    tipo: 'alta',
+                    itens: [
+                        '1. Meloxicam 15mg ou Piroxicam 20mg',
+                        '   - Tomar 1 cp/dia iniciando 2 dias antes da menstruação',
+                        '   - Manter por 3-5 dias',
+                        '',
+                        '2. Buscopan Composto (Hioscina + Dipirona)',
+                        '   - Tomar 1 cp 6/6h se dor'
+                    ]
+                }
+            ]
+        },
+        {
+            id: 'geriatria_cronicos',
+            categoria: 'geriatria',
+            nome: 'Geriatria e Crônicos',
+            tags: ['idoso', 'osteoporose', 'memória', 'circulação'],
+            ambiente: 'ambulatorial',
+            prescricoes: [
+                {
+                    titulo: 'Osteoporose',
+                    tipo: 'alta',
+                    itens: [
+                        '1. Alendronato 70mg - 4 cp',
+                        '   - Tomar 1 cp por semana',
+                        '   - Jejum, com copo d\'água cheio, não deitar por 30min',
+                        '',
+                        '2. Cálcio 600mg + Vitamina D 400UI',
+                        '   - Tomar 1 cp 1x/dia'
+                    ]
+                },
+                {
+                    titulo: 'Insuficiência Venosa (Varizes)',
+                    tipo: 'alta',
+                    itens: [
+                        '1. Diosmina + Hesperidina (450/50mg)',
+                        '   - Tomar 1 cp 12/12h (almoço e jantar)',
+                        '',
+                        '2. Uso de meias compressivas média compressão'
+                    ]
+                },
+                {
+                    titulo: 'Demência (Alzheimer) - Inicial',
+                    tipo: 'alta',
+                    itens: [
+                        '1. Donepezila 5mg - 30 cp',
+                        '   - Tomar 1 cp à noite',
+                        '   - Após 1 mês: avaliar aumento para 10mg',
+                        '',
+                        '⚠️ Acompanhamento especializado obrigatório'
+                    ]
+                }
+            ]
+        },
+        {
+            id: 'hospitalar_avancado',
+            categoria: 'emergencia',
+            nome: 'Protocolos Hospitalares Avançados',
+            tags: ['uti', 'sedação', 'vasoativo', 'hospitalar'],
+            ambiente: 'hospitalar',
+            prescricoes: [
+                {
+                    titulo: 'Sedação Contínua (Intubação)',
+                    tipo: 'emergencia',
+                    itens: [
+                        '1. Midazolam 50mg (10ml) + 40ml SF',
+                        '   - Solução 1mg/ml',
+                        '   - Iniciar 5-10 ml/h',
+                        '',
+                        '2. Fentanil 50mcg/ml (10ml) + 40ml SF',
+                        '   - Solução 10mcg/ml',
+                        '   - Iniciar 5-10 ml/h',
+                        '',
+                        '3. Propofol 1% (puro) - Alternativa',
+                        '   - Iniciar 5-10 ml/h'
+                    ]
+                },
+                {
+                    titulo: 'Drogas Vasoativas',
+                    tipo: 'emergencia',
+                    itens: [
+                        '1. Noradrenalina 4mg/4ml (4 ampolas) + 234ml SG 5%',
+                        '   - Concentração: 64mcg/ml',
+                        '   - Iniciar 5-10 ml/h e titular PAM > 65',
+                        '',
+                        '2. Dobutamina 250mg (1 amp) + 230ml SF',
+                        '   - Concentração: 1000mcg/ml',
+                        '   - Iniciar conforme peso (2-20mcg/kg/min)'
+                    ]
+                },
+                {
+                    titulo: 'Dieta Hospitalar',
+                    tipo: 'hospitalar',
+                    itens: [
+                        '1. Dieta Oral: Geral, Branda, Pastosa ou Líquida',
+                        '   - Para DM: Dieta para diabetes',
+                        '   - Para HAS: Hipossódica',
+                        '',
+                        '2. Dieta Enteral:',
+                        '   - Sistema fechado: 20-60ml/h bomba de infusão',
+                        '   - Testar resíduo gástrico 6/6h'
                     ]
                 }
             ]
