@@ -128,10 +128,21 @@ app.get('/receituario', (c) => {
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-        <style>
+        <style type="text/tailwindcss">
             body { font-family: 'Inter', sans-serif; }
             .font-poppins { font-family: 'Poppins', sans-serif; }
             
+            .form-card {
+                @apply bg-white p-6 rounded-2xl shadow-sm border border-slate-100 mb-6 transition-shadow hover:shadow-md;
+            }
+            .form-label {
+                @apply block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wide ml-1;
+            }
+            .form-input {
+                @apply w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-slate-700 font-medium placeholder-slate-400;
+            }
+            
+            /* Print Styles */
             @media print {
                 @page { margin: 0; size: A4; }
                 body * { visibility: hidden; }
@@ -145,142 +156,164 @@ app.get('/receituario', (c) => {
                     margin: 0; 
                     padding: 0;
                     background: white;
+                    z-index: 9999;
                 }
                 .no-print { display: none !important; }
+                /* Ensure background graphics (like colored headers) are printed */
                 * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            }
+            
+            .paper-shadow {
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             }
         </style>
     </head>
-    <body class="bg-slate-50 text-slate-800" x-data="receituarioApp()">
+    <body class="bg-slate-50 text-slate-800" x-data="prescriptionApp()">
         
-        <!-- Navbar -->
-        <header class="bg-white border-b border-slate-200 sticky top-0 z-50 no-print">
-            <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+        <!-- Navbar Glass -->
+        <header class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 no-print">
+            <div class="max-w-[1600px] mx-auto px-4 lg:px-6 h-16 flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-lg flex items-center justify-center text-white">
+                    <div class="w-9 h-9 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-lg flex items-center justify-center text-white shadow-md shadow-blue-500/20">
                          <i class="fas fa-user-md text-lg"></i>
                     </div>
                     <div>
-                        <h1 class="text-base font-bold text-slate-800">Plantão Guiado</h1>
-                        <p class="text-xs text-slate-500 font-medium">Gerador de Receitas</p>
+                        <h1 class="text-base font-bold text-slate-800 leading-none">Plantão Guiado</h1>
+                        <p class="text-[10px] text-slate-500 font-medium uppercase tracking-wider mt-0.5">Gerador de Receitas</p>
                     </div>
                 </div>
                 
-                <nav class="flex items-center gap-2 bg-slate-100 p-1 rounded-xl">
-                    <a href="/" class="px-4 py-1.5 text-sm font-medium text-slate-500 hover:text-slate-700 rounded-lg">
+                <nav class="flex items-center bg-slate-100 p-1 rounded-xl">
+                    <a href="/" class="px-4 py-1.5 text-sm font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
                         <i class="fas fa-file-medical mr-2"></i>Evolução
                     </a>
-                    <a href="/prescricoes" class="px-4 py-1.5 text-sm font-medium text-slate-500 hover:text-slate-700 rounded-lg">
+                    <a href="/prescricoes" class="px-4 py-1.5 text-sm font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
                         <i class="fas fa-prescription mr-2"></i>Prescrições
                     </a>
-                    <a href="/receituario" class="px-4 py-1.5 text-sm font-semibold text-blue-700 bg-white shadow-sm rounded-lg">
+                    <a href="/receituario" class="px-4 py-1.5 text-sm font-semibold text-blue-700 bg-white shadow-sm rounded-lg transition-all">
                         <i class="fas fa-print mr-2"></i>Receituário
                     </a>
                 </nav>
             </div>
         </header>
 
-        <main class="max-w-7xl mx-auto p-4 lg:p-8 flex flex-col lg:flex-row gap-8">
+        <main class="max-w-[1600px] mx-auto p-4 lg:p-8 flex flex-col lg:flex-row gap-8">
             
-            <!-- LEFT: FORM -->
-            <div class="flex-1 no-print space-y-6">
+            <!-- LEFT COLUMN: INPUTS -->
+            <div class="flex-1 min-w-0 no-print pb-20">
                 
-                <!-- Dados do Médico -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                    <div class="flex justify-between items-center mb-4">
+                <!-- Doctor Config -->
+                <div class="form-card relative overflow-hidden group">
+                    <div class="absolute left-0 top-0 w-1.5 h-full bg-blue-500 rounded-l-lg"></div>
+                    <div class="flex justify-between items-center mb-6">
                         <h3 class="text-lg font-bold text-slate-700 flex items-center gap-2">
                             <i class="fas fa-user-doctor text-blue-500"></i> Dados do Médico
                         </h3>
-                        <button @click="saveDoctor()" class="text-xs bg-blue-50 text-blue-600 px-3 py-1.5 rounded-lg font-bold hover:bg-blue-100">
-                            <i class="fas fa-save mr-1"></i> Salvar
+                        <button @click="saveDoctor()" class="text-xs bg-blue-50 text-blue-600 px-3 py-1.5 rounded-lg font-bold hover:bg-blue-100 transition-colors">
+                            <i class="fas fa-save mr-1"></i> Salvar Padrão
                         </button>
                     </div>
                     
                     <div class="grid grid-cols-12 gap-4">
                         <div class="col-span-12 md:col-span-8">
-                            <label class="block text-xs font-bold text-slate-500 mb-1">Nome Completo</label>
-                            <input type="text" x-model="doctor.name" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none" placeholder="Dr. Fulano de Tal">
+                            <label class="form-label">Nome Completo</label>
+                            <input type="text" x-model="doctor.name" class="form-input" placeholder="Dr. Fulano de Tal">
                         </div>
                         <div class="col-span-6 md:col-span-2">
-                            <label class="block text-xs font-bold text-slate-500 mb-1">CRM</label>
-                            <input type="text" x-model="doctor.crm" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none" placeholder="12345">
+                            <label class="form-label">CRM</label>
+                            <input type="text" x-model="doctor.crm" class="form-input" placeholder="12345">
                         </div>
                         <div class="col-span-6 md:col-span-2">
-                            <label class="block text-xs font-bold text-slate-500 mb-1">UF</label>
-                            <input type="text" x-model="doctor.uf" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none" placeholder="SP">
+                            <label class="form-label">UF</label>
+                            <input type="text" x-model="doctor.uf" class="form-input" placeholder="SP">
                         </div>
                         <div class="col-span-12">
-                            <label class="block text-xs font-bold text-slate-500 mb-1">Endereço / Clínica</label>
-                            <input type="text" x-model="doctor.address" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none" placeholder="Rua das Flores, 123">
+                            <label class="form-label">Endereço / Clínica</label>
+                            <input type="text" x-model="doctor.address" class="form-input" placeholder="Rua das Flores, 123 - Centro, São Paulo - SP">
                         </div>
                     </div>
                 </div>
 
-                <!-- Prescrição -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                    <div class="flex justify-between items-center mb-4">
+                <!-- Patient & Meds -->
+                <div class="form-card relative">
+                    <div class="absolute left-0 top-0 w-1.5 h-full bg-emerald-500 rounded-l-lg"></div>
+                    <div class="flex justify-between items-center mb-6">
                         <h3 class="text-lg font-bold text-slate-700 flex items-center gap-2">
                             <i class="fas fa-prescription-bottle-alt text-emerald-500"></i> Prescrição
                         </h3>
                         
+                        <!-- Prescription Type Selector -->
                         <div class="bg-slate-100 p-1 rounded-lg flex text-xs font-bold">
-                            <button @click="tipo = 'simples'" 
-                                    :class="tipo === 'simples' ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-500'"
-                                    class="px-3 py-1.5 rounded-md">Simples</button>
-                            <button @click="tipo = 'especial'" 
-                                    :class="tipo === 'especial' ? 'bg-white text-red-600 shadow-sm' : 'text-slate-500'"
-                                    class="px-3 py-1.5 rounded-md">Especial</button>
-                            <button @click="tipo = 'livre'" 
-                                    :class="tipo === 'livre' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500'"
-                                    class="px-3 py-1.5 rounded-md">Livre</button>
+                            <button @click="setPrescriptionType('simples')" 
+                                    :class="prescriptionType === 'simples' ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'"
+                                    class="px-3 py-1.5 rounded-md transition-all">Simples</button>
+                            <button @click="setPrescriptionType('especial')" 
+                                    :class="prescriptionType === 'especial' ? 'bg-white text-red-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'"
+                                    class="px-3 py-1.5 rounded-md transition-all">Especial</button>
+                            <button @click="setPrescriptionType('livre')" 
+                                    :class="prescriptionType === 'livre' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'"
+                                    class="px-3 py-1.5 rounded-md transition-all">Livre/Exames</button>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-12 gap-4 mb-4">
+                    <div class="grid grid-cols-12 gap-4 mb-6">
                         <div class="col-span-12 md:col-span-8">
-                            <label class="block text-xs font-bold text-slate-500 mb-1">Paciente</label>
-                            <input type="text" x-model="patient.name" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none" placeholder="Nome do paciente">
+                            <label class="form-label">Nome do Paciente</label>
+                            <input type="text" x-model="patient.name" class="form-input" placeholder="Nome do paciente">
                         </div>
                         <div class="col-span-12 md:col-span-4">
-                            <label class="block text-xs font-bold text-slate-500 mb-1">CPF</label>
-                            <input type="text" x-model="patient.cpf" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none" placeholder="000.000.000-00">
+                            <label class="form-label">CPF</label>
+                            <input type="text" x-model="patient.cpf" class="form-input" placeholder="000.000.000-00">
                         </div>
                         <div class="col-span-12 md:col-span-9">
-                            <label class="block text-xs font-bold text-slate-500 mb-1">Endereço</label>
-                            <input type="text" x-model="patient.address" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none" placeholder="Rua, Número, Bairro">
+                            <label class="form-label">Endereço (Obrigatório para Especial)</label>
+                            <input type="text" x-model="patient.address" class="form-input" placeholder="Rua, Número, Bairro...">
                         </div>
                         <div class="col-span-12 md:col-span-3">
-                            <label class="block text-xs font-bold text-slate-500 mb-1">Data</label>
-                            <input type="date" x-model="date" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none">
+                            <label class="form-label">Data</label>
+                            <input type="date" x-model="date" class="form-input">
                         </div>
                     </div>
 
-                    <!-- Medicamentos (Simples/Especial) -->
-                    <div x-show="tipo !== 'livre'" class="bg-emerald-50/50 rounded-xl p-4 border border-emerald-100 mb-4">
-                        <label class="block text-xs font-bold text-emerald-700 mb-2">Adicionar Medicamento</label>
-                        <div class="grid gap-3">
-                            <input type="text" x-model="newMed.name" class="w-full px-4 py-2 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none" placeholder="Nome + Concentração">
-                            <input type="text" x-model="newMed.quantity" class="w-full px-4 py-2 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none" placeholder="Quantidade">
-                            <textarea x-model="newMed.instruction" class="w-full px-4 py-2 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none h-20 resize-none" placeholder="Posologia"></textarea>
-                            <button @click="addMed()" class="w-full bg-emerald-600 text-white font-bold py-2 rounded-xl hover:bg-emerald-700">
-                                <i class="fas fa-plus-circle mr-2"></i>Adicionar
-                            </button>
+                    <!-- Drug Adder (Simples/Especial) -->
+                    <div x-show="prescriptionType !== 'livre'" class="bg-emerald-50/50 rounded-xl p-4 border border-emerald-100 mb-6">
+                        <label class="form-label text-emerald-700 mb-3">Adicionar Medicamento</label>
+                        <div class="grid grid-cols-12 gap-3 mb-3">
+                            <div class="col-span-12 md:col-span-8">
+                                <input type="text" x-model="newMed.name" class="form-input bg-white" placeholder="Medicamento + Concentração (Ex: Amoxicilina 500mg)" @keydown.enter="$refs.qtd.focus()">
+                            </div>
+                            <div class="col-span-12 md:col-span-4">
+                                <input x-ref="qtd" type="text" x-model="newMed.quantity" class="form-input bg-white" placeholder="Qtd (Ex: 1 caixa / 21 cp)" @keydown.enter="$refs.instr.focus()">
+                            </div>
+                            <div class="col-span-12">
+                                <textarea x-ref="instr" x-model="newMed.instruction" class="form-input bg-white h-20 resize-none" placeholder="Posologia (Ex: Tomar 1 comprimido de 8 em 8 horas por 7 dias)" @keydown.enter.prevent="addMed()"></textarea>
+                            </div>
+                        </div>
+                        <button @click="addMed()" class="w-full bg-emerald-600 text-white font-bold py-2.5 rounded-xl hover:bg-emerald-700 shadow-lg shadow-emerald-500/30 transition-all flex items-center justify-center gap-2">
+                            <i class="fas fa-plus-circle"></i> Adicionar à Receita
+                        </button>
+                    </div>
+
+                    <!-- Free Text Input (Livre) -->
+                    <div x-show="prescriptionType === 'livre'" class="bg-blue-50/50 rounded-xl p-4 border border-blue-100 mb-6">
+                        <label class="form-label text-blue-700 mb-3">Conteúdo do Documento</label>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="text-[10px] uppercase font-bold text-blue-600 mb-1 block">Título do Documento</label>
+                                <input type="text" x-model="freeTextTitle" class="form-input bg-white border-blue-200 focus:border-blue-500 focus:ring-blue-500/20" placeholder="Ex: SOLICITAÇÃO DE EXAMES">
+                            </div>
+                            <div>
+                                <label class="text-[10px] uppercase font-bold text-blue-600 mb-1 block">Texto Livre</label>
+                                <textarea x-model="freeTextContent" class="form-input bg-white h-64 resize-none border-blue-200 focus:border-blue-500 focus:ring-blue-500/20 font-mono text-sm" placeholder="Digite aqui a solicitação de exames, atestado ou encaminhamento..."></textarea>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Texto Livre -->
-                    <div x-show="tipo === 'livre'" class="bg-blue-50/50 rounded-xl p-4 border border-blue-100 mb-4">
-                        <label class="block text-xs font-bold text-blue-700 mb-2">Título</label>
-                        <input type="text" x-model="freeTitle" class="w-full px-4 py-2 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none mb-3" placeholder="Ex: SOLICITAÇÃO DE EXAMES">
-                        <label class="block text-xs font-bold text-blue-700 mb-2">Conteúdo</label>
-                        <textarea x-model="freeText" class="w-full px-4 py-2 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none h-64 resize-none font-mono text-sm" placeholder="Digite o conteúdo..."></textarea>
-                    </div>
-
-                    <!-- Lista de Medicamentos -->
-                    <div x-show="tipo !== 'livre'" class="space-y-2">
-                        <template x-for="(med, idx) in meds" :key="idx">
-                            <div class="bg-white border border-slate-200 rounded-xl p-3 flex items-start gap-3 group hover:border-emerald-300">
-                                <div class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-sm" x-text="idx + 1"></div>
+                    <!-- List (Simples/Especial Only) -->
+                    <div class="space-y-3" x-show="prescriptionType !== 'livre'">
+                        <template x-for="(med, index) in medications" :key="index">
+                            <div class="bg-white border border-slate-200 rounded-xl p-4 flex items-start gap-4 group hover:border-emerald-300 transition-all shadow-sm">
+                                <div class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-sm shrink-0" x-text="index + 1"></div>
                                 <div class="flex-grow">
                                     <div class="flex justify-between items-start">
                                         <h4 class="font-bold text-slate-800" x-text="med.name"></h4>
@@ -288,44 +321,56 @@ app.get('/receituario', (c) => {
                                     </div>
                                     <p class="text-sm text-slate-600 mt-1" x-text="med.instruction"></p>
                                 </div>
-                                <button @click="removeMed(idx)" class="text-slate-300 hover:text-red-500 p-2">
+                                <button @click="removeMed(index)" class="text-slate-300 hover:text-red-500 transition-colors self-center p-2">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
+                            </div>
+                        </template>
+                        <template x-if="medications.length === 0">
+                            <div class="text-center py-8 text-slate-400 text-sm italic">
+                                Nenhum medicamento adicionado ainda.
                             </div>
                         </template>
                     </div>
                 </div>
 
                 <!-- Print Options -->
-                <div class="bg-slate-800 text-white p-6 rounded-2xl">
-                    <h3 class="font-bold text-lg mb-4"><i class="fas fa-print mr-2"></i>Impressão</h3>
-                    <label class="flex items-center gap-3 p-3 rounded-xl bg-white/10 cursor-pointer hover:bg-white/20 mb-4">
-                        <input type="checkbox" x-model="printDouble" class="w-5 h-5 rounded">
-                        <div>
-                            <span class="font-bold block text-sm">Imprimir 2ª Via</span>
-                            <span class="text-xs text-slate-300" x-text="tipo === 'especial' ? 'Obrigatório para Especial' : 'Opcional'"></span>
-                        </div>
-                    </label>
-                    <button @click="print()" class="w-full bg-white text-slate-900 font-bold py-3 rounded-xl hover:bg-blue-50 flex items-center justify-center gap-2">
-                        <i class="fas fa-print text-xl"></i> IMPRIMIR
-                    </button>
+                <div class="form-card bg-slate-800 text-white border-none shadow-xl">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-lg"><i class="fas fa-print mr-2"></i> Configuração de Impressão</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <label class="flex items-center gap-3 p-3 rounded-xl bg-white/10 cursor-pointer hover:bg-white/20 transition-all">
+                            <input type="checkbox" x-model="printDouble" class="w-5 h-5 rounded text-blue-500 focus:ring-offset-slate-800">
+                            <div>
+                                <span class="font-bold block text-sm">Imprimir 2ª Via</span>
+                                <span class="text-xs text-slate-300" x-text="prescriptionType === 'especial' ? 'Obrigatório para Controle Especial' : 'Duplica a receita na mesma página'"></span>
+                            </div>
+                        </label>
+                        <button @click="print()" class="w-full bg-white text-slate-900 font-bold py-3 rounded-xl hover:bg-blue-50 transition-all flex items-center justify-center gap-2 shadow-lg">
+                            <i class="fas fa-print text-xl"></i> IMPRIMIR RECEITA
+                        </button>
+                    </div>
                 </div>
 
             </div>
 
-            <!-- RIGHT: PREVIEW -->
-            <div class="lg:w-[210mm] flex-shrink-0">
-                <div id="printable-area" class="bg-white text-slate-900 font-poppins" :class="{'shadow-xl rounded-lg': !isPrinting}">
+            <!-- RIGHT COLUMN: PREVIEW (PAPER) -->
+            <div class="lg:w-[210mm] flex-shrink-0 mx-auto">
+                <div id="printable-area" class="bg-white text-slate-900 font-poppins relative overflow-hidden" :class="{'paper-shadow rounded-sm': !isPrinting, 'h-[297mm]': isPrinting}">
                     
-                    <div class="h-[297mm] w-[210mm] flex flex-col p-[20mm]">
+                    <!-- PAGE CONTENT -->
+                    <div class="h-[297mm] w-[210mm] relative flex flex-col p-[20mm]">
                         
                         <!-- Header -->
                         <header class="flex justify-between items-start border-b border-slate-300 pb-6 mb-8">
+                            <!-- Logo Placeholder -->
                             <div class="w-32 h-20 bg-slate-100 rounded-lg flex flex-col items-center justify-center text-slate-300 border border-dashed border-slate-200">
                                 <i class="fas fa-hospital text-2xl mb-1"></i>
-                                <span class="text-xs font-bold">Logo</span>
+                                <span class="text-[10px] font-bold uppercase">Sua Logo</span>
                             </div>
                             
+                            <!-- Doctor Info (Right Aligned, Smaller) -->
                             <div class="text-right">
                                 <h1 class="text-lg font-bold uppercase text-slate-800" x-text="doctor.name || 'Nome do Médico'"></h1>
                                 <div class="text-xs font-medium text-slate-500 mt-1">
@@ -337,10 +382,11 @@ app.get('/receituario', (c) => {
 
                         <!-- Body -->
                         <div class="flex-grow">
+                            <!-- Patient Info -->
                             <div class="mb-8">
                                 <div class="flex items-baseline border-b border-dotted border-slate-300 pb-1 mb-2">
                                     <span class="font-bold text-sm mr-2 text-slate-600">PACIENTE:</span>
-                                    <span class="text-lg font-semibold uppercase text-slate-900" x-text="patient.name || 'Nome do Paciente'"></span>
+                                    <span class="text-lg font-semibold uppercase text-slate-900" x-text="patient.name"></span>
                                 </div>
                                 <div class="flex gap-6 text-xs text-slate-500">
                                     <div x-show="patient.cpf">
@@ -353,27 +399,55 @@ app.get('/receituario', (c) => {
                             </div>
 
                             <div class="mb-8 text-center">
-                                <span class="text-lg font-bold border-2 border-slate-800 px-8 py-1.5 rounded-full uppercase" x-text="getTitle()"></span>
+                                <span class="text-lg font-bold border-2 border-slate-800 px-8 py-1.5 rounded-full uppercase tracking-wider" 
+                                      x-text="getDocTitle()"></span>
                             </div>
 
-                            <!-- Medicamentos -->
-                            <div x-show="tipo !== 'livre'" class="space-y-6">
-                                <template x-for="(med, idx) in meds" :key="idx">
+                            <!-- List Content -->
+                            <div class="space-y-6" x-show="prescriptionType !== 'livre'">
+                                <template x-for="(med, index) in medications" :key="index">
                                     <div class="relative pl-8">
-                                        <span class="absolute left-0 top-0 font-bold text-lg text-slate-400" x-text="(idx + 1) + '.'"></span>
+                                        <span class="absolute left-0 top-0 font-bold text-lg text-slate-400" x-text="(index + 1) + '.'"></span>
                                         <div class="flex justify-between items-baseline mb-1">
                                             <span class="font-bold text-lg text-slate-800" x-text="med.name"></span>
                                             <span class="border-b border-dotted border-slate-300 min-w-[100px] text-right px-2 font-bold text-slate-700" x-text="med.quantity"></span>
                                         </div>
-                                        <div class="text-sm leading-relaxed pl-2 text-slate-600 font-medium">
+                                        <div class="text-sm leading-relaxed pl-2 text-slate-600 font-medium bg-slate-50/50 p-2 rounded-lg border border-transparent">
                                             <span class="font-bold mr-1 text-slate-400 text-xs uppercase">Uso:</span> <span x-text="med.instruction"></span>
                                         </div>
                                     </div>
                                 </template>
                             </div>
 
-                            <!-- Texto Livre -->
-                            <div x-show="tipo === 'livre'" class="whitespace-pre-wrap text-base text-slate-800 font-medium leading-relaxed" x-text="freeText"></div>
+                            <!-- Free Text Content -->
+                            <div x-show="prescriptionType === 'livre'" class="whitespace-pre-wrap text-base text-slate-800 font-medium leading-relaxed px-2" x-text="freeTextContent"></div>
+                        </div>
+
+                        <!-- Special Control Footer (Buyer Info) -->
+                        <div x-show="prescriptionType === 'especial'" class="mt-4 mb-4 border border-slate-800 p-2 flex gap-4 text-[9px] font-sans">
+                            <div class="flex-1 border-r border-slate-300 pr-2">
+                                <p class="font-bold bg-slate-100 px-1 mb-1 text-center">IDENTIFICAÇÃO DO COMPRADOR</p>
+                                <div class="grid gap-1">
+                                    <div class="border-b border-dotted border-slate-300 py-1">Nome:</div>
+                                    <div class="flex gap-2">
+                                        <div class="w-1/2 border-b border-dotted border-slate-300 py-1">RG:</div>
+                                        <div class="w-1/2 border-b border-dotted border-slate-300 py-1">Órgão Emissor:</div>
+                                    </div>
+                                    <div class="border-b border-dotted border-slate-300 py-1">End:</div>
+                                    <div class="flex gap-2">
+                                        <div class="w-2/3 border-b border-dotted border-slate-300 py-1">Cidade:</div>
+                                        <div class="w-1/3 border-b border-dotted border-slate-300 py-1">UF:</div>
+                                    </div>
+                                    <div class="border-b border-dotted border-slate-300 py-1">Telefone:</div>
+                                </div>
+                            </div>
+                            <div class="w-1/3">
+                                <p class="font-bold bg-slate-100 px-1 mb-1 text-center">IDENTIFICAÇÃO DO FORNECEDOR</p>
+                                <div class="h-20 border border-dotted border-slate-300 flex items-end justify-center pb-1">
+                                    <span class="text-[8px] text-slate-400">Carimbo da Farmácia</span>
+                                </div>
+                                <div class="mt-1 border-b border-dotted border-slate-300 py-1">Data: ____/____/______</div>
+                            </div>
                         </div>
 
                         <!-- Footer Signature -->
@@ -386,9 +460,98 @@ app.get('/receituario', (c) => {
                             </div>
                             <div class="text-center text-xs font-bold border-t-2 border-slate-200 pt-3 flex justify-between text-slate-400">
                                 <span>Data: <span x-text="formatDate(date)" class="text-slate-600"></span></span>
-                                <span x-show="printDouble" class="uppercase text-xs border border-slate-300 px-2 rounded">1ª Via</span>
+                                <span x-show="printDouble" class="uppercase text-[10px] border border-slate-300 px-2 rounded">1ª Via</span>
                             </div>
                         </footer>
+
+                        <!-- Second Copy -->
+                        <template x-if="printDouble">
+                            <div class="absolute top-[148mm] left-0 w-full border-t-2 border-dashed border-slate-300 flex justify-center">
+                                <span class="bg-white px-2 text-[10px] text-slate-400 -mt-2">Corte Aqui</span>
+                            </div>
+                        </template>
+                        
+                        <template x-if="printDouble">
+                            <div class="absolute top-[152mm] left-[20mm] right-[20mm] bottom-0 flex flex-col pt-4">
+                                <!-- Copy Header -->
+                                <div class="flex justify-between items-start border-b border-slate-300 pb-2 mb-4">
+                                    <div class="text-slate-300">
+                                        <i class="fas fa-hospital text-xl"></i>
+                                    </div>
+                                    <div class="text-right">
+                                        <h1 class="text-sm font-bold uppercase text-slate-800" x-text="doctor.name"></h1>
+                                        <span class="text-[10px] font-medium text-slate-500 block">CRM-<span x-text="doctor.uf"></span> <span x-text="doctor.crm"></span></span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Copy Body -->
+                                <div class="flex-grow">
+                                    <div class="mb-4">
+                                        <div class="flex items-baseline border-b border-dotted border-slate-300 pb-1">
+                                            <span class="font-bold text-xs mr-2 text-slate-600">PACIENTE:</span> 
+                                            <span class="text-sm font-semibold uppercase text-slate-900" x-text="patient.name"></span>
+                                        </div>
+                                        <div class="text-[10px] text-slate-500 mt-1" x-show="patient.cpf || patient.address">
+                                            <span x-show="patient.cpf" class="mr-2">CPF: <span x-text="patient.cpf"></span></span>
+                                            <span x-show="patient.address">End: <span x-text="patient.address"></span></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4 text-center">
+                                        <span class="text-sm font-bold border border-slate-800 px-4 py-0.5 rounded-full uppercase" 
+                                              x-text="getDocTitle()"></span>
+                                    </div>
+
+                                    <div class="space-y-2" x-show="prescriptionType !== 'livre'">
+                                        <template x-for="(med, index) in medications" :key="index">
+                                            <div class="relative pl-6">
+                                                <span class="absolute left-0 top-0 font-bold text-sm text-slate-400" x-text="(index + 1) + '.'"></span>
+                                                <div class="flex justify-between items-baseline">
+                                                    <span class="font-bold text-sm text-slate-800" x-text="med.name"></span>
+                                                    <span class="text-xs font-bold text-slate-700" x-text="med.quantity"></span>
+                                                </div>
+                                                <div class="text-xs pl-1 text-slate-600" x-text="med.instruction"></div>
+                                            </div>
+                                        </template>
+                                    </div>
+
+                                    <div x-show="prescriptionType === 'livre'" class="whitespace-pre-wrap text-xs text-slate-800 leading-relaxed" x-text="freeTextContent"></div>
+                                </div>
+
+                                <!-- Special Control Footer (Buyer Info Copy) -->
+                                <div x-show="prescriptionType === 'especial'" class="mt-2 mb-2 border border-slate-800 p-1 flex gap-2 text-[8px] font-sans">
+                                    <div class="flex-1 border-r border-slate-300 pr-1">
+                                        <p class="font-bold bg-slate-100 px-1 mb-1 text-center">IDENTIFICAÇÃO DO COMPRADOR</p>
+                                        <div class="grid gap-1">
+                                            <div class="border-b border-dotted border-slate-300 py-1">Nome:</div>
+                                            <div class="flex gap-1">
+                                                <div class="w-1/2 border-b border-dotted border-slate-300 py-1">RG:</div>
+                                                <div class="border-b border-dotted border-slate-300 py-1 w-1/2">Tel:</div>
+                                            </div>
+                                            <div class="border-b border-dotted border-slate-300 py-1">End:</div>
+                                        </div>
+                                    </div>
+                                    <div class="w-1/3">
+                                        <p class="font-bold bg-slate-100 px-1 mb-1 text-center">FORNECEDOR</p>
+                                        <div class="h-10 border border-dotted border-slate-300 mb-1"></div>
+                                        <div class="border-b border-dotted border-slate-300">Data: __/__/____</div>
+                                    </div>
+                                </div>
+
+                                <!-- Copy Footer -->
+                                <footer class="mt-auto">
+                                    <div class="flex justify-center mb-4">
+                                        <div class="text-center w-48 border-t border-slate-800 pt-1">
+                                            <p class="text-[10px] text-slate-500">Assinatura</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-center text-[10px] font-bold flex justify-between text-slate-400">
+                                        <span x-text="formatDate(date)"></span>
+                                        <span class="uppercase border border-slate-300 px-2 rounded">2ª Via</span>
+                                    </div>
+                                </footer>
+                            </div>
+                        </template>
 
                     </div>
                 </div>
@@ -398,58 +561,117 @@ app.get('/receituario', (c) => {
         
         <script>
             document.addEventListener('alpine:init', () => {
-                Alpine.data('receituarioApp', () => ({
-                    tipo: 'simples',
-                    doctor: { name: '', crm: '', uf: '', address: '' },
-                    patient: { name: '', cpf: '', address: '' },
+                Alpine.data('prescriptionApp', () => ({
+                    prescriptionType: 'simples',
+                    doctor: {
+                        name: '',
+                        crm: '',
+                        uf: '',
+                        address: ''
+                    },
+                    patient: {
+                        name: '',
+                        cpf: '',
+                        address: ''
+                    },
                     date: new Date().toISOString().split('T')[0],
-                    meds: [],
-                    newMed: { name: '', quantity: '', instruction: '' },
-                    freeTitle: 'Solicitação de Exames',
-                    freeText: 'Solicito:\\n\\n1. Hemograma Completo\\n2. Creatinina\\n3. Ureia\\n4. Sódio e Potássio\\n5. Glicemia de Jejum\\n6. TGO e TGP\\n\\nIndicação Clínica: Check-up de rotina.',
+                    medications: [],
+                    newMed: {
+                        name: '',
+                        quantity: '',
+                        instruction: ''
+                    },
+                    // Texto livre construído como array para evitar erros de quebra de linha
+                    freeTextTitle: 'Solicitação de Exames',
+                    freeTextContent: [
+                        'Solicito:',
+                        '',
+                        '1. Hemograma Completo',
+                        '2. Creatinina',
+                        '3. Ureia',
+                        '4. Sódio e Potássio',
+                        '5. Glicemia de Jejum',
+                        '6. TGO e TGP',
+                        '',
+                        'Indicação Clínica: Check-up de rotina.'
+                    ].join('\n'),
                     printDouble: false,
                     isPrinting: false,
 
                     init() {
-                        const saved = localStorage.getItem('plantao_doctor');
-                        if (saved) {
-                            try {
-                                this.doctor = JSON.parse(saved);
-                            } catch (e) {
-                                console.error('Erro ao carregar médico:', e);
+                        try {
+                            const savedDoctor = localStorage.getItem('plantao_doctor');
+                            if (savedDoctor) {
+                                const parsed = JSON.parse(savedDoctor);
+                                if (parsed && typeof parsed === 'object') {
+                                    this.doctor = { ...this.doctor, ...parsed };
+                                }
                             }
+                        } catch (e) {
+                            console.error('Erro ao carregar dados do médico:', e);
+                            localStorage.removeItem('plantao_doctor');
                         }
                         
-                        this.$watch('tipo', (val) => {
-                            if (val === 'especial') this.printDouble = true;
+                        // Watch for prescription type changes
+                        this.$watch('prescriptionType', (val) => {
+                            if (val === 'especial') {
+                                this.printDouble = true;
+                            } else if (val === 'livre') {
+                                this.printDouble = false;
+                            }
                         });
                     },
 
-                    getTitle() {
-                        if (this.tipo === 'especial') return 'Receituário de Controle Especial';
-                        if (this.tipo === 'livre') return this.freeTitle;
+                    setPrescriptionType(type) {
+                        this.prescriptionType = type;
+                        if (type === 'especial') this.printDouble = true;
+                        if (type === 'livre') {
+                            this.printDouble = false;
+                            // Se estiver vazio, garante o texto padrão
+                            if (!this.freeTextContent) {
+                                this.freeTextContent = [
+                                    'Solicito:',
+                                    '',
+                                    '1. Hemograma Completo',
+                                    '2. Creatinina',
+                                    '3. Ureia',
+                                    '4. Sódio e Potássio',
+                                    '5. Glicemia de Jejum',
+                                    '6. TGO e TGP',
+                                    '',
+                                    'Indicação Clínica: Check-up de rotina.'
+                                ].join('\n');
+                            }
+                        }
+                    },
+
+                    getDocTitle() {
+                        if (this.prescriptionType === 'especial') return 'Receituário de Controle Especial';
+                        if (this.prescriptionType === 'livre') return this.freeTextTitle;
                         return 'Receituário Médico';
                     },
 
                     saveDoctor() {
                         localStorage.setItem('plantao_doctor', JSON.stringify(this.doctor));
-                        alert('Dados salvos!');
+                        alert('Dados do médico salvos com sucesso!');
                     },
 
                     addMed() {
                         if (!this.newMed.name) return;
-                        this.meds.push({...this.newMed});
+                        this.medications.push({...this.newMed});
                         this.newMed = { name: '', quantity: '', instruction: '' };
                     },
 
-                    removeMed(idx) {
-                        this.meds.splice(idx, 1);
+                    removeMed(index) {
+                        this.medications.splice(index, 1);
                     },
 
-                    formatDate(d) {
-                        if (!d) return '';
-                        const date = new Date(d);
-                        return date.toLocaleDateString('pt-BR');
+                    formatDate(dateString) {
+                        if(!dateString) return '';
+                        const date = new Date(dateString);
+                        const userTimezoneOffset = date.getTimezoneOffset() * 60000;
+                        const offsetDate = new Date(date.getTime() + userTimezoneOffset);
+                        return offsetDate.toLocaleDateString('pt-BR');
                     },
 
                     print() {
@@ -466,7 +688,6 @@ app.get('/receituario', (c) => {
     </html>
   `)
 })
-
 
 app.get('/', (c) => {
   return c.html(`
