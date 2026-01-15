@@ -1,0 +1,413 @@
+<!-- ============================================ -->
+<!-- SALA VERMELHA / UTI - TEMPLATES            -->
+<!-- ============================================ -->
+<div>
+    <!-- SUB-SELETOR: Escolha entre Evolução Crítico e XABCDE -->
+    <div class="form-card border-l-4 border-red-500 mb-6">
+        <h3 class="font-bold text-lg text-slate-700 mb-4 flex items-center gap-2">
+            <i class="fas fa-clipboard-list text-red-600"></i>
+            Selecione o Tipo de Registro
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <button 
+                @click="form.utiTemplate = 'evolucao'"
+                :class="form.utiTemplate === 'evolucao' ? 'bg-red-600 text-white shadow-lg scale-105' : 'bg-white text-slate-700 hover:bg-red-50 border-2 border-slate-200'"
+                class="p-6 rounded-xl font-bold transition-all flex flex-col items-center justify-center gap-3">
+                <i class="fas fa-notes-medical text-3xl"></i>
+                <div>
+                    <div class="text-base">Evolução de Paciente Crítico</div>
+                    <div class="text-xs font-normal opacity-80 mt-1">Paciente já em cuidados intensivos</div>
+                </div>
+            </button>
+            <button 
+                @click="form.utiTemplate = 'xabcde'"
+                :class="form.utiTemplate === 'xabcde' ? 'bg-red-600 text-white shadow-lg scale-105' : 'bg-white text-slate-700 hover:bg-red-50 border-2 border-slate-200'"
+                class="p-6 rounded-xl font-bold transition-all flex flex-col items-center justify-center gap-3">
+                <i class="fas fa-ambulance text-3xl"></i>
+                <div>
+                    <div class="text-base">Admissão XABCDE</div>
+                    <div class="text-xs font-normal opacity-80 mt-1">Avaliação inicial - Protocolo XABCDE</div>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <!-- ======================================== -->
+    <!-- TEMPLATE 1: Evolução de Paciente Crítico -->
+    <!-- ======================================== -->
+    <template x-if="form.utiTemplate === 'evolucao'">
+        <div>
+            <!-- A. CABEÇALHO / DADOS DA INTERNAÇÃO -->
+            <div class="form-card border-l-4 border-red-500 bg-gradient-to-r from-red-50/50 to-pink-50/30">
+                <div class="flex items-center gap-2 mb-6">
+                    <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center">
+                        <i class="fas fa-calendar-plus"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-700">Dados da Internação</h3>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="form-label">Data de Admissão</label>
+                        <input type="date" x-model="form.uti.dataAdmissao" class="form-input border-red-200 focus:ring-red-500/20 focus:border-red-500">
+                    </div>
+                    <div>
+                        <label class="form-label">Local</label>
+                        <select x-model="form.uti.local" class="form-input border-red-200 focus:ring-red-500/20 focus:border-red-500">
+                            <option value="UPA">UPA</option>
+                            <option value="UTI">UTI</option>
+                            <option value="Sala Vermelha">Sala Vermelha</option>
+                            <option value="Sala de Cuidados">Sala de Cuidados</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <label class="form-label">Motivo da Internação / Transferência</label>
+                    <textarea x-model="form.uti.motivo" class="form-input h-20 border-red-200 focus:ring-red-500/20 focus:border-red-500" placeholder="Descreva o motivo da admissão neste setor..."></textarea>
+                </div>
+            </div>
+
+            <!-- B. DIAGNÓSTICO PRINCIPAL -->
+            <div class="form-card border-l-4 border-red-500">
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-700">Diagnóstico Principal (DX)</h3>
+                </div>
+                <textarea x-model="form.uti.dx" class="form-input h-24 border-red-200 focus:ring-red-500/20 focus:border-red-500" placeholder="Diagnóstico principal que motivou a internação..."></textarea>
+            </div>
+
+            <!-- C. RASTREIO COVID-19 -->
+            <div class="form-card border-l-4 border-amber-500 bg-gradient-to-r from-amber-50/50 to-yellow-50/30">
+                <div class="flex items-center gap-2 mb-6">
+                    <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center">
+                        <i class="fas fa-virus"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-700">Rastreio COVID-19</h3>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="form-label">Data do TR COVID-19</label>
+                        <input type="date" x-model="form.uti.covidData" class="form-input border-amber-200 focus:ring-amber-500/20 focus:border-amber-500">
+                    </div>
+                    <div>
+                        <label class="form-label">Resultado TR COVID-19</label>
+                        <select x-model="form.uti.covidResultado" class="form-input border-amber-200 focus:ring-amber-500/20 focus:border-amber-500">
+                            <option value="NÃO REAGENTE">NÃO REAGENTE</option>
+                            <option value="REAGENTE">REAGENTE</option>
+                            <option value="AGUARDA">AGUARDA</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label">RT-PCR</label>
+                        <select x-model="form.uti.rtpcr" class="form-input border-amber-200 focus:ring-amber-500/20 focus:border-amber-500">
+                            <option value="AGUARDA">AGUARDA</option>
+                            <option value="NEGATIVO">NEGATIVO</option>
+                            <option value="POSITIVO">POSITIVO</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D. ANTIBIOTICOTERAPIA (ATB) - Lista Dinâmica -->
+            <div class="form-card border-l-4 border-purple-500 bg-gradient-to-r from-purple-50/50 to-indigo-50/30">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-2">
+                        <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center">
+                            <i class="fas fa-pills"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-700">Antibioticoterapia (ATB)</h3>
+                    </div>
+                    <button 
+                        @click="form.uti.atb.push({nome:'',horario:'',dataInicio:'',status:'EM USO'})"
+                        class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-all text-sm font-bold flex items-center gap-2 shadow-lg hover:shadow-purple-500/30">
+                        <i class="fas fa-plus"></i>
+                        Adicionar ATB
+                    </button>
+                </div>
+
+                <div class="space-y-3">
+                    <template x-if="form.uti.atb.length === 0">
+                        <div class="text-center py-8 border-2 border-dashed border-purple-200 rounded-xl bg-purple-50/30">
+                            <i class="fas fa-pills text-4xl text-purple-300 mb-3"></i>
+                            <p class="text-purple-400 text-sm font-medium">Nenhum antibiótico adicionado</p>
+                            <p class="text-purple-300 text-xs mt-1">Clique em "Adicionar ATB" para incluir</p>
+                        </div>
+                    </template>
+
+                    <template x-for="(atb, index) in form.uti.atb" :key="index">
+                        <div class="bg-white p-4 rounded-xl border-2 border-purple-200 hover:border-purple-400 transition-all shadow-sm hover:shadow-md">
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
+                                <div class="md:col-span-4">
+                                    <label class="text-[10px] text-purple-600 uppercase font-bold mb-1 block">Nome do ATB</label>
+                                    <input type="text" x-model="atb.nome" class="form-input border-purple-200 focus:ring-purple-500/20 focus:border-purple-500" placeholder="Ex: CEFTRIAXONA">
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="text-[10px] text-purple-600 uppercase font-bold mb-1 block">Horário</label>
+                                    <input type="text" x-model="atb.horario" class="form-input border-purple-200 focus:ring-purple-500/20 focus:border-purple-500" placeholder="12/12">
+                                </div>
+                                <div class="md:col-span-3">
+                                    <label class="text-[10px] text-purple-600 uppercase font-bold mb-1 block">Data Início</label>
+                                    <input type="date" x-model="atb.dataInicio" class="form-input border-purple-200 focus:ring-purple-500/20 focus:border-purple-500">
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="text-[10px] text-purple-600 uppercase font-bold mb-1 block">Status</label>
+                                    <select x-model="atb.status" class="form-input border-purple-200 focus:ring-purple-500/20 focus:border-purple-500">
+                                        <option value="EM USO">EM USO</option>
+                                        <option value="SUSPENSO">SUSPENSO</option>
+                                        <option value="INICIADO HOJE">INICIADO HOJE</option>
+                                    </select>
+                                </div>
+                                <div class="md:col-span-1 flex justify-end">
+                                    <button 
+                                        @click="form.uti.atb.splice(index, 1)"
+                                        class="h-[44px] w-[44px] bg-red-100 text-red-600 rounded-lg hover:bg-red-600 hover:text-white transition-all flex items-center justify-center">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- E. HISTÓRIA DA DOENÇA ATUAL (HDA) -->
+            <div class="form-card border-l-4 border-blue-500">
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
+                        <i class="fas fa-file-medical-alt"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-700">História da Doença Atual (HDA)</h3>
+                </div>
+                <textarea x-model="form.uti.hda" class="form-input h-32 border-blue-200 focus:ring-blue-500/20 focus:border-blue-500" placeholder="Descreva a história da doença atual do paciente..."></textarea>
+            </div>
+
+            <!-- F. DISPOSITIVOS/ACESSOS (DEVICES) - Lista Dinâmica -->
+            <div class="form-card border-l-4 border-emerald-500 bg-gradient-to-r from-emerald-50/50 to-teal-50/30">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-2">
+                        <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
+                            <i class="fas fa-plug"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-700">Dispositivos / Acessos (DEVICES)</h3>
+                    </div>
+                    <button 
+                        @click="form.uti.devices.push({tipo:'',detalhes:'',dataInsercao:'',status:'EM USO'})"
+                        class="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-all text-sm font-bold flex items-center gap-2 shadow-lg hover:shadow-emerald-500/30">
+                        <i class="fas fa-plus"></i>
+                        Adicionar Device
+                    </button>
+                </div>
+
+                <div class="space-y-3">
+                    <template x-if="form.uti.devices.length === 0">
+                        <div class="text-center py-8 border-2 border-dashed border-emerald-200 rounded-xl bg-emerald-50/30">
+                            <i class="fas fa-plug text-4xl text-emerald-300 mb-3"></i>
+                            <p class="text-emerald-400 text-sm font-medium">Nenhum dispositivo adicionado</p>
+                            <p class="text-emerald-300 text-xs mt-1">Clique em "Adicionar Device" para incluir</p>
+                        </div>
+                    </template>
+
+                    <template x-for="(device, index) in form.uti.devices" :key="index">
+                        <div class="bg-white p-4 rounded-xl border-2 border-emerald-200 hover:border-emerald-400 transition-all shadow-sm hover:shadow-md">
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
+                                <div class="md:col-span-3">
+                                    <label class="text-[10px] text-emerald-600 uppercase font-bold mb-1 block">Tipo</label>
+                                    <select x-model="device.tipo" class="form-input border-emerald-200 focus:ring-emerald-500/20 focus:border-emerald-500">
+                                        <option value="">Selecione...</option>
+                                        <option value="TOT">TOT (Tubo Orotraqueal)</option>
+                                        <option value="CVC">CVC (Cateter Venoso Central)</option>
+                                        <option value="SVD">SVD (Sonda Vesical de Demora)</option>
+                                        <option value="SNE">SNE (Sonda Nasoenteral)</option>
+                                        <option value="Cateter Arterial">Cateter Arterial</option>
+                                        <option value="Dreno">Dreno</option>
+                                        <option value="Outro">Outro</option>
+                                    </select>
+                                </div>
+                                <div class="md:col-span-4">
+                                    <label class="text-[10px] text-emerald-600 uppercase font-bold mb-1 block">Detalhes</label>
+                                    <input type="text" x-model="device.detalhes" class="form-input border-emerald-200 focus:ring-emerald-500/20 focus:border-emerald-500" placeholder="Ex: TOT 7.5 / CVC VJIE">
+                                </div>
+                                <div class="md:col-span-3">
+                                    <label class="text-[10px] text-emerald-600 uppercase font-bold mb-1 block">Data Inserção</label>
+                                    <input type="date" x-model="device.dataInsercao" class="form-input border-emerald-200 focus:ring-emerald-500/20 focus:border-emerald-500">
+                                </div>
+                                <div class="md:col-span-1">
+                                    <label class="text-[10px] text-emerald-600 uppercase font-bold mb-1 block">Status</label>
+                                    <select x-model="device.status" class="form-input border-emerald-200 focus:ring-emerald-500/20 focus:border-emerald-500">
+                                        <option value="EM USO">EM USO</option>
+                                        <option value="RETIRADO">RETIRADO</option>
+                                        <option value="OBSTRUÍDO">OBSTRUÍDO</option>
+                                    </select>
+                                </div>
+                                <div class="md:col-span-1 flex justify-end">
+                                    <button 
+                                        @click="form.uti.devices.splice(index, 1)"
+                                        class="h-[44px] w-[44px] bg-red-100 text-red-600 rounded-lg hover:bg-red-600 hover:text-white transition-all flex items-center justify-center">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- G. EVOLUÇÃO POR SISTEMAS -->
+            <div class="form-card border-l-4 border-cyan-500 bg-gradient-to-r from-cyan-50/50 to-blue-50/30">
+                <div class="flex items-center gap-2 mb-6">
+                    <div class="w-10 h-10 rounded-full bg-cyan-100 text-cyan-600 flex items-center justify-center">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-700">Evolução por Sistemas</h3>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="form-label flex items-center gap-2">
+                            <i class="fas fa-brain text-cyan-600"></i>
+                            <span>NEURO (Neurológico)</span>
+                        </label>
+                        <textarea x-model="form.uti.evolucao.neuro" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Glasgow, sedação, pupilas, déficits motores..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="form-label flex items-center gap-2">
+                            <i class="fas fa-heartbeat text-red-600"></i>
+                            <span>SCV (Sistema Cardiovascular)</span>
+                        </label>
+                        <textarea x-model="form.uti.evolucao.scv" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Hemodinâmica, drogas vasoativas, ritmo cardíaco..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="form-label flex items-center gap-2">
+                            <i class="fas fa-lungs text-blue-600"></i>
+                            <span>SR (Sistema Respiratório)</span>
+                        </label>
+                        <textarea x-model="form.uti.evolucao.sr" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Padrão ventilatório, suporte de O2, ausculta..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="form-label flex items-center gap-2">
+                            <i class="fas fa-stomach text-amber-600"></i>
+                            <span>TGI (Trato Gastrointestinal)</span>
+                        </label>
+                        <textarea x-model="form.uti.evolucao.tgi" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Dieta, abdome, eliminações intestinais..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="form-label flex items-center gap-2">
+                            <i class="fas fa-kidneys text-purple-600"></i>
+                            <span>R/M (Renal/Metabólico)</span>
+                        </label>
+                        <textarea x-model="form.uti.evolucao.rm" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Diurese, função renal, distúrbios hidroeletrolíticos..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="form-label flex items-center gap-2">
+                            <i class="fas fa-vial text-pink-600"></i>
+                            <span>H/I (Hematológico/Infeccioso)</span>
+                        </label>
+                        <textarea x-model="form.uti.evolucao.hi" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Hemograma, coagulograma, culturas, foco infeccioso..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="form-label flex items-center gap-2">
+                            <i class="fas fa-hand-paper text-slate-600"></i>
+                            <span>EXTR (Extremidades)</span>
+                        </label>
+                        <textarea x-model="form.uti.evolucao.extr" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Perfusão periférica, edemas, pulsos, lesões..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- H. EXAMES COMPLEMENTARES -->
+            <div class="form-card border-l-4 border-indigo-500">
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-700">Exames Complementares</h3>
+                </div>
+                <textarea x-model="form.uti.exames" class="form-input h-32 border-indigo-200 focus:ring-indigo-500/20 focus:border-indigo-500" placeholder="Exames laboratoriais e de imagem solicitados/aguardando/resultados..."></textarea>
+            </div>
+
+            <!-- I. CONDUTAS -->
+            <div class="form-card border-l-4 border-rose-500 bg-gradient-to-r from-rose-50/50 to-red-50/30">
+                <div class="flex items-center gap-2 mb-6">
+                    <div class="w-10 h-10 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-700">Condutas</h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+                    <label class="checkbox-card">
+                        <input type="checkbox" x-model="form.uti.condutas.vigilanciaNeuro" class="mr-3">
+                        <span class="flex-1">Vigilância NEUROLÓGICA</span>
+                        <i class="fas fa-brain text-cyan-400"></i>
+                    </label>
+                    <label class="checkbox-card">
+                        <input type="checkbox" x-model="form.uti.condutas.vigilanciaHemo" class="mr-3">
+                        <span class="flex-1">Vigilância HEMODINÂMICA</span>
+                        <i class="fas fa-heartbeat text-red-400"></i>
+                    </label>
+                    <label class="checkbox-card">
+                        <input type="checkbox" x-model="form.uti.condutas.vigilanciaInfec" class="mr-3">
+                        <span class="flex-1">Vigilância INFECCIOSA</span>
+                        <i class="fas fa-shield-virus text-purple-400"></i>
+                    </label>
+                    <label class="checkbox-card">
+                        <input type="checkbox" x-model="form.uti.condutas.vigilanciaVent" class="mr-3">
+                        <span class="flex-1">Vigilância VENTILATÓRIA</span>
+                        <i class="fas fa-lungs text-blue-400"></i>
+                    </label>
+                    <label class="checkbox-card">
+                        <input type="checkbox" x-model="form.uti.condutas.vigilanciaRenal" class="mr-3">
+                        <span class="flex-1">Vigilância RENAL/METABÓLICA</span>
+                        <i class="fas fa-kidneys text-amber-400"></i>
+                    </label>
+                    <label class="checkbox-card">
+                        <input type="checkbox" x-model="form.uti.condutas.profilaxiaTEV" class="mr-3">
+                        <span class="flex-1">PROFILAXIA TEV/LAMG</span>
+                        <i class="fas fa-syringe text-emerald-400"></i>
+                    </label>
+                    <label class="checkbox-card">
+                        <input type="checkbox" x-model="form.uti.condutas.aguardarVaga" class="mr-3">
+                        <span class="flex-1">Aguardar vaga de UTI/regulação</span>
+                        <i class="fas fa-bed text-indigo-400"></i>
+                    </label>
+                    <label class="checkbox-card">
+                        <input type="checkbox" x-model="form.uti.condutas.manterFamilia" class="mr-3">
+                        <span class="flex-1">Manter família informada</span>
+                        <i class="fas fa-users text-pink-400"></i>
+                    </label>
+                </div>
+
+                <div>
+                    <label class="form-label">Outras Condutas</label>
+                    <textarea x-model="form.uti.condutas.outras" class="form-input h-24 border-rose-200 focus:ring-rose-500/20 focus:border-rose-500" placeholder="Outras condutas específicas para este caso..."></textarea>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- ======================================== -->
+    <!-- TEMPLATE 2: Admissão XABCDE             -->
+    <!-- (Será implementado no Passo 5)          -->
+    <!-- ======================================== -->
+    <template x-if="form.utiTemplate === 'xabcde'">
+        <div>
+            <div class="form-card border-l-4 border-red-500">
+                <h3 class="font-bold text-lg text-red-600 mb-4 flex items-center gap-2">
+                    <i class="fas fa-ambulance"></i>
+                    Template XABCDE - Em desenvolvimento
+                </h3>
+                <p class="text-slate-600">O formulário de Admissão XABCDE será adicionado no próximo passo.</p>
+            </div>
+        </div>
+    </template>
+</div>

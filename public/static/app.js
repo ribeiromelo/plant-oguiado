@@ -1,6 +1,8 @@
 document.addEventListener('alpine:init', () => {
     Alpine.data('medicalForm', () => ({
         form: {
+            serviceType: 'clinica', // 'clinica' ou 'salavermelha'
+            utiTemplate: 'evolucao', // 'evolucao' ou 'xabcde'
             shift: 'PLANTÃO DIURNO',
             name: '',
             age: '',
@@ -66,6 +68,42 @@ document.addEventListener('alpine:init', () => {
                     alarm_signs: false,
                     certificate: false,
                     referral: false
+                }
+            },
+            // ========================================
+            // Dados UTI - Template 1 (Evolução Crítico)
+            // ========================================
+            uti: {
+                dataAdmissao: '',
+                local: 'Sala Vermelha',
+                motivo: '',
+                dx: '',
+                covidData: '',
+                covidResultado: 'NÃO REAGENTE',
+                rtpcr: 'AGUARDA',
+                atb: [],
+                hda: '',
+                devices: [],
+                evolucao: {
+                    neuro: '',
+                    scv: '',
+                    sr: '',
+                    tgi: '',
+                    rm: '',
+                    hi: '',
+                    extr: ''
+                },
+                exames: '',
+                condutas: {
+                    vigilanciaNeuro: false,
+                    vigilanciaHemo: false,
+                    vigilanciaInfec: false,
+                    vigilanciaVent: false,
+                    vigilanciaRenal: false,
+                    profilaxiaTEV: false,
+                    aguardarVaga: false,
+                    manterFamilia: false,
+                    outras: ''
                 }
             }
         },
