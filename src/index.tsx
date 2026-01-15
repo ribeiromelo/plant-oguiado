@@ -353,20 +353,20 @@ app.get('/receituario', (c) => {
                 <div id="printable-area" class="bg-white text-slate-900 font-poppins" :class="{'preview-paper rounded-lg': !isPrinting}">
                     
                     <!-- PAGE 1 -->
-                    <div class="w-[210mm] flex flex-col" :class="tipo === 'especial' ? 'h-[148.5mm] p-[15mm] pt-[10mm]' : 'min-h-[297mm] h-[297mm] p-[20mm]'">
+                    <div class="w-[210mm] flex flex-col" :class="tipo === 'especial' ? 'h-[148.5mm] p-[12mm] pt-[8mm]' : 'min-h-[297mm] h-[297mm] p-[20mm]'">
                         
                         <!-- Header -->
-                        <header class="flex justify-between items-start border-b-2 border-slate-300" :class="tipo === 'especial' ? 'pb-3 mb-4' : 'pb-5 mb-8'">
-                            <div class="bg-slate-100 rounded-lg flex flex-col items-center justify-center text-slate-300 border border-dashed border-slate-200" :class="tipo === 'especial' ? 'w-20 h-14' : 'w-32 h-20'">
-                                <i class="fas fa-hospital" :class="tipo === 'especial' ? 'text-lg' : 'text-2xl mb-1'"></i>
-                                <span class="font-bold" :class="tipo === 'especial' ? 'text-[9px]' : 'text-xs'">LOGO</span>
+                        <header class="flex justify-between items-start border-b-2 border-slate-300" :class="tipo === 'especial' ? 'pb-2 mb-3' : 'pb-5 mb-8'">
+                            <div class="bg-slate-100 rounded-lg flex flex-col items-center justify-center text-slate-300 border border-dashed border-slate-200" :class="tipo === 'especial' ? 'w-16 h-12' : 'w-32 h-20'">
+                                <i class="fas fa-hospital" :class="tipo === 'especial' ? 'text-base' : 'text-2xl mb-1'"></i>
+                                <span class="font-bold" :class="tipo === 'especial' ? 'text-[8px]' : 'text-xs'">LOGO</span>
                             </div>
                             
                             <div class="text-right">
-                                <h1 class="font-bold uppercase text-slate-800" :class="tipo === 'especial' ? 'text-sm' : 'text-lg'" x-text="doctor.name || 'NOME DO MÉDICO'"></h1>
-                                <div class="font-medium text-slate-500 mt-1 space-y-0.5" :class="tipo === 'especial' ? 'text-[9px]' : 'text-xs'">
+                                <h1 class="font-bold uppercase text-slate-800" :class="tipo === 'especial' ? 'text-xs' : 'text-lg'" x-text="doctor.name || 'NOME DO MÉDICO'"></h1>
+                                <div class="font-medium text-slate-500 mt-1 space-y-0.5" :class="tipo === 'especial' ? 'text-[8px]' : 'text-xs'">
                                     <div>CRM-<span x-text="doctor.uf || 'UF'"></span> <span x-text="doctor.crm || '00000'"></span></div>
-                                    <div x-text="doctor.address" x-show="!tipo === 'especial' || doctor.address"></div>
+                                    <div x-text="doctor.address" x-show="tipo !== 'especial' || doctor.address"></div>
                                 </div>
                             </div>
                         </header>
@@ -374,12 +374,12 @@ app.get('/receituario', (c) => {
                         <!-- Body -->
                         <div class="flex-grow">
                             <!-- Patient Info -->
-                            <div :class="tipo === 'especial' ? 'mb-4' : 'mb-8'">
-                                <div class="flex items-baseline border-b border-dotted border-slate-400 mb-2" :class="tipo === 'especial' ? 'pb-0.5' : 'pb-1'">
-                                    <span class="font-bold mr-2 text-slate-600 uppercase" :class="tipo === 'especial' ? 'text-xs' : 'text-sm'">Paciente:</span>
-                                    <span class="font-bold uppercase text-slate-900" :class="tipo === 'especial' ? 'text-base' : 'text-lg'" x-text="patient.name || 'NOME DO PACIENTE'"></span>
+                            <div :class="tipo === 'especial' ? 'mb-3' : 'mb-8'">
+                                <div class="flex items-baseline border-b border-dotted border-slate-400 mb-1" :class="tipo === 'especial' ? 'pb-0.5' : 'pb-1'">
+                                    <span class="font-bold mr-2 text-slate-600 uppercase" :class="tipo === 'especial' ? 'text-[10px]' : 'text-sm'">Paciente:</span>
+                                    <span class="font-bold uppercase text-slate-900" :class="tipo === 'especial' ? 'text-sm' : 'text-lg'" x-text="patient.name || 'NOME DO PACIENTE'"></span>
                                 </div>
-                                <div class="flex gap-6 text-slate-600" :class="tipo === 'especial' ? 'text-[10px]' : 'text-xs'">
+                                <div class="flex gap-6 text-slate-600" :class="tipo === 'especial' ? 'text-[9px]' : 'text-xs'">
                                     <div x-show="patient.cpf">
                                         <span class="font-bold">CPF:</span> <span x-text="patient.cpf"></span>
                                     </div>
@@ -390,30 +390,30 @@ app.get('/receituario', (c) => {
                             </div>
 
                             <!-- Title -->
-                            <div class="text-center" :class="tipo === 'especial' ? 'mb-4' : 'mb-8'">
+                            <div class="text-center" :class="tipo === 'especial' ? 'mb-3' : 'mb-8'">
                                 <span class="inline-block font-bold border-2 border-slate-900 rounded-full uppercase tracking-wide" 
-                                      :class="tipo === 'especial' ? 'text-sm px-6 py-1' : 'text-lg px-8 py-2'" 
+                                      :class="tipo === 'especial' ? 'text-xs px-5 py-1' : 'text-lg px-8 py-2'" 
                                       x-text="getTitle()"></span>
                             </div>
 
                             <!-- Medicamentos -->
-                            <div x-show="tipo !== 'livre'" :class="tipo === 'especial' ? 'space-y-3' : 'space-y-6'">
+                            <div x-show="tipo !== 'livre'" :class="tipo === 'especial' ? 'space-y-2' : 'space-y-6'">
                                 <template x-for="(med, idx) in meds" :key="idx">
-                                    <div class="relative" :class="tipo === 'especial' ? 'pl-6' : 'pl-8'">
+                                    <div class="relative" :class="tipo === 'especial' ? 'pl-5' : 'pl-8'">
                                         <span class="absolute left-0 top-0 font-bold text-slate-500" 
-                                              :class="tipo === 'especial' ? 'text-base' : 'text-lg'" 
+                                              :class="tipo === 'especial' ? 'text-sm' : 'text-lg'" 
                                               x-text="(idx + 1) + '.'"></span>
-                                        <div class="flex justify-between items-baseline mb-1">
+                                        <div class="flex justify-between items-baseline mb-0.5">
                                             <span class="font-bold text-slate-900" 
-                                                  :class="tipo === 'especial' ? 'text-base' : 'text-lg'" 
+                                                  :class="tipo === 'especial' ? 'text-sm' : 'text-lg'" 
                                                   x-text="med.name"></span>
                                             <span class="border-b border-dotted border-slate-400 text-right px-2 font-bold text-slate-800 shrink-0 ml-2"
-                                                  :class="tipo === 'especial' ? 'min-w-[100px] text-sm' : 'min-w-[120px] text-base'" 
+                                                  :class="tipo === 'especial' ? 'min-w-[90px] text-xs' : 'min-w-[120px] text-base'" 
                                                   x-text="med.quantity"></span>
                                         </div>
-                                        <div class="leading-relaxed pl-2 text-slate-700 bg-slate-50 rounded-lg" 
-                                             :class="tipo === 'especial' ? 'text-xs p-2 mt-1' : 'text-sm p-3 mt-2'">
-                                            <span class="font-bold mr-1 text-slate-500 uppercase" :class="tipo === 'especial' ? 'text-[10px]' : 'text-xs'">Uso:</span> 
+                                        <div class="leading-relaxed pl-1 text-slate-700 bg-slate-50 rounded" 
+                                             :class="tipo === 'especial' ? 'text-[10px] p-1.5 mt-0.5' : 'text-sm p-3 mt-2'">
+                                            <span class="font-bold mr-0.5 text-slate-500 uppercase" :class="tipo === 'especial' ? 'text-[9px]' : 'text-xs'">Uso:</span> 
                                             <span x-text="med.instruction"></span>
                                         </div>
                                     </div>
@@ -422,51 +422,51 @@ app.get('/receituario', (c) => {
 
                             <!-- Texto Livre -->
                             <div x-show="tipo === 'livre'" class="whitespace-pre-wrap text-slate-800 leading-relaxed" 
-                                 :class="tipo === 'especial' ? 'text-sm' : 'text-base'" 
+                                 :class="tipo === 'especial' ? 'text-xs' : 'text-base'" 
                                  x-text="freeText"></div>
                         </div>
 
                         <!-- Special Control Footer -->
-                        <div x-show="tipo === 'especial'" class="mt-3 mb-3 border-2 border-slate-900 p-2 flex gap-2 text-[8px] font-sans">
-                            <div class="flex-1 border-r-2 border-slate-900 pr-3">
-                                <p class="font-bold bg-slate-900 text-white px-2 py-1 mb-2 text-center uppercase text-[10px]">Identificação do Comprador</p>
-                                <div class="space-y-2">
-                                    <div class="border-b border-dotted border-slate-400 py-1 font-medium">Nome: ____________________________________________</div>
-                                    <div class="flex gap-2">
-                                        <div class="flex-1 border-b border-dotted border-slate-400 py-1">RG: __________________</div>
-                                        <div class="flex-1 border-b border-dotted border-slate-400 py-1">Org. Emissor: _________</div>
+                        <div x-show="tipo === 'especial'" class="mt-2 mb-2 border-2 border-slate-900 p-1.5 flex gap-2 text-[7px] font-sans">
+                            <div class="flex-1 border-r-2 border-slate-900 pr-2">
+                                <p class="font-bold bg-slate-900 text-white px-1 py-0.5 mb-1 text-center uppercase text-[8px]">Identificação do Comprador</p>
+                                <div class="space-y-1">
+                                    <div class="border-b border-dotted border-slate-400 py-0.5 text-[7px]">Nome: ____________________________________</div>
+                                    <div class="flex gap-1.5">
+                                        <div class="flex-1 border-b border-dotted border-slate-400 py-0.5 text-[7px]">RG: ______________</div>
+                                        <div class="flex-1 border-b border-dotted border-slate-400 py-0.5 text-[7px]">Org. Emis.: ________</div>
                                     </div>
-                                    <div class="border-b border-dotted border-slate-400 py-1">End.: ______________________________________________</div>
-                                    <div class="flex gap-2">
-                                        <div class="flex-[2] border-b border-dotted border-slate-400 py-1">Cidade: _____________________</div>
-                                        <div class="flex-1 border-b border-dotted border-slate-400 py-1">UF: ____</div>
+                                    <div class="border-b border-dotted border-slate-400 py-0.5 text-[7px]">End.: __________________________________________</div>
+                                    <div class="flex gap-1.5">
+                                        <div class="flex-[2] border-b border-dotted border-slate-400 py-0.5 text-[7px]">Cidade: __________________</div>
+                                        <div class="flex-1 border-b border-dotted border-slate-400 py-0.5 text-[7px]">UF: ___</div>
                                     </div>
-                                    <div class="border-b border-dotted border-slate-400 py-1">Telefone: _______________________</div>
+                                    <div class="border-b border-dotted border-slate-400 py-0.5 text-[7px]">Telefone: ___________________</div>
                                 </div>
                             </div>
                             <div class="w-[35%]">
-                                <p class="font-bold bg-slate-900 text-white px-2 py-1 mb-2 text-center uppercase text-[9px]">Identificação do Fornecedor</p>
-                                <div class="border-2 border-dashed border-slate-400 flex items-end justify-center pb-1 mb-2" :class="tipo === 'especial' ? 'h-16' : 'h-24'">
-                                    <span class="text-[7px] text-slate-400 italic">Carimbo da Farmácia</span>
+                                <p class="font-bold bg-slate-900 text-white px-1 py-0.5 mb-1 text-center uppercase text-[8px]">Identificação do Fornecedor</p>
+                                <div class="border border-dashed border-slate-400 flex items-end justify-center pb-0.5 mb-1 h-12">
+                                    <span class="text-[6px] text-slate-400 italic">Carimbo da Farmácia</span>
                                 </div>
-                                <div class="border-b border-dotted border-slate-400 py-1 text-center text-[8px]">Data: ____/____/______</div>
-                                <div class="border-b border-dotted border-slate-400 py-1 mt-1.5 text-[8px]">Assinatura: ______________</div>
+                                <div class="border-b border-dotted border-slate-400 py-0.5 text-center text-[7px]">Data: ___/___/____</div>
+                                <div class="border-b border-dotted border-slate-400 py-0.5 mt-1 text-[7px]">Assinatura: ____________</div>
                             </div>
                         </div>
 
                         <!-- Footer -->
-                        <footer class="mt-auto" :class="tipo === 'especial' ? 'pt-3' : 'pt-6'">
-                            <div class="flex justify-center" :class="tipo === 'especial' ? 'mb-2' : 'mb-4'">
-                                <div class="text-center border-t-2 border-slate-900 pt-2" :class="tipo === 'especial' ? 'w-56' : 'w-72'">
-                                    <p class="font-bold text-slate-900" :class="tipo === 'especial' ? 'text-sm' : 'text-base'" x-text="doctor.name"></p>
-                                    <p class="text-slate-500 mt-1" :class="tipo === 'especial' ? 'text-[9px]' : 'text-xs'">Assinatura e Carimbo do Médico</p>
+                        <footer class="mt-auto" :class="tipo === 'especial' ? 'pt-2' : 'pt-6'">
+                            <div class="flex justify-center" :class="tipo === 'especial' ? 'mb-1.5' : 'mb-4'">
+                                <div class="text-center border-t-2 border-slate-900" :class="tipo === 'especial' ? 'w-48 pt-1' : 'w-72 pt-2'">
+                                    <p class="font-bold text-slate-900" :class="tipo === 'especial' ? 'text-[10px]' : 'text-base'" x-text="doctor.name"></p>
+                                    <p class="text-slate-500" :class="tipo === 'especial' ? 'text-[8px] mt-0.5' : 'text-xs mt-1'">Assinatura e Carimbo do Médico</p>
                                 </div>
                             </div>
                             <div class="text-center font-bold border-t-2 border-slate-200 flex justify-between text-slate-500" 
-                                 :class="tipo === 'especial' ? 'text-[10px] pt-2' : 'text-xs pt-3'">
+                                 :class="tipo === 'especial' ? 'text-[9px] pt-1.5' : 'text-xs pt-3'">
                                 <span>Data: <span x-text="formatDate(date)" class="text-slate-700"></span></span>
-                                <span x-show="tipo === 'especial' || printDouble" class="uppercase border border-slate-400 px-3 py-0.5 rounded-md bg-slate-100" 
-                                      :class="tipo === 'especial' ? 'text-[9px]' : 'text-xs'">1ª VIA</span>
+                                <span x-show="tipo === 'especial' || printDouble" class="uppercase border border-slate-400 py-0.5 rounded-md bg-slate-100" 
+                                      :class="tipo === 'especial' ? 'text-[8px] px-2' : 'text-xs px-3'">1ª VIA</span>
                             </div>
                         </footer>
 
@@ -478,17 +478,17 @@ app.get('/receituario', (c) => {
                     </div>
 
                     <!-- PAGE 2 (2ª VIA) -->
-                    <div x-show="tipo === 'especial' || printDouble" class="h-[148.5mm] w-[210mm] flex flex-col p-[20mm] pt-[8mm]">
+                    <div x-show="tipo === 'especial' || printDouble" class="h-[148.5mm] w-[210mm] flex flex-col p-[12mm] pt-[6mm]">
                         
                         <!-- Header Compact -->
-                        <header class="flex justify-between items-start border-b border-slate-300 pb-2 mb-4">
-                            <div class="w-16 h-12 bg-slate-100 rounded flex flex-col items-center justify-center text-slate-300 border border-dashed border-slate-200">
-                                <i class="fas fa-hospital text-lg"></i>
-                                <span class="text-[8px] font-bold">LOGO</span>
+                        <header class="flex justify-between items-start border-b border-slate-300 pb-1.5 mb-2.5">
+                            <div class="w-14 h-10 bg-slate-100 rounded flex flex-col items-center justify-center text-slate-300 border border-dashed border-slate-200">
+                                <i class="fas fa-hospital text-sm"></i>
+                                <span class="text-[7px] font-bold">LOGO</span>
                             </div>
                             <div class="text-right">
-                                <h1 class="text-sm font-bold uppercase text-slate-800" x-text="doctor.name || 'NOME DO MÉDICO'"></h1>
-                                <div class="text-[9px] font-medium text-slate-500">
+                                <h1 class="text-[11px] font-bold uppercase text-slate-800" x-text="doctor.name || 'NOME DO MÉDICO'"></h1>
+                                <div class="text-[8px] font-medium text-slate-500">
                                     CRM-<span x-text="doctor.uf || 'UF'"></span> <span x-text="doctor.crm || '00000'"></span>
                                 </div>
                             </div>
@@ -496,79 +496,80 @@ app.get('/receituario', (c) => {
 
                         <!-- Body Compact -->
                         <div class="flex-grow">
-                            <div class="mb-4">
-                                <div class="flex items-baseline border-b border-dotted border-slate-400 pb-0.5 mb-1">
-                                    <span class="font-bold text-[10px] mr-2 text-slate-600 uppercase">Paciente:</span> 
-                                    <span class="text-sm font-bold uppercase text-slate-900" x-text="patient.name || 'NOME DO PACIENTE'"></span>
+                            <div class="mb-2.5">
+                                <div class="flex items-baseline border-b border-dotted border-slate-400 pb-0.5 mb-0.5">
+                                    <span class="font-bold text-[9px] mr-1.5 text-slate-600 uppercase">Paciente:</span> 
+                                    <span class="text-xs font-bold uppercase text-slate-900" x-text="patient.name || 'NOME DO PACIENTE'"></span>
                                 </div>
-                                <div class="text-[9px] text-slate-600" x-show="patient.cpf || patient.address">
+                                <div class="text-[8px] text-slate-600" x-show="patient.cpf || patient.address">
                                     <span x-show="patient.cpf" class="mr-2"><span class="font-bold">CPF:</span> <span x-text="patient.cpf"></span></span>
-                                    <span x-show="patient.address"><span class="font-bold">Endereço:</span> <span x-text="patient.address"></span></span>
+                                    <span x-show="patient.address"><span class="font-bold">End.:</span> <span x-text="patient.address"></span></span>
                                 </div>
                             </div>
 
-                            <div class="mb-4 text-center">
-                                <span class="inline-block text-xs font-bold border border-slate-900 px-5 py-1 rounded-full uppercase tracking-wide" x-text="getTitle()"></span>
+                            <div class="mb-2.5 text-center">
+                                <span class="inline-block text-[11px] font-bold border border-slate-900 px-4 py-0.5 rounded-full uppercase tracking-wide" x-text="getTitle()"></span>
                             </div>
 
                             <!-- Medicamentos Compact -->
-                            <div x-show="tipo !== 'livre'" class="space-y-3">
+                            <div x-show="tipo !== 'livre'" class="space-y-2">
                                 <template x-for="(med, idx) in meds" :key="idx">
-                                    <div class="relative pl-5">
-                                        <span class="absolute left-0 top-0 font-bold text-sm text-slate-500" x-text="(idx + 1) + '.'"></span>
+                                    <div class="relative pl-4">
+                                        <span class="absolute left-0 top-0 font-bold text-xs text-slate-500" x-text="(idx + 1) + '.'"></span>
                                         <div class="flex justify-between items-baseline mb-0.5">
-                                            <span class="font-bold text-sm text-slate-900" x-text="med.name"></span>
-                                            <span class="border-b border-dotted border-slate-400 min-w-[80px] text-right px-1 font-bold text-slate-800 text-xs ml-2 shrink-0" x-text="med.quantity"></span>
+                                            <span class="font-bold text-xs text-slate-900" x-text="med.name"></span>
+                                            <span class="border-b border-dotted border-slate-400 min-w-[70px] text-right px-1 font-bold text-slate-800 text-[10px] ml-1.5 shrink-0" x-text="med.quantity"></span>
                                         </div>
-                                        <div class="text-[10px] pl-1 text-slate-700 leading-relaxed bg-slate-50 p-1.5 rounded mt-1">
-                                            <span class="font-bold mr-0.5 text-slate-500 text-[9px] uppercase">Uso:</span> <span x-text="med.instruction"></span>
+                                        <div class="text-[9px] pl-0.5 text-slate-700 leading-relaxed bg-slate-50 p-1 rounded mt-0.5">
+                                            <span class="font-bold mr-0.5 text-slate-500 text-[8px] uppercase">Uso:</span> <span x-text="med.instruction"></span>
                                         </div>
                                     </div>
                                 </template>
                             </div>
 
                             <!-- Texto Livre Compact -->
-                            <div x-show="tipo === 'livre'" class="whitespace-pre-wrap text-xs text-slate-800 leading-relaxed" x-text="freeText"></div>
+                            <div x-show="tipo === 'livre'" class="whitespace-pre-wrap text-[10px] text-slate-800 leading-relaxed" x-text="freeText"></div>
                         </div>
 
                         <!-- Special Control Footer (2nd copy) -->
-                        <div x-show="tipo === 'especial'" class="mt-3 mb-3 border border-slate-900 p-2 flex gap-2 text-[8px] font-sans">
-                            <div class="flex-1 border-r border-slate-900 pr-2">
-                                <p class="font-bold bg-slate-900 text-white px-1 py-0.5 mb-1.5 text-center uppercase text-[9px]">Identificação do Comprador</p>
-                                <div class="space-y-1.5">
-                                    <div class="border-b border-dotted border-slate-400 py-1 text-[8px] font-medium">Nome: _______________________________________</div>
-                                    <div class="flex gap-1.5">
-                                        <div class="flex-1 border-b border-dotted border-slate-400 py-1 text-[8px]">RG: ______________</div>
-                                        <div class="flex-1 border-b border-dotted border-slate-400 py-1 text-[8px]">Org. Emis.: _______</div>
+                        <div x-show="tipo === 'especial'" class="mt-2 mb-1.5 border border-slate-900 p-1.5 flex gap-1.5 text-[7px] font-sans">
+                            <div class="flex-1 border-r border-slate-900 pr-1.5">
+                                <p class="font-bold bg-slate-900 text-white px-1 py-0.5 mb-1 text-center uppercase text-[8px]">Identificação do Comprador</p>
+                                <div class="space-y-1">
+                                    <div class="border-b border-dotted border-slate-400 py-0.5 text-[7px]">Nome: ________________________________</div>
+                                    <div class="flex gap-1">
+                                        <div class="flex-1 border-b border-dotted border-slate-400 py-0.5 text-[7px]">RG: ___________</div>
+                                        <div class="flex-1 border-b border-dotted border-slate-400 py-0.5 text-[7px]">Org. Emis.: ______</div>
                                     </div>
-                                    <div class="border-b border-dotted border-slate-400 py-1 text-[8px]">End.: _____________________________________________</div>
-                                    <div class="flex gap-1.5">
-                                        <div class="flex-[2] border-b border-dotted border-slate-400 py-1 text-[8px]">Cidade: ___________________</div>
-                                        <div class="flex-1 border-b border-dotted border-slate-400 py-1 text-[8px]">UF: ____</div>
+                                    <div class="border-b border-dotted border-slate-400 py-0.5 text-[7px]">End.: _______________________________________</div>
+                                    <div class="flex gap-1">
+                                        <div class="flex-[2] border-b border-dotted border-slate-400 py-0.5 text-[7px]">Cidade: ________________</div>
+                                        <div class="flex-1 border-b border-dotted border-slate-400 py-0.5 text-[7px]">UF: ___</div>
                                     </div>
-                                    <div class="border-b border-dotted border-slate-400 py-1 text-[8px]">Telefone: ____________________</div>
+                                    <div class="border-b border-dotted border-slate-400 py-0.5 text-[7px]">Telefone: _________________</div>
                                 </div>
                             </div>
                             <div class="w-[35%]">
-                                <p class="font-bold bg-slate-900 text-white px-1 py-0.5 mb-1.5 text-center uppercase text-[9px]">Identificação do Fornecedor</p>
-                                <div class="border border-dashed border-slate-400 h-16 flex items-end justify-center pb-0.5 mb-1.5">
-                                    <span class="text-[7px] text-slate-400 italic">Carimbo da Farmácia</span>
+                                <p class="font-bold bg-slate-900 text-white px-1 py-0.5 mb-1 text-center uppercase text-[8px]">Identificação do Fornecedor</p>
+                                <div class="border border-dashed border-slate-400 h-12 flex items-end justify-center pb-0.5 mb-1">
+                                    <span class="text-[6px] text-slate-400 italic">Carimbo da Farmácia</span>
                                 </div>
-                                <div class="border-b border-dotted border-slate-400 py-1 text-center text-[8px]">Data: ____/____/______</div>
-                                <div class="border-b border-dotted border-slate-400 py-1 mt-1.5 text-[8px]">Assinatura: ______________</div>
+                                <div class="border-b border-dotted border-slate-400 py-0.5 text-center text-[7px]">Data: ___/___/____</div>
+                                <div class="border-b border-dotted border-slate-400 py-0.5 mt-1 text-[7px]">Assinatura: ___________</div>
                             </div>
                         </div>
 
                         <!-- Footer Compact -->
-                        <footer class="mt-auto pt-3">
-                            <div class="flex justify-center mb-2">
-                                <div class="text-center w-48 border-t border-slate-900 pt-1">
-                                    <p class="text-[9px] text-slate-500">Assinatura e Carimbo do Médico</p>
+                        <footer class="mt-auto pt-1.5">
+                            <div class="flex justify-center mb-1.5">
+                                <div class="text-center w-40 border-t border-slate-900 pt-0.5">
+                                    <p class="text-[9px] font-bold text-slate-900" x-text="doctor.name"></p>
+                                    <p class="text-[7px] text-slate-500 mt-0.5">Assinatura e Carimbo do Médico</p>
                                 </div>
                             </div>
-                            <div class="text-center text-[9px] font-bold flex justify-between text-slate-500 border-t border-slate-200 pt-2">
+                            <div class="text-center text-[8px] font-bold flex justify-between text-slate-500 border-t border-slate-200 pt-1.5">
                                 <span>Data: <span x-text="formatDate(date)" class="text-slate-700"></span></span>
-                                <span class="uppercase text-[9px] border border-slate-400 px-2 py-0.5 rounded-md bg-slate-100">2ª VIA</span>
+                                <span class="uppercase text-[8px] border border-slate-400 px-1.5 py-0.5 rounded-md bg-slate-100">2ª VIA</span>
                             </div>
                         </footer>
 
