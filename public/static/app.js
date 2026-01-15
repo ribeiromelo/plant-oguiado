@@ -1663,15 +1663,15 @@ document.addEventListener('alpine:init', () => {
             
             // # COVID-19
             text += `# COVID-19:\n`;
-            text += `• TR COVID-19 (${this.form.uti.covidData || '__/__'}): ${this.form.uti.covidResultado}\n`;
-            text += `• RT-PCR: ${this.form.uti.rtpcr}\n\n`;
+            text += `- TR COVID-19 (${this.form.uti.covidData || '__/__'}): ${this.form.uti.covidResultado}\n`;
+            text += `- RT-PCR: ${this.form.uti.rtpcr}\n\n`;
             
             // # ATB
             if (this.form.uti.atb.length > 0) {
                 text += `# ANTIBIOTICOTERAPIA:\n`;
                 this.form.uti.atb.forEach(atb => {
                     if (atb.nome) {
-                        text += `• ${atb.nome}`;
+                        text += `- ${atb.nome}`;
                         if (atb.horario) text += ` (${atb.horario})`;
                         if (atb.status) text += ` - ${atb.status}`;
                         if (atb.dataInicio) text += ` - Iniciado em ${atb.dataInicio}`;
@@ -1686,7 +1686,7 @@ document.addEventListener('alpine:init', () => {
                 text += `# DISPOSITIVOS/ACESSOS:\n`;
                 this.form.uti.devices.forEach(device => {
                     if (device.tipo) {
-                        text += `• ${device.tipo}`;
+                        text += `- ${device.tipo}`;
                         if (device.detalhes) text += `: ${device.detalhes}`;
                         if (device.dataInsercao) text += ` (${device.dataInsercao})`;
                         if (device.status) text += ` - ${device.status}`;
@@ -1697,29 +1697,30 @@ document.addEventListener('alpine:init', () => {
             }
             
             // # EVOLUÇÃO POR SISTEMAS
-            text += `# EVOLUÇÃO POR SISTEMAS\n\n`;
+            text += `# EVOLUÇÃO POR SISTEMAS\n`;
             
             if (this.form.uti.evolucao.neuro) {
-                text += `NEUROLÓGICO:\n${this.form.uti.evolucao.neuro}\n\n`;
+                text += `-NEUROLÓGICO: ${this.form.uti.evolucao.neuro}\n`;
             }
             if (this.form.uti.evolucao.scv) {
-                text += `SCV (Sistema Cardiovascular):\n${this.form.uti.evolucao.scv}\n\n`;
+                text += `-SCV (Sistema Cardiovascular): ${this.form.uti.evolucao.scv}\n`;
             }
             if (this.form.uti.evolucao.sr) {
-                text += `SR (Sistema Respiratório):\n${this.form.uti.evolucao.sr}\n\n`;
+                text += `-SR (Sistema Respiratório): ${this.form.uti.evolucao.sr}\n`;
             }
             if (this.form.uti.evolucao.tgi) {
-                text += `TGI (Trato Gastrointestinal):\n${this.form.uti.evolucao.tgi}\n\n`;
+                text += `-TGI (Trato Gastrointestinal): ${this.form.uti.evolucao.tgi}\n`;
             }
             if (this.form.uti.evolucao.rm) {
-                text += `R/M (Renal/Metabólico):\n${this.form.uti.evolucao.rm}\n\n`;
+                text += `-R/M (Renal/Metabólico): ${this.form.uti.evolucao.rm}\n`;
             }
             if (this.form.uti.evolucao.hi) {
-                text += `H/I (Hematológico/Infeccioso):\n${this.form.uti.evolucao.hi}\n\n`;
+                text += `-H/I (Hematológico/Infeccioso): ${this.form.uti.evolucao.hi}\n`;
             }
             if (this.form.uti.evolucao.extr) {
-                text += `EXTREMIDADES:\n${this.form.uti.evolucao.extr}\n\n`;
+                text += `-EXTREMIDADES: ${this.form.uti.evolucao.extr}\n`;
             }
+            text += `\n`;
             
             // # Exames
             if (this.form.uti.exames) {
@@ -1730,14 +1731,14 @@ document.addEventListener('alpine:init', () => {
             text += `# CONDUTAS\n`;
             
             let condutas = [];
-            if (this.form.uti.condutas.vigilanciaNeuro) condutas.push('• Vigilância NEUROLÓGICA');
-            if (this.form.uti.condutas.vigilanciaHemo) condutas.push('• Vigilância HEMODINÂMICA');
-            if (this.form.uti.condutas.vigilanciaInfec) condutas.push('• Vigilância INFECCIOSA');
-            if (this.form.uti.condutas.vigilanciaVent) condutas.push('• Vigilância VENTILATÓRIA');
-            if (this.form.uti.condutas.vigilanciaRenal) condutas.push('• Vigilância RENAL/METABÓLICA');
-            if (this.form.uti.condutas.profilaxiaTEV) condutas.push('• PROFILAXIA TEV/LAMG');
-            if (this.form.uti.condutas.aguardarVaga) condutas.push('• Aguardar vaga de UTI/regulação');
-            if (this.form.uti.condutas.manterFamilia) condutas.push('• Manter família informada');
+            if (this.form.uti.condutas.vigilanciaNeuro) condutas.push('- Vigilância NEUROLÓGICA');
+            if (this.form.uti.condutas.vigilanciaHemo) condutas.push('- Vigilância HEMODINÂMICA');
+            if (this.form.uti.condutas.vigilanciaInfec) condutas.push('- Vigilância INFECCIOSA');
+            if (this.form.uti.condutas.vigilanciaVent) condutas.push('- Vigilância VENTILATÓRIA');
+            if (this.form.uti.condutas.vigilanciaRenal) condutas.push('- Vigilância RENAL/METABÓLICA');
+            if (this.form.uti.condutas.profilaxiaTEV) condutas.push('- PROFILAXIA TEV/LAMG');
+            if (this.form.uti.condutas.aguardarVaga) condutas.push('- Aguardar vaga de UTI/regulação');
+            if (this.form.uti.condutas.manterFamilia) condutas.push('- Manter família informada');
             
             if (condutas.length > 0) {
                 text += condutas.join('\n') + '\n';
