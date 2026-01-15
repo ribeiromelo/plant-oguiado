@@ -1609,31 +1609,66 @@ document.addEventListener('alpine:init', () => {
         generateEvolucaoCritico() {
             let text = '';
             
-            // Cabeçalho
-            text += `═══════════════════════════════════════════════════\n`;
-            text += `   EVOLUÇÃO DE PACIENTE CRÍTICO - SALA VERMELHA\n`;
-            text += `═══════════════════════════════════════════════════\n\n`;
+            // Cabeçalho com tipo de local e turno
+            const tipoLocal = this.form.admission === 'Observação' ? 'OBSERVAÇÃO' : 'SALA VERMELHA';
+            const turno = this.form.shift === 'PLANTÃO DIURNO' ? 'DIURNO' : 'NOTURNO';
+            text += `EVOLUÇÃO DE PACIENTE CRÍTICO - ${tipoLocal} - ${turno}\n\n`;
             
             text += `PACIENTE: ${this.form.name || '_________'}, ${this.form.age ? this.form.age + ' anos' : '___ anos'}\n`;
             text += `ADMITIDO EM: ${this.form.uti.dataAdmissao || '__/__/____'} - ${this.form.uti.local || 'Sala Vermelha'}\n`;
             if (this.form.uti.motivo) {
                 text += `MOTIVO: ${this.form.uti.motivo}\n`;
             }
-            text += `\n══════════════════════════════════════════════════\n\n`;
+            text += `\n`;
             
-            // Diagnóstico
+            // # DIAGNÓSTICO PRINCIPAL
             if (this.form.uti.dx) {
-                text += `DIAGNÓSTICO PRINCIPAL:\n${this.form.uti.dx}\n\n`;
+                text += `# DIAGNÓSTICO PRINCIPAL:\n${this.form.uti.dx}\n\n`;
             }
             
-            // COVID-19
-            text += `COVID-19:\n`;
+            // # HISTÓRIA DA DOENÇA ATUAL
+            if (this.form.uti.hda) {
+                text += `# HISTÓRIA DA DOENÇA ATUAL:\n${this.form.uti.hda}\n\n`;
+            }
+            
+            // # HISTÓRIA PATOLÓGICA PREGRESSA (HPP)
+            text += `# HISTÓRIA PATOLÓGICA PREGRESSA:\n`;
+            text += `Comorbidades: ${this.form.comorbidities || 'Nega'}\n`;
+            text += `Alergias: ${this.form.allergies || 'Nega'}\n`;
+            text += `Cirurgias Prévias: ${this.form.surgeries || 'Nega'}\n`;
+            
+            // Medicações em uso
+            if (this.form.medications.length > 0) {
+                text += `Medicações em Uso:\n`;
+                this.form.medications.forEach(med => {
+                    text += `  • ${med.name} (${med.posology})\n`;
+                });
+            } else {
+                text += `Medicações: Nega uso contínuo\n`;
+            }
+            
+            // Hábitos
+            let habitsList = [];
+            if (this.form.habits.smoker) habitsList.push('Tabagista');
+            if (this.form.habits.alcoholic) habitsList.push('Etilista');
+            if (this.form.habits.drugs) habitsList.push('Usuário de drogas');
+            if (this.form.habits.sedentary) habitsList.push('Sedentário');
+            
+            if (habitsList.length > 0) {
+                text += `Hábitos: ${habitsList.join(', ')}\n`;
+            } else {
+                text += `Hábitos: Nega tabagismo, etilismo ou uso de drogas\n`;
+            }
+            text += `\n`;
+            
+            // # COVID-19
+            text += `# COVID-19:\n`;
             text += `• TR COVID-19 (${this.form.uti.covidData || '__/__'}): ${this.form.uti.covidResultado}\n`;
             text += `• RT-PCR: ${this.form.uti.rtpcr}\n\n`;
             
-            // ATB
+            // # ATB
             if (this.form.uti.atb.length > 0) {
-                text += `ANTIBIOTICOTERAPIA:\n`;
+                text += `# ANTIBIOTICOTERAPIA:\n`;
                 this.form.uti.atb.forEach(atb => {
                     if (atb.nome) {
                         text += `• ${atb.nome}`;
@@ -1646,14 +1681,9 @@ document.addEventListener('alpine:init', () => {
                 text += `\n`;
             }
             
-            // HDA
-            if (this.form.uti.hda) {
-                text += `HISTÓRIA DA DOENÇA ATUAL:\n${this.form.uti.hda}\n\n`;
-            }
-            
-            // Devices
+            // # Devices
             if (this.form.uti.devices.length > 0) {
-                text += `DISPOSITIVOS/ACESSOS:\n`;
+                text += `# DISPOSITIVOS/ACESSOS:\n`;
                 this.form.uti.devices.forEach(device => {
                     if (device.tipo) {
                         text += `• ${device.tipo}`;
@@ -1666,10 +1696,8 @@ document.addEventListener('alpine:init', () => {
                 text += `\n`;
             }
             
-            // Evolução por sistemas
-            text += `══════════════════════════════════════════════════\n`;
-            text += `EVOLUÇÃO POR SISTEMAS\n`;
-            text += `══════════════════════════════════════════════════\n\n`;
+            // # EVOLUÇÃO POR SISTEMAS
+            text += `# EVOLUÇÃO POR SISTEMAS\n\n`;
             
             if (this.form.uti.evolucao.neuro) {
                 text += `NEUROLÓGICO:\n${this.form.uti.evolucao.neuro}\n\n`;
@@ -1693,15 +1721,13 @@ document.addEventListener('alpine:init', () => {
                 text += `EXTREMIDADES:\n${this.form.uti.evolucao.extr}\n\n`;
             }
             
-            // Exames
+            // # Exames
             if (this.form.uti.exames) {
-                text += `EXAMES COMPLEMENTARES:\n${this.form.uti.exames}\n\n`;
+                text += `# EXAMES COMPLEMENTARES:\n${this.form.uti.exames}\n\n`;
             }
             
-            // Condutas
-            text += `══════════════════════════════════════════════════\n`;
-            text += `CONDUTAS\n`;
-            text += `══════════════════════════════════════════════════\n`;
+            // # CONDUTAS
+            text += `# CONDUTAS\n`;
             
             let condutas = [];
             if (this.form.uti.condutas.vigilanciaNeuro) condutas.push('• Vigilância NEUROLÓGICA');

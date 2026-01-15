@@ -1585,58 +1585,110 @@ app.get('/', (c) => {
                     
                                     <div class="space-y-4">
                                         <div>
-                                            <label class="form-label flex items-center gap-2">
-                                                <i class="fas fa-brain text-cyan-600"></i>
-                                                <span>NEURO (Neurológico)</span>
-                                            </label>
+                                            <div class="flex items-center justify-between mb-2">
+                                                <label class="form-label flex items-center gap-2 mb-0">
+                                                    <i class="fas fa-brain text-cyan-600"></i>
+                                                    <span>NEURO (Neurológico)</span>
+                                                </label>
+                                                <div class="flex gap-2">
+                                                    <button @click="form.uti.evolucao.neuro = 'Paciente sedado e analgesiado. Glasgow pré-sedação: ___. Pupilas isocóricas e fotorreagentes. Sem déficits motores aparentes.'" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
+                                                        <i class="fas fa-check"></i> Normal
+                                                    </button>
+                                                    <button @click="selectedCalc = calculators.find(c => c.id === 'glasgow'); showCalculators = true" class="px-3 py-1 bg-cyan-100 text-cyan-700 text-xs font-bold rounded-lg hover:bg-cyan-200 transition-all flex items-center gap-1">
+                                                        <i class="fas fa-calculator"></i> Glasgow
+                                                    </button>
+                                                </div>
+                                            </div>
                                             <textarea x-model="form.uti.evolucao.neuro" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Glasgow, sedação, pupilas, déficits motores..."></textarea>
                                         </div>
                     
                                         <div>
-                                            <label class="form-label flex items-center gap-2">
-                                                <i class="fas fa-heartbeat text-red-600"></i>
-                                                <span>SCV (Sistema Cardiovascular)</span>
-                                            </label>
+                                            <div class="flex items-center justify-between mb-2">
+                                                <label class="form-label flex items-center gap-2 mb-0">
+                                                    <i class="fas fa-heartbeat text-red-600"></i>
+                                                    <span>SCV (Sistema Cardiovascular)</span>
+                                                </label>
+                                                <div class="flex gap-2">
+                                                    <button @click="form.uti.evolucao.scv = 'Hemodinamicamente estável. Ritmo cardíaco regular. Ausculta cardíaca: bulhas rítmicas normofonéticas em 2T, sem sopros. Pulsos periféricos palpáveis e simétricos.'" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
+                                                        <i class="fas fa-check"></i> Normal
+                                                    </button>
+                                                </div>
+                                            </div>
                                             <textarea x-model="form.uti.evolucao.scv" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Hemodinâmica, drogas vasoativas, ritmo cardíaco..."></textarea>
                                         </div>
                     
                                         <div>
-                                            <label class="form-label flex items-center gap-2">
-                                                <i class="fas fa-lungs text-blue-600"></i>
-                                                <span>SR (Sistema Respiratório)</span>
-                                            </label>
+                                            <div class="flex items-center justify-between mb-2">
+                                                <label class="form-label flex items-center gap-2 mb-0">
+                                                    <i class="fas fa-lungs text-blue-600"></i>
+                                                    <span>SR (Sistema Respiratório)</span>
+                                                </label>
+                                                <div class="flex gap-2">
+                                                    <button @click="form.uti.evolucao.sr = 'Padrão respiratório regular. Ausculta pulmonar: murmúrio vesicular presente bilateralmente, sem ruídos adventícios. SpO2 mantida em ar ambiente.'" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
+                                                        <i class="fas fa-check"></i> Normal
+                                                    </button>
+                                                    <button @click="selectedCalc = calculators.find(c => c.id === 'curb65'); showCalculators = true" class="px-3 py-1 bg-cyan-100 text-cyan-700 text-xs font-bold rounded-lg hover:bg-cyan-200 transition-all flex items-center gap-1">
+                                                        <i class="fas fa-calculator"></i> CURB-65
+                                                    </button>
+                                                </div>
+                                            </div>
                                             <textarea x-model="form.uti.evolucao.sr" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Padrão ventilatório, suporte de O2, ausculta..."></textarea>
                                         </div>
                     
                                         <div>
-                                            <label class="form-label flex items-center gap-2">
-                                                <i class="fas fa-stomach text-amber-600"></i>
-                                                <span>TGI (Trato Gastrointestinal)</span>
-                                            </label>
+                                            <div class="flex items-center justify-between mb-2">
+                                                <label class="form-label flex items-center gap-2 mb-0">
+                                                    <i class="fas fa-stomach text-amber-600"></i>
+                                                    <span>TGI (Trato Gastrointestinal)</span>
+                                                </label>
+                                                <button @click="form.uti.evolucao.tgi = 'Abdome plano, flácido, indolor à palpação. Ruídos hidroaéreos presentes. Sem sinais de irritação peritoneal. Evacuações regulares.'" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
+                                                    <i class="fas fa-check"></i> Normal
+                                                </button>
+                                            </div>
                                             <textarea x-model="form.uti.evolucao.tgi" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Dieta, abdome, eliminações intestinais..."></textarea>
                                         </div>
                     
                                         <div>
-                                            <label class="form-label flex items-center gap-2">
-                                                <i class="fas fa-kidneys text-purple-600"></i>
-                                                <span>R/M (Renal/Metabólico)</span>
-                                            </label>
+                                            <div class="flex items-center justify-between mb-2">
+                                                <label class="form-label flex items-center gap-2 mb-0">
+                                                    <i class="fas fa-kidneys text-purple-600"></i>
+                                                    <span>R/M (Renal/Metabólico)</span>
+                                                </label>
+                                                <div class="flex gap-2">
+                                                    <button @click="form.uti.evolucao.rm = 'Diurese preservada. Função renal estável. Eletrólitos dentro dos limites da normalidade. Glicemia controlada.'" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
+                                                        <i class="fas fa-check"></i> Normal
+                                                    </button>
+                                                    <button @click="selectedCalc = calculators.find(c => c.id === 'ckd'); showCalculators = true" class="px-3 py-1 bg-cyan-100 text-cyan-700 text-xs font-bold rounded-lg hover:bg-cyan-200 transition-all flex items-center gap-1">
+                                                        <i class="fas fa-calculator"></i> TFG
+                                                    </button>
+                                                </div>
+                                            </div>
                                             <textarea x-model="form.uti.evolucao.rm" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Diurese, função renal, distúrbios hidroeletrolíticos..."></textarea>
                                         </div>
                     
                                         <div>
-                                            <label class="form-label flex items-center gap-2">
-                                                <i class="fas fa-vial text-pink-600"></i>
-                                                <span>H/I (Hematológico/Infeccioso)</span>
-                                            </label>
+                                            <div class="flex items-center justify-between mb-2">
+                                                <label class="form-label flex items-center gap-2 mb-0">
+                                                    <i class="fas fa-vial text-pink-600"></i>
+                                                    <span>H/I (Hematológico/Infeccioso)</span>
+                                                </label>
+                                                <button @click="form.uti.evolucao.hi = 'Hemograma sem alterações significativas. Coagulograma normal. Sem sinais de foco infeccioso ativo. Culturas negativas.'" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
+                                                    <i class="fas fa-check"></i> Normal
+                                                </button>
+                                            </div>
                                             <textarea x-model="form.uti.evolucao.hi" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Hemograma, coagulograma, culturas, foco infeccioso..."></textarea>
                                         </div>
                     
                                         <div>
-                                            <label class="form-label flex items-center gap-2">
-                                                <i class="fas fa-hand-paper text-slate-600"></i>
-                                                <span>EXTR (Extremidades)</span>
-                                            </label>
+                                            <div class="flex items-center justify-between mb-2">
+                                                <label class="form-label flex items-center gap-2 mb-0">
+                                                    <i class="fas fa-hand-paper text-slate-600"></i>
+                                                    <span>EXTR (Extremidades)</span>
+                                                </label>
+                                                <button @click="form.uti.evolucao.extr = 'Perfusão periférica adequada. Pulsos periféricos palpáveis e simétricos. Sem edemas. Sem lesões cutâneas.'" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
+                                                    <i class="fas fa-check"></i> Normal
+                                                </button>
+                                            </div>
                                             <textarea x-model="form.uti.evolucao.extr" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Perfusão periférica, edemas, pulsos, lesões..."></textarea>
                                         </div>
                                     </div>
