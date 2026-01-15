@@ -2193,53 +2193,437 @@ const PRESCRICOES_DB = {
                 }
             ]
         },
+        // ==================== NEUROLOGIA AVANÇADA ====================
         {
-            id: 'hospitalar_avancado',
-            categoria: 'emergencia',
-            nome: 'Protocolos Hospitalares Avançados',
-            tags: ['uti', 'sedação', 'vasoativo', 'hospitalar'],
+            id: 'avc_isquemico',
+            categoria: 'neurologico',
+            nome: 'AVC Isquêmico',
+            tags: ['avc', 'derrame', 'isquemia', 'trombolise'],
+            ambiente: 'emergencia',
+            prescricoes: [
+                {
+                    titulo: 'AVCi - Fase Aguda',
+                    tipo: 'emergencia',
+                    itens: [
+                        '1. Alteplase 0,9mg/kg (máx 90mg)',
+                        '   - Fazer 10% da dose em bolus IV',
+                        '   - Restante em 60 min em bomba de infusão',
+                        '',
+                        '2. AAS 100mg - 1 cp/dia (após 24h da trombólise)',
+                        '',
+                        '3. Atorvastatina 80mg - 1 cp/dia',
+                        '   - Ou Sinvastatina 40mg',
+                        '',
+                        '# SE NIHSS < 5 (AVCi Minor):',
+                        '4. Dupla Antiagregação:',
+                        '   - Clopidogrel 300mg (ataque) + AAS 100mg',
+                        '   - Manutenção: Clopidogrel 75mg + AAS 100mg'
+                    ]
+                }
+            ]
+        },
+        {
+            id: 'avc_hemorragico',
+            categoria: 'neurologico',
+            nome: 'AVC Hemorrágico',
+            tags: ['avch', 'hemorragia', 'sangramento', 'hic'],
+            ambiente: 'emergencia',
+            prescricoes: [
+                {
+                    titulo: 'AVCh - Controle Pressórico',
+                    tipo: 'emergencia',
+                    itens: [
+                        '1. Nitroprussiato de Sódio (50mg/2ml)',
+                        '   - 1 amp + 248ml SG 5% EV em BIC',
+                        '   - Dose: 0,5 - 10 mcg/kg/min',
+                        '   - Iniciar 5-10 ml/h e titular',
+                        '',
+                        '⚠️ Meta: PAS < 140 mmHg'
+                    ]
+                }
+            ]
+        },
+        {
+            id: 'meningite',
+            categoria: 'neurologico',
+            nome: 'Meningite / Encefalite',
+            tags: ['meningite', 'infecção snc', 'ceftriaxona'],
             ambiente: 'hospitalar',
             prescricoes: [
                 {
-                    titulo: 'Sedação Contínua (Intubação)',
+                    titulo: 'Meningite Bacteriana',
                     tipo: 'emergencia',
                     itens: [
-                        '1. Midazolam 50mg (10ml) + 40ml SF',
-                        '   - Solução 1mg/ml',
-                        '   - Iniciar 5-10 ml/h',
+                        '1. Ceftriaxona 2g EV 12/12h',
                         '',
-                        '2. Fentanil 50mcg/ml (10ml) + 40ml SF',
-                        '   - Solução 10mcg/ml',
-                        '   - Iniciar 5-10 ml/h',
+                        '2. Ampicilina 2g EV 4/4h (se >50 anos ou imunossuprimido)',
                         '',
-                        '3. Propofol 1% (puro) - Alternativa',
-                        '   - Iniciar 5-10 ml/h'
+                        '3. Dexametasona 0,15 mg/kg EV 6/6h',
+                        '   - Iniciar antes ou junto com ATB (suspeita pneumococo)',
+                        '',
+                        '# SE ENCEFALITE VIRAL:',
+                        '4. Aciclovir 10 mg/kg EV 8/8h'
+                    ]
+                }
+            ]
+        },
+        {
+            id: 'hic',
+            categoria: 'neurologico',
+            nome: 'Hipertensão Intracraniana',
+            tags: ['hic', 'edema cerebral', 'manitol'],
+            ambiente: 'emergencia',
+            prescricoes: [
+                {
+                    titulo: 'Manejo HIC',
+                    tipo: 'emergencia',
+                    itens: [
+                        '1. Manitol 20%',
+                        '   - Ataque: 1 g/kg EV rápido',
+                        '   - Manutenção: 0,5 g/kg EV 6/6h',
+                        '',
+                        'OU',
+                        '',
+                        '2. Salina Hipertônica 3%',
+                        '   - Preparo: 445ml SF 0,9% + 55ml NaCl 20%',
+                        '   - Fazer 3-5 ml/kg EV bolus',
+                        '   - Manutenção: 30-50 ml/h em BIC'
+                    ]
+                }
+            ]
+        },
+        {
+            id: 'abstinencia_alcool',
+            categoria: 'neurologico',
+            nome: 'Abstinência e Libação Alcoólica',
+            tags: ['álcool', 'bêbado', 'tremor', 'agitação'],
+            ambiente: 'emergencia',
+            prescricoes: [
+                {
+                    titulo: 'Abstinência Alcoólica',
+                    tipo: 'hospitalar',
+                    itens: [
+                        '1. Dieta Oral ou Zero (conforme consciência)',
+                        '2. Complexo B - 5 ampolas + 100ml SF 0,9% EV lento AGORA',
+                        '3. Soro Glicofisiológico 1000ml EV em 8h',
+                        '4. Diazepam 5mg - 1 cp VO 8/8h',
+                        '5. Metoclopramida (Plasil) 1 amp EV se vômitos',
+                        '6. Glicemia Capilar 6/6h',
+                        '7. Repouso no leito'
+                    ]
+                },
+                {
+                    titulo: 'Libação Alcoólica (Intoxicação Aguda)',
+                    tipo: 'emergencia',
+                    itens: [
+                        '1. Dieta Zero',
+                        '2. Complexo B - 5 ampolas + 100ml SF 0,9% EV lento',
+                        '3. Glicose 50% 50ml + SF 0,9% 450ml EV rápido (se hipoglicemia)',
+                        '4. Soro Glicofisiológico 1000ml EV em 6h',
+                        '5. Cabeceira elevada 30°',
+                        '6. Metoclopramida 1 amp EV se vômitos',
+                        '7. Glicemia Capilar 2/2h'
+                    ]
+                }
+            ]
+        },
+        
+        // ==================== DERMATOLOGIA AVANÇADA ====================
+        {
+            id: 'derma_procedimentos',
+            categoria: 'pele',
+            nome: 'Procedimentos e Lesões Específicas',
+            tags: ['calos', 'verrugas', 'molusco', 'alergia grave'],
+            ambiente: 'ambulatorial',
+            prescricoes: [
+                {
+                    titulo: 'Calos e Verrugas',
+                    tipo: 'alta',
+                    itens: [
+                        '1. Calotrat (200mg/g) solução',
+                        '   - Aplicar 1x/dia à noite antes de dormir',
+                        '',
+                        '2. Dexametasona 0,1% creme',
+                        '   - Aplicar 1x/dia sobre lesões verrucosas'
+                    ]
+                },
+                {
+                    titulo: 'Molusco Contagioso',
+                    tipo: 'alta',
+                    itens: [
+                        '1. Vitanol A (0,01%) gel/creme',
+                        '   - Pingar à noite até desaparecimento das lesões'
+                    ]
+                },
+                {
+                    titulo: 'Reação Alérgica Cutânea',
+                    tipo: 'alta',
+                    itens: [
+                        '1. Mupirocina 2% pomada (se infecção secundária)',
+                        '   - Aplicar 2x/dia por 5 dias',
+                        '',
+                        '2. Dexametasona 0,1% creme',
+                        '   - Aplicar 2x/dia até melhora'
+                    ]
+                }
+            ]
+        },
+
+        // ==================== PRESCRIÇÕES HOSPITALARES GERAIS ====================
+        {
+            id: 'prescricao_basica',
+            categoria: 'emergencia',
+            nome: 'Prescrição Básica de Enfermaria',
+            tags: ['internação', 'admissão', 'rotina'],
+            ambiente: 'hospitalar',
+            prescricoes: [
+                {
+                    titulo: 'Modelo de Prescrição',
+                    tipo: 'hospitalar',
+                    itens: [
+                        '1. Dieta: Geral/Branda/Pastosa (Zero após 22h)',
+                        '2. SGF (Soro Glicofisiológico) 1:1 1500ml EV em BIC 62ml/h',
+                        '3. Dipirona 1g EV 6/6h se dor/febre',
+                        '4. Tramadol 100mg + 100ml SF EV 8/8h (se dor forte)',
+                        '5. Bromoprida ou Ondansetrona EV 8/8h se náuseas',
+                        '6. Captopril 25mg VO se PA >= 180x110',
+                        '7. Glicose 50% 4 amp EV se HGT < 70',
+                        '8. Insulina Regular (Escala):',
+                        '   - 151-200: 4UI | 201-250: 6UI | 251-300: 8UI | >300: 10UI',
+                        '9. Sinais vitais + Cuidados gerais'
+                    ]
+                }
+            ]
+        },
+        {
+            id: 'preparo_exames',
+            categoria: 'emergencia',
+            nome: 'Preparo de Exames',
+            tags: ['tomografia', 'colonoscopia', 'contraste'],
+            ambiente: 'hospitalar',
+            prescricoes: [
+                {
+                    titulo: 'TC de Abdome com Contraste (Proteção Renal)',
+                    tipo: 'hospitalar',
+                    itens: [
+                        '1. Hidrocortisona 100mg - 3 FA + 100ml SF EV',
+                        '   - Fazer 30 min ANTES do exame',
+                        '',
+                        '2. SF 0,9% 500ml EV',
+                        '   - Fazer 1h ANTES do exame',
+                        '',
+                        '3. SF 0,9% 500ml EV',
+                        '   - Fazer 30 min APÓS o exame'
+                    ]
+                },
+                {
+                    titulo: 'Colonoscopia',
+                    tipo: 'alta',
+                    itens: [
+                        '1. Bisacodil 5mg - 4 cp VO às 20h (dia anterior)',
+                        '2. Bromoprida 10mg - 1 cp VO às 6h (dia do exame)',
+                        '3. Manitol 20% - 2 frascos + suco limão',
+                        '   - Tomar entre 7h-8h da manhã',
+                        '4. Dieta Zero a partir das 9h'
+                    ]
+                }
+            ]
+        },
+        {
+            id: 'hemoterapia',
+            categoria: 'emergencia',
+            nome: 'Hemoterapia',
+            tags: ['sangue', 'transfusão', 'hemácias'],
+            ambiente: 'hospitalar',
+            prescricoes: [
+                {
+                    titulo: 'Transfusão de Sangue',
+                    tipo: 'hospitalar',
+                    itens: [
+                        '1. Concentrado de Hemácias - 01 Unidade',
+                        '   - 15 gotas/min nos primeiros 15 min',
+                        '   - Se sem reação: aumentar para 45 gotas/min',
+                        '',
+                        '2. Crioprecipitado - 05 Unidades IV agora',
+                        '',
+                        '3. Buffy Coat - 01 Unidade IV aberto'
+                    ]
+                }
+            ]
+        },
+        {
+            id: 'atb_hospitalar',
+            categoria: 'infeccoes',
+            nome: 'Antibióticos Hospitalares (EV)',
+            tags: ['antibiótico', 'sepse', 'infecção grave', 'uti'],
+            ambiente: 'hospitalar',
+            prescricoes: [
+                {
+                    titulo: 'Lista de Antibióticos EV',
+                    tipo: 'hospitalar',
+                    itens: [
+                        '1. MEROPENEM 1g + 100ml SF 0,9% EV BIC 33ml/h 8/8h',
+                        '2. VANCOMICINA 1g + 200ml SF 0,9% EV BIC 100ml/h 12/12h',
+                        '3. TEICOPLANINA 400mg + 100ml SF 0,9% EV BIC 50ml/h 24/24h',
+                        '4. ANIDULAFUGINA 100mg + 100ml SF 0,9% EV BIC 33ml/h 24/24h',
+                        '5. POLIMIXINA B',
+                        '   - Ataque: 25.000 UI/kg',
+                        '   - Manutenção: 15.000 UI/kg 12/12h',
+                        '6. AMICACINA 1g + 100ml SF 0,9% EV 24/24h',
+                        '7. MOXIFLOXACINO 400mg EV 24/24h (correr em 60min)',
+                        '8. PIPERACILINA + TAZOBACTAM 4,5g + 100ml SF EV BIC 33ml/h 6/6h',
+                        '9. CEFTRIAXONA 1g ou 2g + 100ml SF EV 24/24h',
+                        '10. TIGECILINA 50mg',
+                        '    - Ataque: 100mg (2FA) + 200ml SF EV 200ml/h',
+                        '    - Manutenção: 50mg (1FA) + 100ml SF EV 100ml/h 12/12h'
+                    ]
+                }
+            ]
+        },
+        {
+            id: 'sedacao_dva',
+            categoria: 'emergencia',
+            nome: 'Sedação e Drogas Vasoativas',
+            tags: ['sedativo', 'noradrenalina', 'dobutamina', 'uti'],
+            ambiente: 'emergencia',
+            prescricoes: [
+                {
+                    titulo: 'Sedação Contínua',
+                    tipo: 'emergencia',
+                    itens: [
+                        '1. PROPOFOL 1% (200mg/20ml) - 5 FA puro',
+                        '   - Iniciar 5 ml/h em BIC',
+                        '',
+                        '2. FENTANIL 50mcg/ml - 5 FA puro (ou + SF)',
+                        '   - Iniciar 1 ml/h em BIC',
+                        '',
+                        '3. MIDAZOLAM 50mg (10ml) - 2 amp + 80ml SF',
+                        '   - Concentração 1mg/ml',
+                        '   - Iniciar 5 ml/h em BIC',
+                        '',
+                        '4. DEXMEDETOMIDINA (Precedex) 100mcg/ml',
+                        '   - 2 FA + 96ml SF 0,9%',
+                        '   - Iniciar 5 ml/h em BIC'
                     ]
                 },
                 {
                     titulo: 'Drogas Vasoativas',
                     tipo: 'emergencia',
                     itens: [
-                        '1. Noradrenalina 4mg/4ml (4 ampolas) + 234ml SG 5%',
-                        '   - Concentração: 64mcg/ml',
-                        '   - Iniciar 5-10 ml/h e titular PAM > 65',
+                        '1. NORADRENALINA 2mg/ml (4mg/4ml)',
+                        '   - 4 ampolas + 234ml SG 5%',
+                        '   - Iniciar em BIC',
                         '',
-                        '2. Dobutamina 250mg (1 amp) + 230ml SF',
-                        '   - Concentração: 1000mcg/ml',
-                        '   - Iniciar conforme peso (2-20mcg/kg/min)'
+                        '2. VASOPRESSINA 20 UI/ml',
+                        '   - 1 ampola + 100ml SF 0,9%',
+                        '   - Iniciar 0,04 U/min',
+                        '',
+                        '3. DOBUTAMINA 250mg/20ml',
+                        '   - 2 ampolas + 210ml SG 5%',
+                        '   - Iniciar em BIC'
+                    ]
+                }
+            ]
+        },
+        {
+            id: 'reposicao_eletrolitica',
+            categoria: 'hidroeletrolitico',
+            nome: 'Reposição Hospitalar',
+            tags: ['potássio', 'magnésio', 'cálcio', 'bicarbonato'],
+            ambiente: 'hospitalar',
+            prescricoes: [
+                {
+                    titulo: 'Reposição EV',
+                    tipo: 'hospitalar',
+                    itens: [
+                        '1. KCL 10% (ou 19,1%)',
+                        '   - 30ml + 270ml SF 0,9% EV BIC 100ml/h (Ataque)',
+                        '',
+                        '2. SULFATO DE MAGNÉSIO 50%',
+                        '   - 5ml + 95ml SF 0,9% EV em 1 hora (12/12h)',
+                        '   - Ou: 8ml + 250ml SF EV BIC 12ml/h (Contínuo)',
+                        '',
+                        '3. GLUCONATO DE CÁLCIO 10%',
+                        '   - 1 FA + 100ml SF 0,9% EV Lento',
+                        '',
+                        '4. BICARBONATO 8,4%',
+                        '   - 22 FA (10ml cada) + 280ml SF 0,9% EV BIC 21ml/h',
+                        '',
+                        '5. FOSFATO ÁCIDO DE POTÁSSIO 2mEq/ml',
+                        '   - 1 FA + 240ml SF 0,9% EV BIC 20ml/h'
+                    ]
+                }
+            ]
+        },
+        {
+            id: 'medicacoes_gerais_ev',
+            categoria: 'emergencia',
+            nome: 'Guia Geral de Medicações Hospitalares',
+            tags: ['lista', 'doses', 'posologia', 'medicamentos'],
+            ambiente: 'hospitalar',
+            prescricoes: [
+                {
+                    titulo: 'Analgesia e Sedação EV',
+                    tipo: 'hospitalar',
+                    itens: [
+                        '- DIPIRONA 1g: 1 amp + 18ml AD EV 6/6h',
+                        '- TRAMADOL 50-100mg: 1-2ml + 100ml SF EV em 30min 8/8h',
+                        '- MORFINA 10mg: Diluir para 10ml AD. Fazer 2ml (2mg) EV 4/4h',
+                        '- MORFINA BIC: 10 amp + 90ml SF. Iniciar 0,5ml/h',
+                        '- FENOBARBITAL 100mg: 1ml + 50ml SF EV 12/12h',
+                        '- FENITOÍNA 50mg/ml: 2ml + 18ml SF EV Lento 8/8h',
+                        '- CLONAZEPAM 2,5mg/ml: 5 gotas VO/SNE 8/8h',
+                        '- MIDAZOLAM/FENTANIL/PROPOFOL (vide Sedação)'
                     ]
                 },
                 {
-                    titulo: 'Dieta Hospitalar',
+                    titulo: 'Gastro e Antieméticos EV',
                     tipo: 'hospitalar',
                     itens: [
-                        '1. Dieta Oral: Geral, Branda, Pastosa ou Líquida',
-                        '   - Para DM: Dieta para diabetes',
-                        '   - Para HAS: Hipossódica',
-                        '',
-                        '2. Dieta Enteral:',
-                        '   - Sistema fechado: 20-60ml/h bomba de infusão',
-                        '   - Testar resíduo gástrico 6/6h'
+                        '- BROMOPRIDA: 1 amp + 18ml SF EV 8/8h',
+                        '- ONDANSETRONA (Nausedrom) 8mg: 1 amp + 50ml SF EV 8/8h',
+                        '- METOCLOPRAMIDA 10mg: 1 amp + 18ml SF EV 8/8h',
+                        '- OMEPRAZOL 40mg: 1 FA + Diluente EV 1x/dia',
+                        '- OCTREOTIDE: 5 amp + 200ml SF EV BIC 20ml/h (HDA Varicosa)'
+                    ]
+                },
+                {
+                    titulo: 'Cardio e Diuréticos',
+                    tipo: 'hospitalar',
+                    itens: [
+                        '- AMIODARONA: 6 amp + 232ml SG 5% EV BIC 20ml/h (Manutenção)',
+                        '- MONOCORDIL 20mg VO 12/12h',
+                        '- ANLODIPINO 10mg VO 1x/dia',
+                        '- ATORVASTATINA 40mg VO 1x/dia',
+                        '- ESPIRONOLACTONA 25mg VO 1x/dia',
+                        '- HIDRALAZINA 50mg VO 8/8h',
+                        '- CLONIDINA 0,1mg VO 8/8h',
+                        '- ENOXAPARINA 40mg SC 1x/dia (Profilaxia)',
+                        '- HEPARINA 5000UI SC 12/12h (ClCr < 30)'
+                    ]
+                },
+                {
+                    titulo: 'Corticoides e Anti-alérgicos EV',
+                    tipo: 'hospitalar',
+                    itens: [
+                        '- HIDROCORTISONA 100mg: Diluir em 20ml SF. Fazer 10ml EV 6/6h',
+                        '- HIDROCORTISONA 200mg BIC: + 100ml SF (4ml/h) ou + 200ml SF (8ml/h)',
+                        '- METILPREDNISOLONA 125mg: 1 amp + 10ml SF. Fazer 4ml EV 1x/dia',
+                        '- DIFENIDRAMINA 50mg: 1 amp + 100ml SF EV em 30min',
+                        '- DEXCLORFENIRAMINA 2mg VO 8/8h'
+                    ]
+                },
+                {
+                    titulo: 'Respiratório e Outros',
+                    tipo: 'hospitalar',
+                    itens: [
+                        '- NBZ: 3-5ml SF + 10gts Berotec + 40gts Atrovent 4x/dia',
+                        '- FOSTAIR: 8 puffs via tubo 12/12h',
+                        '- ESCOPOLAMINA (Buscopan) ou ATROPINA: Para sialorreia',
+                        '- ALBUMINA 20%: 2 FA EV',
+                        '- HIDRÓXIDO DE FERRO: 1 amp + 200ml SF EV em 1h 2x/sem',
+                        '- GLICOSE 50% 100ml + INSULINA REGULAR 10UI (Solução Polarizante)',
+                        '- CISATRACÚRIO: 5 FA + 75ml SF EV BIC 8ml/h'
                     ]
                 }
             ]
