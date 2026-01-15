@@ -21,13 +21,14 @@
   //     "bucket_name": "my-bucket"
   //   }
   // ],
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "webapp-db",
-      "database_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-    }
-  ],
+  // D1 Database - Comentado para produção (usar apenas em desenvolvimento local)
+  // "d1_databases": [
+  //   {
+  //     "binding": "DB",
+  //     "database_name": "webapp-db",
+  //     "database_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+  //   }
+  // ],
   // "ai": {
   //   "binding": "AI"
   // }
