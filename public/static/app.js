@@ -1241,6 +1241,120 @@ document.addEventListener('alpine:init', () => {
                 `;
             }
             
+            if (id === 'carga_tabagica') {
+                return `
+                    <div class="space-y-4 p-4">
+                        <h4 class="font-bold text-lg text-gray-800 border-b pb-2">🚬 Carga Tabágica (Anos-Maço)</h4>
+                        <p class="text-xs text-gray-500 mb-4">Calcule a carga tabágica em anos-maço</p>
+                        
+                        <div class="bg-amber-50 border-l-4 border-amber-500 p-3 rounded mb-4">
+                            <p class="text-sm font-medium text-amber-800 mb-1">📌 Fórmula:</p>
+                            <p class="text-xs text-amber-700">Anos-Maço = (Nº cigarros/dia ÷ 20) × Anos fumando</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-bold mb-1">Cigarros/dia</label>
+                                <input type="number" x-model="calcInputs.carga_tabagica.cigarros_dia" class="form-input" placeholder="Ex: 20">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold mb-1">Anos fumando</label>
+                                <input type="number" x-model="calcInputs.carga_tabagica.anos" class="form-input" placeholder="Ex: 10">
+                            </div>
+                        </div>
+                        
+                        <div class="bg-amber-50 p-4 rounded-lg text-center mt-4 border border-amber-100">
+                            <button @click="calculateCargaTabagica()" class="bg-amber-600 text-white px-6 py-2 rounded-lg mb-3 hover:bg-amber-700 transition-colors">
+                                <i class="fas fa-calculator mr-2"></i>Calcular
+                            </button>
+                            <div x-show="calcResult !== null">
+                                <p class="font-bold text-3xl text-amber-700">
+                                    <span x-text="calcResult"></span> anos-maço
+                                </p>
+                                <p class="text-sm mt-2 text-amber-600" x-text="calcResultText"></p>
+                                <button @click="form.habits.smokingLoad = calcResult + ' anos-maço'; showCalculators = false;" 
+                                        class="mt-3 w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2 font-medium">
+                                    <i class="fas fa-check-circle"></i> Usar este valor
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-3 rounded mt-4">
+                            <p class="text-xs font-bold text-blue-800 mb-2">💡 Interpretação:</p>
+                            <ul class="text-xs text-blue-700 space-y-1">
+                                <li>• <strong>< 10 anos-maço:</strong> Risco leve</li>
+                                <li>• <strong>10-20 anos-maço:</strong> Risco moderado</li>
+                                <li>• <strong>> 20 anos-maço:</strong> Risco alto (DPOC, neoplasias)</li>
+                                <li>• <strong>> 30 anos-maço:</strong> Risco muito alto</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            if (id === 'carga_etilica') {
+                return `
+                    <div class="space-y-4 p-4">
+                        <h4 class="font-bold text-lg text-gray-800 border-b pb-2">🍺 Carga Etílica (gramas/dia)</h4>
+                        <p class="text-xs text-gray-500 mb-4">Calcule o consumo de álcool em gramas por dia</p>
+                        
+                        <div class="bg-red-50 border-l-4 border-red-500 p-3 rounded mb-4">
+                            <p class="text-sm font-medium text-red-800 mb-1">📌 Referência:</p>
+                            <ul class="text-xs text-red-700 space-y-1">
+                                <li>• 1 lata cerveja (350ml) = ~14g álcool</li>
+                                <li>• 1 taça vinho (150ml) = ~14g álcool</li>
+                                <li>• 1 dose destilado (45ml) = ~14g álcool</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-bold mb-1">Tipo de bebida</label>
+                            <select x-model="calcInputs.carga_etilica.tipo_bebida" class="form-input mb-3">
+                                <option value="cerveja">Cerveja (350ml = 14g)</option>
+                                <option value="vinho">Vinho (150ml = 14g)</option>
+                                <option value="destilado">Destilado (45ml = 14g)</option>
+                                <option value="manual">Informar gramas diretamente</option>
+                            </select>
+                        </div>
+                        
+                        <div x-show="calcInputs.carga_etilica.tipo_bebida !== 'manual'">
+                            <label class="block text-sm font-bold mb-1">Doses por dia</label>
+                            <input type="number" step="0.5" x-model="calcInputs.carga_etilica.doses_dia" class="form-input" placeholder="Ex: 4">
+                        </div>
+                        
+                        <div x-show="calcInputs.carga_etilica.tipo_bebida === 'manual'">
+                            <label class="block text-sm font-bold mb-1">Gramas de álcool/dia</label>
+                            <input type="number" x-model="calcInputs.carga_etilica.gramas_dia" class="form-input" placeholder="Ex: 60">
+                        </div>
+                        
+                        <div class="bg-red-50 p-4 rounded-lg text-center mt-4 border border-red-100">
+                            <button @click="calculateCargaEtilica()" class="bg-red-600 text-white px-6 py-2 rounded-lg mb-3 hover:bg-red-700 transition-colors">
+                                <i class="fas fa-calculator mr-2"></i>Calcular
+                            </button>
+                            <div x-show="calcResult !== null">
+                                <p class="font-bold text-3xl text-red-700">
+                                    <span x-text="calcResult"></span> g/dia
+                                </p>
+                                <p class="text-sm mt-2 text-red-600" x-text="calcResultText"></p>
+                                <button @click="form.habits.alcoholLoad = calcResult + 'g/dia'; showCalculators = false;" 
+                                        class="mt-3 w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2 font-medium">
+                                    <i class="fas fa-check-circle"></i> Usar este valor
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-3 rounded mt-4">
+                            <p class="text-xs font-bold text-blue-800 mb-2">💡 Interpretação (OMS):</p>
+                            <ul class="text-xs text-blue-700 space-y-1">
+                                <li>• <strong>Baixo risco:</strong> < 20g/dia (♀) ou < 30g/dia (♂)</li>
+                                <li>• <strong>Uso pesado:</strong> > 40g/dia (♀) ou > 60g/dia (♂)</li>
+                                <li>• <strong>Dependência:</strong> > 80g/dia</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            }
+            
             return '<div class="p-4 text-center text-gray-500">Calculadora em desenvolvimento...</div>';
         },
 
@@ -1464,6 +1578,69 @@ document.addEventListener('alpine:init', () => {
                 this.calcResultText = 'PERC NEGATIVO - TEP excluído (se pré-teste baixo)';
             } else {
                 this.calcResultText = `PERC POSITIVO (${positives} critério${positives > 1 ? 's' : ''}) - Prosseguir investigação`;
+            }
+        },
+
+        calculateCargaTabagica() {
+            const cigarros = parseFloat(this.calcInputs.carga_tabagica.cigarros_dia);
+            const anos = parseFloat(this.calcInputs.carga_tabagica.anos);
+            
+            if (!cigarros || !anos || cigarros <= 0 || anos <= 0) {
+                this.calcResult = null;
+                this.calcResultText = 'Preencha os campos corretamente';
+                return;
+            }
+            
+            // Fórmula: Anos-Maço = (cigarros/dia ÷ 20) × anos
+            const anosMaco = (cigarros / 20) * anos;
+            this.calcResult = anosMaco.toFixed(1);
+            
+            if (anosMaco < 10) {
+                this.calcResultText = 'Risco leve';
+            } else if (anosMaco < 20) {
+                this.calcResultText = 'Risco moderado';
+            } else if (anosMaco < 30) {
+                this.calcResultText = 'Risco alto (DPOC, neoplasias)';
+            } else {
+                this.calcResultText = 'Risco muito alto';
+            }
+        },
+
+        calculateCargaEtilica() {
+            let gramas = 0;
+            
+            if (this.calcInputs.carga_etilica.tipo_bebida === 'manual') {
+                gramas = parseFloat(this.calcInputs.carga_etilica.gramas_dia);
+            } else {
+                const doses = parseFloat(this.calcInputs.carga_etilica.doses_dia);
+                if (!doses || doses <= 0) {
+                    this.calcResult = null;
+                    this.calcResultText = 'Preencha o número de doses';
+                    return;
+                }
+                // Cada dose padrão = ~14g de álcool
+                gramas = doses * 14;
+            }
+            
+            if (!gramas || gramas <= 0) {
+                this.calcResult = null;
+                this.calcResultText = 'Preencha os campos corretamente';
+                return;
+            }
+            
+            this.calcResult = gramas.toFixed(0);
+            
+            // Interpretação OMS
+            if (gramas < 20) {
+                this.calcResultText = 'Baixo risco (mulheres) - Considerar gênero';
+            } else if (gramas < 30) {
+                this.calcResultText = 'Baixo risco (homens) - Considerar gênero';
+            } else if (gramas < 40) {
+                this.calcResultText = 'Risco moderado';
+            } else if (gramas < 80) {
+                this.calcResultText = 'Uso pesado - Risco alto';
+            } else {
+                this.calcResultText = 'Dependência provável - Risco muito alto';
             }
         },
 
