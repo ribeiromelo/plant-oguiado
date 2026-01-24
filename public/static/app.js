@@ -10,8 +10,13 @@ document.addEventListener('alpine:init', () => {
             admission: 'Demanda Espontânea',
             habits: {
                 smoker: false,
+                exSmoker: false,
+                smokingLoad: '',
                 alcoholic: false,
+                exAlcoholic: false,
+                alcoholLoad: '',
                 drugs: false,
+                drugTypes: '',
                 sedentary: false
             },
             comorbidities: 'Nega',
@@ -134,7 +139,9 @@ document.addEventListener('alpine:init', () => {
             { id: 'nihss', name: 'NIHSS (AVC)', category: 'Neurologia' },
             { id: 'imc', name: 'IMC', category: 'Geral' },
             { id: 'has_bled', name: 'HAS-BLED', category: 'Cardiologia' },
-            { id: 'perc', name: 'PERC Rule (TEP)', category: 'Vascular' }
+            { id: 'perc', name: 'PERC Rule (TEP)', category: 'Vascular' },
+            { id: 'carga_tabagica', name: 'Carga Tabágica (Anos-Maço)', category: 'Pneumologia' },
+            { id: 'carga_etilica', name: 'Carga Etílica (g/dia)', category: 'Geral' }
         ],
         // Calculator Inputs
         calcInputs: {
@@ -143,6 +150,8 @@ document.addEventListener('alpine:init', () => {
             chads: { chf: false, htn: false, age75: false, dm: false, stroke: false, vasc: false, age65_74: false, female: false },
             wells_tvp: { cancer: false, paralysis: false, bedridden: false, tenderness: false, swelling: false, calf: false, edema: false, collat: false, history: false, alternative: false },
             wells_tep: { dvt: false, hr: false, immob: false, history: false, hemoptysis: false, cancer: false, alternative: false },
+            carga_tabagica: { cigarros_dia: '', anos: '' },
+            carga_etilica: { doses_dia: '', tipo_bebida: 'cerveja', gramas_dia: '' },
             glasgow: { eye: 4, verbal: 5, motor: 6 },
             imc: { weight: '', height: '' },
             has_bled: { htn: false, renal: false, liver: false, stroke: false, bleeding: false, inr: false, age65: false, drugs: false, alcohol: false },
@@ -1486,9 +1495,31 @@ document.addEventListener('alpine:init', () => {
             
             // Habits
             let habitsList = [];
-            if (this.form.habits.smoker) habitsList.push('Tabagista');
-            if (this.form.habits.alcoholic) habitsList.push('Etilista');
-            if (this.form.habits.drugs) habitsList.push('Usuário de drogas');
+            if (this.form.habits.smoker) {
+                let smokingText = 'Tabagista';
+                if (this.form.habits.smokingLoad) smokingText += ` (${this.form.habits.smokingLoad})`;
+                habitsList.push(smokingText);
+            }
+            if (this.form.habits.exSmoker) {
+                let exSmokingText = 'Ex-Tabagista';
+                if (this.form.habits.smokingLoad) exSmokingText += ` (${this.form.habits.smokingLoad})`;
+                habitsList.push(exSmokingText);
+            }
+            if (this.form.habits.alcoholic) {
+                let alcoholText = 'Etilista';
+                if (this.form.habits.alcoholLoad) alcoholText += ` (${this.form.habits.alcoholLoad})`;
+                habitsList.push(alcoholText);
+            }
+            if (this.form.habits.exAlcoholic) {
+                let exAlcoholText = 'Ex-Etilista';
+                if (this.form.habits.alcoholLoad) exAlcoholText += ` (${this.form.habits.alcoholLoad})`;
+                habitsList.push(exAlcoholText);
+            }
+            if (this.form.habits.drugs) {
+                let drugsText = 'Usuário de drogas';
+                if (this.form.habits.drugTypes) drugsText += ` (${this.form.habits.drugTypes})`;
+                habitsList.push(drugsText);
+            }
             if (this.form.habits.sedentary) habitsList.push('Sedentário');
             
             if (habitsList.length > 0) {
@@ -1649,9 +1680,31 @@ document.addEventListener('alpine:init', () => {
             
             // Hábitos
             let habitsList = [];
-            if (this.form.habits.smoker) habitsList.push('Tabagista');
-            if (this.form.habits.alcoholic) habitsList.push('Etilista');
-            if (this.form.habits.drugs) habitsList.push('Usuário de drogas');
+            if (this.form.habits.smoker) {
+                let smokingText = 'Tabagista';
+                if (this.form.habits.smokingLoad) smokingText += ` (${this.form.habits.smokingLoad})`;
+                habitsList.push(smokingText);
+            }
+            if (this.form.habits.exSmoker) {
+                let exSmokingText = 'Ex-Tabagista';
+                if (this.form.habits.smokingLoad) exSmokingText += ` (${this.form.habits.smokingLoad})`;
+                habitsList.push(exSmokingText);
+            }
+            if (this.form.habits.alcoholic) {
+                let alcoholText = 'Etilista';
+                if (this.form.habits.alcoholLoad) alcoholText += ` (${this.form.habits.alcoholLoad})`;
+                habitsList.push(alcoholText);
+            }
+            if (this.form.habits.exAlcoholic) {
+                let exAlcoholText = 'Ex-Etilista';
+                if (this.form.habits.alcoholLoad) exAlcoholText += ` (${this.form.habits.alcoholLoad})`;
+                habitsList.push(exAlcoholText);
+            }
+            if (this.form.habits.drugs) {
+                let drugsText = 'Usuário de drogas';
+                if (this.form.habits.drugTypes) drugsText += ` (${this.form.habits.drugTypes})`;
+                habitsList.push(drugsText);
+            }
             if (this.form.habits.sedentary) habitsList.push('Sedentário');
             
             if (habitsList.length > 0) {

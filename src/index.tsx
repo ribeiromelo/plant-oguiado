@@ -818,23 +818,74 @@ app.get('/', (c) => {
 
                     <div class="mt-8 border-t border-slate-100 pt-6">
                         <label class="form-label mb-3">Hábitos de Vida</label>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                            <label class="checkbox-card" :class="form.habits.smoker ? 'border-blue-500 ring-1 ring-blue-500 bg-blue-50/50' : ''">
-                                <input type="checkbox" x-model="form.habits.smoker" class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500">
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+                            <!-- TABAGISMO -->
+                            <label class="checkbox-card" :class="form.habits.smoker ? 'border-amber-500 ring-1 ring-amber-500 bg-amber-50/50' : ''">
+                                <input type="checkbox" x-model="form.habits.smoker" @change="if(form.habits.smoker) { form.habits.exSmoker = false; selectedCalc = calculators.find(c => c.id === 'carga_tabagica'); showCalculators = true; }" class="w-4 h-4 text-amber-600 rounded border-slate-300 focus:ring-amber-500">
                                 <span class="text-sm font-medium text-slate-700">Tabagista</span>
                             </label>
-                            <label class="checkbox-card" :class="form.habits.alcoholic ? 'border-blue-500 ring-1 ring-blue-500 bg-blue-50/50' : ''">
-                                <input type="checkbox" x-model="form.habits.alcoholic" class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500">
+                            <label class="checkbox-card" :class="form.habits.exSmoker ? 'border-amber-400 ring-1 ring-amber-400 bg-amber-50/30' : ''">
+                                <input type="checkbox" x-model="form.habits.exSmoker" @change="if(form.habits.exSmoker) { form.habits.smoker = false; selectedCalc = calculators.find(c => c.id === 'carga_tabagica'); showCalculators = true; }" class="w-4 h-4 text-amber-500 rounded border-slate-300 focus:ring-amber-500">
+                                <span class="text-sm font-medium text-slate-700">Ex-Tabagista</span>
+                            </label>
+                            
+                            <!-- ETILISMO -->
+                            <label class="checkbox-card" :class="form.habits.alcoholic ? 'border-red-500 ring-1 ring-red-500 bg-red-50/50' : ''">
+                                <input type="checkbox" x-model="form.habits.alcoholic" @change="if(form.habits.alcoholic) { form.habits.exAlcoholic = false; selectedCalc = calculators.find(c => c.id === 'carga_etilica'); showCalculators = true; }" class="w-4 h-4 text-red-600 rounded border-slate-300 focus:ring-red-500">
                                 <span class="text-sm font-medium text-slate-700">Etilista</span>
                             </label>
-                            <label class="checkbox-card" :class="form.habits.drugs ? 'border-blue-500 ring-1 ring-blue-500 bg-blue-50/50' : ''">
-                                <input type="checkbox" x-model="form.habits.drugs" class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500">
+                            <label class="checkbox-card" :class="form.habits.exAlcoholic ? 'border-red-400 ring-1 ring-red-400 bg-red-50/30' : ''">
+                                <input type="checkbox" x-model="form.habits.exAlcoholic" @change="if(form.habits.exAlcoholic) { form.habits.alcoholic = false; selectedCalc = calculators.find(c => c.id === 'carga_etilica'); showCalculators = true; }" class="w-4 h-4 text-red-500 rounded border-slate-300 focus:ring-red-500">
+                                <span class="text-sm font-medium text-slate-700">Ex-Etilista</span>
+                            </label>
+                            
+                            <!-- DROGAS -->
+                            <label class="checkbox-card" :class="form.habits.drugs ? 'border-purple-500 ring-1 ring-purple-500 bg-purple-50/50' : ''">
+                                <input type="checkbox" x-model="form.habits.drugs" class="w-4 h-4 text-purple-600 rounded border-slate-300 focus:ring-purple-500">
                                 <span class="text-sm font-medium text-slate-700">Drogas</span>
                             </label>
+                            
+                            <!-- SEDENTÁRIO -->
                             <label class="checkbox-card" :class="form.habits.sedentary ? 'border-blue-500 ring-1 ring-blue-500 bg-blue-50/50' : ''">
                                 <input type="checkbox" x-model="form.habits.sedentary" class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500">
                                 <span class="text-sm font-medium text-slate-700">Sedentário</span>
                             </label>
+                        </div>
+                        
+                        <!-- CAMPOS ADICIONAIS DE HÁBITOS -->
+                        <div class="space-y-3 mt-4">
+                            <!-- Carga Tabágica -->
+                            <div x-show="form.habits.smoker || form.habits.exSmoker" class="bg-amber-50/50 border border-amber-200 rounded-lg p-4">
+                                <label class="form-label flex items-center gap-2 mb-2">
+                                    <i class="fas fa-smoking text-amber-600"></i>
+                                    <span>Carga Tabágica</span>
+                                    <button @click="selectedCalc = calculators.find(c => c.id === 'carga_tabagica'); showCalculators = true" class="ml-auto px-2 py-1 bg-amber-600 text-white text-xs rounded-lg hover:bg-amber-700 transition-all">
+                                        <i class="fas fa-calculator mr-1"></i> Calcular
+                                    </button>
+                                </label>
+                                <input type="text" x-model="form.habits.smokingLoad" class="form-input border-amber-200" placeholder="Ex: 20 anos-maço ou 20 cigarros/dia há 10 anos">
+                            </div>
+                            
+                            <!-- Carga Etílica -->
+                            <div x-show="form.habits.alcoholic || form.habits.exAlcoholic" class="bg-red-50/50 border border-red-200 rounded-lg p-4">
+                                <label class="form-label flex items-center gap-2 mb-2">
+                                    <i class="fas fa-wine-bottle text-red-600"></i>
+                                    <span>Carga Etílica</span>
+                                    <button @click="selectedCalc = calculators.find(c => c.id === 'carga_etilica'); showCalculators = true" class="ml-auto px-2 py-1 bg-red-600 text-white text-xs rounded-lg hover:bg-red-700 transition-all">
+                                        <i class="fas fa-calculator mr-1"></i> Calcular
+                                    </button>
+                                </label>
+                                <input type="text" x-model="form.habits.alcoholLoad" class="form-input border-red-200" placeholder="Ex: 80g/dia ou 4 doses/dia">
+                            </div>
+                            
+                            <!-- Tipo de Drogas -->
+                            <div x-show="form.habits.drugs" class="bg-purple-50/50 border border-purple-200 rounded-lg p-4">
+                                <label class="form-label flex items-center gap-2 mb-2">
+                                    <i class="fas fa-pills text-purple-600"></i>
+                                    <span>Especificar Drogas</span>
+                                </label>
+                                <input type="text" x-model="form.habits.drugTypes" class="form-input border-purple-200" placeholder="Ex: Maconha, Cocaína, etc.">
+                            </div>
                         </div>
                     </div>
 
