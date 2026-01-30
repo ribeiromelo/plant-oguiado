@@ -143,12 +143,7 @@ app.get('/receituario', (c) => {
             .form-card:hover::before {
                 @apply opacity-100;
             }
-            .form-label {
-                @apply block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider ml-1;
-            }
-            .form-input {
-                @apply w-full px-5 py-3.5 bg-slate-50 border-0 rounded-2xl focus:bg-white focus:ring-4 focus:ring-blue-500/20 text-slate-700 font-bold placeholder-slate-400 shadow-inner transition-all duration-300;
-            }
+            /* Classes .form-label e .form-input agora vêm do /static/styles.css */
             
             @media print {
                 @page { margin: 0; size: A4; }
@@ -678,6 +673,7 @@ app.get('/', (c) => {
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link href="/static/styles.css" rel="stylesheet">
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js"></script>
         <style>
@@ -1967,6 +1963,7 @@ app.get('/prescricoes', (c) => {
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link href="/static/styles.css" rel="stylesheet">
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
         <style>
             body { font-family: 'Inter', sans-serif; }
