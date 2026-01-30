@@ -114,6 +114,15 @@ app.post('/login', async (c) => {
   return c.html('Login Inválido <a href="/login">Tentar novamente</a>')
 })
 
+// Rota de Logout
+app.get('/logout', (c) => {
+  setCookie(c, 'auth_user', '', {
+    path: '/',
+    maxAge: 0 // Remove o cookie
+  })
+  return c.redirect('/login')
+})
+
 // Rota Principal (Evolução) - VISUAL NOVO
 // Rota de Receituário
 app.get('/receituario', (c) => {
@@ -183,17 +192,23 @@ app.get('/receituario', (c) => {
                     </div>
                 </div>
                 
-                <nav class="flex items-center bg-slate-100 p-1 rounded-xl">
-                    <a href="/" class="px-4 py-1.5 text-sm font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
-                        <i class="fas fa-file-medical mr-2"></i>Evolução
+                <div class="flex items-center gap-3">
+                    <nav class="flex items-center bg-slate-100 p-1 rounded-xl">
+                        <a href="/" class="px-4 py-1.5 text-sm font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
+                            <i class="fas fa-file-medical mr-2"></i>Evolução
+                        </a>
+                        <a href="/prescricoes" class="px-4 py-1.5 text-sm font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
+                            <i class="fas fa-prescription mr-2"></i>Prescrições
+                        </a>
+                        <a href="/receituario" class="px-4 py-1.5 text-sm font-semibold text-blue-700 bg-white shadow-sm rounded-lg transition-all">
+                            <i class="fas fa-print mr-2"></i>Receituário
+                        </a>
+                    </nav>
+                    <a href="/logout" class="px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white text-sm font-bold rounded-lg transition-all shadow-sm hover:shadow-md flex items-center gap-2">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span class="hidden sm:inline">Sair</span>
                     </a>
-                    <a href="/prescricoes" class="px-4 py-1.5 text-sm font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
-                        <i class="fas fa-prescription mr-2"></i>Prescrições
-                    </a>
-                    <a href="/receituario" class="px-4 py-1.5 text-sm font-semibold text-blue-700 bg-white shadow-sm rounded-lg transition-all">
-                        <i class="fas fa-print mr-2"></i>Receituário
-                    </a>
-                </nav>
+                </div>
             </div>
         </header>
 
@@ -704,17 +719,23 @@ app.get('/', (c) => {
                     </div>
                 </div>
                 
-                <nav class="flex items-center bg-white p-1.5 rounded-2xl shadow-sm border border-slate-100">
-                    <a href="/" class="px-5 py-2.5 text-sm font-bold text-indigo-600 bg-indigo-50 rounded-xl transition-all shadow-sm ring-1 ring-indigo-100">
-                        <i class="fas fa-file-medical mr-2"></i>Evolução
+                <div class="flex items-center gap-3">
+                    <nav class="flex items-center bg-white p-1.5 rounded-2xl shadow-sm border border-slate-100">
+                        <a href="/" class="px-5 py-2.5 text-sm font-bold text-indigo-600 bg-indigo-50 rounded-xl transition-all shadow-sm ring-1 ring-indigo-100">
+                            <i class="fas fa-file-medical mr-2"></i>Evolução
+                        </a>
+                        <a href="/prescricoes" class="px-5 py-2.5 text-sm font-bold text-slate-500 hover:text-indigo-600 hover:bg-slate-50 rounded-xl transition-colors">
+                            <i class="fas fa-prescription mr-2"></i>Prescrições
+                        </a>
+                        <a href="/receituario" class="px-5 py-2.5 text-sm font-bold text-slate-500 hover:text-indigo-600 hover:bg-slate-50 rounded-xl transition-colors">
+                            <i class="fas fa-print mr-2"></i>Receituário
+                        </a>
+                    </nav>
+                    <a href="/logout" class="px-4 py-2.5 bg-red-500 hover:bg-red-600 text-white text-sm font-bold rounded-xl transition-all shadow-sm hover:shadow-md flex items-center gap-2">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span class="hidden sm:inline">Sair</span>
                     </a>
-                    <a href="/prescricoes" class="px-5 py-2.5 text-sm font-bold text-slate-500 hover:text-indigo-600 hover:bg-slate-50 rounded-xl transition-colors">
-                        <i class="fas fa-prescription mr-2"></i>Prescrições
-                    </a>
-                    <a href="/receituario" class="px-5 py-2.5 text-sm font-bold text-slate-500 hover:text-indigo-600 hover:bg-slate-50 rounded-xl transition-colors">
-                        <i class="fas fa-print mr-2"></i>Receituário
-                    </a>
-                </nav>
+                </div>
             </div>
         </header>
 
@@ -1991,17 +2012,23 @@ app.get('/prescricoes', (c) => {
                     </a>
                 </div>
                 
-                <nav class="flex items-center bg-slate-100 p-1 rounded-xl">
-                    <a href="/" class="px-4 py-1.5 text-sm font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
-                        <i class="fas fa-file-medical mr-2"></i>Evolução
+                <div class="flex items-center gap-3">
+                    <nav class="flex items-center bg-slate-100 p-1 rounded-xl">
+                        <a href="/" class="px-4 py-1.5 text-sm font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
+                            <i class="fas fa-file-medical mr-2"></i>Evolução
+                        </a>
+                        <a href="/prescricoes" class="px-4 py-1.5 text-sm font-semibold text-blue-700 bg-white shadow-sm rounded-lg transition-all">
+                            <i class="fas fa-prescription mr-2"></i>Prescrições
+                        </a>
+                        <a href="/receituario" class="px-4 py-1.5 text-sm font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
+                            <i class="fas fa-print mr-2"></i>Receituário
+                        </a>
+                    </nav>
+                    <a href="/logout" class="px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white text-sm font-bold rounded-lg transition-all shadow-sm hover:shadow-md flex items-center gap-2">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span class="hidden sm:inline">Sair</span>
                     </a>
-                    <a href="/prescricoes" class="px-4 py-1.5 text-sm font-semibold text-blue-700 bg-white shadow-sm rounded-lg transition-all">
-                        <i class="fas fa-prescription mr-2"></i>Prescrições
-                    </a>
-                    <a href="/receituario" class="px-4 py-1.5 text-sm font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
-                        <i class="fas fa-print mr-2"></i>Receituário
-                    </a>
-                </nav>
+                </div>
             </div>
         </header>
 
