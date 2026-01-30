@@ -1264,16 +1264,16 @@ document.addEventListener('alpine:init', () => {
                         </div>
                         
                         <div class="bg-amber-50 p-4 rounded-lg text-center mt-4 border border-amber-100">
-                            <button @click="calculateCargaTabagica()" class="bg-amber-600 text-white px-6 py-2 rounded-lg mb-3 hover:bg-amber-700 transition-colors">
+                            <button @click="calculateCargaTabagica()" class="bg-amber-600 text-white px-6 py-2 rounded-lg mb-3 hover:bg-amber-700 transition-colors shadow-md">
                                 <i class="fas fa-calculator mr-2"></i>Calcular
                             </button>
                             <div x-show="calcResult !== null">
                                 <p class="font-bold text-3xl text-amber-700">
                                     <span x-text="calcResult"></span> anos-maço
                                 </p>
-                                <p class="text-sm mt-2 text-amber-600" x-text="calcResultText"></p>
+                                <p class="text-sm mt-2 text-amber-600 font-medium" x-text="calcResultText"></p>
                                 <button @click="form.habits.smokingLoad = calcResult + ' anos-maço'; showCalculators = false;" 
-                                        class="mt-3 w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2 font-medium">
+                                        class="mt-3 w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2 font-medium shadow-sm">
                                     <i class="fas fa-check-circle"></i> Usar este valor
                                 </button>
                             </div>
@@ -1328,16 +1328,16 @@ document.addEventListener('alpine:init', () => {
                         </div>
                         
                         <div class="bg-red-50 p-4 rounded-lg text-center mt-4 border border-red-100">
-                            <button @click="calculateCargaEtilica()" class="bg-red-600 text-white px-6 py-2 rounded-lg mb-3 hover:bg-red-700 transition-colors">
+                            <button @click="calculateCargaEtilica()" class="bg-red-600 text-white px-6 py-2 rounded-lg mb-3 hover:bg-red-700 transition-colors shadow-md">
                                 <i class="fas fa-calculator mr-2"></i>Calcular
                             </button>
                             <div x-show="calcResult !== null">
                                 <p class="font-bold text-3xl text-red-700">
                                     <span x-text="calcResult"></span> g/dia
                                 </p>
-                                <p class="text-sm mt-2 text-red-600" x-text="calcResultText"></p>
+                                <p class="text-sm mt-2 text-red-600 font-medium" x-text="calcResultText"></p>
                                 <button @click="form.habits.alcoholLoad = calcResult + 'g/dia'; showCalculators = false;" 
-                                        class="mt-3 w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2 font-medium">
+                                        class="mt-3 w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2 font-medium shadow-sm">
                                     <i class="fas fa-check-circle"></i> Usar este valor
                                 </button>
                             </div>

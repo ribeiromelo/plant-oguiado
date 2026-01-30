@@ -42,11 +42,11 @@ app.get('/login', (c) => {
             body { font-family: 'Inter', sans-serif; }
         </style>
     </head>
-    <body class="bg-slate-50 flex items-center justify-center h-screen relative overflow-hidden">
+    <body class="bg-[#f0f4f8] flex items-center justify-center h-screen relative overflow-hidden antialiased selection:bg-blue-500 selection:text-white">
         <!-- Background Decorativo -->
         <div class="absolute top-0 left-0 w-full h-64 bg-gradient-to-r from-blue-600 to-cyan-500 transform -skew-y-3 origin-top-left -translate-y-10 z-0"></div>
         
-        <div class="bg-white/90 backdrop-blur-lg p-10 rounded-2xl shadow-2xl max-w-sm w-full border border-white/50 relative z-10">
+        <div class="bg-white/95 backdrop-blur-xl p-10 rounded-3xl shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] max-w-sm w-full border border-white/60 relative z-10 transform transition-all hover:scale-[1.01] duration-500">
             <div class="flex flex-col items-center mb-8">
                 <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-2xl flex items-center justify-center text-white mb-4 shadow-lg transform rotate-3 hover:rotate-0 transition-all duration-300">
                      <i class="fas fa-user-md text-4xl"></i>
@@ -127,19 +127,27 @@ app.get('/receituario', (c) => {
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link href="/static/styles.css" rel="stylesheet">
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
         <style type="text/tailwindcss">
             body { font-family: 'Inter', sans-serif; }
             .font-poppins { font-family: 'Poppins', sans-serif; }
             
             .form-card {
-                @apply bg-white p-6 rounded-2xl shadow-sm border border-slate-100 mb-6 transition-shadow hover:shadow-md;
+                @apply bg-white p-6 rounded-3xl shadow-lg border-0 mb-6 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-900/10 hover:-translate-y-1 relative overflow-hidden;
+            }
+            .form-card::before {
+                content: '';
+                @apply absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-indigo-500 opacity-0 transition-opacity duration-300;
+            }
+            .form-card:hover::before {
+                @apply opacity-100;
             }
             .form-label {
-                @apply block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wide ml-1;
+                @apply block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider ml-1;
             }
             .form-input {
-                @apply w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-slate-700 font-medium placeholder-slate-400;
+                @apply w-full px-5 py-3.5 bg-slate-50 border-0 rounded-2xl focus:bg-white focus:ring-4 focus:ring-blue-500/20 text-slate-700 font-bold placeholder-slate-400 shadow-inner transition-all duration-300;
             }
             
             @media print {
@@ -200,7 +208,7 @@ app.get('/receituario', (c) => {
             <div class="flex-1 min-w-0 no-print pb-20">
                 
                 <!-- Dados do Médico -->
-                <div class="form-card group relative overflow-hidden">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-blue-500 rounded-l-lg"></div>
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-lg font-bold text-slate-700 flex items-center gap-2">
@@ -214,26 +222,26 @@ app.get('/receituario', (c) => {
                     
                     <div class="grid grid-cols-12 gap-5">
                         <div class="col-span-12 md:col-span-8">
-                            <label class="form-label">Nome Completo</label>
-                            <input type="text" x-model="doctor.name" class="form-input" placeholder="Dr. Fulano de Tal">
+                            <label class="block text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-user-md text-blue-500"></i> Nome Completo</label>
+                            <input type="text" x-model="doctor.name" class="w-full px-4 py-3 bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Dr. Fulano de Tal">
                         </div>
                         <div class="col-span-6 md:col-span-2">
-                            <label class="form-label">CRM</label>
-                            <input type="text" x-model="doctor.crm" class="form-input" placeholder="12345">
+                            <label class="block text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-id-card text-blue-500"></i> CRM</label>
+                            <input type="text" x-model="doctor.crm" class="w-full px-4 py-3 bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="12345">
                         </div>
                         <div class="col-span-6 md:col-span-2">
-                            <label class="form-label">UF</label>
-                            <input type="text" x-model="doctor.uf" class="form-input" placeholder="SP" maxlength="2">
+                            <label class="block text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-map-marker-alt text-blue-500"></i> UF</label>
+                            <input type="text" x-model="doctor.uf" class="w-full px-4 py-3 bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm uppercase" placeholder="SP" maxlength="2">
                         </div>
                         <div class="col-span-12">
-                            <label class="form-label">Endereço / Clínica</label>
-                            <input type="text" x-model="doctor.address" class="form-input" placeholder="Rua das Flores, 123 - Centro, São Paulo - SP">
+                            <label class="block text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-clinic-medical text-blue-500"></i> Endereço / Clínica</label>
+                            <input type="text" x-model="doctor.address" class="w-full px-4 py-3 bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Rua das Flores, 123 - Centro, São Paulo - SP">
                         </div>
                     </div>
                 </div>
 
                 <!-- Prescrição -->
-                <div class="form-card group relative overflow-hidden">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-emerald-500 rounded-l-lg"></div>
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-lg font-bold text-slate-700 flex items-center gap-2">
@@ -256,51 +264,56 @@ app.get('/receituario', (c) => {
 
                     <div class="grid grid-cols-12 gap-5 mb-6">
                         <div class="col-span-12 md:col-span-8">
-                            <label class="form-label">Nome do Paciente</label>
-                            <input type="text" x-model="patient.name" class="form-input" placeholder="Nome do paciente">
+                            <label class="block text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-user text-emerald-500"></i> Nome do Paciente</label>
+                            <input type="text" x-model="patient.name" class="w-full px-4 py-3 bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Nome completo do paciente">
                         </div>
                         <div class="col-span-12 md:col-span-4">
-                            <label class="form-label">CPF</label>
-                            <input type="text" x-model="patient.cpf" class="form-input" placeholder="000.000.000-00">
+                            <label class="block text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-id-card text-emerald-500"></i> CPF</label>
+                            <input type="text" x-model="patient.cpf" class="w-full px-4 py-3 bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="000.000.000-00">
                         </div>
                         <div class="col-span-12 md:col-span-9">
-                            <label class="form-label">Endereço <span x-show="tipo === 'especial'" class="text-red-600">(Obrigatório para Especial)</span></label>
-                            <input type="text" x-model="patient.address" class="form-input" placeholder="Rua, Número, Bairro, Cidade">
+                            <label class="block text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-map-marked-alt text-emerald-500"></i> Endereço <span x-show="tipo === 'especial'" class="text-red-600 font-black ml-2">(Obrigatório para Receita Especial)</span></label>
+                            <input type="text" x-model="patient.address" class="w-full px-4 py-3 bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Rua, Número, Bairro, Cidade - Estado">
                         </div>
                         <div class="col-span-12 md:col-span-3">
-                            <label class="form-label">Data</label>
-                            <input type="date" x-model="date" class="form-input">
+                            <label class="block text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-calendar-day text-emerald-500"></i> Data</label>
+                            <input type="date" x-model="date" class="w-full px-4 py-3 bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm">
                         </div>
                     </div>
 
                     <!-- Medicamentos (Simples/Especial) -->
-                    <div x-show="tipo !== 'livre'" class="bg-emerald-50/50 rounded-2xl p-5 border border-emerald-100 mb-6">
-                        <label class="form-label text-emerald-700 mb-4">Adicionar Medicamento</label>
-                        <div class="grid gap-4">
+                    <div x-show="tipo !== 'livre'" class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-6 border-2 border-emerald-200 mb-6 shadow-md">
+                        <label class="block text-sm font-bold text-emerald-700 mb-5 uppercase tracking-wide flex items-center gap-2">
+                            <i class="fas fa-pills text-lg"></i> Adicionar Medicamento
+                        </label>
+                        <div class="grid gap-5">
                             <div>
-                                <input type="text" x-model="newMed.name" class="form-input bg-white border-emerald-200 focus:border-emerald-500 focus:ring-emerald-500/20" placeholder="Nome do Medicamento + Concentração (ex: Amoxicilina 500mg)" @keydown.enter="$refs.qty.focus()">
+                                <label class="block text-xs font-semibold text-emerald-600 mb-2 uppercase tracking-wide ml-1">Medicamento + Concentração</label>
+                                <input type="text" x-model="newMed.name" class="w-full px-4 py-3.5 bg-white border-2 border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 hover:border-emerald-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Ex: Amoxicilina 500mg" @keydown.enter="$refs.qty.focus()">
                             </div>
                             <div>
-                                <input x-ref="qty" type="text" x-model="newMed.quantity" class="form-input bg-white border-emerald-200 focus:border-emerald-500 focus:ring-emerald-500/20" placeholder="Quantidade (ex: 1 caixa com 21 comprimidos)" @keydown.enter="$refs.instr.focus()">
+                                <label class="block text-xs font-semibold text-emerald-600 mb-2 uppercase tracking-wide ml-1">Quantidade</label>
+                                <input x-ref="qty" type="text" x-model="newMed.quantity" class="w-full px-4 py-3.5 bg-white border-2 border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 hover:border-emerald-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Ex: 1 caixa com 21 comprimidos" @keydown.enter="$refs.instr.focus()">
                             </div>
                             <div>
-                                <textarea x-ref="instr" x-model="newMed.instruction" class="form-input bg-white h-24 resize-none border-emerald-200 focus:border-emerald-500 focus:ring-emerald-500/20" placeholder="Posologia (ex: Tomar 1 comprimido de 8 em 8 horas por 7 dias)" @keydown.enter.prevent="addMed()"></textarea>
+                                <label class="block text-xs font-semibold text-emerald-600 mb-2 uppercase tracking-wide ml-1">Posologia / Instruções de Uso</label>
+                                <textarea x-ref="instr" x-model="newMed.instruction" class="w-full px-4 py-3.5 bg-white border-2 border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 hover:border-emerald-300 transition-all text-sm font-medium text-slate-900 placeholder-slate-400 shadow-sm h-28 resize-none leading-relaxed" placeholder="Ex: Tomar 1 comprimido de 8 em 8 horas por 7 dias" @keydown.enter.prevent="addMed()"></textarea>
                             </div>
-                            <button @click="addMed()" class="w-full bg-emerald-600 text-white font-bold py-3 rounded-xl hover:bg-emerald-700 shadow-lg shadow-emerald-500/30 transition-all flex items-center justify-center gap-2">
-                                <i class="fas fa-plus-circle"></i> Adicionar à Receita
+                            <button @click="addMed()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold py-4 rounded-xl hover:from-emerald-700 hover:to-teal-700 shadow-lg shadow-emerald-500/40 hover:shadow-xl hover:shadow-emerald-500/50 active:scale-[0.98] transition-all flex items-center justify-center gap-3 text-base">
+                                <i class="fas fa-plus-circle text-lg"></i> Adicionar à Receita
                             </button>
                         </div>
                     </div>
 
                     <!-- Texto Livre -->
-                    <div x-show="tipo === 'livre'" class="bg-blue-50/50 rounded-2xl p-5 border border-blue-100 mb-6">
-                        <div class="mb-4">
-                            <label class="form-label text-blue-700">Título do Documento</label>
-                            <input type="text" x-model="freeTitle" class="form-input bg-white border-blue-200 focus:border-blue-500 focus:ring-blue-500/20" placeholder="Ex: SOLICITAÇÃO DE EXAMES">
+                    <div x-show="tipo === 'livre'" class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border-2 border-blue-200 mb-6 shadow-md">
+                        <div class="mb-5">
+                            <label class="block text-xs font-semibold text-blue-600 mb-2 uppercase tracking-wide ml-1 flex items-center gap-2"><i class="fas fa-heading text-blue-500"></i> Título do Documento</label>
+                            <input type="text" x-model="freeTitle" class="w-full px-4 py-3.5 bg-white border-2 border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 hover:border-blue-300 transition-all text-sm font-bold text-slate-900 placeholder-slate-400 shadow-sm uppercase tracking-wide" placeholder="Ex: SOLICITAÇÃO DE EXAMES">
                         </div>
                         <div>
-                            <label class="form-label text-blue-700">Conteúdo</label>
-                            <textarea x-model="freeText" class="form-input bg-white h-64 resize-none border-blue-200 focus:border-blue-500 focus:ring-blue-500/20 font-mono text-sm leading-relaxed" placeholder="Digite o conteúdo do documento..."></textarea>
+                            <label class="block text-xs font-semibold text-blue-600 mb-2 uppercase tracking-wide ml-1 flex items-center gap-2"><i class="fas fa-file-alt text-blue-500"></i> Conteúdo</label>
+                            <textarea x-model="freeText" class="w-full px-4 py-3.5 bg-white border-2 border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 hover:border-blue-300 transition-all text-sm font-medium text-slate-900 placeholder-slate-400 shadow-sm h-72 resize-none font-mono leading-relaxed" placeholder="Digite o conteúdo completo do documento...&#10;&#10;Use quebras de linha para organizar o texto."></textarea>
                         </div>
                     </div>
 
@@ -667,22 +680,8 @@ app.get('/', (c) => {
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js"></script>
-        <style type="text/tailwindcss">
+        <style>
             body { font-family: 'Inter', sans-serif; }
-            
-            .form-card {
-                @apply bg-white p-6 rounded-2xl shadow-sm border border-slate-100 mb-6 transition-shadow hover:shadow-md;
-            }
-            .form-label {
-                @apply block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wide ml-1;
-            }
-            .form-input {
-                @apply w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-slate-700 font-medium placeholder-slate-400;
-            }
-            .checkbox-card {
-                @apply flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-slate-50 hover:border-slate-200 cursor-pointer transition-all select-none bg-white;
-            }
-            
             /* Custom Scrollbar */
             ::-webkit-scrollbar { width: 6px; height: 6px; }
             ::-webkit-scrollbar-track { background: transparent; }
@@ -694,29 +693,29 @@ app.get('/', (c) => {
             }
         </style>
     </head>
-    <body class="bg-slate-50 text-slate-800" x-data="medicalForm()">
+    <body class="bg-gray-50 text-slate-900 font-sans antialiased selection:bg-blue-600 selection:text-white" x-data="medicalForm()">
         
         <!-- Navbar Glass -->
-        <header class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
-            <div class="max-w-[1600px] mx-auto px-4 lg:px-6 h-16 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-lg flex items-center justify-center text-white shadow-md shadow-blue-500/20">
-                         <i class="fas fa-user-md text-lg"></i>
+        <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+            <div class="max-w-[1600px] mx-auto px-4 lg:px-6 h-20 flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-gradient-to-tr from-indigo-600 to-blue-500 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-500/30 rotate-3 hover:rotate-0 transition-all duration-300">
+                         <i class="fas fa-user-md text-xl"></i>
                     </div>
                     <div>
-                        <h1 class="text-base font-bold text-slate-800 leading-none">Plantão Guiado</h1>
-                        <p class="text-[10px] text-slate-500 font-medium uppercase tracking-wider mt-0.5">Evolução Médica</p>
+                        <h1 class="text-lg font-black text-slate-800 leading-none tracking-tight">Plantão<span class="text-indigo-600">Guiado</span></h1>
+                        <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-0.5">Sistema Inteligente</p>
                     </div>
                 </div>
                 
-                <nav class="flex items-center bg-slate-100 p-1 rounded-xl">
-                    <a href="/" class="px-4 py-1.5 text-sm font-semibold text-blue-700 bg-white shadow-sm rounded-lg transition-all">
+                <nav class="flex items-center bg-white p-1.5 rounded-2xl shadow-sm border border-slate-100">
+                    <a href="/" class="px-5 py-2.5 text-sm font-bold text-indigo-600 bg-indigo-50 rounded-xl transition-all shadow-sm ring-1 ring-indigo-100">
                         <i class="fas fa-file-medical mr-2"></i>Evolução
                     </a>
-                    <a href="/prescricoes" class="px-4 py-1.5 text-sm font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
+                    <a href="/prescricoes" class="px-5 py-2.5 text-sm font-bold text-slate-500 hover:text-indigo-600 hover:bg-slate-50 rounded-xl transition-colors">
                         <i class="fas fa-prescription mr-2"></i>Prescrições
                     </a>
-                    <a href="/receituario" class="px-4 py-1.5 text-sm font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
+                    <a href="/receituario" class="px-5 py-2.5 text-sm font-bold text-slate-500 hover:text-indigo-600 hover:bg-slate-50 rounded-xl transition-colors">
                         <i class="fas fa-print mr-2"></i>Receituário
                     </a>
                 </nav>
@@ -747,10 +746,10 @@ app.get('/', (c) => {
                 </div>
                 
                 <!-- Status Banner -->
-                <div class="p-6 rounded-2xl shadow-lg text-white mb-8 relative overflow-hidden"
-                     :class="form.serviceType === 'salavermelha' ? 'bg-gradient-to-r from-red-600 to-pink-600 shadow-red-500/20' : 'bg-gradient-to-r from-blue-600 to-cyan-600 shadow-blue-500/20'">
-                    <div class="absolute right-0 top-0 opacity-10 transform translate-x-10 -translate-y-10">
-                        <i class="fas text-9xl" :class="form.serviceType === 'salavermelha' ? 'fa-heartbeat' : 'fa-hospital'"></i>
+                <div class="p-6 rounded-xl shadow-md text-white mb-8 relative overflow-hidden"
+                     :class="form.serviceType === 'salavermelha' ? 'bg-gradient-to-r from-red-600 to-red-700' : 'bg-gradient-to-r from-blue-600 to-blue-700'">
+                    <div class="absolute right-0 top-0 opacity-10">
+                        <i class="fas text-8xl transform translate-x-4 -translate-y-4" :class="form.serviceType === 'salavermelha' ? 'fa-heartbeat' : 'fa-hospital'"></i>
                     </div>
                     
                     <div class="flex flex-col md:flex-row justify-between items-center gap-4 relative z-10">
@@ -778,7 +777,7 @@ app.get('/', (c) => {
                 </div>
 
                 <!-- 1. IDENTIFICATION -->
-                <div class="form-card group relative overflow-hidden">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-blue-500 rounded-l-lg"></div>
                     <h3 class="text-lg font-bold text-slate-700 mb-6 flex items-center gap-2">
                         <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-sm"><i class="fas fa-user"></i></div>
@@ -787,31 +786,31 @@ app.get('/', (c) => {
                     
                     <div class="grid grid-cols-12 gap-5">
                         <div class="col-span-12 md:col-span-6">
-                            <label class="form-label">Nome do Paciente</label>
-                            <input type="text" x-model="form.name" class="form-input" placeholder="Nome completo">
+                            <label class="block text-xs font-bold text-blue-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-user"></i> Nome do Paciente</label>
+                            <input type="text" x-model="form.name" class="w-full px-4 py-3 bg-gradient-to-br from-white to-blue-50/30 border-2 border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 hover:border-blue-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Nome completo do paciente">
                         </div>
                         <div class="col-span-6 md:col-span-3">
-                            <label class="form-label">Idade</label>
+                            <label class="block text-xs font-bold text-blue-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-birthday-cake"></i> Idade</label>
                             <div class="relative">
-                                <input type="number" x-model="form.age" class="form-input" placeholder="Anos">
-                                <span class="absolute right-3 top-2.5 text-slate-400 text-xs font-medium">anos</span>
+                                <input type="number" x-model="form.age" class="w-full px-4 py-3 pr-16 bg-gradient-to-br from-white to-blue-50/30 border-2 border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 hover:border-blue-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Ex: 45">
+                                <span class="absolute right-4 top-3.5 text-blue-400 text-xs font-bold uppercase">anos</span>
                             </div>
                         </div>
                         <div class="col-span-6 md:col-span-3">
-                            <label class="form-label">Sexo</label>
-                            <select x-model="form.gender" class="form-input appearance-none">
-                                <option value="Masculino">Masculino</option>
-                                <option value="Feminino">Feminino</option>
+                            <label class="block text-xs font-bold text-blue-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-venus-mars"></i> Sexo</label>
+                            <select x-model="form.gender" class="w-full px-4 py-3 bg-gradient-to-br from-white to-blue-50/30 border-2 border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 hover:border-blue-300 transition-all text-sm font-semibold text-slate-900 shadow-sm appearance-none">
+                                <option value="Masculino">♂ Masculino</option>
+                                <option value="Feminino">♀ Feminino</option>
                             </select>
                         </div>
                         <div class="col-span-12">
-                            <label class="form-label">Tipo de Admissão</label>
-                            <select x-model="form.admission" class="form-input">
-                                <option value="Demanda Espontânea">Demanda Espontânea</option>
-                                <option value="Pronto-atendimento">Pronto-atendimento</option>
-                                <option value="Regulação (SAMU/Bombeiros)">Regulação (SAMU/Bombeiros)</option>
-                                <option value="Retorno">Retorno</option>
-                                <option value="Encaminhamento">Encaminhamento</option>
+                            <label class="block text-xs font-bold text-blue-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-door-open"></i> Tipo de Admissão</label>
+                            <select x-model="form.admission" class="w-full px-4 py-3 bg-gradient-to-br from-white to-blue-50/30 border-2 border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 hover:border-blue-300 transition-all text-sm font-semibold text-slate-900 shadow-sm appearance-none">
+                                <option value="Demanda Espontânea">🚶 Demanda Espontânea</option>
+                                <option value="Pronto-atendimento">🏥 Pronto-atendimento</option>
+                                <option value="Regulação (SAMU/Bombeiros)">🚑 Regulação (SAMU/Bombeiros)</option>
+                                <option value="Retorno">🔄 Retorno</option>
+                                <option value="Encaminhamento">➡️ Encaminhamento</option>
                             </select>
                         </div>
                     </div>
@@ -820,33 +819,33 @@ app.get('/', (c) => {
                         <label class="form-label mb-3">Hábitos de Vida</label>
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
                             <!-- TABAGISMO -->
-                            <label class="checkbox-card" :class="form.habits.smoker ? 'border-amber-500 ring-1 ring-amber-500 bg-amber-50/50' : ''">
-                                <input type="checkbox" x-model="form.habits.smoker" @change="if(form.habits.smoker) { form.habits.exSmoker = false; selectedCalc = calculators.find(c => c.id === 'carga_tabagica'); showCalculators = true; }" class="w-4 h-4 text-amber-600 rounded border-slate-300 focus:ring-amber-500">
+                            <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white" :class="form.habits.smoker ? 'border-amber-500 ring-1 ring-amber-500 bg-amber-50/50' : ''">
+                                <input type="checkbox" x-model="form.habits.smoker" @change="if(form.habits.smoker) { form.habits.exSmoker = false; selectedCalc = 'carga_tabagica'; showCalculators = true; }" class="w-4 h-4 text-amber-600 rounded border-slate-300 focus:ring-amber-500">
                                 <span class="text-sm font-medium text-slate-700">Tabagista</span>
                             </label>
-                            <label class="checkbox-card" :class="form.habits.exSmoker ? 'border-amber-400 ring-1 ring-amber-400 bg-amber-50/30' : ''">
-                                <input type="checkbox" x-model="form.habits.exSmoker" @change="if(form.habits.exSmoker) { form.habits.smoker = false; selectedCalc = calculators.find(c => c.id === 'carga_tabagica'); showCalculators = true; }" class="w-4 h-4 text-amber-500 rounded border-slate-300 focus:ring-amber-500">
+                            <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white" :class="form.habits.exSmoker ? 'border-amber-400 ring-1 ring-amber-400 bg-amber-50/30' : ''">
+                                <input type="checkbox" x-model="form.habits.exSmoker" @change="if(form.habits.exSmoker) { form.habits.smoker = false; selectedCalc = 'carga_tabagica'; showCalculators = true; }" class="w-4 h-4 text-amber-500 rounded border-slate-300 focus:ring-amber-500">
                                 <span class="text-sm font-medium text-slate-700">Ex-Tabagista</span>
                             </label>
                             
                             <!-- ETILISMO -->
-                            <label class="checkbox-card" :class="form.habits.alcoholic ? 'border-red-500 ring-1 ring-red-500 bg-red-50/50' : ''">
-                                <input type="checkbox" x-model="form.habits.alcoholic" @change="if(form.habits.alcoholic) { form.habits.exAlcoholic = false; selectedCalc = calculators.find(c => c.id === 'carga_etilica'); showCalculators = true; }" class="w-4 h-4 text-red-600 rounded border-slate-300 focus:ring-red-500">
+                            <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white" :class="form.habits.alcoholic ? 'border-red-500 ring-1 ring-red-500 bg-red-50/50' : ''">
+                                <input type="checkbox" x-model="form.habits.alcoholic" @change="if(form.habits.alcoholic) { form.habits.exAlcoholic = false; selectedCalc = 'carga_etilica'; showCalculators = true; }" class="w-4 h-4 text-red-600 rounded border-slate-300 focus:ring-red-500">
                                 <span class="text-sm font-medium text-slate-700">Etilista</span>
                             </label>
-                            <label class="checkbox-card" :class="form.habits.exAlcoholic ? 'border-red-400 ring-1 ring-red-400 bg-red-50/30' : ''">
-                                <input type="checkbox" x-model="form.habits.exAlcoholic" @change="if(form.habits.exAlcoholic) { form.habits.alcoholic = false; selectedCalc = calculators.find(c => c.id === 'carga_etilica'); showCalculators = true; }" class="w-4 h-4 text-red-500 rounded border-slate-300 focus:ring-red-500">
+                            <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white" :class="form.habits.exAlcoholic ? 'border-red-400 ring-1 ring-red-400 bg-red-50/30' : ''">
+                                <input type="checkbox" x-model="form.habits.exAlcoholic" @change="if(form.habits.exAlcoholic) { form.habits.alcoholic = false; selectedCalc = 'carga_etilica'; showCalculators = true; }" class="w-4 h-4 text-red-500 rounded border-slate-300 focus:ring-red-500">
                                 <span class="text-sm font-medium text-slate-700">Ex-Etilista</span>
                             </label>
                             
                             <!-- DROGAS -->
-                            <label class="checkbox-card" :class="form.habits.drugs ? 'border-purple-500 ring-1 ring-purple-500 bg-purple-50/50' : ''">
+                            <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white" :class="form.habits.drugs ? 'border-purple-500 ring-1 ring-purple-500 bg-purple-50/50' : ''">
                                 <input type="checkbox" x-model="form.habits.drugs" class="w-4 h-4 text-purple-600 rounded border-slate-300 focus:ring-purple-500">
                                 <span class="text-sm font-medium text-slate-700">Drogas</span>
                             </label>
                             
                             <!-- SEDENTÁRIO -->
-                            <label class="checkbox-card" :class="form.habits.sedentary ? 'border-blue-500 ring-1 ring-blue-500 bg-blue-50/50' : ''">
+                            <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white" :class="form.habits.sedentary ? 'border-blue-500 ring-1 ring-blue-500 bg-blue-50/50' : ''">
                                 <input type="checkbox" x-model="form.habits.sedentary" class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500">
                                 <span class="text-sm font-medium text-slate-700">Sedentário</span>
                             </label>
@@ -859,7 +858,7 @@ app.get('/', (c) => {
                                 <label class="form-label flex items-center gap-2 mb-2">
                                     <i class="fas fa-smoking text-amber-600"></i>
                                     <span>Carga Tabágica</span>
-                                    <button @click="selectedCalc = calculators.find(c => c.id === 'carga_tabagica'); showCalculators = true" class="ml-auto px-2 py-1 bg-amber-600 text-white text-xs rounded-lg hover:bg-amber-700 transition-all">
+                                    <button @click="selectedCalc = 'carga_tabagica'; showCalculators = true" class="ml-auto px-2 py-1 bg-amber-600 text-white text-xs rounded-lg hover:bg-amber-700 transition-all">
                                         <i class="fas fa-calculator mr-1"></i> Calcular
                                     </button>
                                 </label>
@@ -871,7 +870,7 @@ app.get('/', (c) => {
                                 <label class="form-label flex items-center gap-2 mb-2">
                                     <i class="fas fa-wine-bottle text-red-600"></i>
                                     <span>Carga Etílica</span>
-                                    <button @click="selectedCalc = calculators.find(c => c.id === 'carga_etilica'); showCalculators = true" class="ml-auto px-2 py-1 bg-red-600 text-white text-xs rounded-lg hover:bg-red-700 transition-all">
+                                    <button @click="selectedCalc = 'carga_etilica'; showCalculators = true" class="ml-auto px-2 py-1 bg-red-600 text-white text-xs rounded-lg hover:bg-red-700 transition-all">
                                         <i class="fas fa-calculator mr-1"></i> Calcular
                                     </button>
                                 </label>
@@ -891,16 +890,16 @@ app.get('/', (c) => {
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6">
                         <div>
-                            <label class="form-label">Comorbidades</label>
-                            <textarea x-model="form.comorbidities" class="form-input h-24 resize-none leading-relaxed" placeholder="HAS, DM..."></textarea>
+                            <label class="block text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-heartbeat text-red-500"></i> Comorbidades</label>
+                            <textarea x-model="form.comorbidities" class="w-full px-4 py-3 bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/30 focus:border-red-500 hover:border-slate-300 transition-all text-sm font-medium text-slate-900 placeholder-slate-400 shadow-sm h-24 resize-none leading-relaxed" placeholder="HAS, DM, DPOC..."></textarea>
                         </div>
                         <div>
-                            <label class="form-label">Alergias</label>
-                            <textarea x-model="form.allergies" class="form-input h-24 resize-none leading-relaxed" placeholder="Medicamentos, alimentos..."></textarea>
+                            <label class="block text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-allergies text-orange-500"></i> Alergias</label>
+                            <textarea x-model="form.allergies" class="w-full px-4 py-3 bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 hover:border-slate-300 transition-all text-sm font-medium text-slate-900 placeholder-slate-400 shadow-sm h-24 resize-none leading-relaxed" placeholder="Medicamentos, alimentos..."></textarea>
                         </div>
                         <div>
-                            <label class="form-label">Cirurgias Prévias</label>
-                            <textarea x-model="form.surgeries" class="form-input h-24 resize-none leading-relaxed" placeholder="Colecistectomia..."></textarea>
+                            <label class="block text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-cut text-purple-500"></i> Cirurgias Prévias</label>
+                            <textarea x-model="form.surgeries" class="w-full px-4 py-3 bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/30 focus:border-purple-500 hover:border-slate-300 transition-all text-sm font-medium text-slate-900 placeholder-slate-400 shadow-sm h-24 resize-none leading-relaxed" placeholder="Colecistectomia, Apendicectomia..."></textarea>
                         </div>
                     </div>
                 </div>
@@ -909,7 +908,7 @@ app.get('/', (c) => {
                 <template x-if="form.serviceType === 'clinica'">
                     <div>
                 <!-- 2. MEDICATIONS -->
-                <div class="form-card relative">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-indigo-500 rounded-l-lg"></div>
                     <div class="flex items-center gap-2 mb-6">
                         <div class="w-8 h-8 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center text-sm"><i class="fas fa-pills"></i></div>
@@ -959,7 +958,7 @@ app.get('/', (c) => {
                 </div>
 
                 <!-- 3. SUBJECTIVE (S) -->
-                <div class="form-card relative">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-cyan-500 rounded-l-lg"></div>
                     <div class="flex items-center gap-2 mb-6 text-cyan-700">
                         <span class="bg-cyan-500 text-white font-bold w-8 h-8 flex items-center justify-center rounded-lg text-sm shadow-md shadow-cyan-500/20">S</span>
@@ -967,12 +966,12 @@ app.get('/', (c) => {
                     </div>
 
                     <div class="mb-5">
-                        <label class="form-label">Queixa Principal (QP)</label>
-                        <input type="text" x-model="form.subjective.qp" class="form-input" placeholder="Digite a queixa...">
+                        <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Queixa Principal (QP)</label>
+                        <input type="text" x-model="form.subjective.qp" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-sm text-slate-900 placeholder-slate-400" placeholder="Digite a queixa...">
                     </div>
 
                     <div class="mb-5 relative">
-                        <label class="form-label">História da Doença Atual (HDA)</label>
+                        <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">História da Doença Atual (HDA)</label>
                         <textarea x-model="form.subjective.hda" class="form-input h-32 leading-relaxed" placeholder="Descrição livre da história clínica..."></textarea>
                     </div>
 
@@ -1016,7 +1015,7 @@ app.get('/', (c) => {
                 </div>
 
                 <!-- 4. OBJECTIVE (O) -->
-                <div class="form-card relative">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-emerald-500 rounded-l-lg"></div>
                     <div class="flex items-center gap-2 mb-6">
                         <span class="bg-emerald-500 text-white font-bold w-8 h-8 flex items-center justify-center rounded-lg text-sm shadow-md shadow-emerald-500/20">O</span>
@@ -1024,16 +1023,16 @@ app.get('/', (c) => {
                     </div>
 
                     <div class="bg-emerald-50/50 p-5 rounded-2xl border border-emerald-100/50 mb-8">
-                        <label class="form-label text-emerald-700 mb-4 flex items-center gap-2">
-                            <i class="fas fa-heartbeat"></i> Sinais Vitais
+                        <label class="form-label text-emerald-700 mb-4 flex items-center gap-2 text-sm">
+                            <i class="fas fa-heartbeat text-lg"></i> Sinais Vitais
                         </label>
                         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                            <div><label class="text-[10px] font-bold text-emerald-600 mb-1 block uppercase tracking-wider">PA</label><div class="relative"><input type="text" x-model="form.vitals.pa" class="form-input text-center font-bold text-emerald-900 border-emerald-200 focus:border-emerald-500 focus:ring-emerald-500/20 h-11" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[10px]">mmHg</span></div></div>
-                            <div><label class="text-[10px] font-bold text-emerald-600 mb-1 block uppercase tracking-wider">FC</label><div class="relative"><input type="number" x-model="form.vitals.fc" class="form-input text-center font-bold text-emerald-900 border-emerald-200 focus:border-emerald-500 focus:ring-emerald-500/20 h-11" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[10px]">bpm</span></div></div>
-                            <div><label class="text-[10px] font-bold text-emerald-600 mb-1 block uppercase tracking-wider">FR</label><div class="relative"><input type="number" x-model="form.vitals.fr" class="form-input text-center font-bold text-emerald-900 border-emerald-200 focus:border-emerald-500 focus:ring-emerald-500/20 h-11" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[10px]">irpm</span></div></div>
-                            <div><label class="text-[10px] font-bold text-emerald-600 mb-1 block uppercase tracking-wider">Temp</label><div class="relative"><input type="number" x-model="form.vitals.temp" class="form-input text-center font-bold text-emerald-900 border-emerald-200 focus:border-emerald-500 focus:ring-emerald-500/20 h-11" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[10px]">°C</span></div></div>
-                            <div><label class="text-[10px] font-bold text-emerald-600 mb-1 block uppercase tracking-wider">SatO2</label><div class="relative"><input type="number" x-model="form.vitals.sat" class="form-input text-center font-bold text-emerald-900 border-emerald-200 focus:border-emerald-500 focus:ring-emerald-500/20 h-11" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[10px]">%</span></div></div>
-                            <div><label class="text-[10px] font-bold text-emerald-600 mb-1 block uppercase tracking-wider">HGT</label><div class="relative"><input type="number" x-model="form.vitals.hgt" class="form-input text-center font-bold text-emerald-900 border-emerald-200 focus:border-emerald-500 focus:ring-emerald-500/20 h-11" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[10px]">mg</span></div></div>
+                            <div><label class="text-[10px] font-bold text-emerald-700 mb-1.5 block uppercase tracking-wider flex items-center gap-1"><i class="fas fa-tachometer-alt"></i> PA</label><div class="relative"><input type="text" x-model="form.vitals.pa" class="w-full px-3 py-3 text-center font-bold text-emerald-900 bg-white border-2 border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 hover:border-emerald-300 transition-all shadow-sm text-sm" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[9px] font-bold">mmHg</span></div></div>
+                            <div><label class="text-[10px] font-bold text-emerald-700 mb-1.5 block uppercase tracking-wider flex items-center gap-1"><i class="fas fa-heartbeat"></i> FC</label><div class="relative"><input type="number" x-model="form.vitals.fc" class="w-full px-3 py-3 text-center font-bold text-emerald-900 bg-white border-2 border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 hover:border-emerald-300 transition-all shadow-sm text-sm" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[9px] font-bold">bpm</span></div></div>
+                            <div><label class="text-[10px] font-bold text-emerald-700 mb-1.5 block uppercase tracking-wider flex items-center gap-1"><i class="fas fa-wind"></i> FR</label><div class="relative"><input type="number" x-model="form.vitals.fr" class="w-full px-3 py-3 text-center font-bold text-emerald-900 bg-white border-2 border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 hover:border-emerald-300 transition-all shadow-sm text-sm" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[9px] font-bold">irpm</span></div></div>
+                            <div><label class="text-[10px] font-bold text-emerald-700 mb-1.5 block uppercase tracking-wider flex items-center gap-1"><i class="fas fa-thermometer-half"></i> Temp</label><div class="relative"><input type="number" step="0.1" x-model="form.vitals.temp" class="w-full px-3 py-3 text-center font-bold text-emerald-900 bg-white border-2 border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 hover:border-emerald-300 transition-all shadow-sm text-sm" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[9px] font-bold">°C</span></div></div>
+                            <div><label class="text-[10px] font-bold text-emerald-700 mb-1.5 block uppercase tracking-wider flex items-center gap-1"><i class="fas fa-lungs"></i> SatO2</label><div class="relative"><input type="number" x-model="form.vitals.sat" class="w-full px-3 py-3 text-center font-bold text-emerald-900 bg-white border-2 border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 hover:border-emerald-300 transition-all shadow-sm text-sm" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[9px] font-bold">%</span></div></div>
+                            <div><label class="text-[10px] font-bold text-emerald-700 mb-1.5 block uppercase tracking-wider flex items-center gap-1"><i class="fas fa-vial"></i> HGT</label><div class="relative"><input type="number" x-model="form.vitals.hgt" class="w-full px-3 py-3 text-center font-bold text-emerald-900 bg-white border-2 border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 hover:border-emerald-300 transition-all shadow-sm text-sm" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[9px] font-bold">mg</span></div></div>
                         </div>
                     </div>
 
@@ -1061,7 +1060,7 @@ app.get('/', (c) => {
                                     <i class="fas fa-check"></i> Normal
                                 </button>
                             </div>
-                            <input type="text" x-model="form.exam.general" class="w-full bg-transparent border-none p-0 text-slate-700 font-medium focus:ring-0 placeholder-slate-400 text-sm" placeholder="BEG, LOTE...">
+                            <input type="text" x-model="form.exam.general" class="form-input bg-slate-50/50 border-slate-200" placeholder="BEG, LOTE...">
                         </div>
 
                         <!-- Cardíaco -->
@@ -1080,7 +1079,7 @@ app.get('/', (c) => {
                                     <i class="fas fa-check"></i> Normal
                                 </button>
                             </div>
-                            <input type="text" x-model="form.exam.cardiac" class="w-full bg-transparent border-none p-0 text-slate-700 font-medium focus:ring-0 placeholder-slate-400 text-sm" placeholder="RCR em 2T, BNF, sem sopros...">
+                            <input type="text" x-model="form.exam.cardiac" class="form-input bg-slate-50/50 border-slate-200" placeholder="RCR em 2T, BNF, sem sopros...">
                         </div>
 
                         <!-- Pulmonar -->
@@ -1099,7 +1098,7 @@ app.get('/', (c) => {
                                     <i class="fas fa-check"></i> Normal
                                 </button>
                             </div>
-                            <input type="text" x-model="form.exam.pulmonary" class="w-full bg-transparent border-none p-0 text-slate-700 font-medium focus:ring-0 placeholder-slate-400 text-sm" placeholder="MV+, sem RA...">
+                            <input type="text" x-model="form.exam.pulmonary" class="form-input bg-slate-50/50 border-slate-200" placeholder="MV+, sem RA...">
                         </div>
 
                         <!-- Abdominal -->
@@ -1110,7 +1109,7 @@ app.get('/', (c) => {
                                     <i class="fas fa-check"></i> Normal
                                 </button>
                             </div>
-                            <input type="text" x-model="form.exam.abdominal" class="w-full bg-transparent border-none p-0 text-slate-700 font-medium focus:ring-0 placeholder-slate-400 text-sm" placeholder="Flácido, indolor, RHA+...">
+                            <input type="text" x-model="form.exam.abdominal" class="form-input bg-slate-50/50 border-slate-200" placeholder="Flácido, indolor, RHA+...">
                         </div>
 
                         <!-- Neurológico -->
@@ -1129,7 +1128,7 @@ app.get('/', (c) => {
                                     <i class="fas fa-check"></i> Normal
                                 </button>
                             </div>
-                            <input type="text" x-model="form.exam.neuro" class="w-full bg-transparent border-none p-0 text-slate-700 font-medium focus:ring-0 placeholder-slate-400 text-sm" placeholder="Vigil, orientado, pupilas isocóricas...">
+                            <input type="text" x-model="form.exam.neuro" class="form-input bg-slate-50/50 border-slate-200" placeholder="Vigil, orientado, pupilas isocóricas...">
                         </div>
 
                         <!-- Extremidades -->
@@ -1145,7 +1144,7 @@ app.get('/', (c) => {
                                     <i class="fas fa-check"></i> Normal
                                 </button>
                             </div>
-                            <input type="text" x-model="form.exam.extremities" class="w-full bg-transparent border-none p-0 text-slate-700 font-medium focus:ring-0 placeholder-slate-400 text-sm" placeholder="Sem edema, panturrilhas livres...">
+                            <input type="text" x-model="form.exam.extremities" class="form-input bg-slate-50/50 border-slate-200" placeholder="Sem edema, panturrilhas livres...">
                         </div>
                     </div>
 
@@ -1191,7 +1190,7 @@ app.get('/', (c) => {
                                             </button>
                                         </div>
                                     </div>
-                                    <input type="text" x-model="exam.value" class="w-full bg-transparent border-none p-0 text-slate-700 font-medium focus:ring-0 placeholder-slate-400 text-sm" :placeholder="'Descreva ' + exam.label + '...'">
+                                    <input type="text" x-model="exam.value" class="form-input bg-white/80 border-slate-200" :placeholder="'Descreva ' + exam.label + '...'">
                                 </div>
                             </template>
                         </div>
@@ -1199,25 +1198,25 @@ app.get('/', (c) => {
                 </div>
                 
                 <!-- 5. COMPLEMENTARY EXAMS -->
-                <div class="form-card transition-all hover:shadow-md">
+                <div class="bg-white p-6 rounded-3xl shadow-lg border-0 mb-6 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-900/10 hover:-translate-y-1 relative overflow-hidden transition-all hover:shadow-md">
                      <h4 class="font-bold text-slate-700 mb-4 text-sm uppercase flex items-center gap-2">
                         <i class="fas fa-microscope text-slate-400"></i> Exames Complementares
                      </h4>
                      
                      <div class="space-y-4">
                          <div>
-                             <label class="form-label">Laboratoriais</label>
+                             <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Laboratoriais</label>
                              <textarea x-model="form.complementary.labs" class="form-input h-20 resize-none text-sm" placeholder="Hb, Leuco, Plaquetas..."></textarea>
                          </div>
                          <div>
-                             <label class="form-label">Imagem (RX, USG, TC)</label>
+                             <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Imagem (RX, USG, TC)</label>
                              <textarea x-model="form.complementary.imaging" class="form-input h-20 resize-none text-sm" placeholder="Laudos importantes..."></textarea>
                          </div>
                      </div>
                 </div>
 
                 <!-- 6. ASSESSMENT (A) -->
-                <div class="form-card relative">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-amber-500 rounded-l-lg"></div>
                     <div class="flex items-center gap-2 mb-6">
                         <span class="bg-amber-500 text-white font-bold w-8 h-8 flex items-center justify-center rounded-lg text-sm shadow-md shadow-amber-500/20">A</span>
@@ -1226,7 +1225,7 @@ app.get('/', (c) => {
                     
                     <div class="flex flex-col sm:flex-row gap-2 relative mb-4">
                         <div class="flex-grow w-full relative" @click.away="cidResults = []; cidError = ''">
-                            <label class="form-label">
+                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">
                                 Hipótese Diagnóstica (CID-10)
                             </label>
                             <div class="relative">
@@ -1288,13 +1287,13 @@ app.get('/', (c) => {
                     </div>
                     
                     <div>
-                        <label class="form-label">Outros / Diagnóstico Livre</label>
-                        <input type="text" x-model="form.assessment.hd" class="form-input" placeholder="Complemento...">
+                        <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Outros / Diagnóstico Livre</label>
+                        <input type="text" x-model="form.assessment.hd" class="form-input bg-white border-slate-300" placeholder="Complemento...">
                     </div>
                 </div>
 
                 <!-- 7. PLAN (P) -->
-                <div class="form-card relative">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-blue-600 rounded-l-lg"></div>
                     <div class="flex items-center gap-2 mb-6">
                         <span class="bg-blue-600 text-white font-bold w-8 h-8 flex items-center justify-center rounded-lg text-sm shadow-md shadow-blue-600/20">P</span>
@@ -1357,7 +1356,7 @@ app.get('/', (c) => {
                     </div>
                     
                     <div class="mt-4">
-                        <label class="form-label">Observações Adicionais</label>
+                        <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Observações Adicionais</label>
                         <textarea x-model="form.plan.notes" class="form-input h-20 text-sm" placeholder="Outros detalhes..."></textarea>
                     </div>
                 </div>
@@ -1372,7 +1371,7 @@ app.get('/', (c) => {
                     <!-- ============================================ -->
                     <div>
                         <!-- SUB-SELETOR: Escolha entre Evolução Crítico e XABCDE -->
-                        <div class="form-card border-l-4 border-red-500 mb-6">
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-red-500">
                             <h3 class="font-bold text-lg text-slate-700 mb-4 flex items-center gap-2">
                                 <i class="fas fa-clipboard-list text-red-600"></i>
                                 Selecione o Tipo de Registro
@@ -1407,7 +1406,7 @@ app.get('/', (c) => {
                         <template x-if="form.utiTemplate === 'evolucao'">
                             <div>
                                 <!-- A. CABEÇALHO / DADOS DA INTERNAÇÃO -->
-                                <div class="form-card border-l-4 border-red-500 bg-gradient-to-r from-red-50/50 to-pink-50/30">
+                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-red-500 bg-red-50/30">
                                     <div class="flex items-center gap-2 mb-6">
                                         <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center">
                                             <i class="fas fa-calendar-plus"></i>
@@ -1417,11 +1416,11 @@ app.get('/', (c) => {
                                     
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label class="form-label">Data de Admissão</label>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Data de Admissão</label>
                                             <input type="date" x-model="form.uti.dataAdmissao" class="form-input border-red-200 focus:ring-red-500/20 focus:border-red-500">
                                         </div>
                                         <div>
-                                            <label class="form-label">Local</label>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Local</label>
                                             <select x-model="form.uti.local" class="form-input border-red-200 focus:ring-red-500/20 focus:border-red-500">
                                                 <option value="UPA">UPA</option>
                                                 <option value="UTI">UTI</option>
@@ -1432,13 +1431,13 @@ app.get('/', (c) => {
                                     </div>
                                     
                                     <div class="mt-4">
-                                        <label class="form-label">Motivo da Internação / Transferência</label>
+                                        <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Motivo da Internação / Transferência</label>
                                         <textarea x-model="form.uti.motivo" class="form-input h-20 border-red-200 focus:ring-red-500/20 focus:border-red-500" placeholder="Descreva o motivo da admissão neste setor..."></textarea>
                                     </div>
                                 </div>
                     
                                 <!-- B. DIAGNÓSTICO PRINCIPAL -->
-                                <div class="form-card border-l-4 border-red-500">
+                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-red-500">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center">
                                             <i class="fas fa-stethoscope"></i>
@@ -1449,7 +1448,7 @@ app.get('/', (c) => {
                                 </div>
                     
                                 <!-- C. RASTREIO COVID-19 -->
-                                <div class="form-card border-l-4 border-amber-500 bg-gradient-to-r from-amber-50/50 to-yellow-50/30">
+                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-amber-500 bg-amber-50/30">
                                     <div class="flex items-center gap-2 mb-6">
                                         <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center">
                                             <i class="fas fa-virus"></i>
@@ -1459,11 +1458,11 @@ app.get('/', (c) => {
                                     
                                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                         <div>
-                                            <label class="form-label">Data do TR COVID-19</label>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Data do TR COVID-19</label>
                                             <input type="date" x-model="form.uti.covidData" class="form-input border-amber-200 focus:ring-amber-500/20 focus:border-amber-500">
                                         </div>
                                         <div>
-                                            <label class="form-label">Resultado TR COVID-19</label>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Resultado TR COVID-19</label>
                                             <select x-model="form.uti.covidResultado" class="form-input border-amber-200 focus:ring-amber-500/20 focus:border-amber-500">
                                                 <option value="NÃO REAGENTE">NÃO REAGENTE</option>
                                                 <option value="REAGENTE">REAGENTE</option>
@@ -1471,7 +1470,7 @@ app.get('/', (c) => {
                                             </select>
                                         </div>
                                         <div>
-                                            <label class="form-label">RT-PCR</label>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">RT-PCR</label>
                                             <select x-model="form.uti.rtpcr" class="form-input border-amber-200 focus:ring-amber-500/20 focus:border-amber-500">
                                                 <option value="AGUARDA">AGUARDA</option>
                                                 <option value="NEGATIVO">NEGATIVO</option>
@@ -1482,7 +1481,7 @@ app.get('/', (c) => {
                                 </div>
                     
                                 <!-- D. ANTIBIOTICOTERAPIA (ATB) - Lista Dinâmica -->
-                                <div class="form-card border-l-4 border-purple-500 bg-gradient-to-r from-purple-50/50 to-indigo-50/30">
+                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-purple-500 bg-purple-50/30">
                                     <div class="flex items-center justify-between mb-6">
                                         <div class="flex items-center gap-2">
                                             <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center">
@@ -1544,7 +1543,7 @@ app.get('/', (c) => {
                                 </div>
                     
                                 <!-- E. HISTÓRIA DA DOENÇA ATUAL (HDA) -->
-                                <div class="form-card border-l-4 border-blue-500">
+                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-blue-500">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
                                             <i class="fas fa-file-medical-alt"></i>
@@ -1555,7 +1554,7 @@ app.get('/', (c) => {
                                 </div>
                     
                                 <!-- F. DISPOSITIVOS/ACESSOS (DEVICES) - Lista Dinâmica -->
-                                <div class="form-card border-l-4 border-emerald-500 bg-gradient-to-r from-emerald-50/50 to-teal-50/30">
+                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-emerald-500 bg-emerald-50/30">
                                     <div class="flex items-center justify-between mb-6">
                                         <div class="flex items-center gap-2">
                                             <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
@@ -1628,7 +1627,7 @@ app.get('/', (c) => {
                                 </div>
                     
                                 <!-- G. EVOLUÇÃO POR SISTEMAS -->
-                                <div class="form-card border-l-4 border-cyan-500 bg-gradient-to-r from-cyan-50/50 to-blue-50/30">
+                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-cyan-500 bg-cyan-50/30">
                                     <div class="flex items-center gap-2 mb-6">
                                         <div class="w-10 h-10 rounded-full bg-cyan-100 text-cyan-600 flex items-center justify-center">
                                             <i class="fas fa-heartbeat"></i>
@@ -1748,7 +1747,7 @@ app.get('/', (c) => {
                                 </div>
                     
                                 <!-- H. EXAMES COMPLEMENTARES -->
-                                <div class="form-card border-l-4 border-indigo-500">
+                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-indigo-500">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center">
                                             <i class="fas fa-microscope"></i>
@@ -1759,7 +1758,7 @@ app.get('/', (c) => {
                                 </div>
                     
                                 <!-- I. CONDUTAS -->
-                                <div class="form-card border-l-4 border-rose-500 bg-gradient-to-r from-rose-50/50 to-red-50/30">
+                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-rose-500 bg-rose-50/30">
                                     <div class="flex items-center gap-2 mb-6">
                                         <div class="w-10 h-10 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center">
                                             <i class="fas fa-clipboard-check"></i>
@@ -1768,42 +1767,42 @@ app.get('/', (c) => {
                                     </div>
                     
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
-                                        <label class="checkbox-card">
+                                        <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white">
                                             <input type="checkbox" x-model="form.uti.condutas.vigilanciaNeuro" class="mr-3">
                                             <span class="flex-1">Vigilância NEUROLÓGICA</span>
                                             <i class="fas fa-brain text-cyan-400"></i>
                                         </label>
-                                        <label class="checkbox-card">
+                                        <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white">
                                             <input type="checkbox" x-model="form.uti.condutas.vigilanciaHemo" class="mr-3">
                                             <span class="flex-1">Vigilância HEMODINÂMICA</span>
                                             <i class="fas fa-heartbeat text-red-400"></i>
                                         </label>
-                                        <label class="checkbox-card">
+                                        <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white">
                                             <input type="checkbox" x-model="form.uti.condutas.vigilanciaInfec" class="mr-3">
                                             <span class="flex-1">Vigilância INFECCIOSA</span>
                                             <i class="fas fa-shield-virus text-purple-400"></i>
                                         </label>
-                                        <label class="checkbox-card">
+                                        <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white">
                                             <input type="checkbox" x-model="form.uti.condutas.vigilanciaVent" class="mr-3">
                                             <span class="flex-1">Vigilância VENTILATÓRIA</span>
                                             <i class="fas fa-lungs text-blue-400"></i>
                                         </label>
-                                        <label class="checkbox-card">
+                                        <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white">
                                             <input type="checkbox" x-model="form.uti.condutas.vigilanciaRenal" class="mr-3">
                                             <span class="flex-1">Vigilância RENAL/METABÓLICA</span>
                                             <i class="fas fa-kidneys text-amber-400"></i>
                                         </label>
-                                        <label class="checkbox-card">
+                                        <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white">
                                             <input type="checkbox" x-model="form.uti.condutas.profilaxiaTEV" class="mr-3">
                                             <span class="flex-1">PROFILAXIA TEV/LAMG</span>
                                             <i class="fas fa-syringe text-emerald-400"></i>
                                         </label>
-                                        <label class="checkbox-card">
+                                        <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white">
                                             <input type="checkbox" x-model="form.uti.condutas.aguardarVaga" class="mr-3">
                                             <span class="flex-1">Aguardar vaga de UTI/regulação</span>
                                             <i class="fas fa-bed text-indigo-400"></i>
                                         </label>
-                                        <label class="checkbox-card">
+                                        <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white">
                                             <input type="checkbox" x-model="form.uti.condutas.manterFamilia" class="mr-3">
                                             <span class="flex-1">Manter família informada</span>
                                             <i class="fas fa-users text-pink-400"></i>
@@ -1811,7 +1810,7 @@ app.get('/', (c) => {
                                     </div>
                     
                                     <div>
-                                        <label class="form-label">Outras Condutas</label>
+                                        <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Outras Condutas</label>
                                         <textarea x-model="form.uti.condutas.outras" class="form-input h-24 border-rose-200 focus:ring-rose-500/20 focus:border-rose-500" placeholder="Outras condutas específicas para este caso..."></textarea>
                                     </div>
                                 </div>
@@ -1824,7 +1823,7 @@ app.get('/', (c) => {
                         <!-- ======================================== -->
                         <template x-if="form.utiTemplate === 'xabcde'">
                             <div>
-                                <div class="form-card border-l-4 border-red-500">
+                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-red-500">
                                     <h3 class="font-bold text-lg text-red-600 mb-4 flex items-center gap-2">
                                         <i class="fas fa-ambulance"></i>
                                         Template XABCDE - Em desenvolvimento
@@ -1981,7 +1980,7 @@ app.get('/prescricoes', (c) => {
     <body class="bg-slate-50 text-slate-800" x-data="prescricoesApp()">
         
         <!-- Header -->
-        <header class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
+        <header class="bg-white/90 backdrop-blur-xl border-b border-white/50 sticky top-0 z-50 shadow-sm transition-all duration-300 supports-[backdrop-filter]:bg-white/60">
             <div class="max-w-[1800px] mx-auto px-4 lg:px-6 h-16 flex items-center justify-between">
                 <div class="flex items-center gap-4">
                     <a href="/" class="flex items-center gap-3 hover:opacity-80 transition-opacity group">
@@ -2012,16 +2011,17 @@ app.get('/prescricoes', (c) => {
         <main class="max-w-[1800px] mx-auto p-4 lg:p-8">
             
             <!-- Search Hero -->
-            <div class="mb-10 text-center relative">
-                <div class="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 blur-3xl -z-10 rounded-full opacity-60"></div>
-                <h2 class="text-3xl font-bold text-slate-800 mb-2 tracking-tight">O que você precisa prescrever hoje?</h2>
-                <p class="text-slate-500 mb-6 text-sm">Busque por patologia, sintoma ou medicação</p>
+            <div class="mb-12 text-center relative py-10">
+                <div class="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-cyan-500/20 blur-3xl -z-10 rounded-full opacity-70 scale-110"></div>
+                <h2 class="text-4xl font-bold text-slate-800 mb-3 tracking-tight drop-shadow-sm">O que você precisa prescrever hoje?</h2>
+                <p class="text-slate-600 mb-8 text-base font-medium">Busque por patologia, sintoma ou medicação</p>
                 
-                <div class="relative max-w-3xl mx-auto group">
+                <div class="relative max-w-3xl mx-auto group transform transition-all duration-300 hover:scale-[1.01]">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
                     <input type="text" 
                            x-model="searchTerm"
                            placeholder="Ex: Pneumonia, Dor, ITU, Fibrilação..."
-                           class="w-full px-6 py-5 pl-14 text-lg bg-white border border-slate-200 rounded-2xl shadow-xl shadow-blue-900/5 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all placeholder-slate-400 font-medium">
+                           class="relative w-full px-8 py-6 pl-16 text-lg bg-white border-0 rounded-2xl shadow-2xl shadow-blue-900/10 ring-1 ring-slate-200/50 focus:ring-4 focus:ring-blue-500/20 outline-none transition-all placeholder-slate-400 font-medium text-slate-700">
                     <i class="fas fa-search absolute left-6 top-6 text-slate-400 text-xl group-focus-within:text-blue-500 transition-colors"></i>
                     <template x-if="searchTerm.length > 0">
                         <button @click="searchTerm = ''" class="absolute right-6 top-6 text-slate-300 hover:text-slate-500 transition-colors">
