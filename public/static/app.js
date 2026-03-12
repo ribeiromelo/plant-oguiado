@@ -110,6 +110,21 @@ document.addEventListener('alpine:init', () => {
                     manterFamilia: false,
                     outras: ''
                 }
+            },
+            // ========================================
+            // Dados XABCDE - Template 2 (Admissão XABCDE)
+            // ========================================
+            xabcde: {
+                dataHora: '',
+                local: 'Sala Vermelha',
+                queixaPrincipal: '',
+                x: '',  // Hemorragia Exsanguinante
+                a: '',  // Airway
+                b: '',  // Breathing
+                c: '',  // Circulation
+                d: '',  // Disability
+                e: '',  // Exposure
+                conduta: ''
             }
         },
         newMed: {
@@ -1818,9 +1833,9 @@ document.addEventListener('alpine:init', () => {
             let text = '';
             
             // Cabeçalho com tipo de local e turno
-            const tipoLocal = this.form.admission === 'Observação' ? 'OBSERVAÇÃO' : 'SALA VERMELHA';
+            const tipoLocal = (this.form.uti.local || 'SALA VERMELHA').toUpperCase();
             const turno = this.form.shift === 'PLANTÃO DIURNO' ? 'DIURNO' : 'NOTURNO';
-            text += `EVOLUÇÃO DE PACIENTE CRÍTICO - ${tipoLocal} - ${turno}\n\n`;
+            text += `EVOLUÇÃO MÉDICA - ${tipoLocal} - ${turno}\n\n`;
             
             text += `PACIENTE: ${this.form.name || '_________'}, ${this.form.age ? this.form.age + ' anos' : '___ anos'}\n`;
             text += `ADMITIDO EM: ${this.form.uti.dataAdmissao || '__/__/____'} - ${this.form.uti.local || 'Sala Vermelha'}\n`;
@@ -1987,15 +2002,93 @@ document.addEventListener('alpine:init', () => {
         generateXABCDE() {
             let text = '';
             
-            text += `═══════════════════════════════════════════════════\n`;
-            text += `      ADMISSÃO SALA VERMELHA - PROTOCOLO XABCDE\n`;
-            text += `═══════════════════════════════════════════════════\n\n`;
+            // Cabeçalho
+            const tipoLocal = (this.form.xabcde.local || 'SALA VERMELHA').toUpperCase();
+            const turno = this.form.shift === 'PLANTÃO DIURNO' ? 'DIURNO' : 'NOTURNO';
+            text += `ADMISSÃO - PROTOCOLO XABCDE - ${tipoLocal} - ${turno}\n\n`;
             
-            text += `PACIENTE: ${this.form.name || '_________'}, ${this.form.age ? this.form.age + ' anos' : '___ anos'}\n`;
-            text += `DATA: ${this.form.uti.dataAdmissao || '__/__/____'} - ${this.form.uti.local || 'Sala Vermelha'}\n\n`;
+            text += `PACIENTE: ${this.form.name || '_________'}, ${this.form.age ? this.form.age + ' anos' : '___ anos'}, ${this.form.gender}\n`;
+            text += `DATA/HORA: ${this.form.xabcde.dataHora ? new Date(this.form.xabcde.dataHora).toLocaleString('pt-BR') : '__/__/____ __:__'}\n`;
+            text += `LOCAL: ${this.form.xabcde.local || 'Sala Vermelha'}\n\n`;
             
-            text += `══════════════════════════════════════════════════\n\n`;
-            text += `Template XABCDE será implementado no Passo 5.\n`;
+            // Queixa Principal
+            if (this.form.xabcde.queixaPrincipal) {
+                text += `QUEIXA PRINCIPAL / MECANISMO:\n${this.form.xabcde.queixaPrincipal}\n\n`;
+            }
+            
+            // AVALIAÇÃO PRIMÁRIA (XABCDE)
+            text += `═════════════════════════════════════════\n`;
+            text += `          AVALIAÇÃO PRIMÁRIA - XABCDE\n`;
+            text += `═════════════════════════════════════════\n\n`;
+            
+            // X - Hemorragia Exsanguinante
+            if (this.form.xabcde.x) {
+                text += `[X] HEMORRAGIA EXSANGUINANTE:\n${this.form.xabcde.x}\n\n`;
+            } else {
+                text += `[X] HEMORRAGIA EXSANGUINANTE: Sem hemorragias externas evidentes\n\n`;
+            }
+            
+            // A - Airway
+            if (this.form.xabcde.a) {
+                text += `[A] VIA AÉREA (Airway):\n${this.form.xabcde.a}\n\n`;
+            } else {
+                text += `[A] VIA AÉREA: Pérvia, sem obstruções\n\n`;
+            }
+            
+            // B - Breathing
+            if (this.form.xabcde.b) {
+                text += `[B] VENTILAÇÃO (Breathing):\n${this.form.xabcde.b}\n\n`;
+            } else {
+                text += `[B] VENTILAÇÃO: A avaliar\n\n`;
+            }
+            
+            // C - Circulation
+            if (this.form.xabcde.c) {
+                text += `[C] CIRCULAÇÃO (Circulation):\n${this.form.xabcde.c}\n\n`;
+            } else {
+                text += `[C] CIRCULAÇÃO: A avaliar\n\n`;
+            }
+            
+            // D - Disability
+            if (this.form.xabcde.d) {
+                text += `[D] DÉFICIT NEUROLÓGICO (Disability):\n${this.form.xabcde.d}\n\n`;
+            } else {
+                text += `[D] DÉFICIT NEUROLÓGICO: A avaliar\n\n`;
+            }
+            
+            // E - Exposure
+            if (this.form.xabcde.e) {
+                text += `[E] EXPOSIÇÃO (Exposure):\n${this.form.xabcde.e}\n\n`;
+            } else {
+                text += `[E] EXPOSIÇÃO: Exame completo a realizar\n\n`;
+            }
+            
+            // HISTÓRIA PATOLÓGICA PREGRESSA
+            text += `═════════════════════════════════════════\n`;
+            text += `    HISTÓRIA PATOLÓGICA PREGRESSA\n`;
+            text += `═════════════════════════════════════════\n\n`;
+            text += `Comorbidades: ${this.form.comorbidities || 'Nega'}\n`;
+            text += `Alergias: ${this.form.allergies || 'Nega'}\n`;
+            text += `Cirurgias Prévias: ${this.form.surgeries || 'Nega'}\n`;
+            
+            // Medicações em uso
+            if (this.form.medications.length > 0) {
+                text += `Medicações em Uso:\n`;
+                this.form.medications.forEach(med => {
+                    text += `  • ${med.name} (${med.posology})\n`;
+                });
+            } else {
+                text += `Medicações: Nega uso contínuo\n`;
+            }
+            text += `\n`;
+            
+            // CONDUTA INICIAL
+            if (this.form.xabcde.conduta) {
+                text += `═════════════════════════════════════════\n`;
+                text += `           CONDUTA INICIAL\n`;
+                text += `═════════════════════════════════════════\n\n`;
+                text += `${this.form.xabcde.conduta}\n\n`;
+            }
             
             return text;
         },
