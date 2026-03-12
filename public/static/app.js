@@ -118,13 +118,58 @@ document.addEventListener('alpine:init', () => {
                 dataHora: '',
                 local: 'Sala Vermelha',
                 queixaPrincipal: '',
-                x: '',  // Hemorragia Exsanguinante
-                a: '',  // Airway
-                b: '',  // Breathing
-                c: '',  // Circulation
-                d: '',  // Disability
-                e: '',  // Exposure
-                conduta: ''
+                // X - Hemorragia
+                x_hemorragia: 'Sem hemorragias externas evidentes',
+                x_local: '',
+                // A - Via Aérea
+                a_pervia: 'Via aérea pérvia',
+                a_obstrucao: '',
+                a_dispositivos: '',
+                // B - Ventilação
+                b_fr: '',
+                b_spo2: '',
+                b_o2: 'ar ambiente',
+                b_padrao: '',
+                b_ausculta: '',
+                // C - Circulação
+                c_pas: '',
+                c_pad: '',
+                c_fc: '',
+                c_perfusao: '',
+                c_pulsos: '',
+                c_ritmo: '',
+                // D - Déficit Neurológico
+                d_glasgow: '',
+                d_pupilas: '',
+                d_glicemia: '',
+                d_deficits: '',
+                // E - Exposição
+                e_temperatura: '',
+                e_lesoes: '',
+                e_edemas: '',
+                // Sinais Vitais (repetição organizada)
+                sv_pa: '',
+                sv_fc: '',
+                sv_fr: '',
+                sv_spo2: '',
+                sv_temp: '',
+                sv_hgt: '',
+                // Impressão e Conduta
+                impressao_gravidade: 'potencialmente instável',
+                impressao_hipotese: '',
+                conduta_o2: '',
+                conduta_monitor: 'instalada',
+                conduta_acesso: '',
+                conduta_exames: '',
+                conduta_meds: '',
+                // História (se disponível)
+                hpp_comorbidades: '',
+                hpp_alergias: '',
+                hpp_medicacoes: '',
+                hpp_cirurgias: '',
+                hpp_alimentacao: '',
+                hpp_eventos: '',
+                fonte_info: ''
             }
         },
         newMed: {
@@ -2005,89 +2050,103 @@ document.addEventListener('alpine:init', () => {
             // Cabeçalho
             const tipoLocal = (this.form.xabcde.local || 'SALA VERMELHA').toUpperCase();
             const turno = this.form.shift === 'PLANTÃO DIURNO' ? 'DIURNO' : 'NOTURNO';
-            text += `ADMISSÃO - PROTOCOLO XABCDE - ${tipoLocal} - ${turno}\n\n`;
+            text += `# ADMISSÃO MÉDICA – ${tipoLocal} – ${turno} #\n\n`;
             
-            text += `PACIENTE: ${this.form.name || '_________'}, ${this.form.age ? this.form.age + ' anos' : '___ anos'}, ${this.form.gender}\n`;
-            text += `DATA/HORA: ${this.form.xabcde.dataHora ? new Date(this.form.xabcde.dataHora).toLocaleString('pt-BR') : '__/__/____ __:__'}\n`;
+            text += `PACIENTE: ${this.form.name || '_____'}, ${this.form.age || '___'} anos, ${this.form.gender}\n`;
+            text += `DATA/HORA: ${this.form.xabcde.dataHora ? new Date(this.form.xabcde.dataHora).toLocaleString('pt-BR') : '  /  /     : '}\n`;
             text += `LOCAL: ${this.form.xabcde.local || 'Sala Vermelha'}\n\n`;
             
-            // Queixa Principal
-            if (this.form.xabcde.queixaPrincipal) {
-                text += `QUEIXA PRINCIPAL / MECANISMO:\n${this.form.xabcde.queixaPrincipal}\n\n`;
+            // AVALIAÇÃO PRIMÁRIA
+            text += `# AVALIAÇÃO PRIMÁRIA:\n`;
+            
+            // X - Hemorragia
+            text += `[X] HEMORRAGIA EXSANGUINANTE\n`;
+            text += `${this.form.xabcde.x_hemorragia || 'Sem hemorragias externas evidentes'}`;
+            if (this.form.xabcde.x_local) {
+                text += ` / Hemorragia presente em ${this.form.xabcde.x_local}`;
             }
+            text += `\n\n`;
             
-            // AVALIAÇÃO PRIMÁRIA (XABCDE)
-            text += `═════════════════════════════════════════\n`;
-            text += `          AVALIAÇÃO PRIMÁRIA - XABCDE\n`;
-            text += `═════════════════════════════════════════\n\n`;
-            
-            // X - Hemorragia Exsanguinante
-            if (this.form.xabcde.x) {
-                text += `[X] HEMORRAGIA EXSANGUINANTE:\n${this.form.xabcde.x}\n\n`;
-            } else {
-                text += `[X] HEMORRAGIA EXSANGUINANTE: Sem hemorragias externas evidentes\n\n`;
-            }
-            
-            // A - Airway
-            if (this.form.xabcde.a) {
-                text += `[A] VIA AÉREA (Airway):\n${this.form.xabcde.a}\n\n`;
-            } else {
-                text += `[A] VIA AÉREA: Pérvia, sem obstruções\n\n`;
-            }
-            
-            // B - Breathing
-            if (this.form.xabcde.b) {
-                text += `[B] VENTILAÇÃO (Breathing):\n${this.form.xabcde.b}\n\n`;
-            } else {
-                text += `[B] VENTILAÇÃO: A avaliar\n\n`;
-            }
-            
-            // C - Circulation
-            if (this.form.xabcde.c) {
-                text += `[C] CIRCULAÇÃO (Circulation):\n${this.form.xabcde.c}\n\n`;
-            } else {
-                text += `[C] CIRCULAÇÃO: A avaliar\n\n`;
-            }
-            
-            // D - Disability
-            if (this.form.xabcde.d) {
-                text += `[D] DÉFICIT NEUROLÓGICO (Disability):\n${this.form.xabcde.d}\n\n`;
-            } else {
-                text += `[D] DÉFICIT NEUROLÓGICO: A avaliar\n\n`;
-            }
-            
-            // E - Exposure
-            if (this.form.xabcde.e) {
-                text += `[E] EXPOSIÇÃO (Exposure):\n${this.form.xabcde.e}\n\n`;
-            } else {
-                text += `[E] EXPOSIÇÃO: Exame completo a realizar\n\n`;
-            }
-            
-            // HISTÓRIA PATOLÓGICA PREGRESSA
-            text += `═════════════════════════════════════════\n`;
-            text += `    HISTÓRIA PATOLÓGICA PREGRESSA\n`;
-            text += `═════════════════════════════════════════\n\n`;
-            text += `Comorbidades: ${this.form.comorbidities || 'Nega'}\n`;
-            text += `Alergias: ${this.form.allergies || 'Nega'}\n`;
-            text += `Cirurgias Prévias: ${this.form.surgeries || 'Nega'}\n`;
-            
-            // Medicações em uso
-            if (this.form.medications.length > 0) {
-                text += `Medicações em Uso:\n`;
-                this.form.medications.forEach(med => {
-                    text += `  • ${med.name} (${med.posology})\n`;
-                });
-            } else {
-                text += `Medicações: Nega uso contínuo\n`;
+            // A - Via Aérea
+            text += `[A] VIA AÉREA\n`;
+            text += `${this.form.xabcde.a_pervia || 'Via aérea pérvia'}`;
+            if (this.form.xabcde.a_obstrucao) {
+                text += ` / sinais de obstrução: ${this.form.xabcde.a_obstrucao}`;
             }
             text += `\n`;
+            text += `Dispositivos em uso: ${this.form.xabcde.a_dispositivos || '______'}\n\n`;
             
-            // CONDUTA INICIAL
-            if (this.form.xabcde.conduta) {
-                text += `═════════════════════════════════════════\n`;
-                text += `           CONDUTA INICIAL\n`;
-                text += `═════════════════════════════════════════\n\n`;
-                text += `${this.form.xabcde.conduta}\n\n`;
+            // B - Ventilação
+            text += `[B] VENTILAÇÃO\n`;
+            text += `FR: ${this.form.xabcde.b_fr || '___'} irpm | SpO₂: ${this.form.xabcde.b_spo2 || '___'}% em ${this.form.xabcde.b_o2 || 'ar ambiente'}\n`;
+            text += `Padrão respiratório: ${this.form.xabcde.b_padrao || '______'}\n`;
+            text += `Ausculta pulmonar: ${this.form.xabcde.b_ausculta || '______'}\n\n`;
+            
+            // C - Circulação
+            text += `[C] CIRCULAÇÃO\n`;
+            text += `PA: ${this.form.xabcde.c_pas || '___'} x ${this.form.xabcde.c_pad || '___'} mmHg | FC: ${this.form.xabcde.c_fc || '___'} bpm\n`;
+            text += `Perfusão periférica: ${this.form.xabcde.c_perfusao || '______'}\n`;
+            text += `Pulsos periféricos: ${this.form.xabcde.c_pulsos || '______'}\n`;
+            text += `Ritmo cardíaco: ${this.form.xabcde.c_ritmo || '______'}\n\n`;
+            
+            // D - Déficit Neurológico
+            text += `[D] DÉFICIT NEUROLÓGICO\n`;
+            text += `Escala de Glasgow: ${this.form.xabcde.d_glasgow || '___'}\n`;
+            text += `Pupilas: ${this.form.xabcde.d_pupilas || '______'}\n`;
+            text += `Glicemia capilar: ${this.form.xabcde.d_glicemia || '______'}\n`;
+            text += `Déficits focais: ${this.form.xabcde.d_deficits || '______'}\n\n`;
+            
+            // E - Exposição
+            text += `[E] EXPOSIÇÃO / EXAME RÁPIDO\n`;
+            text += `Temperatura: ${this.form.xabcde.e_temperatura || '___'}°C\n`;
+            text += `Lesões cutâneas / traumas: ${this.form.xabcde.e_lesoes || '______'}\n`;
+            text += `Edemas / sinais infecciosos / outros achados: ${this.form.xabcde.e_edemas || '______'}\n\n`;
+            
+            // SINAIS VITAIS INICIAIS
+            text += `# SINAIS VITAIS INICIAIS\n`;
+            text += `PA: ${this.form.xabcde.sv_pa || '______'}\n`;
+            text += `FC: ${this.form.xabcde.sv_fc || '______'}\n`;
+            text += `FR: ${this.form.xabcde.sv_fr || '______'}\n`;
+            text += `SpO₂: ${this.form.xabcde.sv_spo2 || '______'}\n`;
+            text += `Temperatura: ${this.form.xabcde.sv_temp || '______'}\n`;
+            text += `Glicemia capilar: ${this.form.xabcde.sv_hgt || '______'}\n\n`;
+            
+            // IMPRESSÃO CLÍNICA INICIAL
+            text += `# IMPRESSÃO CLÍNICA INICIAL\n`;
+            text += `Paciente ${this.form.xabcde.impressao_gravidade || 'potencialmente instável'}.\n`;
+            text += `Hipótese sindrômica inicial: ${this.form.xabcde.impressao_hipotese || '__________________'}\n\n`;
+            
+            // CONDUTAS IMEDIATAS
+            text += `# CONDUTAS IMEDIATAS\n`;
+            text += `Oxigenoterapia: ${this.form.xabcde.conduta_o2 || '______'}\n`;
+            text += `Monitorização multiparamétrica: ${this.form.xabcde.conduta_monitor || 'instalada'}\n`;
+            text += `Acesso venoso: ${this.form.xabcde.conduta_acesso || '______'}\n`;
+            text += `Exames solicitados: ${this.form.xabcde.conduta_exames || '______'}\n`;
+            text += `Medicações iniciais: ${this.form.xabcde.conduta_meds || '______'}\n\n`;
+            
+            // HISTÓRIA PATOLÓGICA PREGRESSA
+            text += `# HISTÓRIA PATOLÓGICA PREGRESSA:\n`;
+            text += `Comorbidades: ${this.form.xabcde.hpp_comorbidades || this.form.comorbidities || '______'}\n`;
+            text += `Alergias: ${this.form.xabcde.hpp_alergias || this.form.allergies || '______'}\n`;
+            
+            // Medicações
+            if (this.form.medications.length > 0 && !this.form.xabcde.hpp_medicacoes) {
+                let meds = this.form.medications.map(m => `${m.name} (${m.posology})`).join(', ');
+                text += `Medicações em uso: ${meds}\n`;
+            } else {
+                text += `Medicações em uso: ${this.form.xabcde.hpp_medicacoes || '______'}\n`;
+            }
+            
+            text += `Cirurgias prévias: ${this.form.xabcde.hpp_cirurgias || this.form.surgeries || '______'}\n`;
+            text += `Última alimentação: ${this.form.xabcde.hpp_alimentacao || '______'}\n`;
+            text += `Eventos recentes relacionados ao quadro: ${this.form.xabcde.hpp_eventos || '______'}\n\n`;
+            
+            // FONTE DAS INFORMAÇÕES
+            if (this.form.xabcde.fonte_info) {
+                text += `# FONTE DAS INFORMAÇÕES (EM CASO DE PACIENTE INCONSCIENTE):\n`;
+                text += `${this.form.xabcde.fonte_info}\n\n`;
+            } else {
+                text += `# FONTE DAS INFORMAÇÕES (EM CASO DE PACIENTE INCONSCIENTE):\n\n`;
             }
             
             return text;

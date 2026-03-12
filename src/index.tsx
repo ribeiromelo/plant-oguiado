@@ -1842,7 +1842,7 @@ app.get('/', (c) => {
                         <!-- ======================================== -->
                         <template x-if="form.utiTemplate === 'xabcde'">
                             <div>
-                                <!-- A. CABEÇALHO / DADOS DA ADMISSÃO -->
+                                <!-- CABEÇALHO -->
                                 <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-red-500 bg-red-50/30">
                                     <div class="flex items-center gap-2 mb-6">
                                         <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center">
@@ -1866,121 +1866,292 @@ app.get('/', (c) => {
                                             </select>
                                         </div>
                                     </div>
-                                    
-                                    <div class="mt-4">
-                                        <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Queixa Principal / Mecanismo de Trauma</label>
-                                        <textarea x-model="form.xabcde.queixaPrincipal" class="form-input h-20 border-red-200 focus:ring-red-500/20 focus:border-red-500" placeholder="Descreva a queixa ou mecanismo de trauma..."></textarea>
-                                    </div>
                                 </div>
                                 
-                                <!-- X - HEMORRAGIA EXSANGUINANTE -->
-                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-red-700 bg-red-50/30">
-                                    <div class="flex items-center justify-between mb-4">
-                                        <div class="flex items-center gap-2">
-                                            <div class="w-10 h-10 rounded-full bg-red-700 text-white flex items-center justify-center font-black text-lg">
-                                                X
-                                            </div>
-                                            <div>
-                                                <h3 class="font-bold text-lg text-slate-700">Hemorragia Exsanguinante</h3>
-                                                <p class="text-xs text-slate-500">Controle imediato de sangramento</p>
-                                            </div>
+                                <!-- X - HEMORRAGIA -->
+                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-red-700">
+                                    <div class="flex items-center gap-2 mb-4">
+                                        <div class="w-10 h-10 rounded-full bg-red-700 text-white flex items-center justify-center font-black text-lg">X</div>
+                                        <h3 class="font-bold text-lg text-slate-700">Hemorragia Exsanguinante</h3>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Status</label>
+                                            <select x-model="form.xabcde.x_hemorragia" class="form-input border-red-200">
+                                                <option value="Sem hemorragias externas evidentes">Sem hemorragias externas evidentes</option>
+                                                <option value="Hemorragia presente">Hemorragia presente</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Local (se presente)</label>
+                                            <input type="text" x-model="form.xabcde.x_local" class="form-input border-red-200" placeholder="Ex: membro inferior esquerdo">
                                         </div>
                                     </div>
-                                    <textarea x-model="form.xabcde.x" class="form-input h-20 border-red-700 focus:ring-red-700/20 focus:border-red-700" placeholder="Avaliação e controle de hemorragias externas..."></textarea>
                                 </div>
                                 
-                                <!-- A - AIRWAY (Via Aérea) -->
+                                <!-- A - VIA AÉREA -->
                                 <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-blue-600">
-                                    <div class="flex items-center justify-between mb-4">
-                                        <div class="flex items-center gap-2">
-                                            <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-black text-lg">
-                                                A
-                                            </div>
-                                            <div>
-                                                <h3 class="font-bold text-lg text-slate-700">Via Aérea (Airway)</h3>
-                                                <p class="text-xs text-slate-500">Pérvia, protegida e com controle cervical</p>
-                                            </div>
+                                    <div class="flex items-center gap-2 mb-4">
+                                        <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-black text-lg">A</div>
+                                        <h3 class="font-bold text-lg text-slate-700">Via Aérea</h3>
+                                    </div>
+                                    <div class="grid grid-cols-1 gap-4">
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Status da Via Aérea</label>
+                                            <input type="text" x-model="form.xabcde.a_pervia" class="form-input border-blue-200" placeholder="Ex: Via aérea pérvia">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Sinais de Obstrução</label>
+                                            <input type="text" x-model="form.xabcde.a_obstrucao" class="form-input border-blue-200" placeholder="Descrever se houver">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Dispositivos em Uso</label>
+                                            <input type="text" x-model="form.xabcde.a_dispositivos" class="form-input border-blue-200" placeholder="Ex: Colar cervical, IOT nº8">
                                         </div>
                                     </div>
-                                    <textarea x-model="form.xabcde.a" class="form-input h-24 border-blue-200 focus:ring-blue-500/20 focus:border-blue-500" placeholder="Ex: Via aérea pérvia, sem sinais de obstrução. Colar cervical instalado."></textarea>
                                 </div>
                                 
-                                <!-- B - BREATHING (Ventilação) -->
+                                <!-- B - VENTILAÇÃO -->
                                 <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-cyan-600">
-                                    <div class="flex items-center justify-between mb-4">
-                                        <div class="flex items-center gap-2">
-                                            <div class="w-10 h-10 rounded-full bg-cyan-100 text-cyan-600 flex items-center justify-center font-black text-lg">
-                                                B
-                                            </div>
-                                            <div>
-                                                <h3 class="font-bold text-lg text-slate-700">Ventilação (Breathing)</h3>
-                                                <p class="text-xs text-slate-500">FR, SpO2, ausculta pulmonar</p>
-                                            </div>
+                                    <div class="flex items-center gap-2 mb-4">
+                                        <div class="w-10 h-10 rounded-full bg-cyan-100 text-cyan-600 flex items-center justify-center font-black text-lg">B</div>
+                                        <h3 class="font-bold text-lg text-slate-700">Ventilação</h3>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">FR (irpm)</label>
+                                            <input type="number" x-model="form.xabcde.b_fr" class="form-input border-cyan-200" placeholder="Ex: 18">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">SpO₂ (%)</label>
+                                            <input type="number" x-model="form.xabcde.b_spo2" class="form-input border-cyan-200" placeholder="Ex: 95">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Suplementação O₂</label>
+                                            <input type="text" x-model="form.xabcde.b_o2" class="form-input border-cyan-200" placeholder="Ex: ar ambiente, O2 3L/min">
                                         </div>
                                     </div>
-                                    <textarea x-model="form.xabcde.b" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Ex: FR 18 irpm, SpO2 95% em ar ambiente, MV+ bilateralmente, sem ruídos adventícios."></textarea>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Padrão Respiratório</label>
+                                            <input type="text" x-model="form.xabcde.b_padrao" class="form-input border-cyan-200" placeholder="Ex: eupneico, taquidispneico">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Ausculta Pulmonar</label>
+                                            <input type="text" x-model="form.xabcde.b_ausculta" class="form-input border-cyan-200" placeholder="Ex: MV+ bilateral, sem RA">
+                                        </div>
+                                    </div>
                                 </div>
                                 
-                                <!-- C - CIRCULATION (Circulação) -->
+                                <!-- C - CIRCULAÇÃO -->
                                 <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-rose-600">
-                                    <div class="flex items-center justify-between mb-4">
-                                        <div class="flex items-center gap-2">
-                                            <div class="w-10 h-10 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center font-black text-lg">
-                                                C
-                                            </div>
-                                            <div>
-                                                <h3 class="font-bold text-lg text-slate-700">Circulação (Circulation)</h3>
-                                                <p class="text-xs text-slate-500">PA, FC, perfusão periférica, pulsos</p>
-                                            </div>
+                                    <div class="flex items-center gap-2 mb-4">
+                                        <div class="w-10 h-10 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center font-black text-lg">C</div>
+                                        <h3 class="font-bold text-lg text-slate-700">Circulação</h3>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">PAS (mmHg)</label>
+                                            <input type="number" x-model="form.xabcde.c_pas" class="form-input border-rose-200" placeholder="Ex: 120">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">PAD (mmHg)</label>
+                                            <input type="number" x-model="form.xabcde.c_pad" class="form-input border-rose-200" placeholder="Ex: 80">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">FC (bpm)</label>
+                                            <input type="number" x-model="form.xabcde.c_fc" class="form-input border-rose-200" placeholder="Ex: 80">
                                         </div>
                                     </div>
-                                    <textarea x-model="form.xabcde.c" class="form-input h-24 border-rose-200 focus:ring-rose-500/20 focus:border-rose-500" placeholder="Ex: PA 120/80 mmHg, FC 80 bpm, pulsos periféricos cheios e simétricos, TEC <2s, extremidades aquecidas."></textarea>
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Perfusão Periférica</label>
+                                            <input type="text" x-model="form.xabcde.c_perfusao" class="form-input border-rose-200" placeholder="Ex: TEC <2s, extremidades aquecidas">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Pulsos Periféricos</label>
+                                            <input type="text" x-model="form.xabcde.c_pulsos" class="form-input border-rose-200" placeholder="Ex: cheios e simétricos">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Ritmo Cardíaco</label>
+                                            <input type="text" x-model="form.xabcde.c_ritmo" class="form-input border-rose-200" placeholder="Ex: regular, rítmico">
+                                        </div>
+                                    </div>
                                 </div>
                                 
-                                <!-- D - DISABILITY (Neurológico) -->
+                                <!-- D - DÉFICIT NEUROLÓGICO -->
                                 <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-purple-600">
                                     <div class="flex items-center justify-between mb-4">
                                         <div class="flex items-center gap-2">
-                                            <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-black text-lg">
-                                                D
-                                            </div>
-                                            <div>
-                                                <h3 class="font-bold text-lg text-slate-700">Déficit Neurológico (Disability)</h3>
-                                                <p class="text-xs text-slate-500">Glasgow, pupilas, déficits motores</p>
-                                            </div>
+                                            <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-black text-lg">D</div>
+                                            <h3 class="font-bold text-lg text-slate-700">Déficit Neurológico</h3>
                                         </div>
                                         <button @click="selectedCalc = 'glasgow'; showCalculators = true" class="text-xs px-3 py-1.5 bg-purple-50 border border-purple-200 text-purple-600 rounded-lg hover:bg-purple-100 transition-all font-bold">
                                             <i class="fas fa-calculator mr-1"></i> Glasgow
                                         </button>
                                     </div>
-                                    <textarea x-model="form.xabcde.d" class="form-input h-24 border-purple-200 focus:ring-purple-500/20 focus:border-purple-500" placeholder="Ex: Glasgow 15 (O4V5M6), pupilas isocóricas e fotorreagentes, sem déficits motores focais."></textarea>
-                                </div>
-                                
-                                <!-- E - EXPOSURE (Exposição) -->
-                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-orange-600">
-                                    <div class="flex items-center justify-between mb-4">
-                                        <div class="flex items-center gap-2">
-                                            <div class="w-10 h-10 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-black text-lg">
-                                                E
-                                            </div>
-                                            <div>
-                                                <h3 class="font-bold text-lg text-slate-700">Exposição (Exposure)</h3>
-                                                <p class="text-xs text-slate-500">Exame físico completo e temperatura</p>
-                                            </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Escala de Glasgow</label>
+                                            <input type="text" x-model="form.xabcde.d_glasgow" class="form-input border-purple-200" placeholder="Ex: 15 (O4V5M6)">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Pupilas</label>
+                                            <input type="text" x-model="form.xabcde.d_pupilas" class="form-input border-purple-200" placeholder="Ex: isocóricas e fotorreagentes">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Glicemia Capilar (mg/dL)</label>
+                                            <input type="text" x-model="form.xabcde.d_glicemia" class="form-input border-purple-200" placeholder="Ex: 120">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Déficits Focais</label>
+                                            <input type="text" x-model="form.xabcde.d_deficits" class="form-input border-purple-200" placeholder="Ex: ausentes">
                                         </div>
                                     </div>
-                                    <textarea x-model="form.xabcde.e" class="form-input h-24 border-orange-200 focus:ring-orange-500/20 focus:border-orange-500" placeholder="Ex: Temperatura 36.5°C, sem lesões aparentes em tronco, MMSS e MMII. Sem sinais de traumatismo oculto."></textarea>
                                 </div>
                                 
-                                <!-- CONDUTA INICIAL -->
+                                <!-- E - EXPOSIÇÃO -->
+                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-orange-600">
+                                    <div class="flex items-center gap-2 mb-4">
+                                        <div class="w-10 h-10 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-black text-lg">E</div>
+                                        <h3 class="font-bold text-lg text-slate-700">Exposição / Exame Rápido</h3>
+                                    </div>
+                                    <div class="grid grid-cols-1 gap-4">
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Temperatura (°C)</label>
+                                            <input type="text" x-model="form.xabcde.e_temperatura" class="form-input border-orange-200" placeholder="Ex: 36.5">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Lesões Cutâneas / Traumas</label>
+                                            <input type="text" x-model="form.xabcde.e_lesoes" class="form-input border-orange-200" placeholder="Ex: sem lesões aparentes">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Edemas / Sinais Infecciosos / Outros</label>
+                                            <input type="text" x-model="form.xabcde.e_edemas" class="form-input border-orange-200" placeholder="Ex: sem edemas ou sinais de infecção">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- SINAIS VITAIS INICIAIS (Resumo) -->
                                 <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-emerald-600">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
-                                            <i class="fas fa-check-circle"></i>
+                                            <i class="fas fa-heartbeat"></i>
                                         </div>
-                                        <h3 class="font-bold text-lg text-slate-700">Conduta Inicial</h3>
+                                        <h3 class="font-bold text-lg text-slate-700">Sinais Vitais Iniciais (Resumo)</h3>
                                     </div>
-                                    <textarea x-model="form.xabcde.conduta" class="form-input h-32 border-emerald-200 focus:ring-emerald-500/20 focus:border-emerald-500" placeholder="Condutas e procedimentos realizados..."></textarea>
+                                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">PA</label>
+                                            <input type="text" x-model="form.xabcde.sv_pa" class="form-input border-emerald-200" placeholder="120x80 mmHg">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">FC</label>
+                                            <input type="text" x-model="form.xabcde.sv_fc" class="form-input border-emerald-200" placeholder="80 bpm">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">FR</label>
+                                            <input type="text" x-model="form.xabcde.sv_fr" class="form-input border-emerald-200" placeholder="18 irpm">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">SpO₂</label>
+                                            <input type="text" x-model="form.xabcde.sv_spo2" class="form-input border-emerald-200" placeholder="95%">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Temperatura</label>
+                                            <input type="text" x-model="form.xabcde.sv_temp" class="form-input border-emerald-200" placeholder="36.5°C">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">HGT</label>
+                                            <input type="text" x-model="form.xabcde.sv_hgt" class="form-input border-emerald-200" placeholder="120 mg/dL">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- IMPRESSÃO CLÍNICA INICIAL -->
+                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-amber-600">
+                                    <div class="flex items-center gap-2 mb-4">
+                                        <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center">
+                                            <i class="fas fa-stethoscope"></i>
+                                        </div>
+                                        <h3 class="font-bold text-lg text-slate-700">Impressão Clínica Inicial</h3>
+                                    </div>
+                                    <div class="grid grid-cols-1 gap-4">
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Gravidade do Paciente</label>
+                                            <select x-model="form.xabcde.impressao_gravidade" class="form-input border-amber-200">
+                                                <option value="crítico">crítico</option>
+                                                <option value="potencialmente instável">potencialmente instável</option>
+                                                <option value="estável no momento">estável no momento</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Hipótese Sindrômica Inicial</label>
+                                            <input type="text" x-model="form.xabcde.impressao_hipotese" class="form-input border-amber-200" placeholder="Ex: Choque hipovolêmico, TCE moderado">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- CONDUTAS IMEDIATAS -->
+                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-blue-600">
+                                    <div class="flex items-center gap-2 mb-4">
+                                        <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
+                                            <i class="fas fa-procedures"></i>
+                                        </div>
+                                        <h3 class="font-bold text-lg text-slate-700">Condutas Imediatas</h3>
+                                    </div>
+                                    <div class="grid grid-cols-1 gap-4">
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Oxigenoterapia</label>
+                                            <input type="text" x-model="form.xabcde.conduta_o2" class="form-input border-blue-200" placeholder="Ex: O2 suplementar 3L/min por cateter nasal">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Monitorização</label>
+                                            <select x-model="form.xabcde.conduta_monitor" class="form-input border-blue-200">
+                                                <option value="instalada">instalada</option>
+                                                <option value="não instalada">não instalada</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Acesso Venoso</label>
+                                            <input type="text" x-model="form.xabcde.conduta_acesso" class="form-input border-blue-200" placeholder="Ex: 2 acessos periféricos calibrosos, SF 0,9% 500ml EV">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Exames Solicitados</label>
+                                            <textarea x-model="form.xabcde.conduta_exames" class="form-input h-20 border-blue-200" placeholder="Ex: Hemograma, gasometria, TC de crânio..."></textarea>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Medicações Iniciais</label>
+                                            <textarea x-model="form.xabcde.conduta_meds" class="form-input h-20 border-blue-200" placeholder="Ex: Dipirona 1g EV, Ondansetrona 8mg EV..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- HISTÓRIA PATOLÓGICA PREGRESSA -->
+                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-slate-600">
+                                    <div class="flex items-center gap-2 mb-4">
+                                        <div class="w-10 h-10 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center">
+                                            <i class="fas fa-history"></i>
+                                        </div>
+                                        <h3 class="font-bold text-lg text-slate-700">História Patológica Pregressa</h3>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Última Alimentação</label>
+                                            <input type="text" x-model="form.xabcde.hpp_alimentacao" class="form-input border-slate-200" placeholder="Ex: há 2 horas">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Eventos Recentes</label>
+                                            <input type="text" x-model="form.xabcde.hpp_eventos" class="form-input border-slate-200" placeholder="Ex: trauma há 1 hora">
+                                        </div>
+                                    </div>
+                                    <div class="mt-4">
+                                        <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Fonte das Informações (paciente inconsciente)</label>
+                                        <input type="text" x-model="form.xabcde.fonte_info" class="form-input border-slate-200" placeholder="Ex: Familiar presente no local, Bombeiros SAMU">
+                                    </div>
+                                    <div class="mt-4 p-3 bg-slate-50 rounded-lg border border-slate-200">
+                                        <p class="text-xs text-slate-600 mb-2"><i class="fas fa-info-circle text-blue-500 mr-1"></i> <strong>Nota:</strong> Os dados de comorbidades, alergias, cirurgias e medicações preenchidos na seção de identificação serão usados automaticamente.</p>
+                                    </div>
                                 </div>
                             </div>
                         </template>
