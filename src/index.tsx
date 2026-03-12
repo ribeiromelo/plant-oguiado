@@ -42,14 +42,14 @@ app.get('/login', (c) => {
             body { font-family: 'Inter', sans-serif; }
         </style>
     </head>
-    <body class="bg-[#f0f4f8] flex items-center justify-center h-screen relative overflow-hidden antialiased selection:bg-blue-500 selection:text-white">
+    <body class="scroll-smooth bg-gradient-to-br from-slate-50 to-slate-200 flex items-center justify-center min-h-screen relative overflow-hidden antialiased selection:bg-blue-500 selection:text-white p-4">
         <!-- Background Decorativo -->
         <div class="absolute top-0 left-0 w-full h-64 bg-gradient-to-r from-blue-600 to-cyan-500 transform -skew-y-3 origin-top-left -translate-y-10 z-0"></div>
         
-        <div class="bg-white/95 backdrop-blur-xl p-10 rounded-3xl shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] max-w-sm w-full border border-white/60 relative z-10 transform transition-all hover:scale-[1.01] duration-500">
+        <div class="bg-white/80 backdrop-blur-2xl p-8 sm:p-10 rounded-3xl shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] max-w-md w-full border border-white/60 relative z-10 transition-all hover:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.15)] duration-500">
             <div class="flex flex-col items-center mb-8">
-                <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-2xl flex items-center justify-center text-white mb-4 shadow-lg transform rotate-3 hover:rotate-0 transition-all duration-300">
-                     <i class="fas fa-user-md text-4xl"></i>
+                <div class="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-3xl flex items-center justify-center text-white mb-6 shadow-xl transform -rotate-3 hover:rotate-0 transition-all duration-500">
+                     <i class="fas fa-user-md text-4xl sm:text-5xl"></i>
                 </div>
                 <h1 class="text-2xl font-bold text-slate-800 tracking-tight">Plantão Guiado</h1>
                 <p class="text-sm text-slate-500 font-medium">Acesso Restrito ao Sistema</p>
@@ -60,17 +60,17 @@ app.get('/login', (c) => {
                     <label class="block text-xs font-bold text-slate-500 uppercase mb-1 ml-1">Usuário</label>
                     <div class="relative group">
                         <i class="fas fa-user absolute left-4 top-3.5 text-slate-400 group-focus-within:text-blue-500 transition-colors"></i>
-                        <input type="text" name="username" class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium text-slate-700" placeholder="Seu usuário" required>
+                        <input type="text" name="username" class="w-full pl-12 pr-4 py-3.5 bg-white border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 hover:border-slate-300 outline-none transition-all font-medium text-slate-700 shadow-sm" placeholder="Seu usuário" required>
                     </div>
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-500 uppercase mb-1 ml-1">Senha</label>
                     <div class="relative group">
                         <i class="fas fa-lock absolute left-4 top-3.5 text-slate-400 group-focus-within:text-blue-500 transition-colors"></i>
-                        <input type="password" name="password" class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium text-slate-700" placeholder="Sua senha" required>
+                        <input type="password" name="password" class="w-full pl-12 pr-4 py-3.5 bg-white border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 hover:border-slate-300 outline-none transition-all font-medium text-slate-700 shadow-sm" placeholder="Sua senha" required>
                     </div>
                 </div>
-                <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold py-3.5 rounded-xl hover:shadow-lg hover:shadow-blue-500/30 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2">
+                <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold py-4 rounded-xl text-lg tracking-wide hover:shadow-xl hover:shadow-blue-500/30 active:scale-95 transition-all duration-200 flex items-center justify-center gap-2">
                     <span>ENTRAR</span> <i class="fas fa-arrow-right"></i>
                 </button>
             </form>
@@ -143,7 +143,7 @@ app.get('/receituario', (c) => {
             .font-poppins { font-family: 'Poppins', sans-serif; }
             
             .form-card {
-                @apply bg-white p-6 rounded-3xl shadow-lg border-0 mb-6 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-900/10 hover:-translate-y-1 relative overflow-hidden;
+                @apply bg-white p-5 sm:p-6 rounded-3xl shadow-lg border border-slate-100 mb-6 transition-all duration-300 hover:shadow-xl hover:shadow-blue-900/10 hover:-translate-y-1 relative overflow-hidden;
             }
             .form-card::before {
                 content: '';
@@ -177,30 +177,30 @@ app.get('/receituario', (c) => {
             }
         </style>
     </head>
-    <body class="bg-slate-50 text-slate-800" x-data="receituarioApp()">
+    <body class="scroll-smooth bg-slate-50 text-slate-800" x-data="receituarioApp()">
         
         <!-- Navbar -->
         <header class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 no-print">
-            <div class="max-w-[1600px] mx-auto px-4 lg:px-6 h-16 flex items-center justify-between">
-                <div class="flex items-center gap-3">
+            <div class="max-w-[1600px] mx-auto px-4 lg:px-6 h-16 sm:h-20 flex items-center justify-between">
+                <div class="flex items-center gap-2 sm:gap-3">
                     <div class="w-9 h-9 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-lg flex items-center justify-center text-white shadow-md shadow-blue-500/20">
                          <i class="fas fa-user-md text-lg"></i>
                     </div>
                     <div>
-                        <h1 class="text-base font-bold text-slate-800 leading-none">Plantão Guiado</h1>
+                        <h1 class="text-sm sm:text-base font-bold text-slate-800 leading-none">Plantão Guiado</h1>
                         <p class="text-[10px] text-slate-500 font-medium uppercase tracking-wider mt-0.5">Gerador de Receitas</p>
                     </div>
                 </div>
                 
-                <div class="flex items-center gap-3">
-                    <nav class="flex items-center bg-slate-100 p-1 rounded-xl">
-                        <a href="/" class="px-4 py-1.5 text-sm font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <nav class="flex items-center bg-slate-100/80 backdrop-blur-md p-1 rounded-xl overflow-x-auto max-w-[50vw] sm:max-w-full no-scrollbar">
+                        <a href="/" class="px-3 sm:px-4 py-1.5 text-xs sm:text-sm whitespace-nowrap font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
                             <i class="fas fa-file-medical mr-2"></i>Evolução
                         </a>
-                        <a href="/prescricoes" class="px-4 py-1.5 text-sm font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
+                        <a href="/prescricoes" class="px-3 sm:px-4 py-1.5 text-xs sm:text-sm whitespace-nowrap font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
                             <i class="fas fa-prescription mr-2"></i>Prescrições
                         </a>
-                        <a href="/receituario" class="px-4 py-1.5 text-sm font-semibold text-blue-700 bg-white shadow-sm rounded-lg transition-all">
+                        <a href="/receituario" class="px-3 sm:px-4 py-1.5 text-xs sm:text-sm whitespace-nowrap font-semibold text-blue-700 bg-white shadow-sm rounded-lg transition-all">
                             <i class="fas fa-print mr-2"></i>Receituário
                         </a>
                     </nav>
@@ -212,16 +212,16 @@ app.get('/receituario', (c) => {
             </div>
         </header>
 
-        <main class="max-w-[1600px] mx-auto p-4 lg:p-8 flex flex-col lg:flex-row gap-8">
+        <main class="max-w-[1600px] mx-auto p-3 sm:p-6 lg:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8">
             
             <!-- LEFT: FORM -->
             <div class="flex-1 min-w-0 no-print pb-20">
                 
                 <!-- Dados do Médico -->
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6">
+                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-blue-500 rounded-l-lg"></div>
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-lg font-bold text-slate-700 flex items-center gap-2">
+                        <h3 class="text-base sm:text-lg font-bold text-slate-700 flex items-center gap-2">
                             <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-sm"><i class="fas fa-user-doctor"></i></div>
                             Dados do Médico
                         </h3>
@@ -230,31 +230,31 @@ app.get('/receituario', (c) => {
                         </button>
                     </div>
                     
-                    <div class="grid grid-cols-12 gap-5">
-                        <div class="col-span-12 md:col-span-8">
-                            <label class="block text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-user-md text-blue-500"></i> Nome Completo</label>
-                            <input type="text" x-model="doctor.name" class="w-full px-4 py-3 bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Dr. Fulano de Tal">
+                    <div class="grid grid-cols-12 gap-4 sm:gap-5">
+                        <div class="col-span-12 sm:col-span-8">
+                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-user-md text-blue-500"></i> Nome Completo</label>
+                            <input type="text" x-model="doctor.name" class="w-full px-4 py-3 bg-white border border-slate-300 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/15 focus:border-blue-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Dr. Fulano de Tal">
                         </div>
-                        <div class="col-span-6 md:col-span-2">
-                            <label class="block text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-id-card text-blue-500"></i> CRM</label>
-                            <input type="text" x-model="doctor.crm" class="w-full px-4 py-3 bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="12345">
+                        <div class="col-span-12 sm:col-span-6 md:col-span-2">
+                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-id-card text-blue-500"></i> CRM</label>
+                            <input type="text" x-model="doctor.crm" class="w-full px-4 py-3 bg-white border border-slate-300 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/15 focus:border-blue-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="12345">
                         </div>
-                        <div class="col-span-6 md:col-span-2">
-                            <label class="block text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-map-marker-alt text-blue-500"></i> UF</label>
-                            <input type="text" x-model="doctor.uf" class="w-full px-4 py-3 bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm uppercase" placeholder="SP" maxlength="2">
+                        <div class="col-span-12 sm:col-span-6 md:col-span-2">
+                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-map-marker-alt text-blue-500"></i> UF</label>
+                            <input type="text" x-model="doctor.uf" class="w-full px-4 py-3 bg-white border border-slate-300 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/15 focus:border-blue-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm uppercase" placeholder="SP" maxlength="2">
                         </div>
                         <div class="col-span-12">
-                            <label class="block text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-clinic-medical text-blue-500"></i> Endereço / Clínica</label>
-                            <input type="text" x-model="doctor.address" class="w-full px-4 py-3 bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Rua das Flores, 123 - Centro, São Paulo - SP">
+                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-clinic-medical text-blue-500"></i> Endereço / Clínica</label>
+                            <input type="text" x-model="doctor.address" class="w-full px-4 py-3 bg-white border border-slate-300 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/15 focus:border-blue-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Rua das Flores, 123 - Centro, São Paulo - SP">
                         </div>
                     </div>
                 </div>
 
                 <!-- Prescrição -->
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6">
+                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-emerald-500 rounded-l-lg"></div>
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-lg font-bold text-slate-700 flex items-center gap-2">
+                        <h3 class="text-base sm:text-lg font-bold text-slate-700 flex items-center gap-2">
                             <div class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm"><i class="fas fa-prescription-bottle-alt"></i></div>
                             Prescrição
                         </h3>
@@ -272,58 +272,58 @@ app.get('/receituario', (c) => {
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-12 gap-5 mb-6">
-                        <div class="col-span-12 md:col-span-8">
-                            <label class="block text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-user text-emerald-500"></i> Nome do Paciente</label>
-                            <input type="text" x-model="patient.name" class="w-full px-4 py-3 bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Nome completo do paciente">
+                    <div class="grid grid-cols-12 gap-4 sm:gap-5 mb-6">
+                        <div class="col-span-12 sm:col-span-8">
+                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-user text-emerald-500"></i> Nome do Paciente</label>
+                            <input type="text" x-model="patient.name" class="w-full px-4 py-3 bg-white border border-slate-300 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-emerald-500/15 focus:border-emerald-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Nome completo do paciente">
                         </div>
-                        <div class="col-span-12 md:col-span-4">
-                            <label class="block text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-id-card text-emerald-500"></i> CPF</label>
-                            <input type="text" x-model="patient.cpf" class="w-full px-4 py-3 bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="000.000.000-00">
+                        <div class="col-span-12 sm:col-span-4">
+                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-id-card text-emerald-500"></i> CPF</label>
+                            <input type="text" x-model="patient.cpf" class="w-full px-4 py-3 bg-white border border-slate-300 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-emerald-500/15 focus:border-emerald-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="000.000.000-00">
                         </div>
-                        <div class="col-span-12 md:col-span-9">
-                            <label class="block text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-map-marked-alt text-emerald-500"></i> Endereço <span x-show="tipo === 'especial'" class="text-red-600 font-black ml-2">(Obrigatório para Receita Especial)</span></label>
-                            <input type="text" x-model="patient.address" class="w-full px-4 py-3 bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Rua, Número, Bairro, Cidade - Estado">
+                        <div class="col-span-12 sm:col-span-9">
+                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-map-marked-alt text-emerald-500"></i> Endereço <span x-show="tipo === 'especial'" class="text-red-600 font-black ml-2">(Obrigatório para Receita Especial)</span></label>
+                            <input type="text" x-model="patient.address" class="w-full px-4 py-3 bg-white border border-slate-300 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-emerald-500/15 focus:border-emerald-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Rua, Número, Bairro, Cidade - Estado">
                         </div>
-                        <div class="col-span-12 md:col-span-3">
-                            <label class="block text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-calendar-day text-emerald-500"></i> Data</label>
-                            <input type="date" x-model="date" class="w-full px-4 py-3 bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm">
+                        <div class="col-span-12 sm:col-span-3">
+                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-calendar-day text-emerald-500"></i> Data</label>
+                            <input type="date" x-model="date" class="w-full px-4 py-3 bg-white border border-slate-300 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-emerald-500/15 focus:border-emerald-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm">
                         </div>
                     </div>
 
                     <!-- Medicamentos (Simples/Especial) -->
-                    <div x-show="tipo !== 'livre'" class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-6 border-2 border-emerald-200 mb-6 shadow-md">
+                    <div x-show="tipo !== 'livre'" class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-6 border border-emerald-200 shadow-sm hover:shadow-md mb-6 shadow-md">
                         <label class="block text-sm font-bold text-emerald-700 mb-5 uppercase tracking-wide flex items-center gap-2">
                             <i class="fas fa-pills text-lg"></i> Adicionar Medicamento
                         </label>
                         <div class="grid gap-5">
                             <div>
                                 <label class="block text-xs font-semibold text-emerald-600 mb-2 uppercase tracking-wide ml-1">Medicamento + Concentração</label>
-                                <input type="text" x-model="newMed.name" class="w-full px-4 py-3.5 bg-white border-2 border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 hover:border-emerald-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Ex: Amoxicilina 500mg" @keydown.enter="$refs.qty.focus()">
+                                <input type="text" x-model="newMed.name" class="w-full px-4 py-3.5 bg-white border border-emerald-200 shadow-sm hover:shadow-md rounded-xl focus:outline-none focus:ring-4 focus:ring-emerald-500/15 focus:border-emerald-500 hover:border-emerald-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Ex: Amoxicilina 500mg" @keydown.enter="$refs.qty.focus()">
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-emerald-600 mb-2 uppercase tracking-wide ml-1">Quantidade</label>
-                                <input x-ref="qty" type="text" x-model="newMed.quantity" class="w-full px-4 py-3.5 bg-white border-2 border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 hover:border-emerald-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Ex: 1 caixa com 21 comprimidos" @keydown.enter="$refs.instr.focus()">
+                                <input x-ref="qty" type="text" x-model="newMed.quantity" class="w-full px-4 py-3.5 bg-white border border-emerald-200 shadow-sm hover:shadow-md rounded-xl focus:outline-none focus:ring-4 focus:ring-emerald-500/15 focus:border-emerald-500 hover:border-emerald-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Ex: 1 caixa com 21 comprimidos" @keydown.enter="$refs.instr.focus()">
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-emerald-600 mb-2 uppercase tracking-wide ml-1">Posologia / Instruções de Uso</label>
-                                <textarea x-ref="instr" x-model="newMed.instruction" class="w-full px-4 py-3.5 bg-white border-2 border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 hover:border-emerald-300 transition-all text-sm font-medium text-slate-900 placeholder-slate-400 shadow-sm h-28 resize-none leading-relaxed" placeholder="Ex: Tomar 1 comprimido de 8 em 8 horas por 7 dias" @keydown.enter.prevent="addMed()"></textarea>
+                                <textarea x-ref="instr" x-model="newMed.instruction" class="w-full px-4 py-3.5 bg-white border border-emerald-200 shadow-sm hover:shadow-md rounded-xl focus:outline-none focus:ring-4 focus:ring-emerald-500/15 focus:border-emerald-500 hover:border-emerald-300 transition-all text-sm font-medium text-slate-900 placeholder-slate-400 shadow-sm h-28 resize-none leading-relaxed" placeholder="Ex: Tomar 1 comprimido de 8 em 8 horas por 7 dias" @keydown.enter.prevent="addMed()"></textarea>
                             </div>
-                            <button @click="addMed()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold py-4 rounded-xl hover:from-emerald-700 hover:to-teal-700 shadow-lg shadow-emerald-500/40 hover:shadow-xl hover:shadow-emerald-500/50 active:scale-[0.98] transition-all flex items-center justify-center gap-3 text-base">
+                            <button @click="addMed()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold py-4 rounded-xl hover:from-emerald-700 hover:to-teal-700 shadow-lg shadow-emerald-500/40 hover:shadow-xl hover:shadow-emerald-500/50 active:scale-95 transition-all flex items-center justify-center gap-3 text-base">
                                 <i class="fas fa-plus-circle text-lg"></i> Adicionar à Receita
                             </button>
                         </div>
                     </div>
 
                     <!-- Texto Livre -->
-                    <div x-show="tipo === 'livre'" class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border-2 border-blue-200 mb-6 shadow-md">
+                    <div x-show="tipo === 'livre'" class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-200 shadow-sm hover:shadow-md mb-6 shadow-md">
                         <div class="mb-5">
                             <label class="block text-xs font-semibold text-blue-600 mb-2 uppercase tracking-wide ml-1 flex items-center gap-2"><i class="fas fa-heading text-blue-500"></i> Título do Documento</label>
-                            <input type="text" x-model="freeTitle" class="w-full px-4 py-3.5 bg-white border-2 border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 hover:border-blue-300 transition-all text-sm font-bold text-slate-900 placeholder-slate-400 shadow-sm uppercase tracking-wide" placeholder="Ex: SOLICITAÇÃO DE EXAMES">
+                            <input type="text" x-model="freeTitle" class="w-full px-4 py-3.5 bg-white border border-blue-200 shadow-sm hover:shadow-md rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/15 focus:border-blue-500 hover:border-blue-300 transition-all text-sm font-bold text-slate-900 placeholder-slate-400 shadow-sm uppercase tracking-wide" placeholder="Ex: SOLICITAÇÃO DE EXAMES">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-blue-600 mb-2 uppercase tracking-wide ml-1 flex items-center gap-2"><i class="fas fa-file-alt text-blue-500"></i> Conteúdo</label>
-                            <textarea x-model="freeText" class="w-full px-4 py-3.5 bg-white border-2 border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 hover:border-blue-300 transition-all text-sm font-medium text-slate-900 placeholder-slate-400 shadow-sm h-72 resize-none font-mono leading-relaxed" placeholder="Digite o conteúdo completo do documento...&#10;&#10;Use quebras de linha para organizar o texto."></textarea>
+                            <textarea x-model="freeText" class="w-full px-4 py-3.5 bg-white border border-blue-200 shadow-sm hover:shadow-md rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/15 focus:border-blue-500 hover:border-blue-300 transition-all text-sm font-medium text-slate-900 placeholder-slate-400 shadow-sm h-72 resize-none font-mono leading-relaxed" placeholder="Digite o conteúdo completo do documento...&#10;&#10;Use quebras de linha para organizar o texto."></textarea>
                         </div>
                     </div>
 
@@ -354,7 +354,7 @@ app.get('/receituario', (c) => {
 
                 <!-- Print Options -->
                 <div class="form-card bg-slate-800 text-white border-none shadow-xl">
-                    <h3 class="font-bold text-lg mb-5 flex items-center gap-2"><i class="fas fa-print"></i> Configuração de Impressão</h3>
+                    <h3 class="font-bold text-base sm:text-lg mb-5 flex items-center gap-2"><i class="fas fa-print"></i> Configuração de Impressão</h3>
                     <div class="space-y-4">
                         <label class="flex items-center gap-3 p-4 rounded-xl bg-white/10 cursor-pointer hover:bg-white/20 transition-all">
                             <input type="checkbox" x-model="printDouble" :disabled="tipo === 'especial'" class="w-5 h-5 rounded text-blue-500 focus:ring-offset-slate-800">
@@ -372,7 +372,7 @@ app.get('/receituario', (c) => {
             </div>
 
             <!-- RIGHT: PREVIEW -->
-            <div class="lg:w-[210mm] flex-shrink-0 mx-auto">
+            <div class="w-full lg:w-[210mm] flex-shrink-0 mx-auto overflow-x-auto pb-4">
                 <div id="printable-area" class="bg-white text-slate-900 font-poppins" :class="{'preview-paper rounded-lg': !isPrinting}">
                     
                     <!-- PAGE 1 -->
@@ -704,30 +704,30 @@ app.get('/', (c) => {
             }
         </style>
     </head>
-    <body class="bg-gray-50 text-slate-900 font-sans antialiased selection:bg-blue-600 selection:text-white" x-data="medicalForm()">
+    <body class="scroll-smooth bg-gray-50 text-slate-900 font-sans antialiased selection:bg-blue-600 selection:text-white" x-data="medicalForm()">
         
         <!-- Navbar Glass -->
-        <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <header class="bg-white/90 backdrop-blur-lg border-b border-slate-200 sticky top-0 z-50 supports-[backdrop-filter]:bg-white/60">
             <div class="max-w-[1600px] mx-auto px-4 lg:px-6 h-20 flex items-center justify-between">
                 <div class="flex items-center gap-4">
                     <div class="w-10 h-10 bg-gradient-to-tr from-indigo-600 to-blue-500 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-500/30 rotate-3 hover:rotate-0 transition-all duration-300">
                          <i class="fas fa-user-md text-xl"></i>
                     </div>
                     <div>
-                        <h1 class="text-lg font-black text-slate-800 leading-none tracking-tight">Plantão<span class="text-indigo-600">Guiado</span></h1>
+                        <h1 class="text-base sm:text-lg font-black text-slate-800 leading-none tracking-tight">Plantão<span class="text-indigo-600">Guiado</span></h1>
                         <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-0.5">Sistema Inteligente</p>
                     </div>
                 </div>
                 
-                <div class="flex items-center gap-3">
-                    <nav class="flex items-center bg-white p-1.5 rounded-2xl shadow-sm border border-slate-100">
-                        <a href="/" class="px-5 py-2.5 text-sm font-bold text-indigo-600 bg-indigo-50 rounded-xl transition-all shadow-sm ring-1 ring-indigo-100">
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <nav class="flex items-center bg-white/90 backdrop-blur-md p-1.5 rounded-2xl shadow-sm border border-slate-100 overflow-x-auto max-w-[55vw] sm:max-w-full no-scrollbar">
+                        <a href="/" class="px-3 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm whitespace-nowrap font-bold text-indigo-600 bg-indigo-50 rounded-xl transition-all shadow-sm ring-1 ring-indigo-100">
                             <i class="fas fa-file-medical mr-2"></i>Evolução
                         </a>
-                        <a href="/prescricoes" class="px-5 py-2.5 text-sm font-bold text-slate-500 hover:text-indigo-600 hover:bg-slate-50 rounded-xl transition-colors">
+                        <a href="/prescricoes" class="px-3 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm whitespace-nowrap font-bold text-slate-500 hover:text-indigo-600 hover:bg-slate-50 rounded-xl transition-colors">
                             <i class="fas fa-prescription mr-2"></i>Prescrições
                         </a>
-                        <a href="/receituario" class="px-5 py-2.5 text-sm font-bold text-slate-500 hover:text-indigo-600 hover:bg-slate-50 rounded-xl transition-colors">
+                        <a href="/receituario" class="px-3 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm whitespace-nowrap font-bold text-slate-500 hover:text-indigo-600 hover:bg-slate-50 rounded-xl transition-colors">
                             <i class="fas fa-print mr-2"></i>Receituário
                         </a>
                     </nav>
@@ -739,7 +739,7 @@ app.get('/', (c) => {
             </div>
         </header>
 
-        <main class="max-w-[1600px] mx-auto p-4 lg:p-8 flex flex-col lg:flex-row gap-8">
+        <main class="max-w-[1600px] mx-auto p-3 sm:p-6 lg:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8">
             
             <!-- LEFT COLUMN (FORM) -->
             <div class="flex-1 min-w-0 pb-20">
@@ -794,35 +794,35 @@ app.get('/', (c) => {
                 </div>
 
                 <!-- 1. IDENTIFICATION -->
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6">
+                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-blue-500 rounded-l-lg"></div>
-                    <h3 class="text-lg font-bold text-slate-700 mb-6 flex items-center gap-2">
+                    <h3 class="text-base sm:text-lg font-bold text-slate-700 mb-6 flex items-center gap-2">
                         <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-sm"><i class="fas fa-user"></i></div>
                         Identificação
                     </h3>
                     
-                    <div class="grid grid-cols-12 gap-5">
-                        <div class="col-span-12 md:col-span-6">
+                    <div class="grid grid-cols-12 gap-4 sm:gap-5">
+                        <div class="col-span-12 sm:col-span-6">
                             <label class="block text-xs font-bold text-blue-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-user"></i> Nome do Paciente</label>
-                            <input type="text" x-model="form.name" class="w-full px-4 py-3 bg-gradient-to-br from-white to-blue-50/30 border-2 border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 hover:border-blue-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Nome completo do paciente">
+                            <input type="text" x-model="form.name" class="w-full px-4 py-3 bg-gradient-to-br from-white to-blue-50/30 border border-blue-200 shadow-sm hover:shadow-md rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/15 focus:border-blue-500 hover:border-blue-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Nome completo do paciente">
                         </div>
-                        <div class="col-span-6 md:col-span-3">
+                        <div class="col-span-12 sm:col-span-6 md:col-span-3">
                             <label class="block text-xs font-bold text-blue-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-birthday-cake"></i> Idade</label>
                             <div class="relative">
-                                <input type="number" x-model="form.age" class="w-full px-4 py-3 pr-16 bg-gradient-to-br from-white to-blue-50/30 border-2 border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 hover:border-blue-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Ex: 45">
+                                <input type="number" x-model="form.age" class="w-full px-4 py-3 pr-16 bg-gradient-to-br from-white to-blue-50/30 border border-blue-200 shadow-sm hover:shadow-md rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/15 focus:border-blue-500 hover:border-blue-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Ex: 45">
                                 <span class="absolute right-4 top-3.5 text-blue-400 text-xs font-bold uppercase">anos</span>
                             </div>
                         </div>
-                        <div class="col-span-6 md:col-span-3">
+                        <div class="col-span-12 sm:col-span-6 md:col-span-3">
                             <label class="block text-xs font-bold text-blue-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-venus-mars"></i> Sexo</label>
-                            <select x-model="form.gender" class="w-full px-4 py-3 bg-gradient-to-br from-white to-blue-50/30 border-2 border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 hover:border-blue-300 transition-all text-sm font-semibold text-slate-900 shadow-sm appearance-none">
+                            <select x-model="form.gender" class="w-full px-4 py-3 bg-gradient-to-br from-white to-blue-50/30 border border-blue-200 shadow-sm hover:shadow-md rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/15 focus:border-blue-500 hover:border-blue-300 transition-all text-sm font-semibold text-slate-900 shadow-sm appearance-none">
                                 <option value="Masculino">♂ Masculino</option>
                                 <option value="Feminino">♀ Feminino</option>
                             </select>
                         </div>
                         <div class="col-span-12">
                             <label class="block text-xs font-bold text-blue-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-door-open"></i> Tipo de Admissão</label>
-                            <select x-model="form.admission" class="w-full px-4 py-3 bg-gradient-to-br from-white to-blue-50/30 border-2 border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 hover:border-blue-300 transition-all text-sm font-semibold text-slate-900 shadow-sm appearance-none">
+                            <select x-model="form.admission" class="w-full px-4 py-3 bg-gradient-to-br from-white to-blue-50/30 border border-blue-200 shadow-sm hover:shadow-md rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/15 focus:border-blue-500 hover:border-blue-300 transition-all text-sm font-semibold text-slate-900 shadow-sm appearance-none">
                                 <option value="Demanda Espontânea">🚶 Demanda Espontânea</option>
                                 <option value="Pronto-atendimento">🏥 Pronto-atendimento</option>
                                 <option value="Regulação (SAMU/Bombeiros)">🚑 Regulação (SAMU/Bombeiros)</option>
@@ -834,7 +834,7 @@ app.get('/', (c) => {
 
                     <div class="mt-8 border-t border-slate-100 pt-6">
                         <label class="form-label mb-3">Hábitos de Vida</label>
-                        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mb-4">
                             <!-- TABAGISMO -->
                             <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white" :class="form.habits.smoker ? 'border-amber-500 ring-1 ring-amber-500 bg-amber-50/50' : ''">
                                 <input type="checkbox" x-model="form.habits.smoker" @change="if(form.habits.smoker) { form.habits.exSmoker = false; selectedCalc = 'carga_tabagica'; showCalculators = true; }" class="w-4 h-4 text-amber-600 rounded border-slate-300 focus:ring-amber-500">
@@ -907,16 +907,16 @@ app.get('/', (c) => {
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6">
                         <div>
-                            <label class="block text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-heartbeat text-red-500"></i> Comorbidades</label>
-                            <textarea x-model="form.comorbidities" class="w-full px-4 py-3 bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/30 focus:border-red-500 hover:border-slate-300 transition-all text-sm font-medium text-slate-900 placeholder-slate-400 shadow-sm h-24 resize-none leading-relaxed" placeholder="HAS, DM, DPOC..."></textarea>
+                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-heartbeat text-red-500"></i> Comorbidades</label>
+                            <textarea x-model="form.comorbidities" class="w-full px-4 py-3 bg-white border border-slate-300 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-red-500/15 focus:border-red-500 hover:border-slate-300 transition-all text-sm font-medium text-slate-900 placeholder-slate-400 shadow-sm h-24 resize-none leading-relaxed" placeholder="HAS, DM, DPOC..."></textarea>
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-allergies text-orange-500"></i> Alergias</label>
-                            <textarea x-model="form.allergies" class="w-full px-4 py-3 bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 hover:border-slate-300 transition-all text-sm font-medium text-slate-900 placeholder-slate-400 shadow-sm h-24 resize-none leading-relaxed" placeholder="Medicamentos, alimentos..."></textarea>
+                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-allergies text-orange-500"></i> Alergias</label>
+                            <textarea x-model="form.allergies" class="w-full px-4 py-3 bg-white border border-slate-300 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-orange-500/15 focus:border-orange-500 hover:border-slate-300 transition-all text-sm font-medium text-slate-900 placeholder-slate-400 shadow-sm h-24 resize-none leading-relaxed" placeholder="Medicamentos, alimentos..."></textarea>
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-cut text-purple-500"></i> Cirurgias Prévias</label>
-                            <textarea x-model="form.surgeries" class="w-full px-4 py-3 bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/30 focus:border-purple-500 hover:border-slate-300 transition-all text-sm font-medium text-slate-900 placeholder-slate-400 shadow-sm h-24 resize-none leading-relaxed" placeholder="Colecistectomia, Apendicectomia..."></textarea>
+                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-cut text-purple-500"></i> Cirurgias Prévias</label>
+                            <textarea x-model="form.surgeries" class="w-full px-4 py-3 bg-white border border-slate-300 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-purple-500/15 focus:border-purple-500 hover:border-slate-300 transition-all text-sm font-medium text-slate-900 placeholder-slate-400 shadow-sm h-24 resize-none leading-relaxed" placeholder="Colecistectomia, Apendicectomia..."></textarea>
                         </div>
                     </div>
                 </div>
@@ -925,7 +925,7 @@ app.get('/', (c) => {
                 <template x-if="form.serviceType === 'clinica'">
                     <div>
                 <!-- 2. MEDICATIONS -->
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6">
+                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-indigo-500 rounded-l-lg"></div>
                     <div class="flex items-center gap-2 mb-6">
                         <div class="w-8 h-8 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center text-sm"><i class="fas fa-pills"></i></div>
@@ -943,7 +943,7 @@ app.get('/', (c) => {
                                 <input type="text" x-model="newMed.posology" class="form-input border-indigo-200 focus:ring-indigo-500/20 focus:border-indigo-500" placeholder="1-0-1" @keydown.enter="addMed()">
                             </div>
                             <div class="flex items-end">
-                                <button @click="addMed()" class="h-[44px] w-full sm:w-[44px] bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 hover:shadow-lg hover:shadow-indigo-500/30 transition-all flex items-center justify-center">
+                                <button @click="addMed()" class="h-[44px] w-full sm:w-[44px] bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 hover:shadow-xl hover:shadow-indigo-500/30 transition-all flex items-center justify-center">
                                     <i class="fas fa-plus"></i>
                                 </button>
                             </div>
@@ -959,7 +959,7 @@ app.get('/', (c) => {
 
                         <template x-for="(med, index) in form.medications" :key="index">
                             <div class="flex items-center justify-between bg-white px-4 py-3 rounded-xl border border-slate-200 hover:border-indigo-300 hover:shadow-sm transition-all group">
-                                <div class="flex items-center gap-3">
+                                <div class="flex items-center gap-2 sm:gap-3">
                                     <i class="fas fa-capsules text-indigo-400"></i>
                                     <div>
                                         <span class="font-bold text-slate-700 block" x-text="med.name"></span>
@@ -975,20 +975,20 @@ app.get('/', (c) => {
                 </div>
 
                 <!-- 3. SUBJECTIVE (S) -->
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6">
+                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-cyan-500 rounded-l-lg"></div>
                     <div class="flex items-center gap-2 mb-6 text-cyan-700">
                         <span class="bg-cyan-500 text-white font-bold w-8 h-8 flex items-center justify-center rounded-lg text-sm shadow-md shadow-cyan-500/20">S</span>
-                        <h3 class="font-bold text-lg text-slate-700">Subjetivo</h3>
+                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Subjetivo</h3>
                     </div>
 
                     <div class="mb-5">
-                        <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Queixa Principal (QP)</label>
+                        <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Queixa Principal (QP)</label>
                         <input type="text" x-model="form.subjective.qp" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-sm text-slate-900 placeholder-slate-400" placeholder="Digite a queixa...">
                     </div>
 
                     <div class="mb-5 relative">
-                        <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">História da Doença Atual (HDA)</label>
+                        <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">História da Doença Atual (HDA)</label>
                         <textarea x-model="form.subjective.hda" class="form-input h-32 leading-relaxed" placeholder="Descrição livre da história clínica..."></textarea>
                     </div>
 
@@ -1032,24 +1032,24 @@ app.get('/', (c) => {
                 </div>
 
                 <!-- 4. OBJECTIVE (O) -->
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6">
+                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-emerald-500 rounded-l-lg"></div>
                     <div class="flex items-center gap-2 mb-6">
                         <span class="bg-emerald-500 text-white font-bold w-8 h-8 flex items-center justify-center rounded-lg text-sm shadow-md shadow-emerald-500/20">O</span>
-                        <h3 class="font-bold text-lg text-slate-700">Objetivo</h3>
+                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Objetivo</h3>
                     </div>
 
                     <div class="bg-emerald-50/50 p-5 rounded-2xl border border-emerald-100/50 mb-8">
                         <label class="form-label text-emerald-700 mb-4 flex items-center gap-2 text-sm">
                             <i class="fas fa-heartbeat text-lg"></i> Sinais Vitais
                         </label>
-                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                            <div><label class="text-[10px] font-bold text-emerald-700 mb-1.5 block uppercase tracking-wider flex items-center gap-1"><i class="fas fa-tachometer-alt"></i> PA</label><div class="relative"><input type="text" x-model="form.vitals.pa" class="w-full px-3 py-3 text-center font-bold text-emerald-900 bg-white border-2 border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 hover:border-emerald-300 transition-all shadow-sm text-sm" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[9px] font-bold">mmHg</span></div></div>
-                            <div><label class="text-[10px] font-bold text-emerald-700 mb-1.5 block uppercase tracking-wider flex items-center gap-1"><i class="fas fa-heartbeat"></i> FC</label><div class="relative"><input type="number" x-model="form.vitals.fc" class="w-full px-3 py-3 text-center font-bold text-emerald-900 bg-white border-2 border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 hover:border-emerald-300 transition-all shadow-sm text-sm" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[9px] font-bold">bpm</span></div></div>
-                            <div><label class="text-[10px] font-bold text-emerald-700 mb-1.5 block uppercase tracking-wider flex items-center gap-1"><i class="fas fa-wind"></i> FR</label><div class="relative"><input type="number" x-model="form.vitals.fr" class="w-full px-3 py-3 text-center font-bold text-emerald-900 bg-white border-2 border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 hover:border-emerald-300 transition-all shadow-sm text-sm" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[9px] font-bold">irpm</span></div></div>
-                            <div><label class="text-[10px] font-bold text-emerald-700 mb-1.5 block uppercase tracking-wider flex items-center gap-1"><i class="fas fa-thermometer-half"></i> Temp</label><div class="relative"><input type="number" step="0.1" x-model="form.vitals.temp" class="w-full px-3 py-3 text-center font-bold text-emerald-900 bg-white border-2 border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 hover:border-emerald-300 transition-all shadow-sm text-sm" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[9px] font-bold">°C</span></div></div>
-                            <div><label class="text-[10px] font-bold text-emerald-700 mb-1.5 block uppercase tracking-wider flex items-center gap-1"><i class="fas fa-lungs"></i> SatO2</label><div class="relative"><input type="number" x-model="form.vitals.sat" class="w-full px-3 py-3 text-center font-bold text-emerald-900 bg-white border-2 border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 hover:border-emerald-300 transition-all shadow-sm text-sm" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[9px] font-bold">%</span></div></div>
-                            <div><label class="text-[10px] font-bold text-emerald-700 mb-1.5 block uppercase tracking-wider flex items-center gap-1"><i class="fas fa-vial"></i> HGT</label><div class="relative"><input type="number" x-model="form.vitals.hgt" class="w-full px-3 py-3 text-center font-bold text-emerald-900 bg-white border-2 border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 hover:border-emerald-300 transition-all shadow-sm text-sm" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[9px] font-bold">mg</span></div></div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                            <div><label class="text-[10px] font-bold text-emerald-700 mb-1.5 block uppercase tracking-wider flex items-center gap-1"><i class="fas fa-tachometer-alt"></i> PA</label><div class="relative"><input type="text" x-model="form.vitals.pa" class="w-full px-3 py-3 text-center font-bold text-emerald-900 bg-white border border-emerald-200 shadow-sm hover:shadow-md rounded-xl focus:outline-none focus:ring-4 focus:ring-emerald-500/15 focus:border-emerald-500 hover:border-emerald-300 transition-all shadow-sm text-sm" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[9px] font-bold">mmHg</span></div></div>
+                            <div><label class="text-[10px] font-bold text-emerald-700 mb-1.5 block uppercase tracking-wider flex items-center gap-1"><i class="fas fa-heartbeat"></i> FC</label><div class="relative"><input type="number" x-model="form.vitals.fc" class="w-full px-3 py-3 text-center font-bold text-emerald-900 bg-white border border-emerald-200 shadow-sm hover:shadow-md rounded-xl focus:outline-none focus:ring-4 focus:ring-emerald-500/15 focus:border-emerald-500 hover:border-emerald-300 transition-all shadow-sm text-sm" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[9px] font-bold">bpm</span></div></div>
+                            <div><label class="text-[10px] font-bold text-emerald-700 mb-1.5 block uppercase tracking-wider flex items-center gap-1"><i class="fas fa-wind"></i> FR</label><div class="relative"><input type="number" x-model="form.vitals.fr" class="w-full px-3 py-3 text-center font-bold text-emerald-900 bg-white border border-emerald-200 shadow-sm hover:shadow-md rounded-xl focus:outline-none focus:ring-4 focus:ring-emerald-500/15 focus:border-emerald-500 hover:border-emerald-300 transition-all shadow-sm text-sm" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[9px] font-bold">irpm</span></div></div>
+                            <div><label class="text-[10px] font-bold text-emerald-700 mb-1.5 block uppercase tracking-wider flex items-center gap-1"><i class="fas fa-thermometer-half"></i> Temp</label><div class="relative"><input type="number" step="0.1" x-model="form.vitals.temp" class="w-full px-3 py-3 text-center font-bold text-emerald-900 bg-white border border-emerald-200 shadow-sm hover:shadow-md rounded-xl focus:outline-none focus:ring-4 focus:ring-emerald-500/15 focus:border-emerald-500 hover:border-emerald-300 transition-all shadow-sm text-sm" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[9px] font-bold">°C</span></div></div>
+                            <div><label class="text-[10px] font-bold text-emerald-700 mb-1.5 block uppercase tracking-wider flex items-center gap-1"><i class="fas fa-lungs"></i> SatO2</label><div class="relative"><input type="number" x-model="form.vitals.sat" class="w-full px-3 py-3 text-center font-bold text-emerald-900 bg-white border border-emerald-200 shadow-sm hover:shadow-md rounded-xl focus:outline-none focus:ring-4 focus:ring-emerald-500/15 focus:border-emerald-500 hover:border-emerald-300 transition-all shadow-sm text-sm" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[9px] font-bold">%</span></div></div>
+                            <div><label class="text-[10px] font-bold text-emerald-700 mb-1.5 block uppercase tracking-wider flex items-center gap-1"><i class="fas fa-vial"></i> HGT</label><div class="relative"><input type="number" x-model="form.vitals.hgt" class="w-full px-3 py-3 text-center font-bold text-emerald-900 bg-white border border-emerald-200 shadow-sm hover:shadow-md rounded-xl focus:outline-none focus:ring-4 focus:ring-emerald-500/15 focus:border-emerald-500 hover:border-emerald-300 transition-all shadow-sm text-sm" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[9px] font-bold">mg</span></div></div>
                         </div>
                     </div>
 
@@ -1197,7 +1197,7 @@ app.get('/', (c) => {
                             <template x-for="(exam, index) in form.exam.additional" :key="index">
                                 <div class="relative group bg-slate-50 p-4 rounded-xl border border-slate-100 focus-within:ring-2 focus-within:ring-blue-100">
                                     <div class="flex justify-between items-center mb-2">
-                                        <label class="text-xs font-bold text-slate-600 uppercase" x-text="exam.label"></label>
+                                        <label class="text-[11px] sm:text-xs font-bold text-slate-600 uppercase" x-text="exam.label"></label>
                                         <div class="flex items-center gap-2">
                                             <button @click="setAdditionalNormal(index)" class="text-[10px] px-2 py-1 bg-white border border-emerald-200 text-emerald-600 rounded-lg hover:bg-emerald-500 hover:text-white uppercase font-bold transition-all shadow-sm">
                                                 <i class="fas fa-check"></i> Normal
@@ -1215,34 +1215,34 @@ app.get('/', (c) => {
                 </div>
                 
                 <!-- 5. COMPLEMENTARY EXAMS -->
-                <div class="bg-white p-6 rounded-3xl shadow-lg border-0 mb-6 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-900/10 hover:-translate-y-1 relative overflow-hidden transition-all hover:shadow-md">
+                <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-lg border border-slate-100 mb-6 transition-all duration-300 hover:shadow-xl hover:shadow-blue-900/10 hover:-translate-y-1 relative overflow-hidden transition-all hover:shadow-md">
                      <h4 class="font-bold text-slate-700 mb-4 text-sm uppercase flex items-center gap-2">
                         <i class="fas fa-microscope text-slate-400"></i> Exames Complementares
                      </h4>
                      
                      <div class="space-y-4">
                          <div>
-                             <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Laboratoriais</label>
+                             <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Laboratoriais</label>
                              <textarea x-model="form.complementary.labs" class="form-input h-20 resize-none text-sm" placeholder="Hb, Leuco, Plaquetas..."></textarea>
                          </div>
                          <div>
-                             <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Imagem (RX, USG, TC)</label>
+                             <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Imagem (RX, USG, TC)</label>
                              <textarea x-model="form.complementary.imaging" class="form-input h-20 resize-none text-sm" placeholder="Laudos importantes..."></textarea>
                          </div>
                      </div>
                 </div>
 
                 <!-- 6. ASSESSMENT (A) -->
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6">
+                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-amber-500 rounded-l-lg"></div>
                     <div class="flex items-center gap-2 mb-6">
                         <span class="bg-amber-500 text-white font-bold w-8 h-8 flex items-center justify-center rounded-lg text-sm shadow-md shadow-amber-500/20">A</span>
-                        <h3 class="font-bold text-lg text-slate-700">Avaliação</h3>
+                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Avaliação</h3>
                     </div>
                     
                     <div class="flex flex-col sm:flex-row gap-2 relative mb-4">
                         <div class="flex-grow w-full relative" @click.away="cidResults = []; cidError = ''">
-                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">
+                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">
                                 Hipótese Diagnóstica (CID-10)
                             </label>
                             <div class="relative">
@@ -1304,17 +1304,17 @@ app.get('/', (c) => {
                     </div>
                     
                     <div>
-                        <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Outros / Diagnóstico Livre</label>
+                        <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Outros / Diagnóstico Livre</label>
                         <input type="text" x-model="form.assessment.hd" class="form-input bg-white border-slate-300" placeholder="Complemento...">
                     </div>
                 </div>
 
                 <!-- 7. PLAN (P) -->
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6">
+                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-blue-600 rounded-l-lg"></div>
                     <div class="flex items-center gap-2 mb-6">
                         <span class="bg-blue-600 text-white font-bold w-8 h-8 flex items-center justify-center rounded-lg text-sm shadow-md shadow-blue-600/20">P</span>
-                        <h3 class="font-bold text-lg text-slate-700">Conduta</h3>
+                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Conduta</h3>
                     </div>
 
                     <div class="flex gap-2 mb-6 p-1 bg-slate-100 rounded-xl overflow-x-auto">
@@ -1373,7 +1373,7 @@ app.get('/', (c) => {
                     </div>
                     
                     <div class="mt-4">
-                        <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Observações Adicionais</label>
+                        <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Observações Adicionais</label>
                         <textarea x-model="form.plan.notes" class="form-input h-20 text-sm" placeholder="Outros detalhes..."></textarea>
                     </div>
                 </div>
@@ -1388,15 +1388,15 @@ app.get('/', (c) => {
                     <!-- ============================================ -->
                     <div>
                         <!-- SUB-SELETOR: Escolha entre Evolução Crítico e XABCDE -->
-                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-red-500">
-                            <h3 class="font-bold text-lg text-slate-700 mb-4 flex items-center gap-2">
+                        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-red-500">
+                            <h3 class="font-bold text-base sm:text-lg text-slate-700 mb-4 flex items-center gap-2">
                                 <i class="fas fa-clipboard-list text-red-600"></i>
                                 Selecione o Tipo de Registro
                             </h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <button 
                                     @click="form.utiTemplate = 'evolucao'"
-                                    :class="form.utiTemplate === 'evolucao' ? 'bg-red-600 text-white shadow-lg scale-105' : 'bg-white text-slate-700 hover:bg-red-50 border-2 border-slate-200'"
+                                    :class="form.utiTemplate === 'evolucao' ? 'bg-red-600 text-white shadow-lg scale-105' : 'bg-white text-slate-700 hover:bg-red-50 border border-slate-300 shadow-sm'"
                                     class="p-6 rounded-xl font-bold transition-all flex flex-col items-center justify-center gap-3">
                                     <i class="fas fa-notes-medical text-3xl"></i>
                                     <div>
@@ -1406,7 +1406,7 @@ app.get('/', (c) => {
                                 </button>
                                 <button 
                                     @click="form.utiTemplate = 'xabcde'"
-                                    :class="form.utiTemplate === 'xabcde' ? 'bg-red-600 text-white shadow-lg scale-105' : 'bg-white text-slate-700 hover:bg-red-50 border-2 border-slate-200'"
+                                    :class="form.utiTemplate === 'xabcde' ? 'bg-red-600 text-white shadow-lg scale-105' : 'bg-white text-slate-700 hover:bg-red-50 border border-slate-300 shadow-sm'"
                                     class="p-6 rounded-xl font-bold transition-all flex flex-col items-center justify-center gap-3">
                                     <i class="fas fa-ambulance text-3xl"></i>
                                     <div>
@@ -1423,21 +1423,21 @@ app.get('/', (c) => {
                         <template x-if="form.utiTemplate === 'evolucao'">
                             <div>
                                 <!-- A. CABEÇALHO / DADOS DA INTERNAÇÃO -->
-                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-red-500 bg-red-50/30">
+                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-red-500 bg-red-50/30">
                                     <div class="flex items-center gap-2 mb-6">
                                         <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center">
                                             <i class="fas fa-calendar-plus"></i>
                                         </div>
-                                        <h3 class="font-bold text-lg text-slate-700">Dados da Internação</h3>
+                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Dados da Internação</h3>
                                     </div>
                                     
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Data de Admissão</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Data de Admissão</label>
                                             <input type="date" x-model="form.uti.dataAdmissao" class="form-input border-red-200 focus:ring-red-500/20 focus:border-red-500">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Local</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Local</label>
                                             <select x-model="form.uti.local" class="form-input border-red-200 focus:ring-red-500/20 focus:border-red-500">
                                                 <option value="UPA">UPA</option>
                                                 <option value="UTI">UTI</option>
@@ -1448,38 +1448,38 @@ app.get('/', (c) => {
                                     </div>
                                     
                                     <div class="mt-4">
-                                        <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Motivo da Internação / Transferência</label>
+                                        <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Motivo da Internação / Transferência</label>
                                         <textarea x-model="form.uti.motivo" class="form-input h-20 border-red-200 focus:ring-red-500/20 focus:border-red-500" placeholder="Descreva o motivo da admissão neste setor..."></textarea>
                                     </div>
                                 </div>
                     
                                 <!-- B. DIAGNÓSTICO PRINCIPAL -->
-                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-red-500">
+                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-red-500">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center">
                                             <i class="fas fa-stethoscope"></i>
                                         </div>
-                                        <h3 class="font-bold text-lg text-slate-700">Diagnóstico Principal (DX)</h3>
+                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Diagnóstico Principal (DX)</h3>
                                     </div>
                                     <textarea x-model="form.uti.dx" class="form-input h-24 border-red-200 focus:ring-red-500/20 focus:border-red-500" placeholder="Diagnóstico principal que motivou a internação..."></textarea>
                                 </div>
                     
                                 <!-- C. RASTREIO COVID-19 -->
-                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-amber-500 bg-amber-50/30">
+                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-amber-500 bg-amber-50/30">
                                     <div class="flex items-center gap-2 mb-6">
                                         <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center">
                                             <i class="fas fa-virus"></i>
                                         </div>
-                                        <h3 class="font-bold text-lg text-slate-700">Rastreio COVID-19</h3>
+                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Rastreio COVID-19</h3>
                                     </div>
                                     
                                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Data do TR COVID-19</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Data do TR COVID-19</label>
                                             <input type="date" x-model="form.uti.covidData" class="form-input border-amber-200 focus:ring-amber-500/20 focus:border-amber-500">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Resultado TR COVID-19</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Resultado TR COVID-19</label>
                                             <select x-model="form.uti.covidResultado" class="form-input border-amber-200 focus:ring-amber-500/20 focus:border-amber-500">
                                                 <option value="NÃO REAGENTE">NÃO REAGENTE</option>
                                                 <option value="REAGENTE">REAGENTE</option>
@@ -1487,7 +1487,7 @@ app.get('/', (c) => {
                                             </select>
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">RT-PCR</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">RT-PCR</label>
                                             <select x-model="form.uti.rtpcr" class="form-input border-amber-200 focus:ring-amber-500/20 focus:border-amber-500">
                                                 <option value="AGUARDA">AGUARDA</option>
                                                 <option value="NEGATIVO">NEGATIVO</option>
@@ -1498,13 +1498,13 @@ app.get('/', (c) => {
                                 </div>
                     
                                 <!-- D. ANTIBIOTICOTERAPIA (ATB) - Lista Dinâmica -->
-                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-purple-500 bg-purple-50/30">
+                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-purple-500 bg-purple-50/30">
                                     <div class="flex items-center justify-between mb-6">
                                         <div class="flex items-center gap-2">
                                             <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center">
                                                 <i class="fas fa-pills"></i>
                                             </div>
-                                            <h3 class="font-bold text-lg text-slate-700">Antibioticoterapia (ATB)</h3>
+                                            <h3 class="font-bold text-base sm:text-lg text-slate-700">Antibioticoterapia (ATB)</h3>
                                         </div>
                                         <button 
                                             @click="form.uti.atb.push({nome:'',horario:'',dataInicio:'',status:'EM USO'})"
@@ -1524,7 +1524,7 @@ app.get('/', (c) => {
                                         </template>
                     
                                         <template x-for="(atb, index) in form.uti.atb" :key="index">
-                                            <div class="bg-white p-4 rounded-xl border-2 border-purple-200 hover:border-purple-400 transition-all shadow-sm hover:shadow-md">
+                                            <div class="bg-white p-4 rounded-xl border border-purple-200 shadow-sm hover:shadow-md hover:border-purple-400 transition-all shadow-sm hover:shadow-md">
                                                 <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
                                                     <div class="md:col-span-4">
                                                         <label class="text-[10px] text-purple-600 uppercase font-bold mb-1 block">Nome do ATB</label>
@@ -1560,24 +1560,24 @@ app.get('/', (c) => {
                                 </div>
                     
                                 <!-- E. HISTÓRIA DA DOENÇA ATUAL (HDA) -->
-                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-blue-500">
+                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-blue-500">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
                                             <i class="fas fa-file-medical-alt"></i>
                                         </div>
-                                        <h3 class="font-bold text-lg text-slate-700">História da Doença Atual (HDA)</h3>
+                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">História da Doença Atual (HDA)</h3>
                                     </div>
                                     <textarea x-model="form.uti.hda" class="form-input h-32 border-blue-200 focus:ring-blue-500/20 focus:border-blue-500" placeholder="Descreva a história da doença atual do paciente..."></textarea>
                                 </div>
                     
                                 <!-- F. DISPOSITIVOS/ACESSOS (DEVICES) - Lista Dinâmica -->
-                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-emerald-500 bg-emerald-50/30">
+                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-emerald-500 bg-emerald-50/30">
                                     <div class="flex items-center justify-between mb-6">
                                         <div class="flex items-center gap-2">
                                             <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
                                                 <i class="fas fa-plug"></i>
                                             </div>
-                                            <h3 class="font-bold text-lg text-slate-700">Dispositivos / Acessos (DEVICES)</h3>
+                                            <h3 class="font-bold text-base sm:text-lg text-slate-700">Dispositivos / Acessos (DEVICES)</h3>
                                         </div>
                                         <button 
                                             @click="form.uti.devices.push({tipo:'',detalhes:'',dataInsercao:'',status:'EM USO'})"
@@ -1597,7 +1597,7 @@ app.get('/', (c) => {
                                         </template>
                     
                                         <template x-for="(device, index) in form.uti.devices" :key="index">
-                                            <div class="bg-white p-4 rounded-xl border-2 border-emerald-200 hover:border-emerald-400 transition-all shadow-sm hover:shadow-md">
+                                            <div class="bg-white p-4 rounded-xl border border-emerald-200 shadow-sm hover:shadow-md hover:border-emerald-400 transition-all shadow-sm hover:shadow-md">
                                                 <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
                                                     <div class="md:col-span-3">
                                                         <label class="text-[10px] text-emerald-600 uppercase font-bold mb-1 block">Tipo</label>
@@ -1644,12 +1644,12 @@ app.get('/', (c) => {
                                 </div>
                     
                                 <!-- G. EVOLUÇÃO POR SISTEMAS -->
-                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-cyan-500 bg-cyan-50/30">
+                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-cyan-500 bg-cyan-50/30">
                                     <div class="flex items-center gap-2 mb-6">
                                         <div class="w-10 h-10 rounded-full bg-cyan-100 text-cyan-600 flex items-center justify-center">
                                             <i class="fas fa-heartbeat"></i>
                                         </div>
-                                        <h3 class="font-bold text-lg text-slate-700">Evolução por Sistemas</h3>
+                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Evolução por Sistemas</h3>
                                     </div>
                     
                                     <div class="space-y-4">
@@ -1764,23 +1764,23 @@ app.get('/', (c) => {
                                 </div>
                     
                                 <!-- H. EXAMES COMPLEMENTARES -->
-                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-indigo-500">
+                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-indigo-500">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center">
                                             <i class="fas fa-microscope"></i>
                                         </div>
-                                        <h3 class="font-bold text-lg text-slate-700">Exames Complementares</h3>
+                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Exames Complementares</h3>
                                     </div>
                                     <textarea x-model="form.uti.exames" class="form-input h-32 border-indigo-200 focus:ring-indigo-500/20 focus:border-indigo-500" placeholder="Exames laboratoriais e de imagem solicitados/aguardando/resultados..."></textarea>
                                 </div>
                     
                                 <!-- I. CONDUTAS -->
-                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-rose-500 bg-rose-50/30">
+                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-rose-500 bg-rose-50/30">
                                     <div class="flex items-center gap-2 mb-6">
                                         <div class="w-10 h-10 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center">
                                             <i class="fas fa-clipboard-check"></i>
                                         </div>
-                                        <h3 class="font-bold text-lg text-slate-700">Condutas</h3>
+                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Condutas</h3>
                                     </div>
                     
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
@@ -1827,7 +1827,7 @@ app.get('/', (c) => {
                                     </div>
                     
                                     <div>
-                                        <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Outras Condutas</label>
+                                        <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Outras Condutas</label>
                                         <textarea x-model="form.uti.condutas.outras" class="form-input h-24 border-rose-200 focus:ring-rose-500/20 focus:border-rose-500" placeholder="Outras condutas específicas para este caso..."></textarea>
                                     </div>
                                 </div>
@@ -1843,21 +1843,21 @@ app.get('/', (c) => {
                         <template x-if="form.utiTemplate === 'xabcde'">
                             <div>
                                 <!-- CABEÇALHO -->
-                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-red-500 bg-red-50/30">
+                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-red-500 bg-red-50/30">
                                     <div class="flex items-center gap-2 mb-6">
                                         <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center">
                                             <i class="fas fa-ambulance"></i>
                                         </div>
-                                        <h3 class="font-bold text-lg text-slate-700">Dados da Admissão</h3>
+                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Dados da Admissão</h3>
                                     </div>
                                     
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Data/Hora</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Data/Hora</label>
                                             <input type="datetime-local" x-model="form.xabcde.dataHora" class="form-input border-red-200 focus:ring-red-500/20 focus:border-red-500">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Local de Atendimento</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Local de Atendimento</label>
                                             <select x-model="form.xabcde.local" class="form-input border-red-200 focus:ring-red-500/20 focus:border-red-500">
                                                 <option value="UPA">UPA</option>
                                                 <option value="UTI">UTI</option>
@@ -1869,122 +1869,122 @@ app.get('/', (c) => {
                                 </div>
                                 
                                 <!-- X - HEMORRAGIA -->
-                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-red-700">
+                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-red-700">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-red-700 text-white flex items-center justify-center font-black text-lg">X</div>
-                                        <h3 class="font-bold text-lg text-slate-700">Hemorragia Exsanguinante</h3>
+                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Hemorragia Exsanguinante</h3>
                                     </div>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Status</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Status</label>
                                             <select x-model="form.xabcde.x_hemorragia" class="form-input border-red-200">
                                                 <option value="Sem hemorragias externas evidentes">Sem hemorragias externas evidentes</option>
                                                 <option value="Hemorragia presente">Hemorragia presente</option>
                                             </select>
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Local (se presente)</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Local (se presente)</label>
                                             <input type="text" x-model="form.xabcde.x_local" class="form-input border-red-200" placeholder="Ex: membro inferior esquerdo">
                                         </div>
                                     </div>
                                 </div>
                                 
                                 <!-- A - VIA AÉREA -->
-                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-blue-600">
+                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-blue-600">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-black text-lg">A</div>
-                                        <h3 class="font-bold text-lg text-slate-700">Via Aérea</h3>
+                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Via Aérea</h3>
                                     </div>
                                     <div class="grid grid-cols-1 gap-4">
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Status da Via Aérea</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Status da Via Aérea</label>
                                             <input type="text" x-model="form.xabcde.a_pervia" class="form-input border-blue-200" placeholder="Ex: Via aérea pérvia">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Sinais de Obstrução</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Sinais de Obstrução</label>
                                             <input type="text" x-model="form.xabcde.a_obstrucao" class="form-input border-blue-200" placeholder="Descrever se houver">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Dispositivos em Uso</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Dispositivos em Uso</label>
                                             <input type="text" x-model="form.xabcde.a_dispositivos" class="form-input border-blue-200" placeholder="Ex: Colar cervical, IOT nº8">
                                         </div>
                                     </div>
                                 </div>
                                 
                                 <!-- B - VENTILAÇÃO -->
-                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-cyan-600">
+                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-cyan-600">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-cyan-100 text-cyan-600 flex items-center justify-center font-black text-lg">B</div>
-                                        <h3 class="font-bold text-lg text-slate-700">Ventilação</h3>
+                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Ventilação</h3>
                                     </div>
                                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">FR (irpm)</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">FR (irpm)</label>
                                             <input type="number" x-model="form.xabcde.b_fr" class="form-input border-cyan-200" placeholder="Ex: 18">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">SpO₂ (%)</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">SpO₂ (%)</label>
                                             <input type="number" x-model="form.xabcde.b_spo2" class="form-input border-cyan-200" placeholder="Ex: 95">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Suplementação O₂</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Suplementação O₂</label>
                                             <input type="text" x-model="form.xabcde.b_o2" class="form-input border-cyan-200" placeholder="Ex: ar ambiente, O2 3L/min">
                                         </div>
                                     </div>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Padrão Respiratório</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Padrão Respiratório</label>
                                             <input type="text" x-model="form.xabcde.b_padrao" class="form-input border-cyan-200" placeholder="Ex: eupneico, taquidispneico">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Ausculta Pulmonar</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Ausculta Pulmonar</label>
                                             <input type="text" x-model="form.xabcde.b_ausculta" class="form-input border-cyan-200" placeholder="Ex: MV+ bilateral, sem RA">
                                         </div>
                                     </div>
                                 </div>
                                 
                                 <!-- C - CIRCULAÇÃO -->
-                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-rose-600">
+                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-rose-600">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center font-black text-lg">C</div>
-                                        <h3 class="font-bold text-lg text-slate-700">Circulação</h3>
+                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Circulação</h3>
                                     </div>
                                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">PAS (mmHg)</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">PAS (mmHg)</label>
                                             <input type="number" x-model="form.xabcde.c_pas" class="form-input border-rose-200" placeholder="Ex: 120">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">PAD (mmHg)</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">PAD (mmHg)</label>
                                             <input type="number" x-model="form.xabcde.c_pad" class="form-input border-rose-200" placeholder="Ex: 80">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">FC (bpm)</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">FC (bpm)</label>
                                             <input type="number" x-model="form.xabcde.c_fc" class="form-input border-rose-200" placeholder="Ex: 80">
                                         </div>
                                     </div>
                                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Perfusão Periférica</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Perfusão Periférica</label>
                                             <input type="text" x-model="form.xabcde.c_perfusao" class="form-input border-rose-200" placeholder="Ex: TEC <2s, extremidades aquecidas">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Pulsos Periféricos</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Pulsos Periféricos</label>
                                             <input type="text" x-model="form.xabcde.c_pulsos" class="form-input border-rose-200" placeholder="Ex: cheios e simétricos">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Ritmo Cardíaco</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Ritmo Cardíaco</label>
                                             <input type="text" x-model="form.xabcde.c_ritmo" class="form-input border-rose-200" placeholder="Ex: regular, rítmico">
                                         </div>
                                     </div>
                                 </div>
                                 
                                 <!-- D - DÉFICIT NEUROLÓGICO -->
-                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-purple-600">
+                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-purple-600">
                                     <div class="flex items-center justify-between mb-4">
                                         <div class="flex items-center gap-2">
                                             <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-black text-lg">D</div>
-                                            <h3 class="font-bold text-lg text-slate-700">Déficit Neurológico</h3>
+                                            <h3 class="font-bold text-base sm:text-lg text-slate-700">Déficit Neurológico</h3>
                                         </div>
                                         <button @click="selectedCalc = 'glasgow'; showCalculators = true" class="text-xs px-3 py-1.5 bg-purple-50 border border-purple-200 text-purple-600 rounded-lg hover:bg-purple-100 transition-all font-bold">
                                             <i class="fas fa-calculator mr-1"></i> Glasgow
@@ -1992,93 +1992,93 @@ app.get('/', (c) => {
                                     </div>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Escala de Glasgow</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Escala de Glasgow</label>
                                             <input type="text" x-model="form.xabcde.d_glasgow" class="form-input border-purple-200" placeholder="Ex: 15 (O4V5M6)">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Pupilas</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Pupilas</label>
                                             <input type="text" x-model="form.xabcde.d_pupilas" class="form-input border-purple-200" placeholder="Ex: isocóricas e fotorreagentes">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Glicemia Capilar (mg/dL)</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Glicemia Capilar (mg/dL)</label>
                                             <input type="text" x-model="form.xabcde.d_glicemia" class="form-input border-purple-200" placeholder="Ex: 120">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Déficits Focais</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Déficits Focais</label>
                                             <input type="text" x-model="form.xabcde.d_deficits" class="form-input border-purple-200" placeholder="Ex: ausentes">
                                         </div>
                                     </div>
                                 </div>
                                 
                                 <!-- E - EXPOSIÇÃO -->
-                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-orange-600">
+                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-orange-600">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-black text-lg">E</div>
-                                        <h3 class="font-bold text-lg text-slate-700">Exposição / Exame Rápido</h3>
+                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Exposição / Exame Rápido</h3>
                                     </div>
                                     <div class="grid grid-cols-1 gap-4">
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Temperatura (°C)</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Temperatura (°C)</label>
                                             <input type="text" x-model="form.xabcde.e_temperatura" class="form-input border-orange-200" placeholder="Ex: 36.5">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Lesões Cutâneas / Traumas</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Lesões Cutâneas / Traumas</label>
                                             <input type="text" x-model="form.xabcde.e_lesoes" class="form-input border-orange-200" placeholder="Ex: sem lesões aparentes">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Edemas / Sinais Infecciosos / Outros</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Edemas / Sinais Infecciosos / Outros</label>
                                             <input type="text" x-model="form.xabcde.e_edemas" class="form-input border-orange-200" placeholder="Ex: sem edemas ou sinais de infecção">
                                         </div>
                                     </div>
                                 </div>
                                 
                                 <!-- SINAIS VITAIS INICIAIS (Resumo) -->
-                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-emerald-600">
+                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-emerald-600">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
                                             <i class="fas fa-heartbeat"></i>
                                         </div>
-                                        <h3 class="font-bold text-lg text-slate-700">Sinais Vitais Iniciais (Resumo)</h3>
+                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Sinais Vitais Iniciais (Resumo)</h3>
                                     </div>
-                                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">PA</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">PA</label>
                                             <input type="text" x-model="form.xabcde.sv_pa" class="form-input border-emerald-200" placeholder="120x80 mmHg">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">FC</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">FC</label>
                                             <input type="text" x-model="form.xabcde.sv_fc" class="form-input border-emerald-200" placeholder="80 bpm">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">FR</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">FR</label>
                                             <input type="text" x-model="form.xabcde.sv_fr" class="form-input border-emerald-200" placeholder="18 irpm">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">SpO₂</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">SpO₂</label>
                                             <input type="text" x-model="form.xabcde.sv_spo2" class="form-input border-emerald-200" placeholder="95%">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Temperatura</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Temperatura</label>
                                             <input type="text" x-model="form.xabcde.sv_temp" class="form-input border-emerald-200" placeholder="36.5°C">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">HGT</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">HGT</label>
                                             <input type="text" x-model="form.xabcde.sv_hgt" class="form-input border-emerald-200" placeholder="120 mg/dL">
                                         </div>
                                     </div>
                                 </div>
                                 
                                 <!-- IMPRESSÃO CLÍNICA INICIAL -->
-                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-amber-600">
+                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-amber-600">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center">
                                             <i class="fas fa-stethoscope"></i>
                                         </div>
-                                        <h3 class="font-bold text-lg text-slate-700">Impressão Clínica Inicial</h3>
+                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Impressão Clínica Inicial</h3>
                                     </div>
                                     <div class="grid grid-cols-1 gap-4">
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Gravidade do Paciente</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Gravidade do Paciente</label>
                                             <select x-model="form.xabcde.impressao_gravidade" class="form-input border-amber-200">
                                                 <option value="crítico">crítico</option>
                                                 <option value="potencialmente instável">potencialmente instável</option>
@@ -2086,78 +2086,78 @@ app.get('/', (c) => {
                                             </select>
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Hipótese Sindrômica Inicial</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Hipótese Sindrômica Inicial</label>
                                             <input type="text" x-model="form.xabcde.impressao_hipotese" class="form-input border-amber-200" placeholder="Ex: Choque hipovolêmico, TCE moderado">
                                         </div>
                                     </div>
                                 </div>
                                 
                                 <!-- CONDUTAS IMEDIATAS -->
-                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-blue-600">
+                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-blue-600">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
                                             <i class="fas fa-procedures"></i>
                                         </div>
-                                        <h3 class="font-bold text-lg text-slate-700">Condutas Imediatas</h3>
+                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Condutas Imediatas</h3>
                                     </div>
                                     <div class="grid grid-cols-1 gap-4">
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Oxigenoterapia</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Oxigenoterapia</label>
                                             <input type="text" x-model="form.xabcde.conduta_o2" class="form-input border-blue-200" placeholder="Ex: O2 suplementar 3L/min por cateter nasal">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Monitorização</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Monitorização</label>
                                             <select x-model="form.xabcde.conduta_monitor" class="form-input border-blue-200">
                                                 <option value="instalada">instalada</option>
                                                 <option value="não instalada">não instalada</option>
                                             </select>
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Acesso Venoso</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Acesso Venoso</label>
                                             <input type="text" x-model="form.xabcde.conduta_acesso" class="form-input border-blue-200" placeholder="Ex: 2 acessos periféricos calibrosos, SF 0,9% 500ml EV">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Exames Solicitados</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Exames Solicitados</label>
                                             <textarea x-model="form.xabcde.conduta_exames" class="form-input h-20 border-blue-200" placeholder="Ex: Hemograma, gasometria, TC de crânio..."></textarea>
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Medicações Iniciais</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Medicações Iniciais</label>
                                             <textarea x-model="form.xabcde.conduta_meds" class="form-input h-20 border-blue-200" placeholder="Ex: Dipirona 1g EV, Ondansetrona 8mg EV..."></textarea>
                                         </div>
                                     </div>
                                 </div>
                                 
                                 <!-- HISTÓRIA PATOLÓGICA PREGRESSA -->
-                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-slate-600">
+                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-slate-600">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center">
                                             <i class="fas fa-history"></i>
                                         </div>
-                                        <h3 class="font-bold text-lg text-slate-700">História Patológica Pregressa</h3>
+                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">História Patológica Pregressa</h3>
                                     </div>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Comorbidades</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Comorbidades</label>
                                             <input type="text" x-model="form.xabcde.hpp_comorbidades" class="form-input border-slate-200" placeholder="Usar dados da identificação ou especificar aqui">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Alergias</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Alergias</label>
                                             <input type="text" x-model="form.xabcde.hpp_alergias" class="form-input border-slate-200" placeholder="Usar dados da identificação ou especificar aqui">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Medicações em Uso</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Medicações em Uso</label>
                                             <input type="text" x-model="form.xabcde.hpp_medicacoes" class="form-input border-slate-200" placeholder="Usar dados da identificação ou especificar aqui">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Cirurgias Prévias</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Cirurgias Prévias</label>
                                             <input type="text" x-model="form.xabcde.hpp_cirurgias" class="form-input border-slate-200" placeholder="Usar dados da identificação ou especificar aqui">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Última Alimentação</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Última Alimentação</label>
                                             <input type="text" x-model="form.xabcde.hpp_alimentacao" class="form-input border-slate-200" placeholder="Ex: há 2 horas">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Eventos Recentes</label>
+                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Eventos Recentes</label>
                                             <input type="text" x-model="form.xabcde.hpp_eventos" class="form-input border-slate-200" placeholder="Ex: trauma há 1 hora">
                                         </div>
                                     </div>
@@ -2167,23 +2167,23 @@ app.get('/', (c) => {
                                 </div>
                                 
                                 <!-- FONTE DAS INFORMAÇÕES -->
-                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-indigo-600">
+                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-indigo-600">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center">
                                             <i class="fas fa-user-friends"></i>
                                         </div>
-                                        <h3 class="font-bold text-lg text-slate-700">Fonte das Informações</h3>
+                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Fonte das Informações</h3>
                                     </div>
                                     <textarea x-model="form.xabcde.fonte_info" class="form-input h-20 border-indigo-200" placeholder="Ex: Paciente consciente e orientado / Familiar presente / Bombeiros SAMU / Acompanhante..."></textarea>
                                 </div>
                                 
                                 <!-- DESTINO DO PACIENTE -->
-                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-green-600">
+                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-green-600">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
                                             <i class="fas fa-map-marked-alt"></i>
                                         </div>
-                                        <h3 class="font-bold text-lg text-slate-700">Destino do Paciente</h3>
+                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Destino do Paciente</h3>
                                     </div>
                                     <textarea x-model="form.xabcde.destino" class="form-input h-24 border-green-200" placeholder="Ex: Aguardando vaga de UTI / Encaminhado para sala cirúrgica / Internado na enfermaria / Transferido para hospital de referência..."></textarea>
                                 </div>
@@ -2195,12 +2195,12 @@ app.get('/', (c) => {
             </div>
 
             <!-- RIGHT COLUMN: PREVIEW (STICKY) -->
-            <div class="lg:w-[500px] xl:w-[600px] flex-shrink-0 hidden lg:block">
-                <div class="sticky top-24">
+            <div class="lg:w-[400px] xl:w-[500px] flex-shrink-0 hidden lg:block">
+                <div class="sticky top-[88px]">
                     <div class="bg-white rounded-2xl shadow-xl border border-slate-200 flex flex-col max-h-[85vh] overflow-hidden preview-paper">
                         
                         <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 backdrop-blur-sm">
-                            <div class="flex items-center gap-3">
+                            <div class="flex items-center gap-2 sm:gap-3">
                                  <h3 class="font-bold text-slate-700 flex items-center gap-2">
                                     <i class="fas fa-file-invoice text-blue-500"></i> Pré-visualização
                                 </h3>
@@ -2208,7 +2208,7 @@ app.get('/', (c) => {
                                     <i class="fas fa-calculator"></i> Calc
                                 </button>
                             </div>
-                            <button @click="copyText()" class="px-5 py-2 bg-blue-600 text-white text-sm font-bold rounded-xl hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/30 transition-all flex items-center gap-2 active:scale-95">
+                            <button @click="copyText()" class="px-5 py-2 bg-blue-600 text-white text-sm font-bold rounded-xl hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-500/30 transition-all flex items-center gap-2 active:scale-95">
                                 <i class="far fa-copy"></i> <span x-text="copied ? 'Copiado!' : 'Copiar'"></span>
                             </button>
                         </div>
@@ -2224,7 +2224,7 @@ app.get('/', (c) => {
             </div>
             
             <!-- MOBILE FLOAT BUTTONS -->
-            <div class="fixed bottom-6 right-6 lg:hidden z-50 flex flex-col gap-4" x-data="{ open: false }">
+            <div class="fixed bottom-4 right-4 lg:hidden z-50 flex flex-col gap-3" x-data="{ open: false }">
                  <button @click="showCalculators = true" class="w-14 h-14 bg-white text-blue-600 rounded-2xl shadow-xl shadow-blue-900/20 border border-slate-100 flex items-center justify-center text-xl transition-transform active:scale-90">
                     <i class="fas fa-calculator"></i>
                  </button>
@@ -2232,7 +2232,7 @@ app.get('/', (c) => {
                     <i class="fas" :class="open ? 'fa-times' : 'fa-file-alt'"></i>
                  </button>
                  
-                 <div x-show="open" class="absolute bottom-36 right-0 w-[90vw] sm:w-[450px] h-[60vh] bg-white rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden" 
+                 <div x-show="open" class="fixed bottom-20 right-4 w-[calc(100vw-2rem)] sm:w-[450px] max-h-[75vh] flex flex-col bg-white rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden" 
                       x-transition:enter="transition ease-out duration-200"
                       x-transition:enter-start="opacity-0 translate-y-10 scale-95"
                       x-transition:enter-end="opacity-100 translate-y-0 scale-100">
@@ -2335,7 +2335,7 @@ app.get('/prescricoes', (c) => {
             .prescription-item:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
         </style>
     </head>
-    <body class="bg-slate-50 text-slate-800" x-data="prescricoesApp()">
+    <body class="scroll-smooth bg-slate-50 text-slate-800" x-data="prescricoesApp()">
         
         <!-- Header -->
         <header class="bg-white/90 backdrop-blur-xl border-b border-white/50 sticky top-0 z-50 shadow-sm transition-all duration-300 supports-[backdrop-filter]:bg-white/60">
@@ -2346,21 +2346,21 @@ app.get('/prescricoes', (c) => {
                             <i class="fas fa-user-md text-lg"></i>
                         </div>
                         <div>
-                            <h1 class="text-base font-bold text-slate-800 leading-none">Plantão Guiado</h1>
+                            <h1 class="text-sm sm:text-base font-bold text-slate-800 leading-none">Plantão Guiado</h1>
                             <p class="text-[10px] text-slate-500 font-medium uppercase tracking-wider mt-0.5">Prescrições Médicas</p>
                         </div>
                     </a>
                 </div>
                 
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 sm:gap-3">
                     <nav class="flex items-center bg-slate-100 p-1 rounded-xl">
-                        <a href="/" class="px-4 py-1.5 text-sm font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
+                        <a href="/" class="px-3 sm:px-4 py-1.5 text-xs sm:text-sm whitespace-nowrap font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
                             <i class="fas fa-file-medical mr-2"></i>Evolução
                         </a>
-                        <a href="/prescricoes" class="px-4 py-1.5 text-sm font-semibold text-blue-700 bg-white shadow-sm rounded-lg transition-all">
+                        <a href="/prescricoes" class="px-3 sm:px-4 py-1.5 text-xs sm:text-sm whitespace-nowrap font-semibold text-blue-700 bg-white shadow-sm rounded-lg transition-all">
                             <i class="fas fa-prescription mr-2"></i>Prescrições
                         </a>
-                        <a href="/receituario" class="px-4 py-1.5 text-sm font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
+                        <a href="/receituario" class="px-3 sm:px-4 py-1.5 text-xs sm:text-sm whitespace-nowrap font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
                             <i class="fas fa-print mr-2"></i>Receituário
                         </a>
                     </nav>
@@ -2372,10 +2372,10 @@ app.get('/prescricoes', (c) => {
             </div>
         </header>
 
-        <main class="max-w-[1800px] mx-auto p-4 lg:p-8">
+        <main class="max-w-[1800px] mx-auto p-3 sm:p-6 lg:p-8">
             
             <!-- Search Hero -->
-            <div class="mb-12 text-center relative py-10">
+            <div class="mb-8 md:mb-12 text-center relative py-6 md:py-10 px-2">
                 <div class="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-cyan-500/20 blur-3xl -z-10 rounded-full opacity-70 scale-110"></div>
                 <h2 class="text-4xl font-bold text-slate-800 mb-3 tracking-tight drop-shadow-sm">O que você precisa prescrever hoje?</h2>
                 <p class="text-slate-600 mb-8 text-base font-medium">Busque por patologia, sintoma ou medicação</p>
@@ -2385,7 +2385,7 @@ app.get('/prescricoes', (c) => {
                     <input type="text" 
                            x-model="searchTerm"
                            placeholder="Ex: Pneumonia, Dor, ITU, Fibrilação..."
-                           class="relative w-full px-8 py-6 pl-16 text-lg bg-white border-0 rounded-2xl shadow-2xl shadow-blue-900/10 ring-1 ring-slate-200/50 focus:ring-4 focus:ring-blue-500/20 outline-none transition-all placeholder-slate-400 font-medium text-slate-700">
+                           class="relative w-full px-6 md:px-8 py-4 md:py-6 pl-14 md:pl-16 text-base md:text-lg bg-white border-0 rounded-2xl shadow-2xl shadow-blue-900/10 ring-1 ring-slate-200/50 focus:ring-4 focus:ring-blue-500/20 outline-none transition-all placeholder-slate-400 font-medium text-slate-700">
                     <i class="fas fa-search absolute left-6 top-6 text-slate-400 text-xl group-focus-within:text-blue-500 transition-colors"></i>
                     <template x-if="searchTerm.length > 0">
                         <button @click="searchTerm = ''" class="absolute right-6 top-6 text-slate-300 hover:text-slate-500 transition-colors">
@@ -2399,7 +2399,7 @@ app.get('/prescricoes', (c) => {
                 
                 <!-- Left Sidebar - Categories -->
                 <div class="lg:w-72 flex-shrink-0">
-                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden sticky top-24">
+                    <div class="bg-white rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 overflow-hidden sticky top-[88px]">
                         <div class="p-5 border-b border-slate-100 bg-slate-50/50">
                             <h3 class="font-bold text-slate-700 text-xs uppercase tracking-wide flex items-center gap-2">
                                 <i class="fas fa-layer-group text-blue-500"></i> Categorias
@@ -2472,7 +2472,7 @@ app.get('/prescricoes', (c) => {
                                                 </div>
                                                 <div class="flex flex-wrap gap-1.5">
                                                     <template x-for="tag in presc.tags.slice(0,5)" :key="tag">
-                                                        <span class="px-2.5 py-1 bg-slate-100 text-slate-600 text-xs rounded-lg font-medium border border-slate-200" x-text="'#' + tag"></span>
+                                                        <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 bg-slate-100 text-slate-600 text-xs rounded-lg font-medium border border-slate-200" x-text="'#' + tag"></span>
                                                     </template>
                                                 </div>
                                             </div>
@@ -2491,7 +2491,7 @@ app.get('/prescricoes', (c) => {
                                     <div class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-300">
                                         <i class="fas fa-search text-3xl"></i>
                                     </div>
-                                    <h3 class="text-lg font-bold text-slate-700">Nenhuma prescrição encontrada</h3>
+                                    <h3 class="text-base sm:text-lg font-bold text-slate-700">Nenhuma prescrição encontrada</h3>
                                     <p class="text-slate-500 mt-1">Tente buscar por termos mais genéricos</p>
                                 </div>
                             </template>
@@ -2529,7 +2529,7 @@ app.get('/prescricoes', (c) => {
                                         <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                                             <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between"
                                                  :class="presc.tipo === 'emergencia' ? 'bg-rose-50/50' : 'bg-slate-50/50'">
-                                                <div class="flex items-center gap-3">
+                                                <div class="flex items-center gap-2 sm:gap-3">
                                                     <div class="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold border"
                                                          :class="getTipoColor(presc.tipo)">
                                                         <i class="fas" :class="presc.tipo === 'emergencia' ? 'fa-bolt' : (presc.tipo === 'alta' ? 'fa-home' : 'fa-procedures')"></i>
@@ -2561,7 +2561,7 @@ app.get('/prescricoes', (c) => {
 
                 <!-- Right Sidebar - Quick Access -->
                 <div class="lg:w-80 flex-shrink-0 hidden xl:block">
-                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden sticky top-24">
+                    <div class="bg-white rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 overflow-hidden sticky top-[88px]">
                         <div class="p-5 border-b border-slate-100 bg-slate-50/50">
                             <h3 class="font-bold text-slate-700 text-xs uppercase tracking-wide flex items-center gap-2">
                                 <i class="fas fa-bolt text-amber-500"></i> Acesso Rápido
