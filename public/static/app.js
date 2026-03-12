@@ -169,7 +169,8 @@ document.addEventListener('alpine:init', () => {
                 hpp_cirurgias: '',
                 hpp_alimentacao: '',
                 hpp_eventos: '',
-                fonte_info: ''
+                fonte_info: '',
+                destino: ''
             }
         },
         newMed: {
@@ -2142,11 +2143,19 @@ document.addEventListener('alpine:init', () => {
             text += `Eventos recentes relacionados ao quadro: ${this.form.xabcde.hpp_eventos || '______'}\n\n`;
             
             // FONTE DAS INFORMAÇÕES
+            text += `# FONTE DAS INFORMAÇÕES:\n`;
             if (this.form.xabcde.fonte_info) {
-                text += `# FONTE DAS INFORMAÇÕES (EM CASO DE PACIENTE INCONSCIENTE):\n`;
                 text += `${this.form.xabcde.fonte_info}\n\n`;
             } else {
-                text += `# FONTE DAS INFORMAÇÕES (EM CASO DE PACIENTE INCONSCIENTE):\n\n`;
+                text += `\n`;
+            }
+            
+            // DESTINO DO PACIENTE
+            text += `# DESTINO DO PACIENTE\n`;
+            if (this.form.xabcde.destino) {
+                text += `${this.form.xabcde.destino}\n\n`;
+            } else {
+                text += `\n`;
             }
             
             return text;

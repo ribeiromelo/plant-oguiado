@@ -2137,6 +2137,22 @@ app.get('/', (c) => {
                                     </div>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Comorbidades</label>
+                                            <input type="text" x-model="form.xabcde.hpp_comorbidades" class="form-input border-slate-200" placeholder="Usar dados da identificação ou especificar aqui">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Alergias</label>
+                                            <input type="text" x-model="form.xabcde.hpp_alergias" class="form-input border-slate-200" placeholder="Usar dados da identificação ou especificar aqui">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Medicações em Uso</label>
+                                            <input type="text" x-model="form.xabcde.hpp_medicacoes" class="form-input border-slate-200" placeholder="Usar dados da identificação ou especificar aqui">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Cirurgias Prévias</label>
+                                            <input type="text" x-model="form.xabcde.hpp_cirurgias" class="form-input border-slate-200" placeholder="Usar dados da identificação ou especificar aqui">
+                                        </div>
+                                        <div>
                                             <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Última Alimentação</label>
                                             <input type="text" x-model="form.xabcde.hpp_alimentacao" class="form-input border-slate-200" placeholder="Ex: há 2 horas">
                                         </div>
@@ -2145,13 +2161,31 @@ app.get('/', (c) => {
                                             <input type="text" x-model="form.xabcde.hpp_eventos" class="form-input border-slate-200" placeholder="Ex: trauma há 1 hora">
                                         </div>
                                     </div>
-                                    <div class="mt-4">
-                                        <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Fonte das Informações (paciente inconsciente)</label>
-                                        <input type="text" x-model="form.xabcde.fonte_info" class="form-input border-slate-200" placeholder="Ex: Familiar presente no local, Bombeiros SAMU">
+                                    <div class="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                        <p class="text-xs text-blue-700 mb-1"><i class="fas fa-info-circle text-blue-500 mr-1"></i> <strong>Dica:</strong> Se não preencher os campos acima, o sistema usará automaticamente os dados de comorbidades, alergias, cirurgias e medicações da seção de identificação.</p>
                                     </div>
-                                    <div class="mt-4 p-3 bg-slate-50 rounded-lg border border-slate-200">
-                                        <p class="text-xs text-slate-600 mb-2"><i class="fas fa-info-circle text-blue-500 mr-1"></i> <strong>Nota:</strong> Os dados de comorbidades, alergias, cirurgias e medicações preenchidos na seção de identificação serão usados automaticamente.</p>
+                                </div>
+                                
+                                <!-- FONTE DAS INFORMAÇÕES -->
+                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-indigo-600">
+                                    <div class="flex items-center gap-2 mb-4">
+                                        <div class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center">
+                                            <i class="fas fa-user-friends"></i>
+                                        </div>
+                                        <h3 class="font-bold text-lg text-slate-700">Fonte das Informações</h3>
                                     </div>
+                                    <textarea x-model="form.xabcde.fonte_info" class="form-input h-20 border-indigo-200" placeholder="Ex: Paciente consciente e orientado / Familiar presente / Bombeiros SAMU / Acompanhante..."></textarea>
+                                </div>
+                                
+                                <!-- DESTINO DO PACIENTE -->
+                                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6 border-l-4 border-green-600">
+                                    <div class="flex items-center gap-2 mb-4">
+                                        <div class="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
+                                            <i class="fas fa-map-marked-alt"></i>
+                                        </div>
+                                        <h3 class="font-bold text-lg text-slate-700">Destino do Paciente</h3>
+                                    </div>
+                                    <textarea x-model="form.xabcde.destino" class="form-input h-24 border-green-200" placeholder="Ex: Aguardando vaga de UTI / Encaminhado para sala cirúrgica / Internado na enfermaria / Transferido para hospital de referência..."></textarea>
                                 </div>
                             </div>
                         </template>
