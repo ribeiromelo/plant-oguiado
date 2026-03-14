@@ -247,6 +247,72 @@ app.get('/receituario', (c) => {
                             <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-clinic-medical text-blue-500"></i> Endereço / Clínica</label>
                             <input type="text" x-model="doctor.address" class="w-full px-4 py-3 bg-white border border-slate-300 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/15 focus:border-blue-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Rua das Flores, 123 - Centro, São Paulo - SP">
                         </div>
+
+                        <!-- LOGO -->
+                        <div class="col-span-12">
+                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2">
+                                <i class="fas fa-image text-blue-500"></i> Logo da Clínica / Hospital
+                                <span class="text-[10px] normal-case font-normal text-slate-400">(aparece no receituário)</span>
+                            </label>
+
+                            <!-- Tabs: URL ou Upload -->
+                            <div class="flex gap-2 mb-3">
+                                <button type="button"
+                                    @click="logoTab = 'url'"
+                                    :class="logoTab === 'url' ? 'bg-blue-600 text-white shadow' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'"
+                                    class="flex-1 py-1.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5">
+                                    <i class="fas fa-link"></i> Colar Link
+                                </button>
+                                <button type="button"
+                                    @click="logoTab = 'upload'"
+                                    :class="logoTab === 'upload' ? 'bg-blue-600 text-white shadow' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'"
+                                    class="flex-1 py-1.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5">
+                                    <i class="fas fa-upload"></i> Enviar PNG/JPG
+                                </button>
+                            </div>
+
+                            <!-- Tab: URL -->
+                            <div x-show="logoTab === 'url'">
+                                <input type="url" x-model="logoUrlInput"
+                                    @input="applyLogoUrl()"
+                                    class="w-full px-4 py-3 bg-white border border-slate-300 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/15 focus:border-blue-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400"
+                                    placeholder="https://i.ibb.co/abc123/logo.png">
+                                <p class="text-[11px] text-slate-400 mt-1.5 ml-1">
+                                    <i class="fas fa-info-circle mr-1"></i>
+                                    Use <strong>ibb.co</strong>, <strong>imgur.com</strong> ou qualquer URL direta de imagem.
+                                </p>
+                            </div>
+
+                            <!-- Tab: Upload -->
+                            <div x-show="logoTab === 'upload'">
+                                <label class="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-blue-300 rounded-xl cursor-pointer bg-blue-50 hover:bg-blue-100 transition-all"
+                                    :class="doctor.logo ? 'border-emerald-400 bg-emerald-50' : ''">
+                                    <div x-show="!doctor.logo" class="flex flex-col items-center gap-1 text-blue-400">
+                                        <i class="fas fa-cloud-upload-alt text-2xl"></i>
+                                        <span class="text-xs font-bold">Clique para selecionar PNG ou JPG</span>
+                                        <span class="text-[11px] text-slate-400">Máx. 2 MB</span>
+                                    </div>
+                                    <div x-show="doctor.logo" class="flex flex-col items-center gap-1 text-emerald-600">
+                                        <i class="fas fa-check-circle text-2xl"></i>
+                                        <span class="text-xs font-bold">Logo carregada com sucesso!</span>
+                                    </div>
+                                    <input type="file" accept="image/png,image/jpeg,image/webp" class="hidden" @change="uploadLogo($event)">
+                                </label>
+                            </div>
+
+                            <!-- Preview + Remover -->
+                            <div x-show="doctor.logo" class="mt-3 flex items-center gap-3 p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                                <img :src="doctor.logo" class="h-12 max-w-[120px] object-contain rounded border border-slate-200 bg-white p-1">
+                                <div class="flex-1">
+                                    <p class="text-xs font-bold text-slate-700">Pré-visualização da logo</p>
+                                    <p class="text-[11px] text-slate-400">Será exibida no cabeçalho do receituário</p>
+                                </div>
+                                <button type="button" @click="removeLogo()" class="text-xs text-red-500 hover:text-red-700 font-bold flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-red-50 transition-all">
+                                    <i class="fas fa-trash"></i> Remover
+                                </button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -380,9 +446,18 @@ app.get('/receituario', (c) => {
                         
                         <!-- Header -->
                         <header class="flex justify-between items-start border-b-2 border-slate-300" :class="tipo === 'especial' ? 'pb-2 mb-3' : 'pb-5 mb-8'">
-                            <div class="bg-slate-100 rounded-lg flex flex-col items-center justify-center text-slate-300 border border-dashed border-slate-200" :class="tipo === 'especial' ? 'w-16 h-12' : 'w-32 h-20'">
-                                <i class="fas fa-hospital" :class="tipo === 'especial' ? 'text-base' : 'text-2xl mb-1'"></i>
-                                <span class="font-bold" :class="tipo === 'especial' ? 'text-[8px]' : 'text-xs'">LOGO</span>
+                            <!-- Logo: imagem real ou placeholder -->
+                            <div :class="tipo === 'especial' ? 'w-16 h-12' : 'w-32 h-20'"
+                                 class="flex items-center justify-center overflow-hidden rounded-lg border border-dashed border-slate-200 bg-slate-100">
+                                <template x-if="doctor.logo">
+                                    <img :src="doctor.logo" class="w-full h-full object-contain p-1">
+                                </template>
+                                <template x-if="!doctor.logo">
+                                    <div class="flex flex-col items-center text-slate-300">
+                                        <i class="fas fa-hospital" :class="tipo === 'especial' ? 'text-base' : 'text-2xl mb-1'"></i>
+                                        <span class="font-bold" :class="tipo === 'especial' ? 'text-[8px]' : 'text-xs'">LOGO</span>
+                                    </div>
+                                </template>
                             </div>
                             
                             <div class="text-right">
@@ -505,9 +580,17 @@ app.get('/receituario', (c) => {
                         
                         <!-- Header Compact -->
                         <header class="flex justify-between items-start border-b border-slate-300 pb-1.5 mb-2.5">
-                            <div class="w-14 h-10 bg-slate-100 rounded flex flex-col items-center justify-center text-slate-300 border border-dashed border-slate-200">
-                                <i class="fas fa-hospital text-sm"></i>
-                                <span class="text-[7px] font-bold">LOGO</span>
+                            <!-- Logo 2ª via -->
+                            <div class="w-14 h-10 rounded flex items-center justify-center overflow-hidden border border-dashed border-slate-200 bg-slate-100">
+                                <template x-if="doctor.logo">
+                                    <img :src="doctor.logo" class="w-full h-full object-contain p-0.5">
+                                </template>
+                                <template x-if="!doctor.logo">
+                                    <div class="flex flex-col items-center text-slate-300">
+                                        <i class="fas fa-hospital text-sm"></i>
+                                        <span class="text-[7px] font-bold">LOGO</span>
+                                    </div>
+                                </template>
                             </div>
                             <div class="text-right">
                                 <h1 class="text-[11px] font-bold uppercase text-slate-800" x-text="doctor.name || 'NOME DO MÉDICO'"></h1>
@@ -607,7 +690,7 @@ app.get('/receituario', (c) => {
             document.addEventListener('alpine:init', () => {
                 Alpine.data('receituarioApp', () => ({
                     tipo: 'simples',
-                    doctor: { name: '', crm: '', uf: '', address: '' },
+                    doctor: { name: '', crm: '', uf: '', address: '', logo: '' },
                     patient: { name: '', cpf: '', address: '' },
                     date: new Date().toISOString().split('T')[0],
                     meds: [],
@@ -616,12 +699,18 @@ app.get('/receituario', (c) => {
                     freeText: 'Solicito:\\n\\n1. Hemograma Completo\\n2. Creatinina\\n3. Ureia\\n4. Sódio e Potássio\\n5. Glicemia de Jejum\\n6. TGO e TGP\\n\\nIndicação Clínica: Check-up de rotina.',
                     printDouble: false,
                     isPrinting: false,
+                    logoTab: 'url',
+                    logoUrlInput: '',
 
                     init() {
                         const saved = localStorage.getItem('plantao_doctor');
                         if (saved) {
                             try {
-                                this.doctor = JSON.parse(saved);
+                                const data = JSON.parse(saved);
+                                this.doctor = { logo: '', ...data };
+                                if (this.doctor.logo) {
+                                    this.logoUrlInput = this.doctor.logo.startsWith('data:') ? '' : this.doctor.logo;
+                                }
                             } catch (e) {
                                 console.error('Erro ao carregar médico:', e);
                             }
@@ -638,6 +727,35 @@ app.get('/receituario', (c) => {
                         if (this.tipo === 'especial') return 'Receituário de Controle Especial';
                         if (this.tipo === 'livre') return this.freeTitle;
                         return 'Receituário Médico';
+                    },
+
+                    applyLogoUrl() {
+                        const url = this.logoUrlInput.trim();
+                        if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
+                            this.doctor.logo = url;
+                        } else if (!url) {
+                            this.doctor.logo = '';
+                        }
+                    },
+
+                    uploadLogo(event) {
+                        const file = event.target.files[0];
+                        if (!file) return;
+                        if (file.size > 2 * 1024 * 1024) {
+                            alert('Arquivo muito grande! Máximo 2 MB.');
+                            return;
+                        }
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            this.doctor.logo = e.target.result;
+                            this.logoUrlInput = '';
+                        };
+                        reader.readAsDataURL(file);
+                    },
+
+                    removeLogo() {
+                        this.doctor.logo = '';
+                        this.logoUrlInput = '';
                     },
 
                     saveDoctor() {
