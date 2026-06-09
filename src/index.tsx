@@ -863,35 +863,39 @@ app.get('/', (c) => {
             <div class="flex-1 min-w-0 pb-20">
                 
                 <!-- Type Selector -->
-                <div class="flex gap-3 mb-6">
+                <div class="flex flex-wrap gap-3 mb-6">
                     <button @click="form.serviceType = 'clinica'" 
-                            :class="form.serviceType === 'clinica' ? 'bg-blue-600 text-white shadow-lg' : 'bg-white text-slate-700 hover:bg-slate-50'"
-                            class="flex-1 p-4 rounded-2xl font-bold transition-all flex items-center justify-center gap-3 border-2"
-                            :class="form.serviceType === 'clinica' ? 'border-blue-600' : 'border-slate-200'">
+                            :class="form.serviceType === 'clinica' ? 'bg-blue-600 text-white shadow-lg border-blue-600' : 'bg-white text-slate-700 hover:bg-slate-50 border-slate-200'"
+                            class="flex-1 min-w-[140px] p-4 rounded-2xl font-bold transition-all flex items-center justify-center gap-3 border-2">
                         <i class="fas fa-user-md text-xl"></i>
-                        <span>PS Clínica Médica</span>
+                        <span class="text-sm sm:text-base">PS Clínica Médica (SOAP)</span>
                     </button>
                     <button @click="form.serviceType = 'salavermelha'" 
-                            :class="form.serviceType === 'salavermelha' ? 'bg-red-600 text-white shadow-lg' : 'bg-white text-slate-700 hover:bg-slate-50'"
-                            class="flex-1 p-4 rounded-2xl font-bold transition-all flex items-center justify-center gap-3 border-2"
-                            :class="form.serviceType === 'salavermelha' ? 'border-red-600' : 'border-slate-200'">
+                            :class="form.serviceType === 'salavermelha' ? 'bg-red-600 text-white shadow-lg border-red-600' : 'bg-white text-slate-700 hover:bg-slate-50 border-slate-200'"
+                            class="flex-1 min-w-[140px] p-4 rounded-2xl font-bold transition-all flex items-center justify-center gap-3 border-2">
                         <i class="fas fa-heartbeat text-xl"></i>
-                        <span>Sala Vermelha / UTI</span>
+                        <span class="text-sm sm:text-base">Sala Vermelha / UTI</span>
+                    </button>
+                    <button @click="form.serviceType = 'pa_pro'" 
+                            :class="form.serviceType === 'pa_pro' ? 'bg-emerald-600 text-white shadow-lg border-emerald-600' : 'bg-white text-slate-700 hover:bg-slate-50 border-slate-200'"
+                            class="flex-1 min-w-[140px] p-4 rounded-2xl font-bold transition-all flex items-center justify-center gap-3 border-2">
+                        <i class="fas fa-bolt text-xl"></i>
+                        <span class="text-sm sm:text-base">PA Clínica Médica (Pro)</span>
                     </button>
                 </div>
                 
                 <!-- Status Banner -->
                 <div class="p-6 rounded-xl shadow-md text-white mb-8 relative overflow-hidden"
-                     :class="form.serviceType === 'salavermelha' ? 'bg-gradient-to-r from-red-600 to-red-700' : 'bg-gradient-to-r from-blue-600 to-blue-700'">
+                     :class="form.serviceType === 'salavermelha' ? 'bg-gradient-to-r from-red-600 to-red-700' : form.serviceType === 'pa_pro' ? 'bg-gradient-to-r from-emerald-600 to-teal-700' : 'bg-gradient-to-r from-blue-600 to-blue-700'">
                     <div class="absolute right-0 top-0 opacity-10">
-                        <i class="fas text-8xl transform translate-x-4 -translate-y-4" :class="form.serviceType === 'salavermelha' ? 'fa-heartbeat' : 'fa-hospital'"></i>
+                        <i class="fas text-8xl transform translate-x-4 -translate-y-4" :class="form.serviceType === 'salavermelha' ? 'fa-heartbeat' : form.serviceType === 'pa_pro' ? 'fa-bolt' : 'fa-hospital'"></i>
                     </div>
                     
                     <div class="flex flex-col md:flex-row justify-between items-center gap-4 relative z-10">
                         <div class="text-center md:text-left">
-                            <h2 class="text-xl font-bold mb-1" x-text="form.serviceType === 'salavermelha' ? 'SALA VERMELHA / CUIDADOS INTENSIVOS' : 'PS Clínica Médica'"></h2>
+                            <h2 class="text-xl font-bold mb-1" x-text="form.serviceType === 'salavermelha' ? 'SALA VERMELHA / CUIDADOS INTENSIVOS' : form.serviceType === 'pa_pro' ? 'PA CLÍNICA MÉDICA (PRO)' : 'PS Clínica Médica (SOAP)'"></h2>
                             <p class="text-sm flex items-center gap-2 justify-center md:justify-start"
-                               :class="form.serviceType === 'salavermelha' ? 'text-red-100' : 'text-blue-100'">
+                               :class="form.serviceType === 'salavermelha' ? 'text-red-100' : form.serviceType === 'pa_pro' ? 'text-emerald-100' : 'text-blue-100'">
                                 <i class="fas fa-clock"></i> <span x-text="form.shift"></span>
                             </p>
                         </div>
@@ -1992,7 +1996,7 @@ app.get('/', (c) => {
                                         <div class="w-10 h-10 rounded-full bg-red-700 text-white flex items-center justify-center font-black text-lg">X</div>
                                         <h3 class="font-bold text-base sm:text-lg text-slate-700">Hemorragia Exsanguinante</h3>
                                     </div>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                                         <div>
                                             <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Status</label>
                                             <select x-model="form.xabcde.x_hemorragia" class="form-input border-red-200">
@@ -2004,6 +2008,22 @@ app.get('/', (c) => {
                                             <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Local (se presente)</label>
                                             <input type="text" x-model="form.xabcde.x_local" class="form-input border-red-200" placeholder="Ex: membro inferior esquerdo">
                                         </div>
+                                    </div>
+                                    <!-- Terapêutica — aparece quando há hemorragia -->
+                                    <div x-show="form.xabcde.x_hemorragia === 'Hemorragia presente'" x-transition class="border-t border-red-100 pt-4">
+                                        <label class="block text-[11px] sm:text-xs font-bold text-red-700 mb-3 uppercase tracking-wide ml-0.5 flex items-center gap-1.5">
+                                            <i class="fas fa-hand-holding-medical"></i> Terapêutica Instituída
+                                        </label>
+                                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
+                                            <template x-for="opt in ['Torniquete', 'Compressa local', 'Curativo oclusivo', 'Tamponamento com gaze', 'Bandagem compressiva', 'Garrote improvisado', 'Hemostasia cirúrgica', 'Ácido tranexâmico EV']" :key="opt">
+                                                <label class="flex items-center gap-2 p-2 rounded-lg border border-red-100 bg-red-50 cursor-pointer hover:bg-red-100 transition-all text-xs font-medium text-red-800">
+                                                    <input type="checkbox" :value="opt" x-model="form.xabcde.x_terapeutica" class="rounded accent-red-600 shrink-0">
+                                                    <span x-text="opt"></span>
+                                                </label>
+                                            </template>
+                                        </div>
+                                        <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Detalhes / Outras medidas</label>
+                                        <input type="text" x-model="form.xabcde.x_terapeutica_obs" class="form-input border-red-200" placeholder="Ex: Torniquete no 1/3 médio da coxa direita, aplicado às 14h30">
                                     </div>
                                 </div>
                                 
@@ -2049,7 +2069,7 @@ app.get('/', (c) => {
                                             <input type="text" x-model="form.xabcde.b_o2" class="form-input border-cyan-200" placeholder="Ex: ar ambiente, O2 3L/min">
                                         </div>
                                     </div>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                                         <div>
                                             <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Padrão Respiratório</label>
                                             <input type="text" x-model="form.xabcde.b_padrao" class="form-input border-cyan-200" placeholder="Ex: eupneico, taquidispneico">
@@ -2057,6 +2077,60 @@ app.get('/', (c) => {
                                         <div>
                                             <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Ausculta Pulmonar</label>
                                             <input type="text" x-model="form.xabcde.b_ausculta" class="form-input border-cyan-200" placeholder="Ex: MV+ bilateral, sem RA">
+                                        </div>
+                                    </div>
+                                    <!-- Ventilação Mecânica -->
+                                    <div class="border-t border-cyan-100 pt-4">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <label class="text-[11px] sm:text-xs font-bold text-cyan-700 uppercase tracking-wide flex items-center gap-1.5">
+                                                <i class="fas fa-lungs"></i> Ventilação Mecânica Invasiva
+                                            </label>
+                                            <label class="flex items-center gap-2 cursor-pointer">
+                                                <input type="checkbox" x-model="form.xabcde.b_vm_ativa" class="rounded accent-cyan-600">
+                                                <span class="text-xs font-semibold text-slate-600">Em uso</span>
+                                            </label>
+                                        </div>
+                                        <div x-show="form.xabcde.b_vm_ativa" x-transition>
+                                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-3">
+                                                <div>
+                                                    <label class="block text-[11px] font-bold text-slate-500 mb-1 uppercase">Modo</label>
+                                                    <select x-model="form.xabcde.b_vm_modo" class="form-input border-cyan-200 text-xs">
+                                                        <option value="">Selecionar...</option>
+                                                        <option>VCV (Volume Controlado)</option>
+                                                        <option>PCV (Pressão Controlada)</option>
+                                                        <option>PSV (Pressão de Suporte)</option>
+                                                        <option>SIMV</option>
+                                                        <option>PRVC</option>
+                                                        <option>CPAP</option>
+                                                        <option>APRV</option>
+                                                        <option>VNI / BiPAP</option>
+                                                    </select>
+                                                </div>
+                                                <div>
+                                                    <label class="block text-[11px] font-bold text-slate-500 mb-1 uppercase">FiO₂ (%)</label>
+                                                    <input type="number" x-model="form.xabcde.b_vm_fio2" class="form-input border-cyan-200" placeholder="Ex: 40" min="21" max="100">
+                                                </div>
+                                                <div>
+                                                    <label class="block text-[11px] font-bold text-slate-500 mb-1 uppercase">PEEP (cmH₂O)</label>
+                                                    <input type="number" x-model="form.xabcde.b_vm_peep" class="form-input border-cyan-200" placeholder="Ex: 5" min="0" max="30">
+                                                </div>
+                                                <div>
+                                                    <label class="block text-[11px] font-bold text-slate-500 mb-1 uppercase">VC (mL)</label>
+                                                    <input type="number" x-model="form.xabcde.b_vm_vc" class="form-input border-cyan-200" placeholder="Ex: 450">
+                                                </div>
+                                                <div>
+                                                    <label class="block text-[11px] font-bold text-slate-500 mb-1 uppercase">FR ajustada</label>
+                                                    <input type="number" x-model="form.xabcde.b_vm_fr_ajust" class="form-input border-cyan-200" placeholder="Ex: 14">
+                                                </div>
+                                                <div>
+                                                    <label class="block text-[11px] font-bold text-slate-500 mb-1 uppercase">Pico (cmH₂O)</label>
+                                                    <input type="number" x-model="form.xabcde.b_vm_pico" class="form-input border-cyan-200" placeholder="Ex: 28">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label class="block text-[11px] font-bold text-slate-500 mb-1 uppercase">Observações / Outros parâmetros</label>
+                                                <input type="text" x-model="form.xabcde.b_vm_obs" class="form-input border-cyan-200" placeholder="Ex: Plateau 24 cmH₂O, driving pressure 19 cmH₂O">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -2081,7 +2155,7 @@ app.get('/', (c) => {
                                             <input type="number" x-model="form.xabcde.c_fc" class="form-input border-rose-200" placeholder="Ex: 80">
                                         </div>
                                     </div>
-                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                                         <div>
                                             <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Perfusão Periférica</label>
                                             <input type="text" x-model="form.xabcde.c_perfusao" class="form-input border-rose-200" placeholder="Ex: TEC <2s, extremidades aquecidas">
@@ -2093,6 +2167,82 @@ app.get('/', (c) => {
                                         <div>
                                             <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Ritmo Cardíaco</label>
                                             <input type="text" x-model="form.xabcde.c_ritmo" class="form-input border-rose-200" placeholder="Ex: regular, rítmico">
+                                        </div>
+                                    </div>
+
+                                    <!-- Drogas Vasoativas -->
+                                    <div class="border-t border-rose-100 pt-4">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <label class="text-[11px] sm:text-xs font-bold text-rose-700 uppercase tracking-wide flex items-center gap-1.5">
+                                                <i class="fas fa-syringe"></i> Droga Vasoativa (DVA)
+                                            </label>
+                                            <label class="flex items-center gap-2 cursor-pointer">
+                                                <input type="checkbox" x-model="form.xabcde.c_dva_ativa" class="rounded accent-rose-600">
+                                                <span class="text-xs font-semibold text-slate-600">Em uso</span>
+                                            </label>
+                                        </div>
+                                        <div x-show="form.xabcde.c_dva_ativa" x-transition>
+                                            <!-- Lista de DVAs em uso -->
+                                            <template x-for="(dva, idx) in form.xabcde.c_duas" :key="idx">
+                                                <div class="bg-rose-50 border border-rose-200 rounded-xl p-3 mb-3 relative">
+                                                    <button type="button" @click="form.xabcde.c_duas.splice(idx,1)" class="absolute top-2 right-2 text-rose-400 hover:text-rose-600 text-xs px-1.5 py-0.5 rounded hover:bg-rose-100"><i class="fas fa-times"></i></button>
+                                                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                                        <div>
+                                                            <label class="block text-[10px] font-bold text-slate-500 mb-1 uppercase">Droga</label>
+                                                            <select x-model="dva.nome" class="form-input border-rose-200 text-xs">
+                                                                <option value="">Selecionar...</option>
+                                                                <option>Noradrenalina</option>
+                                                                <option>Adrenalina</option>
+                                                                <option>Dobutamina</option>
+                                                                <option>Dopamina</option>
+                                                                <option>Vasopressina</option>
+                                                                <option>Milrinona</option>
+                                                                <option>Fenilefrina</option>
+                                                                <option>Nitroprussiato</option>
+                                                                <option>Nitroglicerina</option>
+                                                            </select>
+                                                        </div>
+                                                        <div>
+                                                            <label class="block text-[10px] font-bold text-slate-500 mb-1 uppercase">Vazão (mL/h)</label>
+                                                            <input type="text" x-model="dva.vazao" class="form-input border-rose-200" placeholder="Ex: 5 mL/h">
+                                                        </div>
+                                                        <div>
+                                                            <label class="block text-[10px] font-bold text-slate-500 mb-1 uppercase">Dose / Observação</label>
+                                                            <input type="text" x-model="dva.obs" class="form-input border-rose-200" placeholder="Ex: 0.1 mcg/kg/min">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                            <button type="button" @click="form.xabcde.c_duas.push({nome:'',vazao:'',obs:''})"
+                                                class="w-full py-2 border-2 border-dashed border-rose-300 rounded-xl text-rose-500 hover:bg-rose-50 transition-all text-xs font-bold flex items-center justify-center gap-1.5 mb-3">
+                                                <i class="fas fa-plus"></i> Adicionar DVA
+                                            </button>
+                                            <!-- Calculadora DVA -->
+                                            <div class="bg-amber-50 border border-amber-200 rounded-xl p-3">
+                                                <div class="flex items-center gap-2 mb-3">
+                                                    <i class="fas fa-calculator text-amber-600"></i>
+                                                    <span class="text-xs font-bold text-amber-700 uppercase tracking-wide">Calculadora DVA — Dose em mcg/kg/min</span>
+                                                </div>
+                                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-2">
+                                                    <div>
+                                                        <label class="block text-[10px] font-bold text-slate-500 mb-1 uppercase">Peso (kg)</label>
+                                                        <input type="number" x-model="form.xabcde.dva_calc.peso" @input="calcDVAManual()" class="form-input border-amber-200" placeholder="Ex: 70">
+                                                    </div>
+                                                    <div>
+                                                        <label class="block text-[10px] font-bold text-slate-500 mb-1 uppercase">Conc. (mg/mL)</label>
+                                                        <input type="number" x-model="form.xabcde.dva_calc.conc" @input="calcDVAManual()" class="form-input border-amber-200" placeholder="Ex: 0.08" step="0.01">
+                                                    </div>
+                                                    <div>
+                                                        <label class="block text-[10px] font-bold text-slate-500 mb-1 uppercase">Vazão (mL/h)</label>
+                                                        <input type="number" x-model="form.xabcde.dva_calc.vazao" @input="calcDVAManual()" class="form-input border-amber-200" placeholder="Ex: 5" step="0.1">
+                                                    </div>
+                                                    <div>
+                                                        <label class="block text-[10px] font-bold text-slate-500 mb-1 uppercase">Resultado</label>
+                                                        <div class="form-input border-amber-300 bg-amber-100 text-amber-900 font-bold flex items-center justify-center" x-text="form.xabcde.dva_calc.resultado || '—'"></div>
+                                                    </div>
+                                                </div>
+                                                <p class="text-[10px] text-amber-600">Fórmula: (Conc. mg/mL × Vazão mL/h × 1000) ÷ (Peso kg × 60)</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -2108,7 +2258,7 @@ app.get('/', (c) => {
                                             <i class="fas fa-calculator mr-1"></i> Glasgow
                                         </button>
                                     </div>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                                         <div>
                                             <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Escala de Glasgow</label>
                                             <input type="text" x-model="form.xabcde.d_glasgow" class="form-input border-purple-200" placeholder="Ex: 15 (O4V5M6)">
@@ -2124,6 +2274,75 @@ app.get('/', (c) => {
                                         <div>
                                             <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Déficits Focais</label>
                                             <input type="text" x-model="form.xabcde.d_deficits" class="form-input border-purple-200" placeholder="Ex: ausentes">
+                                        </div>
+                                    </div>
+                                    <!-- Escalas para paciente intubado / sedoanalgesia -->
+                                    <div class="border-t border-purple-100 pt-4">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <label class="text-[11px] sm:text-xs font-bold text-purple-700 uppercase tracking-wide flex items-center gap-1.5">
+                                                <i class="fas fa-brain"></i> Sedoanalgesia / Bloqueio Neuromuscular
+                                            </label>
+                                            <label class="flex items-center gap-2 cursor-pointer">
+                                                <input type="checkbox" x-model="form.xabcde.d_sedacao_ativa" class="rounded accent-purple-600">
+                                                <span class="text-xs font-semibold text-slate-600">Ativo</span>
+                                            </label>
+                                        </div>
+                                        <div x-show="form.xabcde.d_sedacao_ativa" x-transition>
+                                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+                                                <!-- RASS -->
+                                                <div class="bg-purple-50 border border-purple-200 rounded-xl p-3">
+                                                    <label class="block text-[11px] font-bold text-purple-700 mb-2 uppercase">RASS — Nível de Sedação</label>
+                                                    <select x-model="form.xabcde.d_rass" class="form-input border-purple-200 text-xs">
+                                                        <option value="">Selecionar...</option>
+                                                        <option value="+4 Combativo">+4 — Combativo (violento, perigo para equipe)</option>
+                                                        <option value="+3 Muito agitado">+3 — Muito agitado (retira tubos/cateteres)</option>
+                                                        <option value="+2 Agitado">+2 — Agitado (movimentos frequentes sem propósito)</option>
+                                                        <option value="+1 Inquieto">+1 — Inquieto (ansioso, sem movimentos agressivos)</option>
+                                                        <option value="0 Alerta e calmo">0 — Alerta e calmo</option>
+                                                        <option value="-1 Sonolento">-1 — Sonolento (abre olhos ao som &gt;10s)</option>
+                                                        <option value="-2 Sedação leve">-2 — Sedação leve (abre olhos brevemente ao som)</option>
+                                                        <option value="-3 Sedação moderada">-3 — Sedação moderada (movimento ao som, sem abertura ocular)</option>
+                                                        <option value="-4 Sedação profunda">-4 — Sedação profunda (sem resposta ao som, responde ao toque)</option>
+                                                        <option value="-5 Não despertável">-5 — Não despertável (sem resposta a estímulos)</option>
+                                                    </select>
+                                                </div>
+                                                <!-- CAM-ICU -->
+                                                <div class="bg-purple-50 border border-purple-200 rounded-xl p-3">
+                                                    <label class="block text-[11px] font-bold text-purple-700 mb-2 uppercase">CAM-ICU — Delirium</label>
+                                                    <select x-model="form.xabcde.d_cam_icu" class="form-input border-purple-200 text-xs">
+                                                        <option value="">Não avaliado</option>
+                                                        <option value="Negativo — sem delirium">Negativo — sem delirium</option>
+                                                        <option value="Positivo — delirium presente">Positivo — delirium presente</option>
+                                                        <option value="Não avaliável (RASS ≤ -3)">Não avaliável (RASS ≤ -3)</option>
+                                                    </select>
+                                                </div>
+                                                <!-- BPS / escala de dor intubado -->
+                                                <div class="bg-purple-50 border border-purple-200 rounded-xl p-3">
+                                                    <label class="block text-[11px] font-bold text-purple-700 mb-2 uppercase">BPS — Behavioral Pain Scale</label>
+                                                    <select x-model="form.xabcde.d_bps" class="form-input border-purple-200 text-xs">
+                                                        <option value="">Não avaliado</option>
+                                                        <option value="BPS 3 — sem dor">3 — Sem dor</option>
+                                                        <option value="BPS 4-5 — dor leve">4-5 — Dor leve</option>
+                                                        <option value="BPS 6-8 — dor moderada">6-8 — Dor moderada</option>
+                                                        <option value="BPS 9-12 — dor intensa">9-12 — Dor intensa</option>
+                                                    </select>
+                                                </div>
+                                                <!-- Bloqueio Neuromuscular -->
+                                                <div class="bg-purple-50 border border-purple-200 rounded-xl p-3">
+                                                    <label class="block text-[11px] font-bold text-purple-700 mb-2 uppercase">Bloqueio Neuromuscular (BNM)</label>
+                                                    <select x-model="form.xabcde.d_bnm" class="form-input border-purple-200 text-xs">
+                                                        <option value="">Não em uso</option>
+                                                        <option value="BNM contínuo — TOF 0/4">Contínuo — TOF 0/4</option>
+                                                        <option value="BNM contínuo — TOF 1/4">Contínuo — TOF 1/4</option>
+                                                        <option value="BNM contínuo — TOF 2/4">Contínuo — TOF 2/4</option>
+                                                        <option value="BNM em bolus — recuperando">Bolus — recuperando</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label class="block text-[11px] font-bold text-slate-500 mb-1 uppercase">Drogas em uso / Observações</label>
+                                                <input type="text" x-model="form.xabcde.d_sedacao_drogas" class="form-input border-purple-200" placeholder="Ex: Midazolam 5mg/h + Fentanil 50mcg/h + Cisatracúrio 10mg/h">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -2307,6 +2526,303 @@ app.get('/', (c) => {
                                 </div>
                             </div>
                         </template>
+                    </div>
+                </template>
+
+                <!-- ===== PA CLÍNICA MÉDICA (PRO) ===== -->
+                <template x-if="form.serviceType === 'pa_pro'">
+                    <div class="space-y-5">
+
+                        <!-- IA do Consultório -->
+                        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 border-l-4 border-l-emerald-500">
+                            <div class="flex items-center gap-2 mb-4">
+                                <div class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center"><i class="fas fa-robot"></i></div>
+                                <h3 class="font-bold text-base text-slate-700">IA do Consultório</h3>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">Status da IA</label>
+                                    <select x-model="form.pa.ia_status" class="form-input border-emerald-200">
+                                        <option value="">Não utilizada</option>
+                                        <option value="IA DO CONSULTÓRIO ATIVADA COM BOM FUNCIONAMENTO, COLETANDO HISTÓRIA AUTOMATICAMENTE">Ativada — Bom funcionamento / Automático</option>
+                                        <option value="IA DO CONSULTÓRIO ATIVADA COM BOM FUNCIONAMENTO, COLETANDO HISTÓRIA MANUALMENTE">Ativada — Bom funcionamento / Manual</option>
+                                        <option value="IA DO CONSULTÓRIO ATIVADA COM PROBLEMA, COLETANDO HISTÓRIA MANUALMENTE">Ativada — Com problema / Manual</option>
+                                        <option value="IA DO CONSULTÓRIO DESLIGADA, COLETANDO HISTÓRIA MANUALMENTE">Desligada / Manual</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">Nome do Local de Atendimento</label>
+                                    <input type="text" x-model="form.pa.local" class="form-input border-emerald-200" placeholder="Ex: UPA Centro, PA Municipal...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- QP e HMA -->
+                        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 border-l-4 border-l-blue-500">
+                            <div class="flex items-center gap-2 mb-4">
+                                <div class="w-9 h-9 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center"><i class="fas fa-comment-medical"></i></div>
+                                <h3 class="font-bold text-base text-slate-700">Queixa Principal e HMA</h3>
+                            </div>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">QP — Queixa Principal</label>
+                                    <input type="text" x-model="form.pa.qp" class="form-input border-blue-200" placeholder="Ex: Dor abdominal há 2 dias">
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">Início</label>
+                                        <input type="text" x-model="form.pa.hma_inicio" class="form-input border-blue-200" placeholder="Ex: há 2 dias, há 6 horas">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">Descrição do quadro</label>
+                                        <input type="text" x-model="form.pa.hma_descricao" class="form-input border-blue-200" placeholder="Ex: dor em cólica em hipogástrio, sem irradiação">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide">Sinais de Alarme — Nega:</label>
+                                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                                        <template x-for="sa in ['Febre alta', 'Dor torácica', 'Dispneia', 'Vômitos persistentes', 'Déficit neurológico', 'Sangramento', 'Síncope', 'Dor intensa (EVA ≥8)']" :key="sa">
+                                            <label class="flex items-center gap-2 p-2 rounded-lg border border-blue-100 bg-blue-50 cursor-pointer hover:bg-blue-100 transition-all text-xs font-medium text-blue-800">
+                                                <input type="checkbox" :value="sa" x-model="form.pa.alarme_nega" class="rounded accent-blue-600 shrink-0">
+                                                <span x-text="sa"></span>
+                                            </label>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AP - Antecedentes -->
+                        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 border-l-4 border-l-orange-400">
+                            <div class="flex items-center gap-2 mb-4">
+                                <div class="w-9 h-9 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center"><i class="fas fa-history"></i></div>
+                                <h3 class="font-bold text-base text-slate-700">AP — Antecedentes</h3>
+                                <span class="text-xs text-slate-400 font-normal">(preenche automaticamente da identificação)</span>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <div>
+                                    <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">Comorbidades</label>
+                                    <input type="text" x-model="form.pa.ap_comorbidades" :placeholder="form.comorbidities || 'Usar da identificação'" class="form-input border-orange-200">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">MUC (Medicações em uso)</label>
+                                    <input type="text" x-model="form.pa.ap_muc" class="form-input border-orange-200" placeholder="Ex: Losartana 50mg, AAS 100mg">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">Alergias</label>
+                                    <input type="text" x-model="form.pa.ap_alergias" :placeholder="form.allergies || 'Usar da identificação'" class="form-input border-orange-200">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SSVV — Sinais Vitais (PA Pro) -->
+                        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 border-l-4 border-l-emerald-400">
+                            <div class="flex items-center gap-2 mb-4">
+                                <div class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center"><i class="fas fa-heartbeat"></i></div>
+                                <h3 class="font-bold text-base text-slate-700">Sinais Vitais</h3>
+                            </div>
+                            <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                                <div>
+                                    <label class="text-[10px] font-bold text-emerald-700 mb-1 block uppercase">PA</label>
+                                    <div class="relative"><input type="text" x-model="form.vitals.pa" class="form-input border-emerald-200 text-center font-bold text-sm" placeholder="120/80"><span class="absolute right-1.5 top-3 text-emerald-400 text-[9px] font-bold">mmHg</span></div>
+                                </div>
+                                <div>
+                                    <label class="text-[10px] font-bold text-emerald-700 mb-1 block uppercase">FC</label>
+                                    <div class="relative"><input type="number" x-model="form.vitals.fc" class="form-input border-emerald-200 text-center font-bold text-sm" placeholder="80"><span class="absolute right-1.5 top-3 text-emerald-400 text-[9px] font-bold">bpm</span></div>
+                                </div>
+                                <div>
+                                    <label class="text-[10px] font-bold text-emerald-700 mb-1 block uppercase">FR</label>
+                                    <div class="relative"><input type="number" x-model="form.vitals.fr" class="form-input border-emerald-200 text-center font-bold text-sm" placeholder="18"><span class="absolute right-1.5 top-3 text-emerald-400 text-[9px] font-bold">irpm</span></div>
+                                </div>
+                                <div>
+                                    <label class="text-[10px] font-bold text-emerald-700 mb-1 block uppercase">SpO₂</label>
+                                    <div class="relative"><input type="number" x-model="form.vitals.sat" class="form-input border-emerald-200 text-center font-bold text-sm" placeholder="98"><span class="absolute right-1.5 top-3 text-emerald-400 text-[9px] font-bold">%</span></div>
+                                </div>
+                                <div>
+                                    <label class="text-[10px] font-bold text-emerald-700 mb-1 block uppercase">Temp</label>
+                                    <div class="relative"><input type="number" step="0.1" x-model="form.vitals.temp" class="form-input border-emerald-200 text-center font-bold text-sm" placeholder="36.5"><span class="absolute right-1.5 top-3 text-emerald-400 text-[9px] font-bold">°C</span></div>
+                                </div>
+                                <div>
+                                    <label class="text-[10px] font-bold text-emerald-700 mb-1 block uppercase">HGT</label>
+                                    <div class="relative"><input type="number" x-model="form.vitals.hgt" class="form-input border-emerald-200 text-center font-bold text-sm" placeholder="--"><span class="absolute right-1.5 top-3 text-emerald-400 text-[9px] font-bold">mg</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Exame Físico -->
+                        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 border-l-4 border-l-teal-500">
+                            <div class="flex items-center gap-2 mb-4">
+                                <div class="w-9 h-9 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center"><i class="fas fa-stethoscope"></i></div>
+                                <h3 class="font-bold text-base text-slate-700">Exame Físico</h3>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+                                <!-- Estado Geral -->
+                                <div>
+                                    <div class="flex items-center justify-between mb-1.5">
+                                        <label class="text-[11px] sm:text-xs font-bold text-slate-600 uppercase tracking-wide">Estado Geral</label>
+                                        <button type="button" @click="form.pa.ef_geral = form.gender === 'Feminino' ? 'BEG, LOTE, eupneica, Corada, Hidratada, Anictérica, Acianótica. AA.' : 'BEG, LOTE, eupneico, Corado, Hidratado, Anictérico, Acianótico. AA.'" class="text-[10px] px-2 py-0.5 bg-teal-50 text-teal-600 border border-teal-200 rounded-md font-bold hover:bg-teal-100 transition-all">Normal</button>
+                                    </div>
+                                    <input type="text" x-model="form.pa.ef_geral" class="form-input border-teal-200" placeholder="BEG, LOTE, eupneico(a) AA">
+                                </div>
+                                <!-- AP -->
+                                <div>
+                                    <div class="flex items-center justify-between mb-1.5">
+                                        <label class="text-[11px] sm:text-xs font-bold text-slate-600 uppercase tracking-wide">AP — Ausculta Pulmonar</label>
+                                        <button type="button" @click="form.pa.ef_ap = 'AR MV+ SRA'" class="text-[10px] px-2 py-0.5 bg-teal-50 text-teal-600 border border-teal-200 rounded-md font-bold hover:bg-teal-100 transition-all">Normal</button>
+                                    </div>
+                                    <input type="text" x-model="form.pa.ef_ap" class="form-input border-teal-200" placeholder="AR MV+ SRA">
+                                </div>
+                                <!-- AC -->
+                                <div>
+                                    <div class="flex items-center justify-between mb-1.5">
+                                        <label class="text-[11px] sm:text-xs font-bold text-slate-600 uppercase tracking-wide">AC — Ausculta Cardíaca</label>
+                                        <button type="button" @click="form.pa.ef_ac = 'ACV RCR 2T BNF'" class="text-[10px] px-2 py-0.5 bg-teal-50 text-teal-600 border border-teal-200 rounded-md font-bold hover:bg-teal-100 transition-all">Normal</button>
+                                    </div>
+                                    <input type="text" x-model="form.pa.ef_ac" class="form-input border-teal-200" placeholder="ACV RCR 2T BNF">
+                                </div>
+                                <!-- ABD -->
+                                <div>
+                                    <div class="flex items-center justify-between mb-1.5">
+                                        <label class="text-[11px] sm:text-xs font-bold text-slate-600 uppercase tracking-wide">ABD — Abdome</label>
+                                        <button type="button" @click="form.pa.ef_abd = 'Plano, macio, indolor, RHA+, sem visceromegalias'" class="text-[10px] px-2 py-0.5 bg-teal-50 text-teal-600 border border-teal-200 rounded-md font-bold hover:bg-teal-100 transition-all">Normal</button>
+                                    </div>
+                                    <input type="text" x-model="form.pa.ef_abd" class="form-input border-teal-200" placeholder="Plano, macio, indolor, RHA+">
+                                </div>
+                                <!-- Outros -->
+                                <div class="sm:col-span-2">
+                                    <div class="flex items-center justify-between mb-1.5">
+                                        <label class="text-[11px] sm:text-xs font-bold text-slate-600 uppercase tracking-wide">Outros achados</label>
+                                        <button type="button" @click="form.pa.ef_outros = 'MMII sem edema, sem linfadenopatias, extremidades aquecidas'" class="text-[10px] px-2 py-0.5 bg-teal-50 text-teal-600 border border-teal-200 rounded-md font-bold hover:bg-teal-100 transition-all">Normal</button>
+                                    </div>
+                                    <input type="text" x-model="form.pa.ef_outros" class="form-input border-teal-200" placeholder="Ex: MMII sem edema, sem adenomegalias...">
+                                </div>
+                            </div>
+
+                            <!-- Exames Físicos Adicionais -->
+                            <div class="border-t border-teal-100 pt-4">
+                                <div class="flex items-center justify-between mb-3">
+                                    <label class="text-[11px] sm:text-xs font-bold text-teal-700 uppercase tracking-wide flex items-center gap-1.5">
+                                        <i class="fas fa-plus-circle"></i> Exame Físico Adicional
+                                    </label>
+                                    <button type="button" @click="form.pa.ef_adicionais.push({nome:'', resultado:''})"
+                                        class="text-xs px-3 py-1.5 bg-teal-50 border border-teal-200 text-teal-600 rounded-lg hover:bg-teal-100 transition-all font-bold flex items-center gap-1.5">
+                                        <i class="fas fa-plus"></i> Adicionar
+                                    </button>
+                                </div>
+                                <template x-for="(ex, idx) in form.pa.ef_adicionais" :key="idx">
+                                    <div class="flex gap-2 mb-2 items-center">
+                                        <input type="text" x-model="ex.nome" class="form-input border-teal-200 w-2/5" placeholder="Ex: Neuro, Pele, MMII...">
+                                        <input type="text" x-model="ex.resultado" class="form-input border-teal-200 flex-1" placeholder="Achados">
+                                        <button type="button" @click="form.pa.ef_adicionais.splice(idx,1)" class="text-slate-400 hover:text-red-500 transition-colors px-1.5 flex-shrink-0"><i class="fas fa-times"></i></button>
+                                    </div>
+                                </template>
+                                <p x-show="form.pa.ef_adicionais.length === 0" class="text-[11px] text-slate-400 italic">Clique em "Adicionar" para incluir outros sistemas.</p>
+                            </div>
+                        </div>
+
+                        <!-- Avaliação (A) -->
+                        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 border-l-4 border-l-violet-500">
+                            <div class="flex items-center gap-2 mb-4">
+                                <div class="w-9 h-9 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center font-black">A</div>
+                                <h3 class="font-bold text-base text-slate-700">Avaliação (A) — Hipótese Diagnóstica</h3>
+                            </div>
+
+                            <!-- Busca CID inline (igual ao SOAP) -->
+                            <div class="relative mb-3" @click.away="paCidResults = []; paCidError = ''">
+                                <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">
+                                    Buscar CID-10
+                                </label>
+                                <div class="relative">
+                                    <input type="text"
+                                        x-model="paCidSearch"
+                                        @input.debounce.400ms="searchPACID()"
+                                        class="form-input pl-10 border-violet-200"
+                                        placeholder="Busca inteligente (ex: J06, pneumonia, gripe)...">
+                                    <i class="fas fa-search absolute left-3.5 top-3 text-slate-400"></i>
+                                    <div x-show="paCidLoading" class="absolute right-3 top-3">
+                                        <i class="fas fa-spinner fa-spin text-violet-500"></i>
+                                    </div>
+                                </div>
+                                <!-- Dropdown resultados -->
+                                <div x-show="paCidResults.length > 0"
+                                     x-transition:enter="transition ease-out duration-100"
+                                     x-transition:enter-start="opacity-0 scale-95"
+                                     x-transition:enter-end="opacity-100 scale-100"
+                                     class="absolute z-20 w-full bg-white border border-slate-200 rounded-xl shadow-2xl mt-2 max-h-64 overflow-y-auto">
+                                    <div class="sticky top-0 bg-violet-50 px-4 py-2 border-b border-violet-100">
+                                        <span class="text-[10px] font-bold text-violet-700 uppercase tracking-wide">
+                                            <i class="fas fa-list-ul mr-1"></i>
+                                            <span x-text="paCidResults.length"></span> resultados
+                                        </span>
+                                    </div>
+                                    <template x-for="cid in paCidResults" :key="cid.code">
+                                        <button @click="selectPACID(cid)"
+                                                class="w-full text-left px-4 py-3 hover:bg-slate-50 text-sm border-b border-slate-50 last:border-0 transition-colors flex items-start gap-3 group">
+                                            <span class="font-bold text-violet-600 bg-violet-50 border border-violet-100 px-2 py-0.5 rounded text-xs whitespace-nowrap group-hover:bg-violet-100 transition-colors" x-text="cid.code"></span>
+                                            <span class="text-slate-700 flex-grow group-hover:text-slate-900" x-text="cid.name"></span>
+                                            <i class="fas fa-plus text-slate-300 group-hover:text-violet-500 mt-1 transition-colors"></i>
+                                        </button>
+                                    </template>
+                                </div>
+                                <p x-show="paCidError" class="text-xs text-slate-400 mt-1 italic" x-text="paCidError"></p>
+                            </div>
+
+                            <!-- Diagnósticos selecionados -->
+                            <div class="mb-3" x-show="form.pa.pa_diagnoses && form.pa.pa_diagnoses.length > 0">
+                                <div class="flex flex-wrap gap-2">
+                                    <template x-for="(d, i) in form.pa.pa_diagnoses" :key="i">
+                                        <div class="bg-white border border-violet-200 text-violet-800 px-3 py-1.5 rounded-lg text-sm flex items-center gap-2 shadow-sm">
+                                            <i class="fas fa-tag text-violet-400 text-xs"></i>
+                                            <span x-text="d" class="font-medium"></span>
+                                            <button @click="form.pa.pa_diagnoses.splice(i,1)" class="ml-1 text-violet-300 hover:text-red-500 transition-colors"><i class="fas fa-times text-xs"></i></button>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <!-- Campo livre para hipótese sem CID -->
+                            <div>
+                                <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">Hipótese livre (sem CID)</label>
+                                <input type="text" x-model="form.pa.avaliacao" class="form-input border-violet-200" placeholder="Ex: Síndrome gripal, gastroenterite aguda...">
+                            </div>
+                        </div>
+
+                        <!-- Conduta (C) -->
+                        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 border-l-4 border-l-indigo-500">
+                            <div class="flex items-center gap-2 mb-4">
+                                <div class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center font-black">C</div>
+                                <h3 class="font-bold text-base text-slate-700">Conduta (C)</h3>
+                            </div>
+                            <div class="space-y-3">
+                                <!-- Checkboxes das condutas padrão -->
+                                <div>
+                                    <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide">Condutas padrão (selecionar)</label>
+                                    <div class="space-y-2">
+                                        <template x-for="(cond, idx) in paCondutasPadrao" :key="idx">
+                                            <label class="flex items-start gap-2.5 p-3 rounded-xl border border-indigo-100 bg-indigo-50/50 cursor-pointer hover:bg-indigo-100/50 transition-all">
+                                                <input type="checkbox" :value="cond" x-model="form.pa.condutas_selecionadas" class="rounded accent-indigo-600 mt-0.5 shrink-0">
+                                                <span class="text-xs text-slate-700 leading-relaxed" x-text="cond"></span>
+                                            </label>
+                                        </template>
+                                    </div>
+                                </div>
+                                <!-- Conduta adicional livre -->
+                                <div>
+                                    <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">Outras condutas / observações</label>
+                                    <textarea x-model="form.pa.conduta_extra" class="form-input h-24 border-indigo-200" placeholder="Ex: Iniciar antibioticoterapia, solicitar exames específicos, encaminhar para especialista..."></textarea>
+                                </div>
+                                <!-- Atestado -->
+                                <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200">
+                                    <input type="checkbox" x-model="form.pa.atestado" id="pa_atestado" class="rounded accent-indigo-600 w-4 h-4">
+                                    <label for="pa_atestado" class="text-sm font-semibold text-slate-700 cursor-pointer">Fornecer atestado médico</label>
+                                    <div x-show="form.pa.atestado" class="flex items-center gap-2 ml-auto">
+                                        <label class="text-xs text-slate-500">Dias:</label>
+                                        <input type="number" x-model="form.pa.atestado_dias" min="1" max="30" class="w-16 form-input border-indigo-200 text-center py-1" placeholder="1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </template>
 

@@ -1,7 +1,7 @@
 document.addEventListener('alpine:init', () => {
     Alpine.data('medicalForm', () => ({
         form: {
-            serviceType: 'clinica', // 'clinica' ou 'salavermelha'
+            serviceType: 'clinica', // 'clinica', 'salavermelha' ou 'pa_pro'
             utiTemplate: 'evolucao', // 'evolucao' ou 'xabcde'
             shift: 'PLANTÃO DIURNO',
             name: '',
@@ -121,6 +121,8 @@ document.addEventListener('alpine:init', () => {
                 // X - Hemorragia
                 x_hemorragia: 'Sem hemorragias externas evidentes',
                 x_local: '',
+                x_terapeutica: [],
+                x_terapeutica_obs: '',
                 // A - Via Aérea
                 a_pervia: 'Via aérea pérvia',
                 a_obstrucao: '',
@@ -131,6 +133,14 @@ document.addEventListener('alpine:init', () => {
                 b_o2: 'ar ambiente',
                 b_padrao: '',
                 b_ausculta: '',
+                b_vm_ativa: false,
+                b_vm_modo: '',
+                b_vm_fio2: '',
+                b_vm_peep: '',
+                b_vm_vc: '',
+                b_vm_fr_ajust: '',
+                b_vm_pico: '',
+                b_vm_obs: '',
                 // C - Circulação
                 c_pas: '',
                 c_pad: '',
@@ -138,11 +148,20 @@ document.addEventListener('alpine:init', () => {
                 c_perfusao: '',
                 c_pulsos: '',
                 c_ritmo: '',
+                c_dva_ativa: false,
+                c_duas: [],
+                dva_calc: { peso: '', conc: '', vazao: '', resultado: '' },
                 // D - Déficit Neurológico
                 d_glasgow: '',
                 d_pupilas: '',
                 d_glicemia: '',
                 d_deficits: '',
+                d_sedacao_ativa: false,
+                d_rass: '',
+                d_cam_icu: '',
+                d_bps: '',
+                d_bnm: '',
+                d_sedacao_drogas: '',
                 // E - Exposição
                 e_temperatura: '',
                 e_lesoes: '',
@@ -171,8 +190,41 @@ document.addEventListener('alpine:init', () => {
                 hpp_eventos: '',
                 fonte_info: '',
                 destino: ''
+            },
+            // PA Clínica Médica (Pro)
+            pa: {
+                ia_status: '',
+                local: '',
+                qp: '',
+                hma_inicio: '',
+                hma_descricao: '',
+                alarme_nega: [],
+                ap_comorbidades: '',
+                ap_muc: '',
+                ap_alergias: '',
+                ef_geral: 'BEG, LOTE, eupneico(a) AA',
+                ef_ap: 'AR MV+ SRA',
+                ef_ac: 'ACV RCR 2T BNF',
+                ef_abd: 'indolor',
+                ef_outros: '',
+                ef_adicionais: [],
+                pa_diagnoses: [],
+                avaliacao: '',
+                condutas_selecionadas: [],
+                conduta_extra: '',
+                atestado: false,
+                atestado_dias: 1
             }
         },
+        // Condutas padrão PA Pro
+        paCondutasPadrao: [
+            'Sigo protocolo institucional.',
+            'Prescrevo medicações sintomáticas durante a permanência na unidade e para tratamento domiciliar.',
+            'Oriento detalhadamente paciente acerca da hipótese diagnóstica, evolução esperada do quadro, medidas de suporte e tratamento proposto.',
+            'Reforço necessidade de retorno imediato ao Pronto Atendimento em caso de sinais ou sintomas de alarme, incluindo: febre persistente ou alta, dor intensa, dispneia, vômitos persistentes, incapacidade de manter hidratação ou alimentação, rebaixamento do nível de consciência, surgimento de déficits neurológicos, sangramentos, piora do estado geral ou quaisquer novos sintomas relevantes.',
+            'Esclareço que a ausência de alterações significativas na avaliação atual não exclui evolução clínica posterior, sendo fundamental reavaliação médica em caso de persistência ou agravamento dos sintomas.',
+            'Após melhora clínica e estabilidade, concedo alta com orientações e tratamento domiciliar.'
+        ],
         newMed: {
             name: '',
             posology: ''
@@ -180,11 +232,16 @@ document.addEventListener('alpine:init', () => {
         conductType: 'prescricao',
         copied: false,
         
-        // CID-10 Logic
+        // CID-10 Logic (SOAP)
         cidSearch: '',
         cidResults: [],
         cidLoading: false,
         cidError: '',
+        // CID-10 Logic (PA Pro)
+        paCidSearch: '',
+        paCidResults: [],
+        paCidLoading: false,
+        paCidError: '',
         
         // Calculators
         showCalculators: false,
@@ -701,6 +758,59 @@ document.addEventListener('alpine:init', () => {
 
         removeDiagnosis(index) {
             this.form.assessment.diagnoses.splice(index, 1);
+        },
+
+        // CID para PA Pro — reutiliza a mesma lógica de busca
+        async searchPACID() {
+            if (this.paCidSearch.length < 2) {
+                this.paCidResults = [];
+                this.paCidError = '';
+                return;
+            }
+            this.paCidLoading = true;
+            this.paCidError = '';
+            try {
+                const localResults = this.searchLocalCID(this.paCidSearch);
+                if (localResults.length > 0) {
+                    this.paCidResults = localResults;
+                } else {
+                    try {
+                        const response = await fetch(
+                            `https://clinicaltables.nlm.nih.gov/api/icd10cm/v3/search?sf=code,name&terms=${encodeURIComponent(this.paCidSearch)}&maxList=10`
+                        );
+                        if (response.ok) {
+                            const data = await response.json();
+                            if (data && data[3] && data[3].length > 0) {
+                                this.paCidResults = data[3].map(item => ({ code: item[0], name: item[1] + ' (EN)' }));
+                            } else {
+                                this.paCidResults = [];
+                                this.paCidError = 'Nenhum resultado. Tente outro termo ou código.';
+                            }
+                        } else {
+                            this.paCidResults = [];
+                            this.paCidError = 'Sem resultado no banco de dados.';
+                        }
+                    } catch {
+                        this.paCidResults = [];
+                        this.paCidError = 'Erro na busca. Digite manualmente abaixo.';
+                    }
+                }
+            } catch (err) {
+                this.paCidResults = [];
+                this.paCidError = 'Erro na busca.';
+            } finally {
+                this.paCidLoading = false;
+            }
+        },
+
+        selectPACID(cid) {
+            if (!this.form.pa.pa_diagnoses) this.form.pa.pa_diagnoses = [];
+            const diagnosis = `${cid.code} - ${cid.name}`;
+            if (!this.form.pa.pa_diagnoses.includes(diagnosis)) {
+                this.form.pa.pa_diagnoses.push(diagnosis);
+            }
+            this.paCidSearch = '';
+            this.paCidResults = [];
         },
 
         addMed() {
@@ -1705,6 +1815,23 @@ document.addEventListener('alpine:init', () => {
             }
         },
 
+        // Calculadora DVA — dose em mcg/kg/min
+        // Fórmula: (conc_mg_mL * vazao_mL_h * 1000) / (peso_kg * 60)
+        calcDVAManual() {
+            const d = this.form.xabcde.dva_calc;
+            const conc = parseFloat(d.conc);
+            const vazao = parseFloat(d.vazao);
+            const peso = parseFloat(d.peso);
+            if (conc > 0 && vazao > 0 && peso > 0) {
+                const dose = (conc * vazao * 1000) / (peso * 60);
+                d.resultado = dose.toFixed(3) + ' mcg/kg/min';
+            } else {
+                d.resultado = '';
+            }
+        },
+
+
+
         generateText() {
             // ========================================
             // DETECTAR TIPO DE ATENDIMENTO
@@ -1716,6 +1843,9 @@ document.addEventListener('alpine:init', () => {
                 } else if (this.form.utiTemplate === 'xabcde') {
                     return this.generateXABCDE();
                 }
+            }
+            if (this.form.serviceType === 'pa_pro') {
+                return this.generatePAPro();
             }
             
             // ========================================
@@ -2066,7 +2196,13 @@ document.addEventListener('alpine:init', () => {
             if (this.form.xabcde.x_local) {
                 text += ` / Hemorragia presente em ${this.form.xabcde.x_local}`;
             }
-            text += `\n\n`;
+            text += `\n`;
+            if (this.form.xabcde.x_hemorragia === 'Hemorragia presente') {
+                const trat = this.form.xabcde.x_terapeutica || [];
+                if (trat.length > 0) text += `Terapêutica: ${trat.join(', ')}${this.form.xabcde.x_terapeutica_obs ? ' — ' + this.form.xabcde.x_terapeutica_obs : ''}\n`;
+                else if (this.form.xabcde.x_terapeutica_obs) text += `Terapêutica: ${this.form.xabcde.x_terapeutica_obs}\n`;
+            }
+            text += `\n`;
             
             // A - Via Aérea
             text += `[A] VIA AÉREA\n`;
@@ -2081,21 +2217,55 @@ document.addEventListener('alpine:init', () => {
             text += `[B] VENTILAÇÃO\n`;
             text += `FR: ${this.form.xabcde.b_fr || '___'} irpm | SpO₂: ${this.form.xabcde.b_spo2 || '___'}% em ${this.form.xabcde.b_o2 || 'ar ambiente'}\n`;
             text += `Padrão respiratório: ${this.form.xabcde.b_padrao || '______'}\n`;
-            text += `Ausculta pulmonar: ${this.form.xabcde.b_ausculta || '______'}\n\n`;
+            text += `Ausculta pulmonar: ${this.form.xabcde.b_ausculta || '______'}\n`;
+            if (this.form.xabcde.b_vm_ativa) {
+                text += `Ventilação Mecânica: ${this.form.xabcde.b_vm_modo || 'modo não definido'}`;
+                if (this.form.xabcde.b_vm_fio2) text += ` | FiO₂ ${this.form.xabcde.b_vm_fio2}%`;
+                if (this.form.xabcde.b_vm_peep) text += ` | PEEP ${this.form.xabcde.b_vm_peep} cmH₂O`;
+                if (this.form.xabcde.b_vm_vc) text += ` | VC ${this.form.xabcde.b_vm_vc} mL`;
+                if (this.form.xabcde.b_vm_fr_ajust) text += ` | FR ${this.form.xabcde.b_vm_fr_ajust} irpm`;
+                if (this.form.xabcde.b_vm_pico) text += ` | Pico ${this.form.xabcde.b_vm_pico} cmH₂O`;
+                text += `\n`;
+                if (this.form.xabcde.b_vm_obs) text += `Parâmetros adicionais: ${this.form.xabcde.b_vm_obs}\n`;
+            }
+            text += `\n`;
             
             // C - Circulação
             text += `[C] CIRCULAÇÃO\n`;
             text += `PA: ${this.form.xabcde.c_pas || '___'} x ${this.form.xabcde.c_pad || '___'} mmHg | FC: ${this.form.xabcde.c_fc || '___'} bpm\n`;
             text += `Perfusão periférica: ${this.form.xabcde.c_perfusao || '______'}\n`;
             text += `Pulsos periféricos: ${this.form.xabcde.c_pulsos || '______'}\n`;
-            text += `Ritmo cardíaco: ${this.form.xabcde.c_ritmo || '______'}\n\n`;
+            text += `Ritmo cardíaco: ${this.form.xabcde.c_ritmo || '______'}\n`;
+            if (this.form.xabcde.c_dva_ativa && this.form.xabcde.c_duas.length > 0) {
+                text += `Drogas vasoativas em uso:\n`;
+                this.form.xabcde.c_duas.forEach(dva => {
+                    if (dva.nome) {
+                        text += `  - ${dva.nome}`;
+                        if (dva.vazao) text += ` a ${dva.vazao} mL/h`;
+                        if (dva.obs) text += ` (${dva.obs})`;
+                        text += `\n`;
+                    }
+                });
+            } else if (this.form.xabcde.c_dva_ativa) {
+                text += `Drogas vasoativas: em uso (sem detalhes registrados)\n`;
+            }
+            text += `\n`;
             
             // D - Déficit Neurológico
             text += `[D] DÉFICIT NEUROLÓGICO\n`;
             text += `Escala de Glasgow: ${this.form.xabcde.d_glasgow || '___'}\n`;
             text += `Pupilas: ${this.form.xabcde.d_pupilas || '______'}\n`;
             text += `Glicemia capilar: ${this.form.xabcde.d_glicemia || '______'}\n`;
-            text += `Déficits focais: ${this.form.xabcde.d_deficits || '______'}\n\n`;
+            text += `Déficits focais: ${this.form.xabcde.d_deficits || '______'}\n`;
+            if (this.form.xabcde.d_sedacao_ativa) {
+                text += `Sedoanalgesia/BNM:\n`;
+                if (this.form.xabcde.d_rass) text += `  RASS: ${this.form.xabcde.d_rass}\n`;
+                if (this.form.xabcde.d_cam_icu) text += `  CAM-ICU: ${this.form.xabcde.d_cam_icu}\n`;
+                if (this.form.xabcde.d_bps) text += `  BPS: ${this.form.xabcde.d_bps}\n`;
+                if (this.form.xabcde.d_bnm) text += `  BNM: ${this.form.xabcde.d_bnm}\n`;
+                if (this.form.xabcde.d_sedacao_drogas) text += `  Drogas: ${this.form.xabcde.d_sedacao_drogas}\n`;
+            }
+            text += `\n`;
             
             // E - Exposição
             text += `[E] EXPOSIÇÃO / EXAME RÁPIDO\n`;
@@ -2158,6 +2328,116 @@ document.addEventListener('alpine:init', () => {
                 text += `\n`;
             }
             
+            return text;
+        },
+
+        generatePAPro() {
+            const pa = this.form.pa;
+            const turno = this.form.shift === 'PLANTÃO DIURNO' ? 'DIURNO' : 'NOTURNO';
+            let text = '';
+
+            // IA do consultório
+            if (pa.ia_status) {
+                text += `* ${pa.ia_status} *\n\n`;
+            }
+
+            // Cabeçalho
+            const localNome = pa.local ? pa.local.toUpperCase() : 'PRONTO ATENDIMENTO';
+            text += `${localNome} — ${turno}\n\n`;
+
+            // Identificação do paciente
+            const nome = this.form.name || '_____';
+            const idade = this.form.age ? `${this.form.age} anos` : '___ anos';
+            const genero = this.form.gender || '';
+            text += `PACIENTE: ${nome}, ${idade}, ${genero}\n`;
+            if (this.form.admission) text += `ADMISSÃO: ${this.form.admission}\n`;
+            text += `\n`;
+
+            // QP
+            text += `QP: ${pa.qp || '______'}\n\n`;
+
+            // HMA
+            text += `HMA: Início há ${pa.hma_inicio || '_____'}. Refere ${pa.hma_descricao || '___________________'}.\n`;
+            const alarmes = pa.alarme_nega && pa.alarme_nega.length > 0
+                ? pa.alarme_nega.join(', ')
+                : 'febre alta, dor torácica, dispneia, vômitos persistentes, déficit neurológico';
+            text += `Nega sinais de alarme: (${alarmes}).\n\n`;
+
+            // AP — Antecedentes (comorbidades, MUC, alergias, hábitos)
+            const comorbidades = pa.ap_comorbidades || this.form.comorbidities || 'nega';
+            // MUC: usa campo do PA ou lista de medicações da identificação
+            let muc = pa.ap_muc;
+            if (!muc) {
+                muc = this.form.medications.length > 0
+                    ? this.form.medications.map(m => `${m.name}${m.posology ? ' ' + m.posology : ''}`).join(', ')
+                    : 'nega';
+            }
+            const alergias = pa.ap_alergias || this.form.allergies || 'nega';
+            text += `AP: Comorbidades - ${comorbidades} | MUC - ${muc} | Alergias - ${alergias}\n`;
+
+            // Hábitos de vida (da seção de identificação)
+            const habitos = this.form.habits;
+            const listaHabitos = [];
+            if (habitos.smoker) listaHabitos.push(`Tabagista${habitos.smokingLoad ? ' (' + habitos.smokingLoad + ')' : ''}`);
+            if (habitos.exSmoker) listaHabitos.push(`Ex-tabagista${habitos.smokingLoad ? ' (' + habitos.smokingLoad + ')' : ''}`);
+            if (habitos.alcoholic) listaHabitos.push(`Etilista${habitos.alcoholLoad ? ' (' + habitos.alcoholLoad + ')' : ''}`);
+            if (habitos.exAlcoholic) listaHabitos.push(`Ex-etilista`);
+            if (habitos.drugs) listaHabitos.push(`Usuário de drogas${habitos.drugTypes ? ' (' + habitos.drugTypes + ')' : ''}`);
+            if (habitos.sedentary) listaHabitos.push('Sedentário');
+            if (listaHabitos.length > 0) {
+                text += `Hábitos: ${listaHabitos.join(', ')}\n`;
+            } else {
+                text += `Hábitos: Nega tabagismo, etilismo ou uso de drogas.\n`;
+            }
+
+            text += `\n`;
+
+            // Exame Físico
+            text += `EXAME FÍSICO:\n`;
+            // Sinais vitais (se preenchidos na identificação)
+            const v = this.form.vitals;
+            const svArr = [];
+            if (v.pa) svArr.push(`PA ${v.pa} mmHg`);
+            if (v.fc) svArr.push(`FC ${v.fc} bpm`);
+            if (v.fr) svArr.push(`FR ${v.fr} irpm`);
+            if (v.sat) svArr.push(`SpO₂ ${v.sat}%`);
+            if (v.temp) svArr.push(`Tax ${v.temp}°C`);
+            if (v.hgt) svArr.push(`HGT ${v.hgt}`);
+            if (svArr.length > 0) text += `- SSVV: ${svArr.join(' | ')}\n`;
+            text += `- ESTADO GERAL: ${pa.ef_geral || 'BEG, LOTE, eupneico(a) AA'}.\n`;
+            text += `- AP: ${pa.ef_ap || 'AR MV+ SRA'}.\n`;
+            text += `- AC: ${pa.ef_ac || 'ACV RCR 2T BNF'}.\n`;
+            text += `- ABD: ${pa.ef_abd || 'indolor'}.\n`;
+            if (pa.ef_outros) text += `- Outros: ${pa.ef_outros}.\n`;
+            // Exames adicionais
+            if (pa.ef_adicionais && pa.ef_adicionais.length > 0) {
+                pa.ef_adicionais.forEach(ex => {
+                    if (ex.nome) {
+                        text += `- ${ex.nome}${ex.resultado ? ': ' + ex.resultado : ''}.\n`;
+                    }
+                });
+            }
+            text += `\n`;
+
+            // Avaliação
+            // Usa lista de diagnósticos PA (pa_diagnoses) ou campo livre
+            if (pa.pa_diagnoses && pa.pa_diagnoses.length > 0) {
+                text += `A: ${pa.pa_diagnoses.join(' | ')}\n\n`;
+            } else {
+                text += `A: ${pa.avaliacao || '______'}\n\n`;
+            }
+
+            // Conduta
+            text += `C:\n`;
+            const condutas = pa.condutas_selecionadas || [];
+            condutas.forEach(c => { text += `- ${c}\n`; });
+            if (pa.atestado) {
+                text += `- Forneço atestado médico de ${pa.atestado_dias || 1} dia(s).\n`;
+            }
+            if (pa.conduta_extra) {
+                text += `- ${pa.conduta_extra}\n`;
+            }
+
             return text;
         },
 
