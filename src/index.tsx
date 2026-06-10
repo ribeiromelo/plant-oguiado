@@ -849,6 +849,13 @@ app.get('/', (c) => {
                             <i class="fas fa-print mr-2"></i>Receituário
                         </a>
                     </nav>
+                    <button @click="resetForm()"
+                        class="px-4 py-2.5 text-sm font-bold rounded-xl transition-all shadow-sm hover:shadow-md flex items-center gap-2"
+                        :class="resetDone ? 'bg-green-500 text-white' : 'bg-amber-100 hover:bg-amber-200 text-amber-700 border border-amber-200'"
+                        title="Limpa todos os campos do formulário atual">
+                        <i class="fas" :class="resetDone ? 'fa-check' : 'fa-eraser'"></i>
+                        <span class="hidden sm:inline" x-text="resetDone ? 'Limpo!' : 'Resetar'"></span>
+                    </button>
                     <a href="/logout" class="px-4 py-2.5 bg-red-500 hover:bg-red-600 text-white text-sm font-bold rounded-xl transition-all shadow-sm hover:shadow-md flex items-center gap-2">
                         <i class="fas fa-sign-out-alt"></i>
                         <span class="hidden sm:inline">Sair</span>
@@ -2238,7 +2245,7 @@ app.get('/', (c) => {
                                                     </div>
                                                     <div>
                                                         <label class="block text-[10px] font-bold text-slate-500 mb-1 uppercase">Resultado</label>
-                                                        <div class="form-input border-amber-300 bg-amber-100 text-amber-900 font-bold flex items-center justify-center" x-text="form.xabcde.dva_calc.resultado || '—'"></div>
+                                                        <div class="form-input border-amber-300 bg-amber-100 text-amber-900 font-bold flex items-center justify-center" x-text="form.xabcde.dva_calc.resultado || '-'"></div>
                                                     </div>
                                                 </div>
                                                 <p class="text-[10px] text-amber-600">Fórmula: (Conc. mg/mL × Vazão mL/h × 1000) ÷ (Peso kg × 60)</p>
@@ -2294,16 +2301,16 @@ app.get('/', (c) => {
                                                     <label class="block text-[11px] font-bold text-purple-700 mb-2 uppercase">RASS — Nível de Sedação</label>
                                                     <select x-model="form.xabcde.d_rass" class="form-input border-purple-200 text-xs">
                                                         <option value="">Selecionar...</option>
-                                                        <option value="+4 Combativo">+4 — Combativo (violento, perigo para equipe)</option>
-                                                        <option value="+3 Muito agitado">+3 — Muito agitado (retira tubos/cateteres)</option>
-                                                        <option value="+2 Agitado">+2 — Agitado (movimentos frequentes sem propósito)</option>
-                                                        <option value="+1 Inquieto">+1 — Inquieto (ansioso, sem movimentos agressivos)</option>
-                                                        <option value="0 Alerta e calmo">0 — Alerta e calmo</option>
-                                                        <option value="-1 Sonolento">-1 — Sonolento (abre olhos ao som &gt;10s)</option>
-                                                        <option value="-2 Sedação leve">-2 — Sedação leve (abre olhos brevemente ao som)</option>
-                                                        <option value="-3 Sedação moderada">-3 — Sedação moderada (movimento ao som, sem abertura ocular)</option>
-                                                        <option value="-4 Sedação profunda">-4 — Sedação profunda (sem resposta ao som, responde ao toque)</option>
-                                                        <option value="-5 Não despertável">-5 — Não despertável (sem resposta a estímulos)</option>
+                                                        <option value="+4 Combativo">+4 - Combativo (violento, perigo para equipe)</option>
+                                                        <option value="+3 Muito agitado">+3 - Muito agitado (retira tubos/cateteres)</option>
+                                                        <option value="+2 Agitado">+2 - Agitado (movimentos frequentes sem propósito)</option>
+                                                        <option value="+1 Inquieto">+1 - Inquieto (ansioso, sem movimentos agressivos)</option>
+                                                        <option value="0 Alerta e calmo">0 - Alerta e calmo</option>
+                                                        <option value="-1 Sonolento">-1 - Sonolento (abre olhos ao som &gt;10s)</option>
+                                                        <option value="-2 Sedação leve">-2 - Sedação leve (abre olhos brevemente ao som)</option>
+                                                        <option value="-3 Sedação moderada">-3 - Sedação moderada (movimento ao som, sem abertura ocular)</option>
+                                                        <option value="-4 Sedação profunda">-4 - Sedação profunda (sem resposta ao som, responde ao toque)</option>
+                                                        <option value="-5 Nao despertavel">-5 - Nao despertavel (sem resposta a estimulos)</option>
                                                     </select>
                                                 </div>
                                                 <!-- CAM-ICU -->
@@ -2311,8 +2318,8 @@ app.get('/', (c) => {
                                                     <label class="block text-[11px] font-bold text-purple-700 mb-2 uppercase">CAM-ICU — Delirium</label>
                                                     <select x-model="form.xabcde.d_cam_icu" class="form-input border-purple-200 text-xs">
                                                         <option value="">Não avaliado</option>
-                                                        <option value="Negativo — sem delirium">Negativo — sem delirium</option>
-                                                        <option value="Positivo — delirium presente">Positivo — delirium presente</option>
+                                                        <option value="Negativo - sem delirium">Negativo - sem delirium</option>
+                                                        <option value="Positivo - delirium presente">Positivo - delirium presente</option>
                                                         <option value="Não avaliável (RASS ≤ -3)">Não avaliável (RASS ≤ -3)</option>
                                                     </select>
                                                 </div>
@@ -2321,10 +2328,10 @@ app.get('/', (c) => {
                                                     <label class="block text-[11px] font-bold text-purple-700 mb-2 uppercase">BPS — Behavioral Pain Scale</label>
                                                     <select x-model="form.xabcde.d_bps" class="form-input border-purple-200 text-xs">
                                                         <option value="">Não avaliado</option>
-                                                        <option value="BPS 3 — sem dor">3 — Sem dor</option>
-                                                        <option value="BPS 4-5 — dor leve">4-5 — Dor leve</option>
-                                                        <option value="BPS 6-8 — dor moderada">6-8 — Dor moderada</option>
-                                                        <option value="BPS 9-12 — dor intensa">9-12 — Dor intensa</option>
+                                                        <option value="BPS 3 - sem dor">3 - Sem dor</option>
+                                                        <option value="BPS 4-5 - dor leve">4-5 - Dor leve</option>
+                                                        <option value="BPS 6-8 - dor moderada">6-8 - Dor moderada</option>
+                                                        <option value="BPS 9-12 - dor intensa">9-12 - Dor intensa</option>
                                                     </select>
                                                 </div>
                                                 <!-- Bloqueio Neuromuscular -->
@@ -2332,10 +2339,10 @@ app.get('/', (c) => {
                                                     <label class="block text-[11px] font-bold text-purple-700 mb-2 uppercase">Bloqueio Neuromuscular (BNM)</label>
                                                     <select x-model="form.xabcde.d_bnm" class="form-input border-purple-200 text-xs">
                                                         <option value="">Não em uso</option>
-                                                        <option value="BNM contínuo — TOF 0/4">Contínuo — TOF 0/4</option>
-                                                        <option value="BNM contínuo — TOF 1/4">Contínuo — TOF 1/4</option>
-                                                        <option value="BNM contínuo — TOF 2/4">Contínuo — TOF 2/4</option>
-                                                        <option value="BNM em bolus — recuperando">Bolus — recuperando</option>
+                                                        <option value="BNM continuo - TOF 0/4">Continuo - TOF 0/4</option>
+                                                        <option value="BNM continuo - TOF 1/4">Continuo - TOF 1/4</option>
+                                                        <option value="BNM continuo - TOF 2/4">Continuo - TOF 2/4</option>
+                                                        <option value="BNM em bolus - recuperando">Bolus - recuperando</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -2544,9 +2551,9 @@ app.get('/', (c) => {
                                     <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">Status da IA</label>
                                     <select x-model="form.pa.ia_status" class="form-input border-emerald-200">
                                         <option value="">Não utilizada</option>
-                                        <option value="IA DO CONSULTÓRIO ATIVADA COM BOM FUNCIONAMENTO, COLETANDO HISTÓRIA AUTOMATICAMENTE">Ativada — Bom funcionamento / Automático</option>
-                                        <option value="IA DO CONSULTÓRIO ATIVADA COM BOM FUNCIONAMENTO, COLETANDO HISTÓRIA MANUALMENTE">Ativada — Bom funcionamento / Manual</option>
-                                        <option value="IA DO CONSULTÓRIO ATIVADA COM PROBLEMA, COLETANDO HISTÓRIA MANUALMENTE">Ativada — Com problema / Manual</option>
+                                        <option value="IA DO CONSULTORIO ATIVADA COM BOM FUNCIONAMENTO, COLETANDO HISTORIA AUTOMATICAMENTE">Ativada - Bom funcionamento / Automatico</option>
+                                        <option value="IA DO CONSULTORIO ATIVADA COM BOM FUNCIONAMENTO, COLETANDO HISTORIA MANUALMENTE">Ativada - Bom funcionamento / Manual</option>
+                                        <option value="IA DO CONSULTORIO ATIVADA COM PROBLEMA, COLETANDO HISTORIA MANUALMENTE">Ativada - Com problema / Manual</option>
                                         <option value="IA DO CONSULTÓRIO DESLIGADA, COLETANDO HISTÓRIA MANUALMENTE">Desligada / Manual</option>
                                     </select>
                                 </div>
@@ -2621,10 +2628,16 @@ app.get('/', (c) => {
                                 <div class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center"><i class="fas fa-heartbeat"></i></div>
                                 <h3 class="font-bold text-base text-slate-700">Sinais Vitais</h3>
                             </div>
-                            <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                            <div class="grid grid-cols-4 sm:grid-cols-7 gap-2">
+                                <!-- PAS -->
                                 <div>
-                                    <label class="text-[10px] font-bold text-emerald-700 mb-1 block uppercase">PA</label>
-                                    <div class="relative"><input type="text" x-model="form.vitals.pa" class="form-input border-emerald-200 text-center font-bold text-sm" placeholder="120/80"><span class="absolute right-1.5 top-3 text-emerald-400 text-[9px] font-bold">mmHg</span></div>
+                                    <label class="text-[10px] font-bold text-emerald-700 mb-1 block uppercase">PAS</label>
+                                    <div class="relative"><input type="number" x-model="form.vitals.pas" class="form-input border-emerald-200 text-center font-bold text-sm" placeholder="120"><span class="absolute right-1 top-3 text-emerald-400 text-[9px] font-bold">sys</span></div>
+                                </div>
+                                <!-- PAD -->
+                                <div>
+                                    <label class="text-[10px] font-bold text-emerald-700 mb-1 block uppercase">PAD</label>
+                                    <div class="relative"><input type="number" x-model="form.vitals.pad" class="form-input border-emerald-200 text-center font-bold text-sm" placeholder="80"><span class="absolute right-1 top-3 text-emerald-400 text-[9px] font-bold">dia</span></div>
                                 </div>
                                 <div>
                                     <label class="text-[10px] font-bold text-emerald-700 mb-1 block uppercase">FC</label>

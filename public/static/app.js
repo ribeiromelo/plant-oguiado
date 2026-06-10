@@ -39,6 +39,8 @@ document.addEventListener('alpine:init', () => {
             },
             vitals: {
                 pa: '',
+                pas: '',
+                pad: '',
                 fc: '',
                 fr: '',
                 sat: '',
@@ -231,6 +233,7 @@ document.addEventListener('alpine:init', () => {
         },
         conductType: 'prescricao',
         copied: false,
+        resetDone: false,
         
         // CID-10 Logic (SOAP)
         cidSearch: '',
@@ -1928,7 +1931,10 @@ document.addEventListener('alpine:init', () => {
 
             // Objective
             text += `\n# O (OBJETIVO):\n`;
-            let vitals = `SSVV: PA: ${this.form.vitals.pa || '-'} mmHg`;
+            const paSOAP = this.form.vitals.pas && this.form.vitals.pad
+                ? `${this.form.vitals.pas}x${this.form.vitals.pad}`
+                : (this.form.vitals.pa || '-');
+            let vitals = `SSVV: PA: ${paSOAP} mmHg`;
             vitals += ` - FC: ${this.form.vitals.fc || '-'} bpm`;
             vitals += ` - FR: ${this.form.vitals.fr || '-'} irpm`;
             vitals += ` - Sat: ${this.form.vitals.sat || '-'}%`;
@@ -2181,7 +2187,7 @@ document.addEventListener('alpine:init', () => {
             // Cabeçalho
             const tipoLocal = (this.form.xabcde.local || 'SALA VERMELHA').toUpperCase();
             const turno = this.form.shift === 'PLANTÃO DIURNO' ? 'DIURNO' : 'NOTURNO';
-            text += `# ADMISSÃO MÉDICA – ${tipoLocal} – ${turno} #\n\n`;
+            text += `# ADMISSAO MEDICA - ${tipoLocal} - ${turno} #\n\n`;
             
             text += `PACIENTE: ${this.form.name || '_____'}, ${this.form.age || '___'} anos, ${this.form.gender}\n`;
             text += `DATA/HORA: ${this.form.xabcde.dataHora ? new Date(this.form.xabcde.dataHora).toLocaleString('pt-BR') : '  /  /     : '}\n`;
@@ -2199,7 +2205,7 @@ document.addEventListener('alpine:init', () => {
             text += `\n`;
             if (this.form.xabcde.x_hemorragia === 'Hemorragia presente') {
                 const trat = this.form.xabcde.x_terapeutica || [];
-                if (trat.length > 0) text += `Terapêutica: ${trat.join(', ')}${this.form.xabcde.x_terapeutica_obs ? ' — ' + this.form.xabcde.x_terapeutica_obs : ''}\n`;
+                if (trat.length > 0) text += `Terapeutica: ${trat.join(', ')}${this.form.xabcde.x_terapeutica_obs ? ' - ' + this.form.xabcde.x_terapeutica_obs : ''}\n`;
                 else if (this.form.xabcde.x_terapeutica_obs) text += `Terapêutica: ${this.form.xabcde.x_terapeutica_obs}\n`;
             }
             text += `\n`;
@@ -2343,7 +2349,7 @@ document.addEventListener('alpine:init', () => {
 
             // Cabeçalho
             const localNome = pa.local ? pa.local.toUpperCase() : 'PRONTO ATENDIMENTO';
-            text += `${localNome} — ${turno}\n\n`;
+            text += `${localNome} - ${turno}\n\n`;
 
             // Identificação do paciente
             const nome = this.form.name || '_____';
@@ -2397,7 +2403,8 @@ document.addEventListener('alpine:init', () => {
             // Sinais vitais (se preenchidos na identificação)
             const v = this.form.vitals;
             const svArr = [];
-            if (v.pa) svArr.push(`PA ${v.pa} mmHg`);
+            const paStr = v.pas && v.pad ? `${v.pas}x${v.pad}` : v.pa;
+            if (paStr) svArr.push(`PA ${paStr} mmHg`);
             if (v.fc) svArr.push(`FC ${v.fc} bpm`);
             if (v.fr) svArr.push(`FR ${v.fr} irpm`);
             if (v.sat) svArr.push(`SpO₂ ${v.sat}%`);
@@ -2447,6 +2454,136 @@ document.addEventListener('alpine:init', () => {
                 this.copied = true;
                 setTimeout(() => this.copied = false, 2000);
             });
+        },
+
+        resetForm() {
+            // Limpa todos os campos clínicos mantendo o tipo de atendimento e o turno
+            const serviceType = this.form.serviceType;
+            const shift = this.form.shift;
+
+            this.form.name = '';
+            this.form.age = '';
+            this.form.gender = 'Masculino';
+            this.form.admission = 'Demanda Espontânea';
+            this.form.habits = { smoker: false, exSmoker: false, smokingLoad: '', alcoholic: false, exAlcoholic: false, alcoholLoad: '', drugs: false, drugTypes: '', sedentary: false };
+            this.form.comorbidities = 'Nega';
+            this.form.allergies = 'Nega';
+            this.form.surgeries = 'Nega';
+            this.form.medications = [];
+            this.form.subjective = { qp: 'Não referida', hda: '' };
+            this.form.negatives = { fever: false, headache: false, dizziness: false, dyspnea: false, chestPain: false, nausea: false, intestine: false, urinary: false };
+            this.form.vitals = { pa: '', pas: '', pad: '', fc: '', fr: '', sat: '', temp: '', hgt: '' };
+            this.form.exam = { general: '', cardiac: '', pulmonary: '', abdominal: '', neuro: '', extremities: '', additional: [] };
+            this.form.complementary = { labs: '', imaging: '' };
+            this.form.assessment = { hd: '', diagnoses: [] };
+            this.form.plan = { prescription: '', requestedExams: '', internationType: '', isDischarge: false, notes: '', discharge: { meds_guide: false, alarm_signs: false, certificate: false, referral: false } };
+
+            // UTI / Sala Vermelha
+            this.form.uti.dataAdmissao = '';
+            this.form.uti.motivo = '';
+            this.form.uti.dx = '';
+            this.form.uti.hda = '';
+            this.form.uti.atb = [];
+            this.form.uti.devices = [];
+            this.form.uti.evolucao = { neuro: '', scv: '', sr: '', tgi: '', rm: '', hi: '', extr: '' };
+            this.form.uti.exames = '';
+            this.form.uti.condutas = { vigilanciaNeuro: false, vigilanciaHemo: false, vigilanciaInfec: false, vigilanciaVent: false, vigilanciaRenal: false, profilaxiaTEV: false, aguardarVaga: false, manterFamilia: false, outras: '' };
+
+            // XABCDE
+            this.form.xabcde.queixaPrincipal = '';
+            this.form.xabcde.x_hemorragia = 'Sem hemorragias externas evidentes';
+            this.form.xabcde.x_local = '';
+            this.form.xabcde.x_terapeutica = [];
+            this.form.xabcde.x_terapeutica_obs = '';
+            this.form.xabcde.a_pervia = 'Via aérea pérvia';
+            this.form.xabcde.a_obstrucao = '';
+            this.form.xabcde.a_dispositivos = '';
+            this.form.xabcde.b_fr = '';
+            this.form.xabcde.b_spo2 = '';
+            this.form.xabcde.b_o2 = 'ar ambiente';
+            this.form.xabcde.b_padrao = '';
+            this.form.xabcde.b_ausculta = '';
+            this.form.xabcde.b_vm_ativa = false;
+            this.form.xabcde.b_vm_modo = '';
+            this.form.xabcde.b_vm_fio2 = '';
+            this.form.xabcde.b_vm_peep = '';
+            this.form.xabcde.b_vm_vc = '';
+            this.form.xabcde.b_vm_fr_ajust = '';
+            this.form.xabcde.b_vm_pico = '';
+            this.form.xabcde.b_vm_obs = '';
+            this.form.xabcde.c_pas = '';
+            this.form.xabcde.c_pad = '';
+            this.form.xabcde.c_fc = '';
+            this.form.xabcde.c_perfusao = '';
+            this.form.xabcde.c_pulsos = '';
+            this.form.xabcde.c_ritmo = '';
+            this.form.xabcde.c_dva_ativa = false;
+            this.form.xabcde.c_duas = [];
+            this.form.xabcde.dva_calc = { peso: '', conc: '', vazao: '', resultado: '' };
+            this.form.xabcde.d_glasgow = '';
+            this.form.xabcde.d_pupilas = '';
+            this.form.xabcde.d_glicemia = '';
+            this.form.xabcde.d_deficits = '';
+            this.form.xabcde.d_sedacao_ativa = false;
+            this.form.xabcde.d_rass = '';
+            this.form.xabcde.d_cam_icu = '';
+            this.form.xabcde.d_bps = '';
+            this.form.xabcde.d_bnm = '';
+            this.form.xabcde.d_sedacao_drogas = '';
+            this.form.xabcde.e_temperatura = '';
+            this.form.xabcde.e_lesoes = '';
+            this.form.xabcde.e_edemas = '';
+            this.form.xabcde.sv_pa = '';
+            this.form.xabcde.sv_fc = '';
+            this.form.xabcde.sv_fr = '';
+            this.form.xabcde.sv_spo2 = '';
+            this.form.xabcde.sv_temp = '';
+            this.form.xabcde.sv_hgt = '';
+            this.form.xabcde.impressao_gravidade = 'potencialmente instável';
+            this.form.xabcde.impressao_hipotese = '';
+            this.form.xabcde.conduta_o2 = '';
+            this.form.xabcde.conduta_monitor = 'instalada';
+            this.form.xabcde.conduta_acesso = '';
+            this.form.xabcde.conduta_exames = '';
+            this.form.xabcde.conduta_meds = '';
+            this.form.xabcde.hpp_comorbidades = '';
+            this.form.xabcde.hpp_alergias = '';
+            this.form.xabcde.hpp_medicacoes = '';
+            this.form.xabcde.hpp_cirurgias = '';
+            this.form.xabcde.hpp_alimentacao = '';
+            this.form.xabcde.hpp_eventos = '';
+            this.form.xabcde.fonte_info = '';
+            this.form.xabcde.destino = '';
+
+            // PA Pro
+            this.form.pa = {
+                ia_status: '', local: '',
+                qp: '', hma_inicio: '', hma_descricao: '',
+                alarme_nega: [],
+                ap_comorbidades: '', ap_muc: '', ap_alergias: '',
+                ef_geral: 'BEG, LOTE, eupneico(a) AA',
+                ef_ap: 'AR MV+ SRA', ef_ac: 'ACV RCR 2T BNF',
+                ef_abd: 'indolor', ef_outros: '',
+                ef_adicionais: [], pa_diagnoses: [],
+                avaliacao: '',
+                condutas_selecionadas: [], conduta_extra: '',
+                atestado: false, atestado_dias: 1
+            };
+
+            // Busca CID
+            this.cidSearch = '';
+            this.cidResults = [];
+            this.cidError = '';
+            this.paCidSearch = '';
+            this.paCidResults = [];
+            this.paCidError = '';
+
+            // Restore type and shift
+            this.form.serviceType = serviceType;
+            this.form.shift = shift;
+
+            this.resetDone = true;
+            setTimeout(() => this.resetDone = false, 2000);
         }
     }))
 })
