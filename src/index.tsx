@@ -218,7 +218,7 @@ app.get('/receituario', (c) => {
             <div class="flex-1 min-w-0 no-print pb-20">
                 
                 <!-- Dados do Médico -->
-                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6">
+                <div class="card mb-5">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-blue-500 rounded-l-lg"></div>
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-base sm:text-lg font-bold text-slate-700 flex items-center gap-2">
@@ -317,7 +317,7 @@ app.get('/receituario', (c) => {
                 </div>
 
                 <!-- Prescrição -->
-                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6">
+                <div class="card mb-5">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-emerald-500 rounded-l-lg"></div>
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-base sm:text-lg font-bold text-slate-700 flex items-center gap-2">
@@ -822,108 +822,187 @@ app.get('/', (c) => {
             }
         </style>
     </head>
-    <body class="scroll-smooth bg-gray-50 text-slate-900 font-sans antialiased selection:bg-blue-600 selection:text-white" x-data="medicalForm()">
-        
-        <!-- Navbar Glass -->
-        <header class="bg-white/90 backdrop-blur-lg border-b border-slate-200 sticky top-0 z-50 supports-[backdrop-filter]:bg-white/60">
-            <div class="max-w-[1600px] mx-auto px-4 lg:px-6 h-20 flex items-center justify-between">
-                <div class="flex items-center gap-4">
-                    <div class="w-10 h-10 bg-gradient-to-tr from-indigo-600 to-blue-500 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-500/30 rotate-3 hover:rotate-0 transition-all duration-300">
-                         <i class="fas fa-user-md text-xl"></i>
-                    </div>
+    <body class="scroll-smooth bg-[#F0F4F8] text-slate-900 font-sans antialiased" x-data="medicalForm()">
+
+        <!-- ═══ SIDEBAR ═══ -->
+        <aside class="sidebar no-print" id="sidebar">
+            <!-- Logo -->
+            <div class="sidebar-logo">
+                <div class="sidebar-logo-icon">
+                    <i class="fas fa-stethoscope"></i>
+                </div>
+                <h2>Plantão Guiado</h2>
+                <p>Sistema Clínico</p>
+            </div>
+
+            <!-- Nav -->
+            <nav style="padding-top:8px; flex:1; overflow-y:auto;">
+                <div class="sidebar-section-title">Atendimento</div>
+
+                <a href="/" class="sidebar-item active">
+                    <i class="fas fa-file-medical"></i> Evolução / Admissão
+                </a>
+                <a href="/prescricoes" class="sidebar-item">
+                    <i class="fas fa-prescription"></i> Banco de Prescrições
+                </a>
+                <a href="/receituario" class="sidebar-item">
+                    <i class="fas fa-print"></i> Receituário
+                </a>
+
+                <div class="sidebar-section-title" style="margin-top:6px;">Ferramentas</div>
+
+                <button @click="showCalculators = !showCalculators; selectedCalc = showCalculators ? (selectedCalc || 'bmi') : selectedCalc"
+                        class="sidebar-item w-full text-left">
+                    <i class="fas fa-calculator"></i> Calculadoras
+                </button>
+                <button @click="showCID = !showCID"
+                        class="sidebar-item w-full text-left">
+                    <i class="fas fa-search-plus"></i> Busca CID-10
+                </button>
+
+                <div class="sidebar-section-title" style="margin-top:6px;">Turno</div>
+                <button @click="form.shift = 'PLANTÃO DIURNO'"
+                        class="sidebar-item w-full text-left"
+                        :class="form.shift === 'PLANTÃO DIURNO' ? 'active' : ''">
+                    <i class="fas fa-sun"></i> Diurno
+                </button>
+                <button @click="form.shift = 'PLANTÃO NOTURNO'"
+                        class="sidebar-item w-full text-left"
+                        :class="form.shift === 'PLANTÃO NOTURNO' ? 'active' : ''">
+                    <i class="fas fa-moon"></i> Noturno
+                </button>
+            </nav>
+
+            <!-- Footer -->
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-user-avatar"><i class="fas fa-user-md"></i></div>
                     <div>
-                        <h1 class="text-base sm:text-lg font-black text-slate-800 leading-none tracking-tight">Plantão<span class="text-indigo-600">Guiado</span></h1>
-                        <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-0.5">Sistema Inteligente</p>
+                        <div class="sidebar-user-name">Médico</div>
+                        <div class="sidebar-user-role">Plantão ativo</div>
                     </div>
                 </div>
-                
-                <div class="flex items-center gap-2 sm:gap-3">
-                    <nav class="flex items-center bg-white/90 backdrop-blur-md p-1.5 rounded-2xl shadow-sm border border-slate-100 overflow-x-auto max-w-[55vw] sm:max-w-full no-scrollbar">
-                        <a href="/" class="px-3 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm whitespace-nowrap font-bold text-indigo-600 bg-indigo-50 rounded-xl transition-all shadow-sm ring-1 ring-indigo-100">
-                            <i class="fas fa-file-medical mr-2"></i>Evolução
-                        </a>
-                        <a href="/prescricoes" class="px-3 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm whitespace-nowrap font-bold text-slate-500 hover:text-indigo-600 hover:bg-slate-50 rounded-xl transition-colors">
-                            <i class="fas fa-prescription mr-2"></i>Prescrições
-                        </a>
-                        <a href="/receituario" class="px-3 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm whitespace-nowrap font-bold text-slate-500 hover:text-indigo-600 hover:bg-slate-50 rounded-xl transition-colors">
-                            <i class="fas fa-print mr-2"></i>Receituário
-                        </a>
-                    </nav>
-                    <button @click="resetForm()"
-                        class="px-4 py-2.5 text-sm font-bold rounded-xl transition-all shadow-sm hover:shadow-md flex items-center gap-2"
-                        :class="resetDone ? 'bg-green-500 text-white' : 'bg-amber-100 hover:bg-amber-200 text-amber-700 border border-amber-200'"
-                        title="Limpa todos os campos do formulário atual">
-                        <i class="fas" :class="resetDone ? 'fa-check' : 'fa-eraser'"></i>
-                        <span class="hidden sm:inline" x-text="resetDone ? 'Limpo!' : 'Resetar'"></span>
-                    </button>
-                    <a href="/logout" class="px-4 py-2.5 bg-red-500 hover:bg-red-600 text-white text-sm font-bold rounded-xl transition-all shadow-sm hover:shadow-md flex items-center gap-2">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span class="hidden sm:inline">Sair</span>
-                    </a>
+                <a href="/logout" class="btn btn-red btn-sm w-full" style="margin-top:12px; justify-content:center;">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </a>
+            </div>
+        </aside>
+
+        <!-- Mobile sidebar overlay -->
+        <div class="fixed inset-0 bg-black/40 z-40 hidden no-print" id="sidebar-overlay" onclick="document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebar-overlay').classList.add('hidden');"></div>
+
+        <!-- ═══ APP SHELL ═══ -->
+        <div class="app-shell">
+
+        <!-- Topbar -->
+        <header class="topbar no-print">
+            <!-- Mobile menu button -->
+            <button class="lg:hidden btn btn-ghost btn-sm mr-2" onclick="document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebar-overlay').classList.toggle('hidden');">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Page title + mode indicator -->
+            <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2">
+                    <span class="text-sm font-bold text-slate-700"
+                          x-text="form.serviceType === 'salavermelha' ? 'Sala Vermelha / UTI' : form.serviceType === 'pa_pro' ? 'PA Clínica Médica Pro' : 'PS Clínica Médica - SOAP'"></span>
+                    <span class="badge"
+                          :class="form.serviceType === 'salavermelha' ? 'badge-red' : form.serviceType === 'pa_pro' ? 'badge-green' : 'badge-blue'"
+                          x-text="form.shift === 'PLANTÃO NOTURNO' ? 'Noturno' : 'Diurno'"></span>
                 </div>
+            </div>
+
+            <!-- Right actions -->
+            <div class="flex items-center gap-2">
+                <button @click="resetForm()"
+                    class="topbar-btn"
+                    :class="resetDone ? 'bg-green-100 text-green-700' : 'bg-amber-50 text-amber-700 hover:bg-amber-100'"
+                    title="Limpar formulário">
+                    <i class="fas" :class="resetDone ? 'fa-check' : 'fa-eraser'"></i>
+                    <span class="hidden sm:inline" x-text="resetDone ? 'Limpo!' : 'Resetar'"></span>
+                </button>
+
+                <a href="/prescricoes" class="topbar-btn bg-slate-100 text-slate-600 hover:bg-slate-200">
+                    <i class="fas fa-prescription"></i>
+                    <span class="hidden sm:inline">Prescrições</span>
+                </a>
+                <a href="/receituario" class="topbar-btn bg-slate-100 text-slate-600 hover:bg-slate-200">
+                    <i class="fas fa-print"></i>
+                    <span class="hidden sm:inline">Receituário</span>
+                </a>
             </div>
         </header>
 
-        <main class="max-w-[1600px] mx-auto p-3 sm:p-6 lg:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8">
+        <main class="page-content">
             
             <!-- LEFT COLUMN (FORM) -->
-            <div class="flex-1 min-w-0 pb-20">
-                
-                <!-- Type Selector -->
-                <div class="flex flex-wrap gap-3 mb-6">
-                    <button @click="form.serviceType = 'clinica'" 
-                            :class="form.serviceType === 'clinica' ? 'bg-blue-600 text-white shadow-lg border-blue-600' : 'bg-white text-slate-700 hover:bg-slate-50 border-slate-200'"
-                            class="flex-1 min-w-[140px] p-4 rounded-2xl font-bold transition-all flex items-center justify-center gap-3 border-2">
-                        <i class="fas fa-user-md text-xl"></i>
-                        <span class="text-sm sm:text-base">PS Clínica Médica (SOAP)</span>
-                    </button>
-                    <button @click="form.serviceType = 'salavermelha'" 
-                            :class="form.serviceType === 'salavermelha' ? 'bg-red-600 text-white shadow-lg border-red-600' : 'bg-white text-slate-700 hover:bg-slate-50 border-slate-200'"
-                            class="flex-1 min-w-[140px] p-4 rounded-2xl font-bold transition-all flex items-center justify-center gap-3 border-2">
-                        <i class="fas fa-heartbeat text-xl"></i>
-                        <span class="text-sm sm:text-base">Sala Vermelha / UTI</span>
-                    </button>
-                    <button @click="form.serviceType = 'pa_pro'" 
-                            :class="form.serviceType === 'pa_pro' ? 'bg-emerald-600 text-white shadow-lg border-emerald-600' : 'bg-white text-slate-700 hover:bg-slate-50 border-slate-200'"
-                            class="flex-1 min-w-[140px] p-4 rounded-2xl font-bold transition-all flex items-center justify-center gap-3 border-2">
-                        <i class="fas fa-bolt text-xl"></i>
-                        <span class="text-sm sm:text-base">PA Clínica Médica (Pro)</span>
-                    </button>
-                </div>
-                
-                <!-- Status Banner -->
-                <div class="p-6 rounded-xl shadow-md text-white mb-8 relative overflow-hidden"
-                     :class="form.serviceType === 'salavermelha' ? 'bg-gradient-to-r from-red-600 to-red-700' : form.serviceType === 'pa_pro' ? 'bg-gradient-to-r from-emerald-600 to-teal-700' : 'bg-gradient-to-r from-blue-600 to-blue-700'">
-                    <div class="absolute right-0 top-0 opacity-10">
-                        <i class="fas text-8xl transform translate-x-4 -translate-y-4" :class="form.serviceType === 'salavermelha' ? 'fa-heartbeat' : form.serviceType === 'pa_pro' ? 'fa-bolt' : 'fa-hospital'"></i>
-                    </div>
-                    
-                    <div class="flex flex-col md:flex-row justify-between items-center gap-4 relative z-10">
-                        <div class="text-center md:text-left">
-                            <h2 class="text-xl font-bold mb-1" x-text="form.serviceType === 'salavermelha' ? 'SALA VERMELHA / CUIDADOS INTENSIVOS' : form.serviceType === 'pa_pro' ? 'PA CLÍNICA MÉDICA (PRO)' : 'PS Clínica Médica (SOAP)'"></h2>
-                            <p class="text-sm flex items-center gap-2 justify-center md:justify-start"
-                               :class="form.serviceType === 'salavermelha' ? 'text-red-100' : form.serviceType === 'pa_pro' ? 'text-emerald-100' : 'text-blue-100'">
-                                <i class="fas fa-clock"></i> <span x-text="form.shift"></span>
-                            </p>
+            <div class="min-w-0 pb-20">
+
+                <!-- Dashboard metrics -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+                    <div class="metric-card">
+                        <div class="metric-card-icon" style="background:#EFF6FF;">
+                            <i class="fas fa-file-medical" style="color:#0047A1; font-size:18px;"></i>
                         </div>
-                        
-                        <div class="flex gap-2 bg-white/10 p-1 rounded-xl backdrop-blur-sm">
-                            <button @click="form.shift = 'PLANTÃO DIURNO'" 
-                                    :class="form.shift === 'PLANTÃO DIURNO' ? (form.serviceType === 'salavermelha' ? 'bg-white text-red-600 shadow-md' : 'bg-white text-blue-600 shadow-md') : 'text-white hover:bg-white/10'" 
-                                    class="px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-2">
-                                <i class="fas fa-sun"></i> Diurno
+                        <div>
+                            <div class="metric-card-value" x-text="evolucoesDia">0</div>
+                            <div class="metric-card-label">Evoluções hoje</div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-card-icon" style="background:#ECFDF5;">
+                            <i class="fas fa-copy" style="color:#009B81; font-size:18px;"></i>
+                        </div>
+                        <div>
+                            <div class="metric-card-value" x-text="copiesDia">0</div>
+                            <div class="metric-card-label">Textos copiados</div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-card-icon" style="background:#FFF7ED;">
+                            <i class="fas fa-calculator" style="color:#F5800B; font-size:18px;"></i>
+                        </div>
+                        <div>
+                            <div class="metric-card-value" x-text="calcsUsadas">0</div>
+                            <div class="metric-card-label">Calculadoras</div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-card-icon" style="background:#F1F5F9;">
+                            <i class="fas fa-clock" style="color:#64748B; font-size:18px;"></i>
+                        </div>
+                        <div>
+                            <div class="metric-card-value" style="font-size:18px;" x-text="horaAtual">--:--</div>
+                            <div class="metric-card-label" x-text="form.shift === 'PLANTÃO NOTURNO' ? 'Noturno' : 'Diurno'">Diurno</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mode selector (tabs) -->
+                <div class="card mb-5">
+                    <div class="card-body" style="padding:12px;">
+                        <div class="mode-tabs">
+                            <button @click="form.serviceType = 'clinica'"
+                                    class="mode-tab"
+                                    :class="form.serviceType === 'clinica' ? 'active' : ''">
+                                <i class="fas fa-user-md mr-1.5"></i> SOAP
                             </button>
-                            <button @click="form.shift = 'PLANTÃO NOTURNO'" 
-                                    :class="form.shift === 'PLANTÃO NOTURNO' ? (form.serviceType === 'salavermelha' ? 'bg-white text-red-600 shadow-md' : 'bg-white text-indigo-600 shadow-md') : 'text-white hover:bg-white/10'"
-                                    class="px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-2">
-                                <i class="fas fa-moon"></i> Noturno
+                            <button @click="form.serviceType = 'salavermelha'"
+                                    class="mode-tab"
+                                    :class="form.serviceType === 'salavermelha' ? 'active active-red' : ''">
+                                <i class="fas fa-heartbeat mr-1.5"></i> Sala Vermelha
+                            </button>
+                            <button @click="form.serviceType = 'pa_pro'"
+                                    class="mode-tab"
+                                    :class="form.serviceType === 'pa_pro' ? 'active active-green' : ''">
+                                <i class="fas fa-bolt mr-1.5"></i> PA Pro
                             </button>
                         </div>
                     </div>
                 </div>
 
                 <!-- 1. IDENTIFICATION -->
-                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6">
+                <div class="card mb-5">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-blue-500 rounded-l-lg"></div>
                     <h3 class="text-base sm:text-lg font-bold text-slate-700 mb-6 flex items-center gap-2">
                         <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-sm"><i class="fas fa-user"></i></div>
@@ -1054,7 +1133,7 @@ app.get('/', (c) => {
                 <template x-if="form.serviceType === 'clinica'">
                     <div>
                 <!-- 2. MEDICATIONS -->
-                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6">
+                <div class="card mb-5">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-indigo-500 rounded-l-lg"></div>
                     <div class="flex items-center gap-2 mb-6">
                         <div class="w-8 h-8 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center text-sm"><i class="fas fa-pills"></i></div>
@@ -1104,7 +1183,7 @@ app.get('/', (c) => {
                 </div>
 
                 <!-- 3. SUBJECTIVE (S) -->
-                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6">
+                <div class="card mb-5">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-cyan-500 rounded-l-lg"></div>
                     <div class="flex items-center gap-2 mb-6 text-cyan-700">
                         <span class="bg-cyan-500 text-white font-bold w-8 h-8 flex items-center justify-center rounded-lg text-sm shadow-md shadow-cyan-500/20">S</span>
@@ -1161,7 +1240,7 @@ app.get('/', (c) => {
                 </div>
 
                 <!-- 4. OBJECTIVE (O) -->
-                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6">
+                <div class="card mb-5">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-emerald-500 rounded-l-lg"></div>
                     <div class="flex items-center gap-2 mb-6">
                         <span class="bg-emerald-500 text-white font-bold w-8 h-8 flex items-center justify-center rounded-lg text-sm shadow-md shadow-emerald-500/20">O</span>
@@ -1362,7 +1441,7 @@ app.get('/', (c) => {
                 </div>
 
                 <!-- 6. ASSESSMENT (A) -->
-                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6">
+                <div class="card mb-5">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-amber-500 rounded-l-lg"></div>
                     <div class="flex items-center gap-2 mb-6">
                         <span class="bg-amber-500 text-white font-bold w-8 h-8 flex items-center justify-center rounded-lg text-sm shadow-md shadow-amber-500/20">A</span>
@@ -1439,7 +1518,7 @@ app.get('/', (c) => {
                 </div>
 
                 <!-- 7. PLAN (P) -->
-                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6">
+                <div class="card mb-5">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-blue-600 rounded-l-lg"></div>
                     <div class="flex items-center gap-2 mb-6">
                         <span class="bg-blue-600 text-white font-bold w-8 h-8 flex items-center justify-center rounded-lg text-sm shadow-md shadow-blue-600/20">P</span>
@@ -1517,7 +1596,7 @@ app.get('/', (c) => {
                     <!-- ============================================ -->
                     <div>
                         <!-- SUB-SELETOR: Escolha entre Evolução Crítico e XABCDE -->
-                        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-red-500">
+                        <div class="card mb-5 border-l-4 border-red-400">
                             <h3 class="font-bold text-base sm:text-lg text-slate-700 mb-4 flex items-center gap-2">
                                 <i class="fas fa-clipboard-list text-red-600"></i>
                                 Selecione o Tipo de Registro
@@ -1552,7 +1631,7 @@ app.get('/', (c) => {
                         <template x-if="form.utiTemplate === 'evolucao'">
                             <div>
                                 <!-- A. CABEÇALHO / DADOS DA INTERNAÇÃO -->
-                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-red-500 bg-red-50/30">
+                                <div class="card mb-5 border-l-4 border-red-400 bg-red-50">
                                     <div class="flex items-center gap-2 mb-6">
                                         <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center">
                                             <i class="fas fa-calendar-plus"></i>
@@ -1583,7 +1662,7 @@ app.get('/', (c) => {
                                 </div>
                     
                                 <!-- B. DIAGNÓSTICO PRINCIPAL -->
-                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-red-500">
+                                <div class="card mb-5 border-l-4 border-red-400">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center">
                                             <i class="fas fa-stethoscope"></i>
@@ -1594,7 +1673,7 @@ app.get('/', (c) => {
                                 </div>
                     
                                 <!-- C. RASTREIO COVID-19 -->
-                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-amber-500 bg-amber-50/30">
+                                <div class="card mb-5 border-l-4 border-amber-400 bg-amber-50/30">
                                     <div class="flex items-center gap-2 mb-6">
                                         <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center">
                                             <i class="fas fa-virus"></i>
@@ -1627,7 +1706,7 @@ app.get('/', (c) => {
                                 </div>
                     
                                 <!-- D. ANTIBIOTICOTERAPIA (ATB) - Lista Dinâmica -->
-                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-purple-500 bg-purple-50/30">
+                                <div class="card mb-5 border-l-4 border-purple-400 bg-purple-50/30">
                                     <div class="flex items-center justify-between mb-6">
                                         <div class="flex items-center gap-2">
                                             <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center">
@@ -1689,7 +1768,7 @@ app.get('/', (c) => {
                                 </div>
                     
                                 <!-- E. HISTÓRIA DA DOENÇA ATUAL (HDA) -->
-                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-blue-500">
+                                <div class="card mb-5 border-l-4 border-blue-400">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
                                             <i class="fas fa-file-medical-alt"></i>
@@ -1700,7 +1779,7 @@ app.get('/', (c) => {
                                 </div>
                     
                                 <!-- F. DISPOSITIVOS/ACESSOS (DEVICES) - Lista Dinâmica -->
-                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-emerald-500 bg-emerald-50/30">
+                                <div class="card mb-5 border-l-4 border-emerald-400 bg-emerald-50/30">
                                     <div class="flex items-center justify-between mb-6">
                                         <div class="flex items-center gap-2">
                                             <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
@@ -1773,7 +1852,7 @@ app.get('/', (c) => {
                                 </div>
                     
                                 <!-- G. EVOLUÇÃO POR SISTEMAS -->
-                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-cyan-500 bg-cyan-50/30">
+                                <div class="card mb-5 border-l-4 border-cyan-400 bg-cyan-50/30">
                                     <div class="flex items-center gap-2 mb-6">
                                         <div class="w-10 h-10 rounded-full bg-cyan-100 text-cyan-600 flex items-center justify-center">
                                             <i class="fas fa-heartbeat"></i>
@@ -1893,7 +1972,7 @@ app.get('/', (c) => {
                                 </div>
                     
                                 <!-- H. EXAMES COMPLEMENTARES -->
-                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-indigo-500">
+                                <div class="card mb-5 border-l-4 border-indigo-400">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center">
                                             <i class="fas fa-microscope"></i>
@@ -1904,7 +1983,7 @@ app.get('/', (c) => {
                                 </div>
                     
                                 <!-- I. CONDUTAS -->
-                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-rose-500 bg-rose-50/30">
+                                <div class="card mb-5 border-l-4 border-rose-400 bg-rose-50/30">
                                     <div class="flex items-center gap-2 mb-6">
                                         <div class="w-10 h-10 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center">
                                             <i class="fas fa-clipboard-check"></i>
@@ -1972,7 +2051,7 @@ app.get('/', (c) => {
                         <template x-if="form.utiTemplate === 'xabcde'">
                             <div>
                                 <!-- CABEÇALHO -->
-                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-red-500 bg-red-50/30">
+                                <div class="card mb-5 border-l-4 border-red-400 bg-red-50">
                                     <div class="flex items-center gap-2 mb-6">
                                         <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center">
                                             <i class="fas fa-ambulance"></i>
@@ -1998,7 +2077,7 @@ app.get('/', (c) => {
                                 </div>
                                 
                                 <!-- X - HEMORRAGIA -->
-                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-red-700">
+                                <div class="card mb-5 border-l-4 border-red-600">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-red-700 text-white flex items-center justify-center font-black text-lg">X</div>
                                         <h3 class="font-bold text-base sm:text-lg text-slate-700">Hemorragia Exsanguinante</h3>
@@ -2842,30 +2921,38 @@ app.get('/', (c) => {
             </div>
 
             <!-- RIGHT COLUMN: PREVIEW (STICKY) -->
-            <div class="lg:w-[400px] xl:w-[500px] flex-shrink-0 hidden lg:block">
-                <div class="sticky top-[88px]">
-                    <div class="bg-white rounded-2xl shadow-xl border border-slate-200 flex flex-col max-h-[85vh] overflow-hidden preview-paper">
-                        
-                        <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 backdrop-blur-sm">
-                            <div class="flex items-center gap-2 sm:gap-3">
-                                 <h3 class="font-bold text-slate-700 flex items-center gap-2">
-                                    <i class="fas fa-file-invoice text-blue-500"></i> Pré-visualização
-                                </h3>
-                                <button @click="showCalculators = true" class="text-xs bg-white border border-slate-200 text-blue-600 px-3 py-1.5 rounded-lg hover:bg-blue-50 hover:border-blue-200 transition-all font-semibold shadow-sm flex items-center gap-2">
-                                    <i class="fas fa-calculator"></i> Calc
-                                </button>
+            <div class="hidden lg:block">
+                <div class="preview-panel">
+                    <div class="preview-panel-header">
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 rounded flex items-center justify-center" style="background:#EFF6FF;">
+                                <i class="fas fa-file-alt" style="color:#0047A1; font-size:11px;"></i>
                             </div>
-                            <button @click="copyText()" class="px-5 py-2 bg-blue-600 text-white text-sm font-bold rounded-xl hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-500/30 transition-all flex items-center gap-2 active:scale-95">
-                                <i class="far fa-copy"></i> <span x-text="copied ? 'Copiado!' : 'Copiar'"></span>
+                            <h3>Pré-visualização em tempo real</h3>
+                            <span class="pulse-dot w-2 h-2 rounded-full bg-green-500 inline-block ml-1"></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button @click="showCalculators = true"
+                                    class="btn btn-ghost btn-sm">
+                                <i class="fas fa-calculator"></i>
+                                <span>Calc</span>
+                            </button>
+                            <button @click="copyText()"
+                                    class="btn btn-sm"
+                                    :class="copied ? 'btn-green' : 'btn-primary'">
+                                <i class="far" :class="copied ? 'fa-check' : 'fa-copy'"></i>
+                                <span x-text="copied ? 'Copiado!' : 'Copiar texto'"></span>
                             </button>
                         </div>
+                    </div>
 
-                        <div class="p-2 bg-amber-50/80 border-b border-amber-100 flex items-center justify-center gap-2">
-                            <i class="fas fa-info-circle text-amber-500 text-xs"></i>
-                            <p class="text-[10px] text-amber-700 font-medium">Revise o texto antes de transferir para o prontuário.</p>
-                        </div>
+                    <div class="flex items-center gap-2 px-4 py-2 border-b" style="background:#FFFBEB; border-color:#FDE68A;">
+                        <i class="fas fa-info-circle text-amber-500" style="font-size:11px;"></i>
+                        <p style="font-size:10px; color:#92400E; font-weight:500;">Revise antes de transferir para o prontuário.</p>
+                    </div>
 
-                        <div class="p-8 overflow-y-auto preview-scroll flex-grow font-mono text-sm leading-relaxed whitespace-pre-wrap text-slate-800 bg-white" id="preview-text" x-text="generateText()"></div>
+                    <div class="preview-panel-body">
+                        <pre class="preview-text" id="preview-text" x-text="generateText()"></pre>
                     </div>
                 </div>
             </div>
@@ -3262,6 +3349,7 @@ app.get('/prescricoes', (c) => {
                 </div>
             </div>
         </main>
+        </div><!-- /.app-shell -->
         
         <script src="/static/prescricoes.js"></script>
     </body>

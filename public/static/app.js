@@ -234,6 +234,13 @@ document.addEventListener('alpine:init', () => {
         conductType: 'prescricao',
         copied: false,
         resetDone: false,
+
+        // Dashboard metrics
+        evolucoesDia: 0,
+        copiesDia: 0,
+        calcsUsadas: 0,
+        horaAtual: '--:--',
+        showCID: false,
         
         // CID-10 Logic (SOAP)
         cidSearch: '',
@@ -318,6 +325,39 @@ document.addEventListener('alpine:init', () => {
             this.$watch('form.gender', (value) => {
                 this.calcInputs.ckd.sex = value === 'Masculino' ? 'male' : 'female';
             });
+
+            // Dashboard: hora ao vivo
+            const updateHora = () => {
+                const now = new Date();
+                this.horaAtual = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+            };
+            updateHora();
+            setInterval(updateHora, 60000);
+
+            // Dashboard: carregar métricas do localStorage
+            const today = new Date().toDateString();
+            const stored = JSON.parse(localStorage.getItem('pg_metrics') || '{}');
+            if (stored.date === today) {
+                this.evolucoesDia = stored.evolucoes || 0;
+                this.copiesDia = stored.copies || 0;
+                this.calcsUsadas = stored.calcs || 0;
+            } else {
+                localStorage.setItem('pg_metrics', JSON.stringify({ date: today, evolucoes: 0, copies: 0, calcs: 0 }));
+            }
+        },
+
+        _incrementMetric(key) {
+            const today = new Date().toDateString();
+            const stored = JSON.parse(localStorage.getItem('pg_metrics') || '{}');
+            if (stored.date !== today) {
+                localStorage.setItem('pg_metrics', JSON.stringify({ date: today, evolucoes: 0, copies: 0, calcs: 0 }));
+            }
+            const m = JSON.parse(localStorage.getItem('pg_metrics'));
+            m[key] = (m[key] || 0) + 1;
+            localStorage.setItem('pg_metrics', JSON.stringify(m));
+            if (key === 'evolucoes') this.evolucoesDia = m[key];
+            if (key === 'copies') this.copiesDia = m[key];
+            if (key === 'calcs') this.calcsUsadas = m[key];
         },
 
         // CID-10 Search - Prioriza banco local em PORTUGUÊS
@@ -2452,6 +2492,7 @@ document.addEventListener('alpine:init', () => {
             const text = this.generateText();
             navigator.clipboard.writeText(text).then(() => {
                 this.copied = true;
+                this._incrementMetric('copies');
                 setTimeout(() => this.copied = false, 2000);
             });
         },
