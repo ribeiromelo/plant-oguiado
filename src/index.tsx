@@ -1690,6 +1690,7 @@ app.get('/', (c) => {
                                         <div>
                                             <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Resultado TR COVID-19</label>
                                             <select x-model="form.uti.covidResultado" class="form-input border-amber-200 focus:ring-amber-500/20 focus:border-amber-500">
+                                                <option value="">Não informado</option>
                                                 <option value="NÃO REAGENTE">NÃO REAGENTE</option>
                                                 <option value="REAGENTE">REAGENTE</option>
                                                 <option value="AGUARDA">AGUARDA</option>
@@ -1698,6 +1699,7 @@ app.get('/', (c) => {
                                         <div>
                                             <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">RT-PCR</label>
                                             <select x-model="form.uti.rtpcr" class="form-input border-amber-200 focus:ring-amber-500/20 focus:border-amber-500">
+                                                <option value="">Não informado</option>
                                                 <option value="AGUARDA">AGUARDA</option>
                                                 <option value="NEGATIVO">NEGATIVO</option>
                                                 <option value="POSITIVO">POSITIVO</option>
@@ -2500,6 +2502,7 @@ app.get('/', (c) => {
                                         <div>
                                             <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Gravidade do Paciente</label>
                                             <select x-model="form.xabcde.impressao_gravidade" class="form-input border-amber-200">
+                                                <option value="">Não informado</option>
                                                 <option value="crítico">crítico</option>
                                                 <option value="potencialmente instável">potencialmente instável</option>
                                                 <option value="estável no momento">estável no momento</option>
@@ -2528,6 +2531,7 @@ app.get('/', (c) => {
                                         <div>
                                             <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Monitorização</label>
                                             <select x-model="form.xabcde.conduta_monitor" class="form-input border-blue-200">
+                                                <option value="">Não informado</option>
                                                 <option value="instalada">instalada</option>
                                                 <option value="não instalada">não instalada</option>
                                             </select>

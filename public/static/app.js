@@ -19,12 +19,12 @@ document.addEventListener('alpine:init', () => {
                 drugTypes: '',
                 sedentary: false
             },
-            comorbidities: 'Nega',
-            allergies: 'Nega',
-            surgeries: 'Nega',
+            comorbidities: '',
+            allergies: '',
+            surgeries: '',
             medications: [],
             subjective: {
-                qp: 'Não referida',
+                qp: '',
                 hda: ''
             },
             negatives: {
@@ -86,8 +86,8 @@ document.addEventListener('alpine:init', () => {
                 motivo: '',
                 dx: '',
                 covidData: '',
-                covidResultado: 'NÃO REAGENTE',
-                rtpcr: 'AGUARDA',
+                covidResultado: '',
+                rtpcr: '',
                 atb: [],
                 hda: '',
                 devices: [],
@@ -176,10 +176,10 @@ document.addEventListener('alpine:init', () => {
                 sv_temp: '',
                 sv_hgt: '',
                 // Impressão e Conduta
-                impressao_gravidade: 'potencialmente instável',
+                impressao_gravidade: '',
                 impressao_hipotese: '',
                 conduta_o2: '',
-                conduta_monitor: 'instalada',
+                conduta_monitor: '',
                 conduta_acesso: '',
                 conduta_exames: '',
                 conduta_meds: '',
@@ -860,7 +860,7 @@ document.addEventListener('alpine:init', () => {
             if (this.newMed.name) {
                 this.form.medications.push({
                     name: this.newMed.name,
-                    posology: this.newMed.posology || 'Conforme uso'
+                    posology: this.newMed.posology || 'Posologia não informada'
                 });
                 this.newMed.name = '';
                 this.newMed.posology = '';
@@ -1899,7 +1899,7 @@ document.addEventListener('alpine:init', () => {
 
             // Antecedents
             text += `# ANTECEDENTES:\n`;
-            text += `Comorbidades: ${this.form.comorbidities || 'Nega'} | Cirurgias: ${this.form.surgeries || 'Nega'}\n`;
+            text += `Comorbidades: ${this.form.comorbidities || 'Não informado'} | Cirurgias: ${this.form.surgeries || 'Não informado'}\n`;
             
             // Habits
             let habitsList = [];
@@ -1933,10 +1933,10 @@ document.addEventListener('alpine:init', () => {
             if (habitsList.length > 0) {
                 text += `Hábitos: ${habitsList.join(', ')}\n`;
             } else {
-                text += `Hábitos: Nega tabagismo, etilismo ou uso de drogas.\n`;
+                text += `Hábitos: Não informado\n`;
             }
 
-            text += `ALERGIAS: ${this.form.allergies || 'Nega'}\n`;
+            text += `ALERGIAS: ${this.form.allergies || 'Não informado'}\n`;
             
             // Medications
             if (this.form.medications.length > 0) {
@@ -1945,12 +1945,12 @@ document.addEventListener('alpine:init', () => {
                     text += `- ${med.name} (${med.posology})\n`;
                 });
             } else {
-                text += `MEDICAÇÕES: Nega uso contínuo\n`;
+                text += `MEDICAÇÕES: Não informado\n`;
             }
 
             // Subjective
             text += `\n# S (SUBJETIVO):\n`;
-            text += `QP: ${this.form.subjective.qp}\n`;
+            text += `QP: ${this.form.subjective.qp || 'Não informada'}\n`;
             text += `HDA: ${this.form.subjective.hda}\n`;
             
             // Negatives
@@ -2075,9 +2075,9 @@ document.addEventListener('alpine:init', () => {
             
             // # HISTÓRIA PATOLÓGICA PREGRESSA (HPP)
             text += `# HISTÓRIA PATOLÓGICA PREGRESSA:\n`;
-            text += `Comorbidades: ${this.form.comorbidities || 'Nega'}\n`;
-            text += `Alergias: ${this.form.allergies || 'Nega'}\n`;
-            text += `Cirurgias Prévias: ${this.form.surgeries || 'Nega'}\n`;
+            text += `Comorbidades: ${this.form.comorbidities || 'Não informado'}\n`;
+            text += `Alergias: ${this.form.allergies || 'Não informado'}\n`;
+            text += `Cirurgias Prévias: ${this.form.surgeries || 'Não informado'}\n`;
             
             // Medicações em uso
             if (this.form.medications.length > 0) {
@@ -2086,7 +2086,7 @@ document.addEventListener('alpine:init', () => {
                     text += `  • ${med.name} (${med.posology})\n`;
                 });
             } else {
-                text += `Medicações: Nega uso contínuo\n`;
+                text += `Medicações: Não informado\n`;
             }
             
             // Hábitos
@@ -2121,14 +2121,14 @@ document.addEventListener('alpine:init', () => {
             if (habitsList.length > 0) {
                 text += `Hábitos: ${habitsList.join(', ')}\n`;
             } else {
-                text += `Hábitos: Nega tabagismo, etilismo ou uso de drogas\n`;
+                text += `Hábitos: Não informado\n`;
             }
             text += `\n`;
             
             // # COVID-19
             text += `# COVID-19:\n`;
-            text += `- TR COVID-19 (${this.form.uti.covidData || '__/__'}): ${this.form.uti.covidResultado}\n`;
-            text += `- RT-PCR: ${this.form.uti.rtpcr}\n\n`;
+            text += `- TR COVID-19 (${this.form.uti.covidData || '__/__'}): ${this.form.uti.covidResultado || 'Não informado'}\n`;
+            text += `- RT-PCR: ${this.form.uti.rtpcr || 'Não informado'}\n\n`;
             
             // # ATB
             if (this.form.uti.atb.length > 0) {
@@ -2327,13 +2327,13 @@ document.addEventListener('alpine:init', () => {
             
             // IMPRESSÃO CLÍNICA INICIAL
             text += `# IMPRESSÃO CLÍNICA INICIAL\n`;
-            text += `Paciente ${this.form.xabcde.impressao_gravidade || 'potencialmente instável'}.\n`;
+            text += `Gravidade estimada: ${this.form.xabcde.impressao_gravidade || 'não informada'}.\n`;
             text += `Hipótese sindrômica inicial: ${this.form.xabcde.impressao_hipotese || '__________________'}\n\n`;
             
             // CONDUTAS IMEDIATAS
             text += `# CONDUTAS IMEDIATAS\n`;
             text += `Oxigenoterapia: ${this.form.xabcde.conduta_o2 || '______'}\n`;
-            text += `Monitorização multiparamétrica: ${this.form.xabcde.conduta_monitor || 'instalada'}\n`;
+            text += `Monitorização multiparamétrica: ${this.form.xabcde.conduta_monitor || 'Não informado'}\n`;
             text += `Acesso venoso: ${this.form.xabcde.conduta_acesso || '______'}\n`;
             text += `Exames solicitados: ${this.form.xabcde.conduta_exames || '______'}\n`;
             text += `Medicações iniciais: ${this.form.xabcde.conduta_meds || '______'}\n\n`;
@@ -2403,19 +2403,19 @@ document.addEventListener('alpine:init', () => {
             text += `HMA: Início há ${pa.hma_inicio || '_____'}. Refere ${pa.hma_descricao || '___________________'}.\n`;
             const alarmes = pa.alarme_nega && pa.alarme_nega.length > 0
                 ? pa.alarme_nega.join(', ')
-                : 'febre alta, dor torácica, dispneia, vômitos persistentes, déficit neurológico';
-            text += `Nega sinais de alarme: (${alarmes}).\n\n`;
+                : '';
+            text += alarmes ? `Nega sinais de alarme: (${alarmes}).\n\n` : `Sinais de alarme: não informados.\n\n`;
 
             // AP — Antecedentes (comorbidades, MUC, alergias, hábitos)
-            const comorbidades = pa.ap_comorbidades || this.form.comorbidities || 'nega';
+            const comorbidades = pa.ap_comorbidades || this.form.comorbidities || 'Não informado';
             // MUC: usa campo do PA ou lista de medicações da identificação
             let muc = pa.ap_muc;
             if (!muc) {
                 muc = this.form.medications.length > 0
                     ? this.form.medications.map(m => `${m.name}${m.posology ? ' ' + m.posology : ''}`).join(', ')
-                    : 'nega';
+                    : 'Não informado';
             }
-            const alergias = pa.ap_alergias || this.form.allergies || 'nega';
+            const alergias = pa.ap_alergias || this.form.allergies || 'Não informado';
             text += `AP: Comorbidades - ${comorbidades} | MUC - ${muc} | Alergias - ${alergias}\n`;
 
             // Hábitos de vida (da seção de identificação)
@@ -2430,7 +2430,7 @@ document.addEventListener('alpine:init', () => {
             if (listaHabitos.length > 0) {
                 text += `Hábitos: ${listaHabitos.join(', ')}\n`;
             } else {
-                text += `Hábitos: Nega tabagismo, etilismo ou uso de drogas.\n`;
+                text += `Hábitos: Não informado\n`;
             }
 
             text += `\n`;
@@ -2516,11 +2516,11 @@ document.addEventListener('alpine:init', () => {
             this.form.gender = 'Masculino';
             this.form.admission = 'Demanda Espontânea';
             this.form.habits = { smoker: false, exSmoker: false, smokingLoad: '', alcoholic: false, exAlcoholic: false, alcoholLoad: '', drugs: false, drugTypes: '', sedentary: false };
-            this.form.comorbidities = 'Nega';
-            this.form.allergies = 'Nega';
-            this.form.surgeries = 'Nega';
+            this.form.comorbidities = '';
+            this.form.allergies = '';
+            this.form.surgeries = '';
             this.form.medications = [];
-            this.form.subjective = { qp: 'Não referida', hda: '' };
+            this.form.subjective = { qp: '', hda: '' };
             this.form.negatives = { fever: false, headache: false, dizziness: false, dyspnea: false, chestPain: false, nausea: false, intestine: false, urinary: false };
             this.form.vitals = { pa: '', pas: '', pad: '', fc: '', fr: '', sat: '', temp: '', hgt: '' };
             this.form.exam = { general: '', cardiac: '', pulmonary: '', abdominal: '', neuro: '', extremities: '', additional: [] };
@@ -2536,6 +2536,9 @@ document.addEventListener('alpine:init', () => {
             this.form.uti.atb = [];
             this.form.uti.devices = [];
             this.form.uti.evolucao = { neuro: '', scv: '', sr: '', tgi: '', rm: '', hi: '', extr: '' };
+            this.form.uti.covidData = '';
+            this.form.uti.covidResultado = '';
+            this.form.uti.rtpcr = '';
             this.form.uti.exames = '';
             this.form.uti.condutas = { vigilanciaNeuro: false, vigilanciaHemo: false, vigilanciaInfec: false, vigilanciaVent: false, vigilanciaRenal: false, profilaxiaTEV: false, aguardarVaga: false, manterFamilia: false, outras: '' };
 
@@ -2589,10 +2592,10 @@ document.addEventListener('alpine:init', () => {
             this.form.xabcde.sv_spo2 = '';
             this.form.xabcde.sv_temp = '';
             this.form.xabcde.sv_hgt = '';
-            this.form.xabcde.impressao_gravidade = 'potencialmente instável';
+            this.form.xabcde.impressao_gravidade = '';
             this.form.xabcde.impressao_hipotese = '';
             this.form.xabcde.conduta_o2 = '';
-            this.form.xabcde.conduta_monitor = 'instalada';
+            this.form.xabcde.conduta_monitor = '';
             this.form.xabcde.conduta_acesso = '';
             this.form.xabcde.conduta_exames = '';
             this.form.xabcde.conduta_meds = '';

@@ -122,3 +122,41 @@ test('XABCDE distingue dados não informados de achados normais', () => {
     form.resetForm();
     assert.match(form.generateText(), /\[X\] HEMORRAGIA EXSANGUINANTE\nNão informado/);
 });
+
+test('campos vazios não geram negações e PA preserva apenas alarmes selecionados', () => {
+    const form = newForm();
+    for (const text of [form.generateText(), form.generatePAPro(), form.generateEvolucaoCritico()]) {
+        assert.doesNotMatch(text, /Nega|NÃO REAGENTE|NEGATIVO/);
+        assert.match(text, /Não informado/);
+    }
+    assert.match(form.generatePAPro(), /Sinais de alarme: não informados/);
+    form.form.pa.alarme_nega = ['Dor torácica'];
+    form.form.pa.ap_alergias = 'Nega';
+    let text = form.generatePAPro();
+    assert.match(text, /Nega sinais de alarme: \(Dor torácica\)/);
+    assert.doesNotMatch(text, /vômitos persistentes|déficit neurológico/);
+    assert.match(text, /Alergias - Nega/);
+    form.form.allergies = 'Penicilina';
+    assert.match(form.generateText(), /ALERGIAS: Penicilina/);
+    form.resetForm();
+    assert.doesNotMatch(form.generatePAPro(), /Nega|Penicilina/);
+});
+
+test('resultados e intervenções exigem seleção e são apagados ao limpar', () => {
+    const form = newForm();
+    assert.match(form.generateXABCDE(), /Monitorização multiparamétrica: Não informado/);
+    assert.match(form.generateXABCDE(), /Gravidade estimada: não informada/);
+    form.form.uti.covidData = '2026-11-11';
+    form.form.uti.covidResultado = 'REAGENTE';
+    form.form.uti.rtpcr = 'POSITIVO';
+    form.form.xabcde.conduta_monitor = 'instalada';
+    form.form.xabcde.impressao_gravidade = 'crítico';
+    assert.match(form.generateEvolucaoCritico(), /RT-PCR: POSITIVO/);
+    assert.match(form.generateEvolucaoCritico(), /REAGENTE/);
+    assert.match(form.generateXABCDE(), /Monitorização multiparamétrica: instalada/);
+    form.resetForm();
+    assert.equal(form.form.uti.covidData, '');
+    assert.doesNotMatch(form.generateEvolucaoCritico(), /REAGENTE|POSITIVO|2026-11-11/);
+    assert.match(form.generateXABCDE(), /Monitorização multiparamétrica: Não informado/);
+    assert.match(form.generateXABCDE(), /Gravidade estimada: não informada/);
+});
