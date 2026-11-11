@@ -817,7 +817,7 @@ app.get('/', (c) => {
         <!-- ═══ SIDEBAR ═══ -->
         <aside class="sidebar no-print" id="sidebar">
             <!-- Logo -->
-            <div class="sidebar-logo"><img src="/static/plantguiadologo.png" alt="Plantão Guiado" class="pg-system-logo" width="2172" height="724"><p>Sistema Clínico</p></div>
+            <div class="sidebar-logo"><img src="/static/plantguiadologo.png" alt="Plantão Guiado" class="pg-system-logo" width="2172" height="724"></div>
 
             <!-- Nav -->
             <nav style="padding-top:8px; flex:1; overflow-y:auto;">

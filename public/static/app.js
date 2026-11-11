@@ -1533,16 +1533,92 @@ document.addEventListener('alpine:init', () => {
         admissionSystemText(section) {
             const definition = this.admissionSystems.find(item => item.id === section);
             if (!definition) return '';
-            const sentences = [];
-            for (const field of definition.fields) {
-                const value = String(this.admissionValue(section, field.key)).trim();
-                if (!value) continue;
-                const unit = field.unit && !value.toLowerCase().endsWith(field.unit.toLowerCase()) ? ' ' + field.unit : '';
-                sentences.push(field.label + ': ' + value.replace(/[.;]+$/, '') + unit);
+            const clean = value => String(value ?? '').trim().replace(/[.;,]+$/, '').trim();
+            const normalize = value => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+            const get = key => clean(this.admissionValue(section, key));
+            const negative = value => /^(ausente|ausentes|nao|nega|nenhum|nenhuma)$/i.test(normalize(value));
+            const unit = (value, suffix) => /^[-+]?\d+(?:[.,]\d+)?(?:[x/]\d+(?:[.,]\d+)?)?$/.test(value) ? value + ' ' + suffix : value;
+            // Only translate documented terms; arbitrary descriptions retain their meaning.
+            const describe = (value, prefix, already) => already.test(value) ? value : prefix + value;
+            const lower = value => /^[A-ZÁÉÍÓÚÂÊÔÃÕÇ][a-záéíóúâêôãõç]/.test(value) ? value[0].toLowerCase() + value.slice(1) : value;
+            const phrases = [];
+            const add = value => { if (value && !phrases.some(p => normalize(p) === normalize(value))) phrases.push(value); };
+            const transforms = {
+                general: {
+                    aspecto: v => ({bom:'Paciente em bom estado geral',regular:'Paciente em regular estado geral',ruim:'Paciente em mau estado geral',mau:'Paciente em mau estado geral',grave:'Paciente em estado geral grave',gravissimo:'Paciente em estado geral gravíssimo'}[normalize(v)] || describe(v, 'Paciente em ', /^(paciente|em )/i)),
+                    consciencia: v => lower(v),
+                    hidratacao: v => lower(v),
+                    cor: v => negative(v) ? 'acianótico e anictérico' : lower(v),
+                    temperatura: v => 'T ' + unit(v, '°C'),
+                    dor: v => lower(v).replace(/^confortavel, sem facies de dor$/i, 'confortável e sem fácies de dor')
+                },
+                neuro: {
+                    consciencia: v => lower(v),
+                    glasgow: v => describe(v, 'Glasgow ', /^glasgow/i),
+                    pupilas: v => describe(lower(v), 'pupilas ', /^pupilas/i),
+                    motor: v => lower(v),
+                    sedacao: v => negative(v) ? 'sem sedação ou analgesia informadas em uso' : describe(v, 'sob sedação/analgesia com ', /^(sem |sob |em uso|sedad|analgesi)/i),
+                    rass: v => describe(v, 'RASS ', /^RASS/i),
+                    delirium: v => describe(v, 'avaliação de delirium ', /^(CAM|sem delirium|delirium|nao avali|não avali)/i),
+                    convulsoes: v => negative(v) ? 'sem crises descritas' : lower(v)
+                },
+                scv: {
+                    pa: v => describe(unit(v, 'mmHg'), 'PA ', /^PA\b/i),
+                    pam: v => describe(unit(v, 'mmHg'), 'PAM ', /^PAM\b/i),
+                    fc: v => describe(unit(v, 'bpm'), 'FC ', /^FC\b/i),
+                    ritmo: v => lower(v), perfusao: v => describe(lower(v), 'perfusão periférica ', /^(perfus|enchimento|TEC|extremidades)/i),
+                    pulsos: v => describe(lower(v), 'pulsos periféricos ', /^pulsos/i),
+                    edema: v => negative(v) ? 'sem edema' : describe(lower(v), 'edema ', /^(edema|sem edema)/i),
+                    dva: v => negative(v) ? 'sem drogas vasoativas' : describe(v, 'em uso de ', /^(em uso|sem |sob )/i)
+                },
+                sr: {
+                    via: v => lower(v), padrao: v => lower(v),
+                    fr: v => describe(unit(v, 'irpm'), 'FR ', /^FR\b/i),
+                    spo2: v => describe(unit(v, '%'), 'SpO₂ ', /^(SpO[2₂]|Sat)/i),
+                    ausculta: v => lower(v),
+                    suporte: v => describe(lower(v), 'em ', /^(em |sob |sem |respirando)/i),
+                    vm: v => negative(v) ? 'sem ventilação mecânica' : describe(v, 'em VM ', /^(em |VM|ventila|sem )/i),
+                    secrecao: v => describe(lower(v), 'quanto a secreções/drenos, ', /^(sem |secre|dreno)/i),
+                    gasometria: v => describe(v, 'gasometria com ', /^gasometria/i)
+                },
+                tgi: {
+                    abdome: v => describe(lower(v), 'abdome ', /^(abdome|abdomen)/i),
+                    ruidos: v => negative(v) ? 'ruídos hidroaéreos ausentes' : describe(lower(v), 'ruídos hidroaéreos ', /^(ruidos|ruídos|RHA)/i),
+                    dieta: v => describe(lower(v), 'dieta ', /^(dieta|em jejum|jejum|sem dieta)/i),
+                    eliminacoes: v => describe(lower(v), 'evacuações ', /^(evacua|sem |ultima|última)/i),
+                    sondas: v => lower(v),
+                    sangramento: v => negative(v) ? 'sem sangramento digestivo' : describe(lower(v), 'sangramento digestivo ', /^(sangramento|sem |melena|hemate|hemato)/i)
+                },
+                rm: {
+                    diurese: v => describe(v, 'diurese de ', /^(diurese|anur|oligur|sem )/i),
+                    balanco: v => describe(v, 'balanço hídrico de ', /^(balan|BH\b)/i),
+                    renal: v => describe(v, 'avaliação renal com ', /^(ureia|creatinina|Cr\b|funcao|função)/i),
+                    eletrolitos: v => describe(v, 'eletrólitos com ', /^(eletr|Na\b|K\b|sodio|sódio|pot)/i),
+                    glicemia: v => describe(unit(v, 'mg/dL'), 'glicemia ', /^(glicemia|HGT)/i),
+                    acido: v => lower(v),
+                    dialise: v => negative(v) ? 'sem terapia renal substitutiva' : describe(v, 'em terapia renal substitutiva por ', /^(em |sem |hemodia|dialise|diálise|TRS)/i)
+                },
+                hi: {
+                    febre: v => negative(v) ? 'sem febre documentada' : lower(v),
+                    foco: v => negative(v) ? 'sem foco infeccioso identificado' : describe(lower(v), 'foco infeccioso ', /^(foco|suspeita|sem |nao|não)/i),
+                    pele: v => lower(v),
+                    hemograma: v => describe(v, 'hemograma com ', /^(hemograma|Hb\b|hemoglobina|leuco|plaq)/i),
+                    coagulacao: v => describe(v, 'coagulação com ', /^(coagula|INR|TTP|TP\b)/i),
+                    sangramento: v => negative(v) ? 'sem sangramentos descritos' : lower(v),
+                    culturas: v => describe(v, 'culturas ', /^(culturas|hemocultura|urocultura|aguard|nao|não)/i),
+                    antimicrobianos: v => negative(v) ? 'sem antimicrobianos em uso' : describe(v, 'em uso de ', /^(em uso|sem |sob )/i)
+                }
+            };
+            const order = section === 'general' ? ['aspecto', 'consciencia', 'hidratacao', 'cor', 'temperatura', 'dor'] : definition.fields.map(f => f.key);
+            for (const key of order) {
+                const value = get(key);
+                if (value) add(transforms[section][key](value));
             }
-            const notes = (this.form.uti.evolucao[section] || '').trim();
-            if (notes) sentences.push(notes.replace(/[.;]+$/, ''));
-            return sentences.length ? sentences.join('; ') + '.' : '';
+            let text = phrases.join(', ');
+            if (text) text = text[0].toUpperCase() + text.slice(1) + '.';
+            const notes = clean(this.form.uti.evolucao[section]);
+            if (notes && !phrases.some(p => normalize(p) === normalize(notes))) text += (text ? ' ' : '') + notes + (/[!?]$/.test(notes) ? '' : '.');
+            return text;
         },
 
         setAdmissionNormal(section) {

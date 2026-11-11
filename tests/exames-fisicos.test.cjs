@@ -205,10 +205,35 @@ test('admissão por sistemas omite vazios, preserva zero, unidade e texto livre'
  f.form.uti.evolucao.sr='Sem esforço respiratório.';
  const text=f.generateEvolucaoCritico();
  assert.match(text,/ADMISSÃO MÉDICA -/);assert.doesNotMatch(text,/PADRÃO/);
- assert.match(text,/NEURO: RASS: 0\./);
- assert.match(text,/SCV: Frequência cardíaca: 94 bpm\./);
+ assert.match(text,/NEURO: RASS 0\./);
+ assert.match(text,/SCV: FC 94 bpm\./);
  assert.match(text,/SR: Sem esforço respiratório\./);
  assert.doesNotMatch(text,/mg\/dL mg\/dL|H\/I:/);
  f.setAdmissionValue('scv','fc','');assert.equal(f.admissionSystemText('scv'),'');
  f.resetForm();assert.doesNotMatch(f.generateEvolucaoCritico(),/AVALIAÇÃO POR SISTEMAS/);
+});
+
+test('narrativa de estado geral mantém apenas achados documentados',()=>{
+ const f=newForm();
+ Object.assign(f.form.uti.systems,{general:{aspecto:'Regular',consciencia:'Sonolento',cor:'Ausente',hidratacao:'Normohidratado',temperatura:'36',dor:'Confortável, sem fácies de dor'}});
+ assert.equal(f.admissionSystemText('general'),'Paciente em regular estado geral, sonolento, normohidratado, acianótico e anictérico, T 36 °C, confortável, sem fácies de dor.');
+ f.form.uti.systems.general={temperatura:'36'};
+ assert.equal(f.admissionSystemText('general'),'T 36 °C.');
+});
+test('todos os campos dos sete sistemas geram narrativa sem rótulos de formulário',()=>{
+ const f=newForm();
+ for(const system of f.admissionSystems){
+  for(const field of system.fields){
+   f.form.uti.systems={};f.setAdmissionValue(system.id,field.key,'Achado específico');
+   const text=f.admissionSystemText(system.id);
+   assert.ok(text.includes('Achado específico') || text.includes('achado específico'),system.id+'.'+field.key);
+   assert.doesNotMatch(text,/undefined|null|: Achado/);
+  }
+ }
+ f.form.uti.systems={};f.setAdmissionValue('scv','pa','120x80');
+ assert.equal(f.admissionSystemText('scv'),'PA 120x80 mmHg.');
+ f.setAdmissionValue('scv','pa','120x80 mmHg');assert.equal(f.admissionSystemText('scv'),'PA 120x80 mmHg.');
+ f.form.uti.systems={};f.setAdmissionValue('hi','culturas','Aguardando resultado');
+ assert.equal(f.admissionSystemText('hi'),'Aguardando resultado.');
+ assert.doesNotMatch(f.admissionSystemText('hi'),/negativ/);
 });
