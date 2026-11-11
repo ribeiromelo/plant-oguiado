@@ -232,9 +232,13 @@ app.get('/receituario', (c) => {
                             <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-map-marker-alt text-blue-500"></i> UF</label>
                             <input type="text" x-model="doctor.uf" class="w-full px-4 py-3 bg-white border border-slate-300 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/15 focus:border-blue-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm uppercase" placeholder="SP" maxlength="2">
                         </div>
-                        <div class="col-span-12">
+                        <div class="col-span-12 sm:col-span-8">
                             <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-clinic-medical text-blue-500"></i> Endereço / Clínica</label>
                             <input type="text" x-model="doctor.address" class="w-full px-4 py-3 bg-white border border-slate-300 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/15 focus:border-blue-500 hover:border-slate-300 transition-all text-sm font-semibold text-slate-900 placeholder-slate-400 shadow-sm" placeholder="Rua das Flores, 123 - Centro, São Paulo - SP">
+                        </div>
+                        <div class="col-span-12 sm:col-span-4">
+                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5">Telefone do emitente</label>
+                            <input type="tel" x-model="doctor.phone" class="form-input" placeholder="(00) 00000-0000">
                         </div>
 
                         <!-- LOGO -->
@@ -440,11 +444,12 @@ app.get('/receituario', (c) => {
                                     <span x-text="via === 1 ? '1ª via — retenção da farmácia ou drogaria' : '2ª via — orientação ao paciente'"></span>
                                 </header>
                                 <div class="pg-special-identification">
-                                    <div class="pg-special-info-box">
+                    <div class="pg-special-info-box">
                                         <h2>Identificação do emitente</h2>
                                         <p><b>Nome:</b> <span x-text="doctor.name || '________________________________'"></span></p>
                                         <p><b>CRM/UF:</b> <span x-text="(doctor.crm || '________') + '/' + (doctor.uf || '___')"></span></p>
                                         <p><b>Endereço:</b> <span x-text="doctor.address || '________________________________'"></span></p>
+                                        <p><b>Telefone:</b> <span x-text="doctor.phone || '________________'"></span></p>
                                     </div>
                                     <div class="pg-special-info-box">
                                         <h2>Identificação do paciente</h2>
@@ -726,7 +731,7 @@ app.get('/receituario', (c) => {
             document.addEventListener('alpine:init', () => {
                 Alpine.data('receituarioApp', () => ({
                     tipo: 'simples',
-                    doctor: { name: '', crm: '', uf: '', address: '', logo: '' },
+                    doctor: { name: '', crm: '', uf: '', address: '', phone: '', logo: '' },
                     patient: { name: '', cpf: '', address: '' },
                     date: new Date().toISOString().split('T')[0],
                     meds: [],
