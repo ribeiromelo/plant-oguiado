@@ -37,6 +37,7 @@ document.addEventListener('alpine:init', () => {
                 intestine: false,
                 urinary: false
             },
+            visibility: { soapVitals: true, paVitals: true, paAI: true },
             vitals: {
                 pa: '',
                 pas: '',
@@ -92,6 +93,7 @@ document.addEventListener('alpine:init', () => {
                 hda: '',
                 devices: [],
                 evolucao: {
+                    general: '',
                     neuro: '',
                     scv: '',
                     sr: '',
@@ -208,6 +210,8 @@ document.addEventListener('alpine:init', () => {
                 ef_ap: '',
                 ef_ac: '',
                 ef_abd: '',
+                ef_neuro: '',
+                ef_extremidades: '',
                 ef_outros: '',
                 ef_adicionais: [],
                 pa_diagnoses: [],
@@ -258,32 +262,317 @@ document.addEventListener('alpine:init', () => {
         calcSearch: '',
         selectedCalc: null,
         calculators: [
-            { id: 'ckd', name: 'Filtro Glomerular (CKD-EPI 2021)', category: 'Nefrologia' },
-            { id: 'curb65', name: 'CURB-65 (Pneumonia)', category: 'Pneumologia' },
-            { id: 'chads', name: 'CHA2DS2-VASc', category: 'Cardiologia' },
-            { id: 'wells_tvp', name: 'Escore de Wells (TVP)', category: 'Vascular' },
-            { id: 'wells_tep', name: 'Escore de Wells (TEP)', category: 'Vascular' },
-            { id: 'glasgow', name: 'Escala de Glasgow', category: 'Neurologia' },
-            { id: 'nihss', name: 'NIHSS (AVC)', category: 'Neurologia' },
-            { id: 'imc', name: 'IMC', category: 'Geral' },
-            { id: 'has_bled', name: 'HAS-BLED', category: 'Cardiologia' },
-            { id: 'perc', name: 'PERC Rule (TEP)', category: 'Vascular' },
-            { id: 'carga_tabagica', name: 'Carga Tabágica (Anos-Maço)', category: 'Pneumologia' },
-            { id: 'carga_etilica', name: 'Carga Etílica (g/dia)', category: 'Geral' }
+            { id: 'ckd', name: 'Filtro Glomerular (CKD-EPI 2021)', category: 'Nefrologia', source: 'https://www.niddk.nih.gov/research-funding/research-programs/kidney-clinical-research-epidemiology/laboratory/glomerular-filtration-rate-equations/adults' },
+            { id: 'curb65', name: 'CURB-65 (Pneumonia)', category: 'Pneumologia', source: 'https://www.mdcalc.com/calc/324/curb-65-score-pneumonia-severity' },
+            { id: 'chads', name: 'CHA2DS2-VASc', category: 'Cardiologia', source: 'https://www.mdcalc.com/calc/801/cha2ds2-vasc-score-atrial-fibrillation-stroke-risk' },
+            { id: 'wells_tvp', name: 'Escore de Wells (TVP)', category: 'Vascular', source: 'https://www.mdcalc.com/calc/362/wells-criteria-dvt' },
+            { id: 'wells_tep', name: 'Escore de Wells (TEP)', category: 'Vascular', source: 'https://www.mdcalc.com/calc/115/wells-criteria-pulmonary-embolism' },
+            { id: 'glasgow', name: 'Escala de Glasgow', category: 'Neurologia', source: 'https://www.mdcalc.com/calc/64/glasgow-coma-scale-score-gcs' },
+            { id: 'nihss', name: 'NIHSS (AVC)', category: 'Neurologia', source: 'https://www.mdcalc.com/calc/715/nih-stroke-scale-score-nihss', external: true, description: 'Escala completa para avaliação do AVC, com instruções de aplicação no MDCalc.' },
+            { id: 'imc', name: 'IMC', category: 'Geral', source: 'https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html' },
+            { id: 'has_bled', name: 'HAS-BLED', category: 'Cardiologia', source: 'https://www.mdcalc.com/calc/807/has-bled-score-major-bleeding-risk' },
+            { id: 'perc', name: 'PERC Rule (TEP)', category: 'Vascular', source: 'https://www.mdcalc.com/calc/347/perc-rule-pulmonary-embolism' },
+            { id: 'carga_tabagica', name: 'Carga Tabágica (Anos-Maço)', category: 'Pneumologia', source: 'https://www.cancer.gov/publications/dictionaries/cancer-terms/def/pack-year' },
+            { id: 'carga_etilica', name: 'Carga Etílica (g/dia)', category: 'Geral', source: 'https://www.niaaa.nih.gov/alcohols-effects-health/what-standard-drink' },
+            {"id": "pam", "name": "Pressão arterial média (PAM)", "category": "Hemodinâmica", "source": "https://www.mdcalc.com/calc/74/mean-arterial-pressure-map", "description": "Estimativa a partir de PAS e PAD: (PAS + 2 × PAD) / 3. Não substitui a medida invasiva.", "external": false},
+            {"id": "anion_gap", "name": "Ânion gap (sem potássio)", "category": "Metabólico", "source": "https://www.mdcalc.com/calc/1669/anion-gap", "description": "Na − (Cl + HCO₃), em mEq/L. Sem correção por albumina; use o MDCalc se precisar dessa correção.", "external": false},
+            {"id": "qsofa", "name": "qSOFA", "category": "Sepse", "source": "https://www.mdcalc.com/calc/2654/qsofa-quick-sofa-score-sepsis", "description": "Em adultos com suspeita de infecção fora da UTI. Não diagnostica nem exclui sepse.", "external": false},
+            {"id": "heart", "name": "HEART (dor torácica)", "category": "Cardiologia", "source": "https://www.mdcalc.com/calc/1752/heart-score-major-cardiac-events", "description": "Estratificação na dor torácica; inclui história, ECG e troponina.", "external": true},
+            {"id": "news2", "name": "NEWS2", "category": "Urgência", "source": "https://www.mdcalc.com/calc/10083/national-early-warning-score-news-2", "description": "Escore de deterioração clínica; confira a indicação da escala de saturação.", "external": true},
+            {"id": "sofa", "name": "SOFA", "category": "Terapia intensiva", "source": "https://www.mdcalc.com/calc/691/sequential-organ-failure-assessment-sofa-score", "description": "Disfunção orgânica por sistemas e parâmetros laboratoriais.", "external": true},
+            {"id": "saps3", "name": "SAPS 3", "category": "Terapia intensiva", "source": "https://www.mdcalc.com/calc/10403/simplified-acute-physiology-score-saps-3", "description": "Avaliação prognóstica na admissão à UTI.", "external": true},
+            {"id": "cockcroft", "name": "Clearance de creatinina (Cockcroft–Gault)", "category": "Nefrologia", "source": "https://www.mdcalc.com/calc/43/creatinine-clearance-cockcroft-gault-equation", "description": "Estimativa de clearance; conferir peso e estabilidade da função renal.", "external": true},
+            {"id": "sodio", "name": "Sódio corrigido na hiperglicemia", "category": "Metabólico", "source": "https://www.mdcalc.com/calc/50/sodium-correction-hyperglycemia", "description": "Correção do sódio na presença de hiperglicemia.", "external": true},
+            {"id": "qtc", "name": "QT corrigido (QTc)", "category": "Cardiologia", "source": "https://www.mdcalc.com/calc/48/corrected-qt-interval-qtc", "description": "Comparação das fórmulas de correção do QT.", "external": true},
+            {"id": "gbs", "name": "Glasgow-Blatchford (HDA)", "category": "Gastroenterologia", "source": "https://www.mdcalc.com/calc/518/glasgow-blatchford-bleeding-score-gbs", "description": "Estratificação da hemorragia digestiva alta.", "external": true},
+            {"id": "bisap", "name": "BISAP (pancreatite)", "category": "Gastroenterologia", "source": "https://www.mdcalc.com/calc/1735/bisap-score-pancreatitis-mortality", "description": "Escore para a avaliação inicial da pancreatite.", "external": true},
+            {"id": "ottawa", "name": "Ottawa (tornozelo e pé)", "category": "Trauma", "source": "https://www.mdcalc.com/calc/1670/ottawa-ankle-rule", "description": "Critérios de avaliação para radiografia após trauma.", "external": true},
+            {"id": "pecarn", "name": "PECARN (trauma craniano pediátrico)", "category": "Pediatria", "source": "https://www.mdcalc.com/calc/589/pecarn-pediatric-head-injury-trauma-algorithm", "description": "Algoritmo por faixa etária; conferir os critérios de inclusão.", "external": true},
+            {"id": "canadian_ct", "name": "Canadian CT Head Rule", "category": "Trauma", "source": "https://www.mdcalc.com/calc/608/canadian-ct-head-injury-trauma-rule", "description": "Regra de TC no trauma craniano; conferir elegibilidade.", "external": true},
+            {"id": "years", "name": "YEARS (TEP)", "category": "Vascular", "source": "https://www.mdcalc.com/calc/4067/years-algorithm-for-pulmonary-embolism-pe", "description": "Algoritmo de investigação de TEP com D-dímero.", "external": true}
         ],
+        scoreDefinitions: {
+    "curb65": [
+        {
+            "key": "conf",
+            "label": "Confusão mental nova",
+            "weight": 1
+        },
+        {
+            "key": "uremia",
+            "label": "Ureia > 7 mmol/L (≈42 mg/dL); BUN > 19,6 mg/dL",
+            "weight": 1
+        },
+        {
+            "key": "resp",
+            "label": "Frequência respiratória ≥ 30 irpm",
+            "weight": 1
+        },
+        {
+            "key": "bp",
+            "label": "PAS < 90 ou PAD ≤ 60 mmHg",
+            "weight": 1
+        },
+        {
+            "key": "age65",
+            "label": "Idade ≥ 65 anos",
+            "weight": 1
+        }
+    ],
+    "chads": [
+        {
+            "key": "chf",
+            "label": "Insuficiência cardíaca ou disfunção ventricular esquerda",
+            "weight": 1
+        },
+        {
+            "key": "htn",
+            "label": "Hipertensão arterial",
+            "weight": 1
+        },
+        {
+            "key": "age",
+            "label": "Faixa etária",
+            "weight": 1
+        },
+        {
+            "key": "dm",
+            "label": "Diabetes mellitus",
+            "weight": 1
+        },
+        {
+            "key": "stroke",
+            "label": "AVC, AIT ou tromboembolismo prévios",
+            "weight": 2
+        },
+        {
+            "key": "vasc",
+            "label": "Doença vascular (IAM, DAP ou placa aórtica)",
+            "weight": 1
+        },
+        {
+            "key": "female",
+            "label": "Sexo feminino",
+            "weight": 1
+        }
+    ],
+    "wells_tvp": [
+        {
+            "key": "cancer",
+            "label": "Câncer ativo: tratamento nos últimos 6 meses ou paliativo",
+            "weight": 1
+        },
+        {
+            "key": "paralysis",
+            "label": "Paralisia, paresia ou imobilização gessada recente de membro inferior",
+            "weight": 1
+        },
+        {
+            "key": "bedridden",
+            "label": "Acamado por mais de 3 dias ou cirurgia maior nas últimas 12 semanas",
+            "weight": 1
+        },
+        {
+            "key": "tenderness",
+            "label": "Dor localizada no trajeto venoso profundo",
+            "weight": 1
+        },
+        {
+            "key": "swelling",
+            "label": "Edema de toda a perna",
+            "weight": 1
+        },
+        {
+            "key": "calf",
+            "label": "Panturrilha > 3 cm maior, medida 10 cm abaixo da tuberosidade tibial",
+            "weight": 1
+        },
+        {
+            "key": "edema",
+            "label": "Edema depressível restrito à perna sintomática",
+            "weight": 1
+        },
+        {
+            "key": "collat",
+            "label": "Veias superficiais colaterais não varicosas",
+            "weight": 1
+        },
+        {
+            "key": "history",
+            "label": "TVP prévia documentada",
+            "weight": 1
+        },
+        {
+            "key": "alternative",
+            "label": "Diagnóstico alternativo tão ou mais provável que TVP",
+            "weight": -2
+        }
+    ],
+    "wells_tep": [
+        {
+            "key": "dvt",
+            "label": "Sinais clínicos de TVP",
+            "weight": 3
+        },
+        {
+            "key": "hr",
+            "label": "Frequência cardíaca > 100 bpm",
+            "weight": 1.5
+        },
+        {
+            "key": "immob",
+            "label": "Imobilização ≥ 3 dias ou cirurgia nas últimas 4 semanas",
+            "weight": 1.5
+        },
+        {
+            "key": "history",
+            "label": "TVP ou TEP prévios",
+            "weight": 1.5
+        },
+        {
+            "key": "hemoptysis",
+            "label": "Hemoptise",
+            "weight": 1
+        },
+        {
+            "key": "cancer",
+            "label": "Câncer tratado nos últimos 6 meses ou paliativo",
+            "weight": 1
+        },
+        {
+            "key": "alternative",
+            "label": "TEP é o diagnóstico mais provável ou igualmente provável",
+            "weight": 3
+        }
+    ],
+    "has_bled": [
+        {
+            "key": "htn",
+            "label": "Hipertensão não controlada (PAS > 160 mmHg)",
+            "weight": 1
+        },
+        {
+            "key": "renal",
+            "label": "Diálise, transplante renal ou creatinina > 2,26 mg/dL",
+            "weight": 1
+        },
+        {
+            "key": "liver",
+            "label": "Cirrose ou bilirrubina > 2× e AST/ALT/FA > 3× o limite normal",
+            "weight": 1
+        },
+        {
+            "key": "stroke",
+            "label": "AVC prévio",
+            "weight": 1
+        },
+        {
+            "key": "bleeding",
+            "label": "Sangramento maior prévio ou predisposição",
+            "weight": 1
+        },
+        {
+            "key": "inr",
+            "label": "INR lábil / tempo na faixa terapêutica < 60%",
+            "weight": 1
+        },
+        {
+            "key": "age65",
+            "label": "Idade > 65 anos",
+            "weight": 1
+        },
+        {
+            "key": "drugs",
+            "label": "Antiagregante ou anti-inflamatório não esteroidal",
+            "weight": 1
+        },
+        {
+            "key": "alcohol",
+            "label": "Álcool ≥ 8 doses por semana",
+            "weight": 1
+        }
+    ],
+    "perc": [
+        {
+            "key": "lowRisk",
+            "label": "Probabilidade pré-teste baixa (< 15%), avaliada clinicamente",
+            "weight": 0
+        },
+        {
+            "key": "age50",
+            "label": "Idade ≥ 50 anos",
+            "weight": 1
+        },
+        {
+            "key": "hr100",
+            "label": "Frequência cardíaca ≥ 100 bpm",
+            "weight": 1
+        },
+        {
+            "key": "sat95",
+            "label": "SpO₂ < 95% em ar ambiente",
+            "weight": 1
+        },
+        {
+            "key": "hemoptysis",
+            "label": "Hemoptise",
+            "weight": 1
+        },
+        {
+            "key": "estrogen",
+            "label": "Uso de hormônios estrogênicos",
+            "weight": 1
+        },
+        {
+            "key": "dvt",
+            "label": "TVP ou TEP prévios",
+            "weight": 1
+        },
+        {
+            "key": "surgery",
+            "label": "Cirurgia ou trauma há ≤ 4 semanas com anestesia geral",
+            "weight": 1
+        },
+        {
+            "key": "leg",
+            "label": "Edema unilateral de membro inferior",
+            "weight": 1
+        }
+    ],
+    "qsofa": [
+        {
+            "key": "mental",
+            "label": "Alteração do estado mental (Glasgow < 15)",
+            "weight": 1
+        },
+        {
+            "key": "resp",
+            "label": "Frequência respiratória ≥ 22 irpm",
+            "weight": 1
+        },
+        {
+            "key": "bp",
+            "label": "Pressão arterial sistólica ≤ 100 mmHg",
+            "weight": 1
+        }
+    ]
+},
         // Calculator Inputs
         calcInputs: {
+            pam: { pas: '', pad: '' },
+            anion_gap: { na: '', cl: '', hco3: '' },
+            qsofa: {"mental": -1, "resp": -1, "bp": -1},
             ckd: { creat: '', age: '', sex: 'male' },
-            curb65: { conf: false, uremia: false, resp: false, bp: false, age65: false },
-            chads: { chf: false, htn: false, age75: false, dm: false, stroke: false, vasc: false, age65_74: false, female: false },
-            wells_tvp: { cancer: false, paralysis: false, bedridden: false, tenderness: false, swelling: false, calf: false, edema: false, collat: false, history: false, alternative: false },
-            wells_tep: { dvt: false, hr: false, immob: false, history: false, hemoptysis: false, cancer: false, alternative: false },
+            curb65: {"conf": -1, "uremia": -1, "resp": -1, "bp": -1, "age65": -1},
+            chads: {"chf": -1, "htn": -1, "age": -1, "dm": -1, "stroke": -1, "vasc": -1, "female": -1},
+            wells_tvp: {"cancer": -1, "paralysis": -1, "bedridden": -1, "tenderness": -1, "swelling": -1, "calf": -1, "edema": -1, "collat": -1, "history": -1, "alternative": -1},
+            wells_tep: {"dvt": -1, "hr": -1, "immob": -1, "history": -1, "hemoptysis": -1, "cancer": -1, "alternative": -1},
             carga_tabagica: { cigarros_dia: '', anos: '' },
             carga_etilica: { doses_dia: '', tipo_bebida: 'cerveja', gramas_dia: '' },
-            glasgow: { eye: 4, verbal: 5, motor: 6 },
-            imc: { weight: '', height: '' },
-            has_bled: { htn: false, renal: false, liver: false, stroke: false, bleeding: false, inr: false, age65: false, drugs: false, alcohol: false },
-            perc: { age50: false, hr100: false, sat95: false, hemoptysis: false, estrogen: false, dvt: false, surgery: false, leg: false }
+            glasgow: { eye: '', verbal: '', motor: '' },
+            imc: { weight: '', height: '', age: '' },
+            has_bled: {"htn": -1, "renal": -1, "liver": -1, "stroke": -1, "bleeding": -1, "inr": -1, "age65": -1, "drugs": -1, "alcohol": -1},
+            perc: {"lowRisk": -1, "age50": -1, "hr100": -1, "sat95": -1, "hemoptysis": -1, "estrogen": -1, "dvt": -1, "surgery": -1, "leg": -1},
         },
         calcResult: null,
         calcResultText: '',
@@ -305,22 +594,30 @@ document.addEventListener('alpine:init', () => {
             { id: 'geniturinario', label: 'Geniturinário', icon: 'fas fa-venus-mars', normal: 'Genitália externa examinada sem lesões visíveis.' },
             { id: 'osteoarticular', label: 'Osteoarticular', icon: 'fas fa-bone', normal: 'Articulações examinadas sem edema ou eritema, com amplitude de movimento preservada.' },
             { id: 'vascular', label: 'Vascular Periférico', icon: 'fas fa-wave-square', normal: 'Pulsos periféricos examinados palpáveis e simétricos. Extremidades aquecidas, sem edema.' },
-            { id: 'psiquiatrico', label: 'Psiquiátrico', icon: 'fas fa-brain', normal: 'Vigil, com orientação em tempo e espaço preservada e discurso coerente.' }
+            { id: 'psiquiatrico', label: 'Psiquiátrico', icon: 'fas fa-brain', normal: 'Vigil, com orientação em tempo e espaço preservada e discurso coerente.' },
+            { id: 'ocular', label: 'Exame ocular externo', icon: 'fas fa-eye', normal: 'Conjuntivas sem hiperemia e escleras anictéricas. Sem secreção ocular visível.' },
+            { id: 'cervical', label: 'Região cervical', icon: 'fas fa-user', normal: 'Pescoço sem massas palpáveis, com mobilidade preservada e indolor ao exame.' },
+            { id: 'hidratacao', label: 'Hidratação', icon: 'fas fa-tint', normal: 'Mucosas úmidas, com turgor cutâneo preservado ao exame.' },
+            { id: 'perfusao', label: 'Perfusão periférica', icon: 'fas fa-hand-paper', normal: 'Extremidades aquecidas, com tempo de enchimento capilar de até 2 segundos nos locais examinados.' },
+            { id: 'marcha', label: 'Marcha', icon: 'fas fa-walking', normal: 'Marcha observada estável, sem desvios ou necessidade de apoio.' },
+            { id: 'coordenacao', label: 'Coordenação', icon: 'fas fa-hand-point-up', normal: 'Provas índex-nariz e calcanhar-joelho realizadas sem dismetria.' },
+            { id: 'forca', label: 'Força muscular', icon: 'fas fa-hand-rock', normal: 'Força muscular grau 5 nos grupos musculares testados, simétrica bilateralmente.' },
+            { id: 'sensibilidade', label: 'Sensibilidade', icon: 'fas fa-hand-paper', normal: 'Sensibilidade tátil preservada e simétrica nos territórios examinados.' }
         ],
 
         get filteredCalculators() {
-            return this.calculators.filter(c => 
-                c.name.toLowerCase().includes(this.calcSearch.toLowerCase()) ||
-                c.category.toLowerCase().includes(this.calcSearch.toLowerCase())
-            );
+            const normalize = value => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+            const query = normalize(this.calcSearch.trim());
+            return this.calculators.filter(c => normalize(c.name + ' ' + c.category).includes(query));
         },
 
         init() {
             // Auto-fill age in calculators from form
             this.$watch('form.age', (value) => {
-                if (value) {
-                    this.calcInputs.ckd.age = value;
-                }
+                this.calcInputs.ckd.age = value || '';
+                this.calcInputs.imc.age = value || '';
+                this.calcResult = null;
+                this.calcResultText = '';
             });
             this.$watch('form.gender', (value) => {
                 this.calcInputs.ckd.sex = value === 'Masculino' ? 'male' : 'female';
@@ -892,9 +1189,35 @@ document.addEventListener('alpine:init', () => {
         },
 
         setPANormal(section) {
-            const sections = { geral: 'general', ap: 'pulmonary', ac: 'cardiac', abd: 'abdominal', outros: 'extremities' };
+            const sections = { geral: 'general', ap: 'pulmonary', ac: 'cardiac', abd: 'abdominal', neuro: 'neuro', extremidades: 'extremities', outros: 'extremities' };
             const field = sections[section];
             if (field) this.form.pa['ef_' + section] = this.normalExamText(field);
+        },
+
+        addPAExam(id, label) {
+            if (!this.form.pa.ef_adicionais.some(ex => ex.id === id)) {
+                this.form.pa.ef_adicionais.push({ id, nome: label, resultado: '' });
+            }
+        },
+
+        addPACustomExam() {
+            const label = prompt('Nome do exame físico adicional:');
+            if (label && label.trim()) this.addPAExam('custom_' + Date.now() + '_' + Math.random().toString(36).slice(2), label.trim());
+        },
+
+        setPAAdditionalNormal(index) {
+            const exam = this.form.pa.ef_adicionais[index];
+            const option = exam && this.additionalExamOptions.find(item => item.id === exam.id);
+            if (option) exam.resultado = option.normal;
+        },
+
+        setAdmissionNormal(section) {
+            const sections = { general: 'general', neuro: 'neuro', scv: 'cardiac', sr: 'pulmonary', tgi: 'abdominal', extr: 'extremities' };
+            const clinical = {
+                rm: 'Mucosas úmidas, sem edema periférico ou distensão suprapúbica ao exame.',
+                hi: 'Pele e mucosas examinadas sem petéquias, equimoses ou sangramento visível.'
+            };
+            this.form.uti.evolucao[section] = clinical[section] || this.normalExamText(sections[section]);
         },
 
         // Exames físicos adicionais
@@ -960,22 +1283,31 @@ document.addEventListener('alpine:init', () => {
 
         // Adiciona resultado ao exame físico
         addToExam(field, text) {
-            if (text) {
-                if (this.form.exam[field]) {
-                    this.form.exam[field] += ' ' + text;
+            if (!text) return;
+            let target = this.form.exam;
+            let key = field;
+            if (this.form.serviceType === 'pa_pro') {
+                target = this.form.pa;
+                key = { general: 'ef_geral', cardiac: 'ef_ac', pulmonary: 'ef_ap', abdominal: 'ef_abd', neuro: 'ef_neuro', extremities: 'ef_extremidades' }[field];
+            } else if (this.form.serviceType === 'salavermelha') {
+                if (this.form.utiTemplate === 'xabcde') {
+                    target = this.form.xabcde;
+                    key = 'impressao_hipotese';
                 } else {
-                    this.form.exam[field] = text;
+                    target = this.form.uti.evolucao;
+                    key = { general: 'general', cardiac: 'scv', pulmonary: 'sr', abdominal: 'tgi', neuro: 'neuro', extremities: 'extr' }[field];
                 }
-                this.showCalculators = false;
             }
+            if (key) target[key] = target[key] ? target[key] + ' ' + text : text;
+            this.showCalculators = false;
         },
 
         // Gera texto formatado para cada calculadora
         getCalcTextForExam(calcId) {
             switch(calcId) {
                 case 'glasgow':
-                    const gTotal = this.calcInputs.glasgow.eye + this.calcInputs.glasgow.verbal + this.calcInputs.glasgow.motor;
-                    return `Glasgow ${gTotal} (O${this.calcInputs.glasgow.eye}V${this.calcInputs.glasgow.verbal}M${this.calcInputs.glasgow.motor}).`;
+                    this.calculateGlasgow();
+                    return this.glasgowComplete() ? this.calcResultText : '';
                 case 'curb65':
                     return `CURB-65: ${this.calcResult} pontos.`;
                 case 'chads':
@@ -997,7 +1329,69 @@ document.addEventListener('alpine:init', () => {
             }
         },
 
+        openCalculator(id) {
+            this.selectedCalc = typeof id === 'string' ? id : id.id;
+            this.calcResult = null;
+            this.calcResultText = '';
+            this.showCalculators = true;
+        },
+
+        get activeCalculator() { return this.calculators.find(c => c.id === this.selectedCalc); },
+
+        calculateScore(id) {
+            this.calcResult = null;
+            this.calcResultText = '';
+            const rows = this.scoreDefinitions[id];
+            const values = this.calcInputs[id];
+            if (!rows || rows.some(row => !((id === 'chads' && row.key === 'age' ? [0, 1, 2] : [0, 1]).includes(values[row.key])))) {
+                this.calcResultText = 'Responda todos os critérios para calcular.';
+                return;
+            }
+            if (id === 'perc' && values.lowRisk !== 1) {
+                this.calcResultText = 'PERC não aplicável sem probabilidade pré-teste baixa.';
+                return;
+            }
+            const score = rows.reduce((total, row) => total + values[row.key] * row.weight, 0);
+            this.calcResult = score;
+            const notes = {
+                curb65: score <= 1 ? 'Faixa de menor risco (0–1).' : score === 2 ? 'Faixa intermediária (2).' : 'Faixa de maior risco (3–5).',
+                chads: 'Escore de risco tromboembólico na fibrilação atrial. A decisão terapêutica exige avaliação individual e diretriz vigente.',
+                wells_tvp: score <= 0 ? 'Probabilidade baixa no modelo de três níveis.' : score <= 2 ? 'Probabilidade intermediária no modelo de três níveis.' : 'Probabilidade alta no modelo de três níveis.',
+                wells_tep: score <= 4 ? 'TEP improvável pelo modelo de dois níveis (≤ 4); não exclui o diagnóstico.' : 'TEP provável pelo modelo de dois níveis (> 4); exige investigação.',
+                has_bled: score >= 3 ? 'Maior risco de sangramento (≥ 3). Revisar fatores modificáveis; não contraindica anticoagulação isoladamente.' : 'Revisar fatores de sangramento. Pontuação baixa não garante segurança da anticoagulação.',
+                perc: score === 0 ? 'Nenhum critério positivo em paciente de baixo risco. Aplicar apenas no contexto de elegibilidade da regra.' : 'Há critérios positivos; PERC não permite encerrar a investigação.',
+                qsofa: score >= 2 ? 'Maior risco de desfecho adverso (≥ 2). Não é diagnóstico de sepse.' : 'qSOFA < 2 não exclui sepse ou deterioração clínica.'
+            };
+            this.calcResultText = notes[id];
+        },
+
+        calculateSimple(id) {
+            this.calcResult = null;
+            this.calcResultText = '';
+            const raw = this.calcInputs[id];
+            const fields = id === 'pam' ? ['pas', 'pad'] : ['na', 'cl', 'hco3'];
+            const values = fields.map(key => String(raw[key]).trim() === '' ? NaN : Number(raw[key]));
+            if (values.some(value => !Number.isFinite(value) || value <= 0) || (id === 'pam' && values[0] < values[1])) {
+                this.calcResultText = 'Informe valores positivos válidos nas unidades indicadas; PAS deve ser maior ou igual à PAD.';
+                return;
+            }
+            const value = id === 'pam' ? (values[0] + 2 * values[1]) / 3 : values[0] - values[1] - values[2];
+            this.calcResult = value.toFixed(1);
+            this.calcResultText = id === 'pam' ? 'PAM estimada em mmHg. A meta depende do contexto clínico.' : 'Ânion gap em mEq/L, sem K e sem correção por albumina. Compare com a referência do laboratório.';
+        },
+
         renderCalculator(id) {
+            const calculator = this.calculators.find(c => c.id === id);
+            if (calculator?.external) return `<div class="pg-external-calculator"><span class="pg-calc-badge">MDCalc · abre em nova aba</span><h4>${calculator.name}</h4><p>${calculator.description}</p><a class="pg-external-link" href="${calculator.source}" target="_blank" rel="noopener noreferrer">Abrir calculadora no MDCalc <i class="fas fa-external-link-alt"></i></a></div>`;
+            if (this.scoreDefinitions[id]) {
+                const fields = this.scoreDefinitions[id].map(row => `<label class="pg-score-row"><span>${row.label}</span><select aria-label="${row.label}" class="form-input" x-model.number="calcInputs.${id}.${row.key}" @change="calculateScore('${id}')"><option value="-1">Não informado</option>${id === 'chads' && row.key === 'age' ? '<option value="0">Menos de 65 anos</option><option value="1">65–74 anos (+1)</option><option value="2">75 anos ou mais (+2)</option>' : '<option value="0">Não</option><option value="1">Sim</option>'}</select></label>`).join('');
+                return `<div class="space-y-4 p-4"><h4 class="font-bold text-lg">${calculator.name}</h4><p class="text-sm text-slate-500">${calculator.description || 'Responda todos os critérios. O escore complementa a avaliação clínica.'}</p>${fields}<div class="pg-calc-result" aria-live="polite"><strong x-text="calcResult === null ? '—' : calcResult + ' pontos'"></strong><p x-text="calcResultText"></p></div><button type="button" class="pg-model-button" @click="calculateScore('${id}')">Calcular</button><button type="button" class="pg-model-button" x-show="calcResult !== null" @click="addToExam('${id === 'curb65' || id === 'wells_tep' || id === 'perc' ? 'pulmonary' : 'cardiac'}', '${calculator.name}: ' + calcResult + ' pontos.');">Adicionar ao registro atual</button></div>`;
+            }
+            if (id === 'pam' || id === 'anion_gap') {
+                const fields = id === 'pam' ? [['pas', 'PAS (mmHg)'], ['pad', 'PAD (mmHg)']] : [['na', 'Sódio (mEq/L)'], ['cl', 'Cloreto (mEq/L)'], ['hco3', 'Bicarbonato (mEq/L)']];
+                return `<div class="space-y-4 p-4"><h4 class="font-bold text-lg">${calculator.name}</h4><p class="text-sm text-slate-500">${calculator.description}</p>${fields.map(([key, label]) => `<label class="block">${label}<input type="number" step="any" min="0" class="form-input mt-2" x-model="calcInputs.${id}.${key}"></label>`).join('')}<button type="button" class="pg-model-button" @click="calculateSimple('${id}')">Calcular</button><div class="pg-calc-result" aria-live="polite"><strong x-text="calcResult === null ? '—' : calcResult"></strong><p x-text="calcResultText"></p></div><button type="button" class="pg-model-button" x-show="calcResult !== null" @click="addToExam('general', '${id === 'pam' ? 'PAM estimada' : 'Ânion gap sem K e sem correção por albumina'}: ' + calcResult + ' ${id === 'pam' ? 'mmHg' : 'mEq/L'}.')">Adicionar ao registro atual</button></div>`;
+            }
+
             // Botão comum para adicionar ao exame
             const addButtonHTML = (field, label) => `
                 <button x-show="calcResult !== null" 
@@ -1009,7 +1403,7 @@ document.addEventListener('alpine:init', () => {
 
             if (id === 'ckd') {
                 return `
-                    <div class="space-y-4 p-4">
+                    <div class="space-y-4 p-4"><p class="text-xs text-slate-500">Adultos ≥ 18 anos, creatinina em mg/dL e função renal estável. A categoria de TFG isolada não diagnostica doença renal crônica.</p>
                         <h4 class="font-bold text-lg text-gray-800 border-b pb-2">CKD-EPI 2021 (sem raça)</h4>
                         <p class="text-xs text-gray-500">Equação 2021 sem ajuste racial</p>
                         <div class="grid grid-cols-2 gap-4">
@@ -1033,7 +1427,7 @@ document.addEventListener('alpine:init', () => {
                             <button @click="calculateCKD()" class="bg-[#005f8f] text-white px-6 py-2 rounded-lg mb-3 hover:bg-[#004a70] transition-colors">
                                 <i class="fas fa-calculator mr-2"></i>Calcular
                             </button>
-                            <div x-show="calcResult">
+                            <p class="text-sm" x-show="calcResult === null" x-text="calcResultText"></p><div x-show="calcResult !== null">
                                 <p class="font-bold text-2xl text-[#005f8f]" x-text="calcResult + ' mL/min/1.73m²'"></p>
                                 <p class="text-sm mt-2" x-text="calcResultText"></p>
                                 ${addButtonHTML('general', 'Estado Geral')}
@@ -1044,271 +1438,30 @@ document.addEventListener('alpine:init', () => {
             }
             
             if (id === 'glasgow') {
-                return `
-                    <div class="space-y-4 p-4">
-                        <h4 class="font-bold text-lg text-gray-800 border-b pb-2">Escala de Coma de Glasgow</h4>
-                        <div>
-                            <label class="block text-sm font-bold mb-1">Abertura Ocular (O)</label>
-                            <select x-model.number="calcInputs.glasgow.eye" class="form-input" @change="calculateGlasgow()">
-                                <option value="4">4 - Espontânea</option>
-                                <option value="3">3 - Ao comando verbal</option>
-                                <option value="2">2 - Ao estímulo doloroso</option>
-                                <option value="1">1 - Ausente</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-bold mb-1">Resposta Verbal (V)</label>
-                            <select x-model.number="calcInputs.glasgow.verbal" class="form-input" @change="calculateGlasgow()">
-                                <option value="5">5 - Orientado</option>
-                                <option value="4">4 - Confuso</option>
-                                <option value="3">3 - Palavras inapropriadas</option>
-                                <option value="2">2 - Sons incompreensíveis</option>
-                                <option value="1">1 - Ausente</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-bold mb-1">Resposta Motora (M)</label>
-                            <select x-model.number="calcInputs.glasgow.motor" class="form-input" @change="calculateGlasgow()">
-                                <option value="6">6 - Obedece comandos</option>
-                                <option value="5">5 - Localiza dor</option>
-                                <option value="4">4 - Movimento de retirada</option>
-                                <option value="3">3 - Flexão anormal (Decorticação)</option>
-                                <option value="2">2 - Extensão anormal (Descerebração)</option>
-                                <option value="1">1 - Ausente</option>
-                            </select>
-                        </div>
-                        <div class="bg-purple-50 p-4 rounded-lg text-center mt-4 border border-purple-100">
-                            <p class="font-bold text-3xl text-purple-700">
-                                <span x-text="calcInputs.glasgow.eye + calcInputs.glasgow.verbal + calcInputs.glasgow.motor"></span>/15
-                            </p>
-                            <p class="text-sm text-purple-600 mt-1">
-                                O<span x-text="calcInputs.glasgow.eye"></span>V<span x-text="calcInputs.glasgow.verbal"></span>M<span x-text="calcInputs.glasgow.motor"></span>
-                            </p>
-                            <p class="text-xs text-gray-600 mt-2" x-text="getGlasgowInterpretation()"></p>
-                            <button @click="addToExam('neuro', 'Glasgow ' + (calcInputs.glasgow.eye + calcInputs.glasgow.verbal + calcInputs.glasgow.motor) + ' (O' + calcInputs.glasgow.eye + 'V' + calcInputs.glasgow.verbal + 'M' + calcInputs.glasgow.motor + ').')" 
-                                    class="mt-3 w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2 font-medium">
-                                <i class="fas fa-plus-circle"></i> Adicionar ao Neurológico
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }
-            
-            if (id === 'curb65') {
-                return `
-                    <div class="space-y-4 p-4">
-                        <h4 class="font-bold text-lg text-gray-800 border-b pb-2">CURB-65 (Pneumonia)</h4>
-                        <p class="text-xs text-gray-500 mb-4">Avalia gravidade da pneumonia comunitária</p>
-                        <div class="space-y-3">
-                            <label class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.curb65.conf" @change="calculateCURB65()" class="w-5 h-5 text-blue-600 rounded">
-                                <div>
-                                    <span class="font-bold">C</span>onfusão mental
-                                    <span class="text-xs text-gray-500 block">Desorientação em tempo, espaço ou pessoa</span>
-                                </div>
-                            </label>
-                            <label class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.curb65.uremia" @change="calculateCURB65()" class="w-5 h-5 text-blue-600 rounded">
-                                <div>
-                                    <span class="font-bold">U</span>reia > 43 mg/dL (ou >7 mmol/L)
-                                </div>
-                            </label>
-                            <label class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.curb65.resp" @change="calculateCURB65()" class="w-5 h-5 text-blue-600 rounded">
-                                <div>
-                                    <span class="font-bold">R</span>espiração ≥ 30 irpm
-                                </div>
-                            </label>
-                            <label class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.curb65.bp" @change="calculateCURB65()" class="w-5 h-5 text-blue-600 rounded">
-                                <div>
-                                    <span class="font-bold">B</span>lood Pressure: PAS < 90 ou PAD ≤ 60 mmHg
-                                </div>
-                            </label>
-                            <label class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.curb65.age65" @change="calculateCURB65()" class="w-5 h-5 text-blue-600 rounded">
-                                <div>
-                                    Idade ≥ <span class="font-bold">65</span> anos
-                                </div>
-                            </label>
-                        </div>
-                        <div class="bg-orange-50 p-4 rounded-lg text-center mt-4 border border-orange-100">
-                            <p class="font-bold text-3xl" :class="getCURB65Color()" x-text="calcResult !== null ? calcResult + ' pontos' : '-'"></p>
-                            <p class="text-sm mt-2" x-text="calcResultText"></p>
-                            ${addButtonHTML('pulmonary', 'Pulmonar')}
-                        </div>
-                    </div>
-                `;
-            }
-            
-            if (id === 'chads') {
-                return `
-                    <div class="space-y-4 p-4">
-                        <h4 class="font-bold text-lg text-gray-800 border-b pb-2">CHA₂DS₂-VASc</h4>
-                        <p class="text-xs text-gray-500 mb-4">Risco de AVC em FA não-valvar</p>
-                        <div class="space-y-2">
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.chads.chf" @change="calculateCHADS()" class="w-4 h-4 text-blue-600 rounded">
-                                <span><strong>C</strong> - ICC/Disfunção VE (1 pt)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.chads.htn" @change="calculateCHADS()" class="w-4 h-4 text-blue-600 rounded">
-                                <span><strong>H</strong> - Hipertensão (1 pt)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-red-50 rounded hover:bg-red-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.chads.age75" @change="calculateCHADS()" class="w-4 h-4 text-red-600 rounded">
-                                <span><strong>A₂</strong> - Idade ≥ 75 anos (2 pts)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.chads.dm" @change="calculateCHADS()" class="w-4 h-4 text-blue-600 rounded">
-                                <span><strong>D</strong> - Diabetes (1 pt)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-red-50 rounded hover:bg-red-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.chads.stroke" @change="calculateCHADS()" class="w-4 h-4 text-red-600 rounded">
-                                <span><strong>S₂</strong> - AVC/AIT/Tromboembolismo prévio (2 pts)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.chads.vasc" @change="calculateCHADS()" class="w-4 h-4 text-blue-600 rounded">
-                                <span><strong>V</strong> - Doença vascular (IAM, DAP, placa aórtica) (1 pt)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.chads.age65_74" @change="calculateCHADS()" class="w-4 h-4 text-blue-600 rounded">
-                                <span><strong>A</strong> - Idade 65-74 anos (1 pt)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.chads.female" @change="calculateCHADS()" class="w-4 h-4 text-blue-600 rounded">
-                                <span><strong>Sc</strong> - Sexo feminino (1 pt)</span>
-                            </label>
-                        </div>
-                        <div class="bg-red-50 p-4 rounded-lg text-center mt-4 border border-red-100">
-                            <p class="font-bold text-3xl text-red-700" x-text="calcResult !== null ? calcResult + ' pontos' : '-'"></p>
-                            <p class="text-sm mt-2 text-red-600" x-text="calcResultText"></p>
-                            ${addButtonHTML('cardiac', 'Cardíaco')}
-                        </div>
-                    </div>
-                `;
-            }
-
-            if (id === 'wells_tvp') {
-                return `
-                    <div class="space-y-4 p-4">
-                        <h4 class="font-bold text-lg text-gray-800 border-b pb-2">Wells Score - TVP</h4>
-                        <p class="text-xs text-gray-500 mb-4">Probabilidade clínica de Trombose Venosa Profunda</p>
-                        <div class="space-y-2 text-sm">
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.wells_tvp.cancer" @change="calculateWellsTVP()" class="w-4 h-4 text-blue-600 rounded">
-                                <span>Câncer ativo (1 pt)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.wells_tvp.paralysis" @change="calculateWellsTVP()" class="w-4 h-4 text-blue-600 rounded">
-                                <span>Paralisia/paresia/imobilização recente de MMII (1 pt)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.wells_tvp.bedridden" @change="calculateWellsTVP()" class="w-4 h-4 text-blue-600 rounded">
-                                <span>Acamado > 3 dias ou cirurgia maior < 12 sem (1 pt)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.wells_tvp.tenderness" @change="calculateWellsTVP()" class="w-4 h-4 text-blue-600 rounded">
-                                <span>Dor à palpação do trajeto venoso profundo (1 pt)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.wells_tvp.swelling" @change="calculateWellsTVP()" class="w-4 h-4 text-blue-600 rounded">
-                                <span>Edema de toda a perna (1 pt)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.wells_tvp.calf" @change="calculateWellsTVP()" class="w-4 h-4 text-blue-600 rounded">
-                                <span>Panturrilha > 3cm maior que contralateral (1 pt)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.wells_tvp.edema" @change="calculateWellsTVP()" class="w-4 h-4 text-blue-600 rounded">
-                                <span>Edema depressível (cacifo +) (1 pt)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.wells_tvp.collat" @change="calculateWellsTVP()" class="w-4 h-4 text-blue-600 rounded">
-                                <span>Veias colaterais superficiais (1 pt)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.wells_tvp.history" @change="calculateWellsTVP()" class="w-4 h-4 text-blue-600 rounded">
-                                <span>TVP prévia documentada (1 pt)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-yellow-50 rounded hover:bg-yellow-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.wells_tvp.alternative" @change="calculateWellsTVP()" class="w-4 h-4 text-yellow-600 rounded">
-                                <span>Diagnóstico alternativo tão provável quanto TVP (-2 pts)</span>
-                            </label>
-                        </div>
-                        <div class="bg-indigo-50 p-4 rounded-lg text-center mt-4 border border-indigo-100">
-                            <p class="font-bold text-3xl text-indigo-700" x-text="calcResult !== null ? calcResult + ' pontos' : '-'"></p>
-                            <p class="text-sm mt-2 text-indigo-600" x-text="calcResultText"></p>
-                            ${addButtonHTML('cardiac', 'Cardíaco')}
-                        </div>
-                    </div>
-                `;
-            }
-
-            if (id === 'wells_tep') {
-                return `
-                    <div class="space-y-4 p-4">
-                        <h4 class="font-bold text-lg text-gray-800 border-b pb-2">Wells Score - TEP</h4>
-                        <p class="text-xs text-gray-500 mb-4">Probabilidade clínica de Tromboembolismo Pulmonar</p>
-                        <div class="space-y-2 text-sm">
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.wells_tep.dvt" @change="calculateWellsTEP()" class="w-4 h-4 text-blue-600 rounded">
-                                <span>Sinais clínicos de TVP (3 pts)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.wells_tep.hr" @change="calculateWellsTEP()" class="w-4 h-4 text-blue-600 rounded">
-                                <span>FC > 100 bpm (1.5 pts)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.wells_tep.immob" @change="calculateWellsTEP()" class="w-4 h-4 text-blue-600 rounded">
-                                <span>Imobilização ≥ 3 dias ou cirurgia < 4 sem (1.5 pts)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.wells_tep.history" @change="calculateWellsTEP()" class="w-4 h-4 text-blue-600 rounded">
-                                <span>TVP/TEP prévio (1.5 pts)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.wells_tep.hemoptysis" @change="calculateWellsTEP()" class="w-4 h-4 text-blue-600 rounded">
-                                <span>Hemoptise (1 pt)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.wells_tep.cancer" @change="calculateWellsTEP()" class="w-4 h-4 text-blue-600 rounded">
-                                <span>Câncer ativo (tratamento < 6m ou paliativo) (1 pt)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-red-50 rounded hover:bg-red-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.wells_tep.alternative" @change="calculateWellsTEP()" class="w-4 h-4 text-red-600 rounded">
-                                <span>TEP é diagnóstico mais provável (3 pts)</span>
-                            </label>
-                        </div>
-                        <div class="bg-pink-50 p-4 rounded-lg text-center mt-4 border border-pink-100">
-                            <p class="font-bold text-3xl text-pink-700" x-text="calcResult !== null ? calcResult + ' pontos' : '-'"></p>
-                            <p class="text-sm mt-2 text-pink-600" x-text="calcResultText"></p>
-                            <button x-show="calcResult !== null" 
-                                    @click="addToExam('pulmonary', 'Wells TEP: ' + calcResult + ' pontos.'); showCalculators = false;" 
-                                    class="mt-3 w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2 font-medium">
-                                <i class="fas fa-plus-circle"></i> Adicionar ao Pulmonar
-                            </button>
-                        </div>
-                    </div>
-                `;
+                const fields = [
+                    ['eye', 'Abertura ocular', [[4, 'Espontânea'], [3, 'Ao comando verbal'], [2, 'Ao estímulo doloroso'], [1, 'Ausente']]],
+                    ['verbal', 'Resposta verbal', [[5, 'Orientado'], [4, 'Confuso'], [3, 'Palavras'], [2, 'Sons'], [1, 'Ausente']]],
+                    ['motor', 'Resposta motora', [[6, 'Obedece comandos'], [5, 'Localiza'], [4, 'Flexão normal / retirada'], [3, 'Flexão anormal'], [2, 'Extensão'], [1, 'Ausente']]]
+                ];
+                return `<div class="space-y-4 p-4"><h4 class="font-bold text-lg">Escala de Coma de Glasgow</h4><p class="text-sm text-slate-500">Registre os três componentes examinados. Use NT quando um componente não puder ser testado (por exemplo, resposta verbal na intubação).</p>${fields.map(([key, label, options]) => `<label class="block">${label}<select class="form-input mt-2" x-model="calcInputs.glasgow.${key}" @change="calculateGlasgow()"><option value="">Não informado</option>${options.map(([value, label]) => `<option value="${value}">${value} — ${label}</option>`).join('')}<option value="NT">Não testável (NT)</option></select></label>`).join('')}<div class="pg-calc-result" aria-live="polite"><strong x-text="calcResult === null ? 'Sem total' : calcResult + '/15'"></strong><p x-text="calcResultText"></p><p class="text-xs mt-2">A pontuação isolada não determina diagnóstico de TCE ou necessidade de intubação.</p></div><button type="button" class="pg-model-button" @click="calculateGlasgow()">Calcular</button><button type="button" class="pg-model-button" x-show="glasgowComplete()" @click="calculateGlasgow(); addToExam('neuro', calcResultText)">Adicionar ao registro atual</button></div>`;
             }
 
             if (id === 'imc') {
                 return `
                     <div class="space-y-4 p-4">
-                        <h4 class="font-bold text-lg text-gray-800 border-b pb-2">Índice de Massa Corporal (IMC)</h4>
+                        <h4 class="font-bold text-lg text-gray-800 border-b pb-2">Índice de Massa Corporal (IMC)</h4><label class="block">Idade (anos) — classificação a partir de 20 anos<input type="number" x-model="calcInputs.imc.age" class="form-input"></label>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-sm font-bold mb-1">Peso (kg)</label>
-                                <input type="number" step="0.1" x-model="calcInputs.imc.weight" class="form-input" @input="calculateIMC()">
+                                <input type="number" step="0.1" x-model="calcInputs.imc.weight" class="form-input">
                             </div>
                             <div>
                                 <label class="block text-sm font-bold mb-1">Altura (cm)</label>
-                                <input type="number" x-model="calcInputs.imc.height" class="form-input" @input="calculateIMC()">
+                                <input type="number" x-model="calcInputs.imc.height" class="form-input">
                             </div>
                         </div>
                         <div class="bg-green-50 p-4 rounded-lg text-center mt-4 border border-green-100">
-                            <p class="font-bold text-3xl text-green-700" x-text="calcResult ? calcResult + ' kg/m²' : '-'"></p>
+                            <button type="button" class="pg-model-button" @click="calculateIMC()">Calcular</button><p class="font-bold text-3xl text-green-700" x-text="calcResult ? calcResult + ' kg/m²' : '-'"></p>
                             <p class="text-sm mt-2 text-green-600" x-text="calcResultText"></p>
                             <button x-show="calcResult" 
                                     @click="addToExam('general', 'IMC: ' + calcResult + ' kg/m² (' + calcResultText + ').'); showCalculators = false;" 
@@ -1325,133 +1478,6 @@ document.addEventListener('alpine:init', () => {
                 `;
             }
 
-            if (id === 'has_bled') {
-                return `
-                    <div class="space-y-4 p-4">
-                        <h4 class="font-bold text-lg text-gray-800 border-b pb-2">HAS-BLED</h4>
-                        <p class="text-xs text-gray-500 mb-4">Risco de sangramento em anticoagulação</p>
-                        <div class="space-y-2 text-sm">
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.has_bled.htn" @change="calculateHASBLED()" class="w-4 h-4 text-blue-600 rounded">
-                                <span><strong>H</strong> - Hipertensão não controlada (PAS > 160) (1 pt)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.has_bled.renal" @change="calculateHASBLED()" class="w-4 h-4 text-blue-600 rounded">
-                                <span><strong>A</strong> - Função renal anormal (diálise, Cr > 2.6) (1 pt)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.has_bled.liver" @change="calculateHASBLED()" class="w-4 h-4 text-blue-600 rounded">
-                                <span><strong>A</strong> - Função hepática anormal (cirrose, TGO/TGP > 3x) (1 pt)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.has_bled.stroke" @change="calculateHASBLED()" class="w-4 h-4 text-blue-600 rounded">
-                                <span><strong>S</strong> - AVC prévio (1 pt)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.has_bled.bleeding" @change="calculateHASBLED()" class="w-4 h-4 text-blue-600 rounded">
-                                <span><strong>B</strong> - História de sangramento ou predisposição (1 pt)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.has_bled.inr" @change="calculateHASBLED()" class="w-4 h-4 text-blue-600 rounded">
-                                <span><strong>L</strong> - INR lábil (< 60% no range terapêutico) (1 pt)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.has_bled.age65" @change="calculateHASBLED()" class="w-4 h-4 text-blue-600 rounded">
-                                <span><strong>E</strong> - Idade > 65 anos (1 pt)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.has_bled.drugs" @change="calculateHASBLED()" class="w-4 h-4 text-blue-600 rounded">
-                                <span><strong>D</strong> - Drogas (antiplaquetários, AINE) (1 pt)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.has_bled.alcohol" @change="calculateHASBLED()" class="w-4 h-4 text-blue-600 rounded">
-                                <span><strong>D</strong> - Álcool (≥ 8 doses/semana) (1 pt)</span>
-                            </label>
-                        </div>
-                        <div class="bg-red-50 p-4 rounded-lg text-center mt-4 border border-red-100">
-                            <p class="font-bold text-3xl text-red-700" x-text="calcResult !== null ? calcResult + ' pontos' : '-'"></p>
-                            <p class="text-sm mt-2 text-red-600" x-text="calcResultText"></p>
-                            <button x-show="calcResult !== null" 
-                                    @click="addToExam('cardiac', 'HAS-BLED: ' + calcResult + ' pontos.'); showCalculators = false;" 
-                                    class="mt-3 w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2 font-medium">
-                                <i class="fas fa-plus-circle"></i> Adicionar ao Cardíaco
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }
-
-            if (id === 'perc') {
-                return `
-                    <div class="space-y-4 p-4">
-                        <h4 class="font-bold text-lg text-gray-800 border-b pb-2">PERC Rule</h4>
-                        <p class="text-xs text-gray-500 mb-4">Exclusão de TEP em baixo risco - Se TODOS negativos, exclui TEP</p>
-                        <div class="space-y-2 text-sm">
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.perc.age50" @change="calculatePERC()" class="w-4 h-4 text-red-600 rounded">
-                                <span>Idade ≥ 50 anos</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.perc.hr100" @change="calculatePERC()" class="w-4 h-4 text-red-600 rounded">
-                                <span>FC ≥ 100 bpm</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.perc.sat95" @change="calculatePERC()" class="w-4 h-4 text-red-600 rounded">
-                                <span>SatO2 < 95% em ar ambiente</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.perc.hemoptysis" @change="calculatePERC()" class="w-4 h-4 text-red-600 rounded">
-                                <span>Hemoptise</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.perc.estrogen" @change="calculatePERC()" class="w-4 h-4 text-red-600 rounded">
-                                <span>Uso de estrogênio</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.perc.dvt" @change="calculatePERC()" class="w-4 h-4 text-red-600 rounded">
-                                <span>TVP/TEP prévio</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.perc.surgery" @change="calculatePERC()" class="w-4 h-4 text-red-600 rounded">
-                                <span>Cirurgia ou trauma recente (< 4 semanas)</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 cursor-pointer">
-                                <input type="checkbox" x-model="calcInputs.perc.leg" @change="calculatePERC()" class="w-4 h-4 text-red-600 rounded">
-                                <span>Edema unilateral de MMII</span>
-                            </label>
-                        </div>
-                        <div class="p-4 rounded-lg text-center mt-4 border" :class="calcResult === 0 ? 'bg-green-50 border-green-100' : 'bg-red-50 border-red-100'">
-                            <p class="font-bold text-xl" :class="calcResult === 0 ? 'text-green-700' : 'text-red-700'" x-text="calcResultText || 'Marque os critérios presentes'"></p>
-                            <button x-show="calcResult !== null" 
-                                    @click="addToExam('pulmonary', calcResult === 0 ? 'PERC negativo.' : 'PERC positivo (' + calcResult + ' critérios).'); showCalculators = false;" 
-                                    class="mt-3 w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2 font-medium">
-                                <i class="fas fa-plus-circle"></i> Adicionar ao Pulmonar
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }
-
-            if (id === 'nihss') {
-                return `
-                    <div class="space-y-3 p-4 text-sm">
-                        <h4 class="font-bold text-lg text-gray-800 border-b pb-2">NIHSS (Resumido)</h4>
-                        <p class="text-xs text-gray-500">Escala completa em: <a href="https://www.mdcalc.com/calc/715/nih-stroke-scale-score-nihss" target="_blank" class="text-blue-600 underline">MDCalc NIHSS</a></p>
-                        <div class="bg-purple-50 p-4 rounded-lg border border-purple-100">
-                            <p class="text-purple-800 font-medium">Interpretação rápida:</p>
-                            <ul class="text-xs text-purple-700 mt-2 space-y-1">
-                                <li><strong>0:</strong> Sem déficit</li>
-                                <li><strong>1-4:</strong> AVC menor</li>
-                                <li><strong>5-15:</strong> AVC moderado</li>
-                                <li><strong>16-20:</strong> AVC moderado a grave</li>
-                                <li><strong>21-42:</strong> AVC grave</li>
-                            </ul>
-                        </div>
-                        <p class="text-xs text-gray-500 mt-2">Para cálculo completo, utilize ferramentas especializadas como MDCalc ou AHA Stroke.</p>
-                    </div>
-                `;
-            }
-            
             if (id === 'carga_tabagica') {
                 return `
                     <div class="space-y-4 p-4">
@@ -1490,15 +1516,7 @@ document.addEventListener('alpine:init', () => {
                             </div>
                         </div>
                         
-                        <div class="bg-blue-50 border-l-4 border-blue-500 p-3 rounded mt-4">
-                            <p class="text-xs font-bold text-blue-800 mb-2">💡 Interpretação:</p>
-                            <ul class="text-xs text-blue-700 space-y-1">
-                                <li>• <strong>< 10 anos-maço:</strong> Risco leve</li>
-                                <li>• <strong>10-20 anos-maço:</strong> Risco moderado</li>
-                                <li>• <strong>> 20 anos-maço:</strong> Risco alto (DPOC, neoplasias)</li>
-                                <li>• <strong>> 30 anos-maço:</strong> Risco muito alto</li>
-                            </ul>
-                        </div>
+                        <p class="text-xs text-slate-500">Anos-maço = (cigarros por dia ÷ 20) × anos de consumo. Some os períodos separadamente quando a intensidade variou.</p>
                     </div>
                 `;
             }
@@ -1512,18 +1530,18 @@ document.addEventListener('alpine:init', () => {
                         <div class="bg-red-50 border-l-4 border-red-500 p-3 rounded mb-4">
                             <p class="text-sm font-medium text-red-800 mb-1">📌 Referência:</p>
                             <ul class="text-xs text-red-700 space-y-1">
-                                <li>• 1 lata cerveja (350ml) = ~14g álcool</li>
-                                <li>• 1 taça vinho (150ml) = ~14g álcool</li>
-                                <li>• 1 dose destilado (45ml) = ~14g álcool</li>
+                                <li>• Cerveja: aproximadamente 355 mL a 5% = 14 g</li>
+                                <li>• Vinho: aproximadamente 148 mL a 12% = 14 g</li>
+                                <li>• Destilado: aproximadamente 44 mL a 40% = 14 g</li>
                             </ul>
                         </div>
                         
                         <div>
                             <label class="block text-sm font-bold mb-1">Tipo de bebida</label>
                             <select x-model="calcInputs.carga_etilica.tipo_bebida" class="form-input mb-3">
-                                <option value="cerveja">Cerveja (350ml = 14g)</option>
-                                <option value="vinho">Vinho (150ml = 14g)</option>
-                                <option value="destilado">Destilado (45ml = 14g)</option>
+                                <option value="cerveja">Cerveja (355 mL a 5% ≈ 14 g)</option>
+                                <option value="vinho">Vinho (148 mL a 12% ≈ 14 g)</option>
+                                <option value="destilado">Destilado (44 mL a 40% ≈ 14 g)</option>
                                 <option value="manual">Informar gramas diretamente</option>
                             </select>
                         </div>
@@ -1554,14 +1572,7 @@ document.addEventListener('alpine:init', () => {
                             </div>
                         </div>
                         
-                        <div class="bg-blue-50 border-l-4 border-blue-500 p-3 rounded mt-4">
-                            <p class="text-xs font-bold text-blue-800 mb-2">💡 Interpretação (OMS):</p>
-                            <ul class="text-xs text-blue-700 space-y-1">
-                                <li>• <strong>Baixo risco:</strong> < 20g/dia (♀) ou < 30g/dia (♂)</li>
-                                <li>• <strong>Uso pesado:</strong> > 40g/dia (♀) ou > 60g/dia (♂)</li>
-                                <li>• <strong>Dependência:</strong> > 80g/dia</li>
-                            </ul>
-                        </div>
+                        <p class="text-xs text-slate-500">Convenção NIAAA: uma dose padrão contém 14 g de etanol. O teor alcoólico e o volume real da bebida podem variar. Esta estimativa não diagnostica dependência.</p>
                     </div>
                 `;
             }
@@ -1571,13 +1582,13 @@ document.addEventListener('alpine:init', () => {
 
         // Calculator functions
         calculateCKD() {
-            const cr = parseFloat(this.calcInputs.ckd.creat);
-            const age = parseFloat(this.calcInputs.ckd.age);
+            const cr = Number(this.calcInputs.ckd.creat);
+            const age = Number(this.calcInputs.ckd.age);
             const isFemale = this.calcInputs.ckd.sex === 'female';
             
-            if (!cr || !age || cr <= 0 || age <= 0) {
+            if (!Number.isFinite(cr) || !Number.isFinite(age) || cr <= 0 || age < 18 || !['male', 'female'].includes(this.calcInputs.ckd.sex)) {
                 this.calcResult = null;
-                this.calcResultText = 'Preencha todos os campos';
+                this.calcResultText = 'Informe creatinina positiva em mg/dL e idade adulta (≥ 18 anos).';
                 return;
             }
 
@@ -1594,6 +1605,7 @@ document.addEventListener('alpine:init', () => {
             
             this.calcResult = gfr.toFixed(1);
             
+            // Categorias de TFG não estabelecem diagnóstico de DRC isoladamente.
             // Classification
             if (gfr >= 90) {
                 this.calcResultText = 'G1: Normal ou alto (≥90)';
@@ -1606,41 +1618,35 @@ document.addEventListener('alpine:init', () => {
             } else if (gfr >= 15) {
                 this.calcResultText = 'G4: Severamente diminuído (15-29)';
             } else {
-                this.calcResultText = 'G5: Falência renal (<15)';
+                this.calcResultText = 'G5: TFG < 15 mL/min/1,73 m²';
             }
+        },
+
+        glasgowComplete() {
+            const g = this.calcInputs.glasgow;
+            return [['eye', 4], ['verbal', 5], ['motor', 6]].every(([key, max]) =>
+                g[key] === 'NT' || (String(g[key]).trim() !== '' && Number.isInteger(Number(g[key])) && Number(g[key]) >= 1 && Number(g[key]) <= max));
         },
 
         calculateGlasgow() {
-            const total = this.calcInputs.glasgow.eye + this.calcInputs.glasgow.verbal + this.calcInputs.glasgow.motor;
-            this.calcResult = total;
-            this.calcResultText = `Glasgow ${total} (O${this.calcInputs.glasgow.eye}V${this.calcInputs.glasgow.verbal}M${this.calcInputs.glasgow.motor})`;
+            this.calcResult = null;
+            this.calcResultText = '';
+            if (!this.glasgowComplete()) { this.calcResultText = 'Informe os três componentes examinados.'; return; }
+            const g = this.calcInputs.glasgow;
+            const parts = `O${g.eye}V${g.verbal}M${g.motor}`;
+            if ([g.eye, g.verbal, g.motor].includes('NT')) {
+                this.calcResultText = `Glasgow: ${parts}; sem escore total por componente não testável.`;
+            } else {
+                this.calcResult = Number(g.eye) + Number(g.verbal) + Number(g.motor);
+                this.calcResultText = `Glasgow ${this.calcResult} (${parts}).`;
+            }
         },
 
         getGlasgowInterpretation() {
-            const total = this.calcInputs.glasgow.eye + this.calcInputs.glasgow.verbal + this.calcInputs.glasgow.motor;
-            if (total <= 8) return 'TCE Grave - IOT indicada';
-            if (total <= 12) return 'TCE Moderado';
-            return 'TCE Leve';
+            return 'Interpretar os componentes e o contexto clínico; não usar o total isoladamente.';
         },
 
-        calculateCURB65() {
-            let score = 0;
-            if (this.calcInputs.curb65.conf) score++;
-            if (this.calcInputs.curb65.uremia) score++;
-            if (this.calcInputs.curb65.resp) score++;
-            if (this.calcInputs.curb65.bp) score++;
-            if (this.calcInputs.curb65.age65) score++;
-            
-            this.calcResult = score;
-            
-            if (score === 0 || score === 1) {
-                this.calcResultText = 'Baixo risco (mortalidade ~1.5%) - Tratamento ambulatorial';
-            } else if (score === 2) {
-                this.calcResultText = 'Risco intermediário (mortalidade ~9.2%) - Considerar internação';
-            } else {
-                this.calcResultText = 'Alto risco (mortalidade ~22%) - Internação + considerar UTI';
-            }
-        },
+        calculateCURB65() { this.calculateScore('curb65'); },
 
         getCURB65Color() {
             if (this.calcResult === null) return 'text-gray-500';
@@ -1649,83 +1655,17 @@ document.addEventListener('alpine:init', () => {
             return 'text-red-600';
         },
 
-        calculateCHADS() {
-            let score = 0;
-            if (this.calcInputs.chads.chf) score += 1;
-            if (this.calcInputs.chads.htn) score += 1;
-            if (this.calcInputs.chads.age75) score += 2;
-            if (this.calcInputs.chads.dm) score += 1;
-            if (this.calcInputs.chads.stroke) score += 2;
-            if (this.calcInputs.chads.vasc) score += 1;
-            if (this.calcInputs.chads.age65_74) score += 1;
-            if (this.calcInputs.chads.female) score += 1;
-            
-            this.calcResult = score;
-            
-            const risks = {
-                0: '0% - Baixo risco, anticoagulação opcional',
-                1: '1.3% - Considerar anticoagulação',
-                2: '2.2% - Anticoagulação recomendada',
-                3: '3.2% - Anticoagulação recomendada',
-                4: '4.0% - Anticoagulação recomendada',
-                5: '6.7% - Anticoagulação recomendada',
-                6: '9.8% - Anticoagulação recomendada',
-                7: '9.6% - Anticoagulação recomendada',
-                8: '6.7% - Anticoagulação recomendada',
-                9: '15.2% - Anticoagulação recomendada'
-            };
-            
-            this.calcResultText = `Risco AVC/ano: ${risks[Math.min(score, 9)] || 'Alto risco - Anticoagulação'}`;
-        },
+        calculateCHADS() { this.calculateScore('chads'); },
 
-        calculateWellsTVP() {
-            let score = 0;
-            if (this.calcInputs.wells_tvp.cancer) score += 1;
-            if (this.calcInputs.wells_tvp.paralysis) score += 1;
-            if (this.calcInputs.wells_tvp.bedridden) score += 1;
-            if (this.calcInputs.wells_tvp.tenderness) score += 1;
-            if (this.calcInputs.wells_tvp.swelling) score += 1;
-            if (this.calcInputs.wells_tvp.calf) score += 1;
-            if (this.calcInputs.wells_tvp.edema) score += 1;
-            if (this.calcInputs.wells_tvp.collat) score += 1;
-            if (this.calcInputs.wells_tvp.history) score += 1;
-            if (this.calcInputs.wells_tvp.alternative) score -= 2;
-            
-            this.calcResult = score;
-            
-            if (score <= 0) {
-                this.calcResultText = 'Baixa probabilidade (3%) - D-dímero se disponível';
-            } else if (score <= 2) {
-                this.calcResultText = 'Moderada probabilidade (17%) - USG Doppler';
-            } else {
-                this.calcResultText = 'Alta probabilidade (75%) - USG Doppler + considerar anticoagulação';
-            }
-        },
+        calculateWellsTVP() { this.calculateScore('wells_tvp'); },
 
-        calculateWellsTEP() {
-            let score = 0;
-            if (this.calcInputs.wells_tep.dvt) score += 3;
-            if (this.calcInputs.wells_tep.hr) score += 1.5;
-            if (this.calcInputs.wells_tep.immob) score += 1.5;
-            if (this.calcInputs.wells_tep.history) score += 1.5;
-            if (this.calcInputs.wells_tep.hemoptysis) score += 1;
-            if (this.calcInputs.wells_tep.cancer) score += 1;
-            if (this.calcInputs.wells_tep.alternative) score += 3;
-            
-            this.calcResult = score;
-            
-            if (score <= 4) {
-                this.calcResultText = 'TEP improvável (≤4) - Considerar D-dímero';
-            } else {
-                this.calcResultText = 'TEP provável (>4) - AngioTC ou cintilografia';
-            }
-        },
+        calculateWellsTEP() { this.calculateScore('wells_tep'); },
 
         calculateIMC() {
-            const weight = parseFloat(this.calcInputs.imc.weight);
-            const height = parseFloat(this.calcInputs.imc.height) / 100; // cm to m
+            const weight = Number(this.calcInputs.imc.weight);
+            const height = Number(this.calcInputs.imc.height) / 100; // cm to m
             
-            if (!weight || !height || weight <= 0 || height <= 0) {
+            if (!Number.isFinite(weight) || !Number.isFinite(height) || weight <= 0 || height <= 0) {
                 this.calcResult = null;
                 this.calcResultText = '';
                 return;
@@ -1734,6 +1674,10 @@ document.addEventListener('alpine:init', () => {
             const imc = weight / (height * height);
             this.calcResult = imc.toFixed(1);
             
+            if (!Number.isFinite(Number(this.calcInputs.imc.age)) || Number(this.calcInputs.imc.age) < 20) {
+                this.calcResultText = 'Classificação adulta exige idade ≥ 20 anos; em menores, usar IMC por idade e sexo.';
+                return;
+            }
             if (imc < 18.5) {
                 this.calcResultText = 'Baixo peso';
             } else if (imc < 25) {
@@ -1745,58 +1689,19 @@ document.addEventListener('alpine:init', () => {
             } else if (imc < 40) {
                 this.calcResultText = 'Obesidade Grau II';
             } else {
-                this.calcResultText = 'Obesidade Grau III (Mórbida)';
+                this.calcResultText = 'Obesidade Grau III';
             }
         },
 
-        calculateHASBLED() {
-            let score = 0;
-            if (this.calcInputs.has_bled.htn) score++;
-            if (this.calcInputs.has_bled.renal) score++;
-            if (this.calcInputs.has_bled.liver) score++;
-            if (this.calcInputs.has_bled.stroke) score++;
-            if (this.calcInputs.has_bled.bleeding) score++;
-            if (this.calcInputs.has_bled.inr) score++;
-            if (this.calcInputs.has_bled.age65) score++;
-            if (this.calcInputs.has_bled.drugs) score++;
-            if (this.calcInputs.has_bled.alcohol) score++;
-            
-            this.calcResult = score;
-            
-            if (score <= 2) {
-                this.calcResultText = 'Baixo risco de sangramento - Anticoagulação geralmente segura';
-            } else {
-                this.calcResultText = 'Alto risco de sangramento (≥3) - Cautela, monitorar de perto';
-            }
-        },
+        calculateHASBLED() { this.calculateScore('has_bled'); },
 
-        calculatePERC() {
-            const criteria = [
-                this.calcInputs.perc.age50,
-                this.calcInputs.perc.hr100,
-                this.calcInputs.perc.sat95,
-                this.calcInputs.perc.hemoptysis,
-                this.calcInputs.perc.estrogen,
-                this.calcInputs.perc.dvt,
-                this.calcInputs.perc.surgery,
-                this.calcInputs.perc.leg
-            ];
-            
-            const positives = criteria.filter(c => c).length;
-            this.calcResult = positives;
-            
-            if (positives === 0) {
-                this.calcResultText = 'PERC NEGATIVO - TEP excluído (se pré-teste baixo)';
-            } else {
-                this.calcResultText = `PERC POSITIVO (${positives} critério${positives > 1 ? 's' : ''}) - Prosseguir investigação`;
-            }
-        },
+        calculatePERC() { this.calculateScore('perc'); },
 
         calculateCargaTabagica() {
-            const cigarros = parseFloat(this.calcInputs.carga_tabagica.cigarros_dia);
-            const anos = parseFloat(this.calcInputs.carga_tabagica.anos);
+            const cigarros = Number(this.calcInputs.carga_tabagica.cigarros_dia);
+            const anos = Number(this.calcInputs.carga_tabagica.anos);
             
-            if (!cigarros || !anos || cigarros <= 0 || anos <= 0) {
+            if (!Number.isFinite(cigarros) || !Number.isFinite(anos) || String(this.calcInputs.carga_tabagica.cigarros_dia).trim() === '' || String(this.calcInputs.carga_tabagica.anos).trim() === '' || cigarros < 0 || anos < 0) {
                 this.calcResult = null;
                 this.calcResultText = 'Preencha os campos corretamente';
                 return;
@@ -1806,25 +1711,17 @@ document.addEventListener('alpine:init', () => {
             const anosMaco = (cigarros / 20) * anos;
             this.calcResult = anosMaco.toFixed(1);
             
-            if (anosMaco < 10) {
-                this.calcResultText = 'Risco leve';
-            } else if (anosMaco < 20) {
-                this.calcResultText = 'Risco moderado';
-            } else if (anosMaco < 30) {
-                this.calcResultText = 'Risco alto (DPOC, neoplasias)';
-            } else {
-                this.calcResultText = 'Risco muito alto';
-            }
+            this.calcResultText = 'Exposição acumulada estimada; não define diagnóstico ou risco individual isoladamente.';
         },
 
         calculateCargaEtilica() {
             let gramas = 0;
             
             if (this.calcInputs.carga_etilica.tipo_bebida === 'manual') {
-                gramas = parseFloat(this.calcInputs.carga_etilica.gramas_dia);
+                gramas = Number(this.calcInputs.carga_etilica.gramas_dia);
             } else {
-                const doses = parseFloat(this.calcInputs.carga_etilica.doses_dia);
-                if (!doses || doses <= 0) {
+                const doses = Number(this.calcInputs.carga_etilica.doses_dia);
+                if (!Number.isFinite(doses) || doses < 0 || String(this.calcInputs.carga_etilica.doses_dia).trim() === '') {
                     this.calcResult = null;
                     this.calcResultText = 'Preencha o número de doses';
                     return;
@@ -1833,7 +1730,7 @@ document.addEventListener('alpine:init', () => {
                 gramas = doses * 14;
             }
             
-            if (!gramas || gramas <= 0) {
+            if (!Number.isFinite(gramas) || gramas < 0 || (this.calcInputs.carga_etilica.tipo_bebida === 'manual' && String(this.calcInputs.carga_etilica.gramas_dia).trim() === '')) {
                 this.calcResult = null;
                 this.calcResultText = 'Preencha os campos corretamente';
                 return;
@@ -1841,18 +1738,7 @@ document.addEventListener('alpine:init', () => {
             
             this.calcResult = gramas.toFixed(0);
             
-            // Interpretação OMS
-            if (gramas < 20) {
-                this.calcResultText = 'Baixo risco (mulheres) - Considerar gênero';
-            } else if (gramas < 30) {
-                this.calcResultText = 'Baixo risco (homens) - Considerar gênero';
-            } else if (gramas < 40) {
-                this.calcResultText = 'Risco moderado';
-            } else if (gramas < 80) {
-                this.calcResultText = 'Uso pesado - Risco alto';
-            } else {
-                this.calcResultText = 'Dependência provável - Risco muito alto';
-            }
+            this.calcResultText = 'Estimativa em gramas por dia; quantidade isolada não diagnostica dependência.';
         },
 
         // Calculadora DVA — dose em mcg/kg/min
@@ -1869,8 +1755,6 @@ document.addEventListener('alpine:init', () => {
                 d.resultado = '';
             }
         },
-
-
 
         generateText() {
             // ========================================
@@ -1977,7 +1861,7 @@ document.addEventListener('alpine:init', () => {
             vitals += ` - Sat: ${this.form.vitals.sat || '-'}%`;
             if (this.form.vitals.temp) vitals += ` - Tax: ${this.form.vitals.temp}ºC`;
             if (this.form.vitals.hgt !== '' && this.form.vitals.hgt != null) vitals += ` - HGT: ${this.form.vitals.hgt} mg/dL`;
-            text += `${vitals}\n`;
+            if (this.form.visibility.soapVitals) text += `${vitals}\n`;
 
             text += `GERAL: ${this.form.exam.general || '-'}\n`;
             text += `AR: ${this.form.exam.pulmonary || '-'}\n`;
@@ -2054,7 +1938,7 @@ document.addEventListener('alpine:init', () => {
             // Cabeçalho com tipo de local e turno
             const tipoLocal = (this.form.uti.local || 'SALA VERMELHA').toUpperCase();
             const turno = this.form.shift === 'PLANTÃO DIURNO' ? 'DIURNO' : 'NOTURNO';
-            text += `EVOLUÇÃO MÉDICA - ${tipoLocal} - ${turno}\n\n`;
+            text += `ADMISSÃO MÉDICA PADRÃO - ${tipoLocal} - ${turno}\n\n`;
             
             text += `PACIENTE: ${this.form.name || '_________'}, ${this.form.age ? this.form.age + ' anos' : '___ anos'}\n`;
             text += `ADMITIDO EM: ${this.form.uti.dataAdmissao || '__/__/____'} - ${this.form.uti.local || 'Sala Vermelha'}\n`;
@@ -2160,9 +2044,10 @@ document.addEventListener('alpine:init', () => {
                 text += `\n`;
             }
             
-            // # EVOLUÇÃO POR SISTEMAS
-            text += `# EVOLUÇÃO POR SISTEMAS\n`;
+            // # EXAME FÍSICO POR SISTEMAS
+            text += `# EXAME FÍSICO POR SISTEMAS\n`;
             
+            if (this.form.uti.evolucao.general) text += `-GERAL: ${this.form.uti.evolucao.general}\n`;
             if (this.form.uti.evolucao.neuro) {
                 text += `-NEUROLÓGICO: ${this.form.uti.evolucao.neuro}\n`;
             }
@@ -2380,7 +2265,7 @@ document.addEventListener('alpine:init', () => {
             let text = '';
 
             // IA do consultório
-            if (pa.ia_status) {
+            if (this.form.visibility.paAI && pa.ia_status) {
                 text += `* ${pa.ia_status} *\n\n`;
             }
 
@@ -2447,7 +2332,7 @@ document.addEventListener('alpine:init', () => {
             if (v.sat) svArr.push(`SpO₂ ${v.sat}%`);
             if (v.temp) svArr.push(`Tax ${v.temp}°C`);
             if (v.hgt !== '' && v.hgt != null) svArr.push(`HGT ${v.hgt} mg/dL`);
-            if (svArr.length > 0) text += `- SSVV: ${svArr.join(' | ')}\n`;
+            if (this.form.visibility.paVitals && svArr.length > 0) text += `- SSVV: ${svArr.join(' | ')}\n`;
             const examLine = (label, value) => {
                 const finding = (value || '').trim();
                 if (!finding) return;
@@ -2458,6 +2343,8 @@ document.addEventListener('alpine:init', () => {
                 ['AP', pa.ef_ap],
                 ['AC', pa.ef_ac],
                 ['ABD', pa.ef_abd],
+                ['NEURO', pa.ef_neuro],
+                ['EXTREMIDADES', pa.ef_extremidades],
                 ['Outros', pa.ef_outros]
             ];
             examFields.forEach(([label, value]) => examLine(label, value));
@@ -2507,6 +2394,16 @@ document.addEventListener('alpine:init', () => {
         },
 
         resetForm() {
+            for (const [id, values] of Object.entries(this.calcInputs)) {
+                for (const key of Object.keys(values)) values[key] = this.scoreDefinitions[id] ? -1 : '';
+            }
+            this.calcInputs.ckd.sex = 'male';
+            this.calcInputs.carga_etilica.tipo_bebida = 'cerveja';
+            this.calcResult = null;
+            this.calcResultText = '';
+            this.selectedCalc = null;
+            this.showCalculators = false;
+
             // Limpa todos os campos clínicos mantendo o tipo de atendimento e o turno
             const serviceType = this.form.serviceType;
             const shift = this.form.shift;
@@ -2522,6 +2419,7 @@ document.addEventListener('alpine:init', () => {
             this.form.medications = [];
             this.form.subjective = { qp: '', hda: '' };
             this.form.negatives = { fever: false, headache: false, dizziness: false, dyspnea: false, chestPain: false, nausea: false, intestine: false, urinary: false };
+            this.form.visibility = { soapVitals: true, paVitals: true, paAI: true };
             this.form.vitals = { pa: '', pas: '', pad: '', fc: '', fr: '', sat: '', temp: '', hgt: '' };
             this.form.exam = { general: '', cardiac: '', pulmonary: '', abdominal: '', neuro: '', extremities: '', additional: [] };
             this.form.complementary = { labs: '', imaging: '' };
@@ -2535,7 +2433,7 @@ document.addEventListener('alpine:init', () => {
             this.form.uti.hda = '';
             this.form.uti.atb = [];
             this.form.uti.devices = [];
-            this.form.uti.evolucao = { neuro: '', scv: '', sr: '', tgi: '', rm: '', hi: '', extr: '' };
+            this.form.uti.evolucao = { general: '', neuro: '', scv: '', sr: '', tgi: '', rm: '', hi: '', extr: '' };
             this.form.uti.covidData = '';
             this.form.uti.covidResultado = '';
             this.form.uti.rtpcr = '';
@@ -2615,7 +2513,7 @@ document.addEventListener('alpine:init', () => {
                 alarme_nega: [],
                 ap_comorbidades: '', ap_muc: '', ap_alergias: '',
                 ef_geral: '', ef_ap: '', ef_ac: '',
-                ef_abd: '', ef_outros: '',
+                ef_abd: '', ef_neuro: '', ef_extremidades: '', ef_outros: '',
                 ef_adicionais: [], pa_diagnoses: [],
                 avaliacao: '',
                 condutas_selecionadas: [], conduta_extra: '',

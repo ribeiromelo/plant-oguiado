@@ -18,7 +18,7 @@ app.use(async (c, next) => {
     await next()
     return
   }
-  
+
   const auth = getCookie(c, 'auth_user')
   if (!auth) {
     return c.redirect('/login')
@@ -134,7 +134,7 @@ app.get('/receituario', (c) => {
         <style type="text/tailwindcss">
             body { font-family: 'Inter', sans-serif; }
             .font-poppins { font-family: 'Poppins', sans-serif; }
-            
+
             .form-card {
                 @apply bg-white p-5 sm:p-6 rounded-3xl shadow-lg border border-slate-100 mb-6 transition-all duration-300 hover:shadow-xl hover:shadow-blue-900/10 hover:-translate-y-1 relative overflow-hidden;
             }
@@ -146,25 +146,25 @@ app.get('/receituario', (c) => {
                 @apply opacity-100;
             }
             /* Classes .form-label e .form-input agora vêm do /static/styles.css */
-            
+
             @media print {
                 @page { margin: 0; size: A4; }
                 body * { visibility: hidden; }
                 #printable-area, #printable-area * { visibility: visible; }
-                #printable-area { 
-                    position: absolute; 
-                    left: 0; 
-                    top: 0; 
-                    width: 100%; 
+                #printable-area {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
                     height: 100%;
-                    margin: 0; 
+                    margin: 0;
                     padding: 0;
                     background: white;
                 }
                 .no-print { display: none !important; }
                 * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
             }
-            
+
             .preview-paper {
                 box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             }
@@ -172,7 +172,7 @@ app.get('/receituario', (c) => {
         <link href="/static/design-system.css" rel="stylesheet">
     </head>
     <body class="pg-app pg-receituario scroll-smooth bg-slate-50 text-slate-800" x-data="receituarioApp()">
-        
+
         <!-- Navbar -->
         <header class="pg-subheader bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 no-print">
             <div class="max-w-[1600px] mx-auto px-4 lg:px-6 h-16 sm:h-20 flex items-center justify-between">
@@ -185,7 +185,7 @@ app.get('/receituario', (c) => {
                         <p class="text-[10px] text-slate-500 font-medium uppercase tracking-wider mt-0.5">Gerador de Receitas</p>
                     </div>
                 </div>
-                
+
                 <div class="pg-header-actions flex items-center gap-2 sm:gap-3">
                     <nav aria-label="Navegação principal" class="pg-header-nav flex items-center bg-slate-100/80 backdrop-blur-md p-1 rounded-xl overflow-x-auto max-w-[50vw] sm:max-w-full no-scrollbar">
                         <a href="/" class="px-3 sm:px-4 py-1.5 text-xs sm:text-sm whitespace-nowrap font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
@@ -207,10 +207,10 @@ app.get('/receituario', (c) => {
         </header>
 
         <main class="max-w-[1600px] mx-auto p-3 sm:p-6 lg:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8">
-            
+
             <!-- LEFT: FORM -->
             <div class="flex-1 min-w-0 no-print pb-20">
-                
+
                 <!-- Dados do Médico -->
                 <div class="card mb-5">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-blue-500 rounded-l-lg"></div>
@@ -223,7 +223,7 @@ app.get('/receituario', (c) => {
                             <i class="fas fa-save mr-1"></i> Salvar Padrão
                         </button>
                     </div>
-                    
+
                     <div class="grid grid-cols-12 gap-4 sm:gap-5">
                         <div class="col-span-12 sm:col-span-8">
                             <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-user-md text-blue-500"></i> Nome Completo</label>
@@ -318,15 +318,15 @@ app.get('/receituario', (c) => {
                             <div class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm"><i class="fas fa-prescription-bottle-alt"></i></div>
                             Prescrição
                         </h3>
-                        
+
                         <div class="bg-slate-100 p-1 rounded-xl flex text-xs font-bold">
-                            <button @click="tipo = 'simples'" 
+                            <button @click="tipo = 'simples'"
                                     :class="tipo === 'simples' ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'"
                                     class="px-3 py-1.5 rounded-lg transition-all">Simples</button>
-                            <button @click="tipo = 'especial'" 
+                            <button @click="tipo = 'especial'"
                                     :class="tipo === 'especial' ? 'bg-white text-red-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'"
                                     class="px-3 py-1.5 rounded-lg transition-all">Especial</button>
-                            <button @click="tipo = 'livre'" 
+                            <button @click="tipo = 'livre'"
                                     :class="tipo === 'livre' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'"
                                     class="px-3 py-1.5 rounded-lg transition-all">Livre</button>
                         </div>
@@ -435,10 +435,10 @@ app.get('/receituario', (c) => {
             <div class="w-full lg:w-[210mm] flex-shrink-0 mx-auto overflow-x-auto pb-4">
                 <div class="pg-paper-label no-print"><span>Pré-visualização</span><span>Formato A4</span></div>
                 <div id="printable-area" class="bg-white text-slate-900 font-poppins" :class="{'preview-paper rounded-lg': !isPrinting}">
-                    
+
                     <!-- PAGE 1 -->
                     <div class="w-[210mm] flex flex-col" :class="tipo === 'especial' ? 'h-[148.5mm] p-[12mm] pt-[8mm]' : 'min-h-[297mm] h-[297mm] p-[20mm]'">
-                        
+
                         <!-- Header -->
                         <header class="flex justify-between items-start border-b-2 border-slate-300" :class="tipo === 'especial' ? 'pb-2 mb-3' : 'pb-5 mb-8'">
                             <!-- Logo: imagem real ou placeholder -->
@@ -454,7 +454,7 @@ app.get('/receituario', (c) => {
                                     </div>
                                 </template>
                             </div>
-                            
+
                             <div class="text-right">
                                 <h1 class="font-bold uppercase text-slate-800" :class="tipo === 'especial' ? 'text-xs' : 'text-lg'" x-text="doctor.name || 'NOME DO MÉDICO'"></h1>
                                 <div class="font-medium text-slate-500 mt-1 space-y-0.5" :class="tipo === 'especial' ? 'text-[8px]' : 'text-xs'">
@@ -484,8 +484,8 @@ app.get('/receituario', (c) => {
 
                             <!-- Title -->
                             <div class="text-center" :class="tipo === 'especial' ? 'mb-3' : 'mb-8'">
-                                <span class="inline-block font-bold border-2 border-slate-900 rounded-full uppercase tracking-wide" 
-                                      :class="tipo === 'especial' ? 'text-xs px-5 py-1' : 'text-lg px-8 py-2'" 
+                                <span class="inline-block font-bold border-2 border-slate-900 rounded-full uppercase tracking-wide"
+                                      :class="tipo === 'especial' ? 'text-xs px-5 py-1' : 'text-lg px-8 py-2'"
                                       x-text="getTitle()"></span>
                             </div>
 
@@ -493,20 +493,20 @@ app.get('/receituario', (c) => {
                             <div x-show="tipo !== 'livre'" :class="tipo === 'especial' ? 'space-y-2' : 'space-y-6'">
                                 <template x-for="(med, idx) in meds" :key="idx">
                                     <div class="relative" :class="tipo === 'especial' ? 'pl-5' : 'pl-8'">
-                                        <span class="absolute left-0 top-0 font-bold text-slate-500" 
-                                              :class="tipo === 'especial' ? 'text-sm' : 'text-lg'" 
+                                        <span class="absolute left-0 top-0 font-bold text-slate-500"
+                                              :class="tipo === 'especial' ? 'text-sm' : 'text-lg'"
                                               x-text="(idx + 1) + '.'"></span>
                                         <div class="flex justify-between items-baseline mb-0.5">
-                                            <span class="font-bold text-slate-900" 
-                                                  :class="tipo === 'especial' ? 'text-sm' : 'text-lg'" 
+                                            <span class="font-bold text-slate-900"
+                                                  :class="tipo === 'especial' ? 'text-sm' : 'text-lg'"
                                                   x-text="med.name"></span>
                                             <span class="border-b border-dotted border-slate-400 text-right px-2 font-bold text-slate-800 shrink-0 ml-2"
-                                                  :class="tipo === 'especial' ? 'min-w-[90px] text-xs' : 'min-w-[120px] text-base'" 
+                                                  :class="tipo === 'especial' ? 'min-w-[90px] text-xs' : 'min-w-[120px] text-base'"
                                                   x-text="med.quantity"></span>
                                         </div>
-                                        <div class="leading-relaxed pl-1 text-slate-700 bg-slate-50 rounded" 
+                                        <div class="leading-relaxed pl-1 text-slate-700 bg-slate-50 rounded"
                                              :class="tipo === 'especial' ? 'text-[10px] p-1.5 mt-0.5' : 'text-sm p-3 mt-2'">
-                                            <span class="font-bold mr-0.5 text-slate-500 uppercase" :class="tipo === 'especial' ? 'text-[9px]' : 'text-xs'">Uso:</span> 
+                                            <span class="font-bold mr-0.5 text-slate-500 uppercase" :class="tipo === 'especial' ? 'text-[9px]' : 'text-xs'">Uso:</span>
                                             <span x-text="med.instruction"></span>
                                         </div>
                                     </div>
@@ -514,8 +514,8 @@ app.get('/receituario', (c) => {
                             </div>
 
                             <!-- Texto Livre -->
-                            <div x-show="tipo === 'livre'" class="whitespace-pre-wrap text-slate-800 leading-relaxed" 
-                                 :class="tipo === 'especial' ? 'text-xs' : 'text-base'" 
+                            <div x-show="tipo === 'livre'" class="whitespace-pre-wrap text-slate-800 leading-relaxed"
+                                 :class="tipo === 'especial' ? 'text-xs' : 'text-base'"
                                  x-text="freeText"></div>
                         </div>
 
@@ -555,10 +555,10 @@ app.get('/receituario', (c) => {
                                     <p class="text-slate-500" :class="tipo === 'especial' ? 'text-[8px] mt-0.5' : 'text-xs mt-1'">Assinatura e Carimbo do Médico</p>
                                 </div>
                             </div>
-                            <div class="text-center font-bold border-t-2 border-slate-200 flex justify-between text-slate-500" 
+                            <div class="text-center font-bold border-t-2 border-slate-200 flex justify-between text-slate-500"
                                  :class="tipo === 'especial' ? 'text-[9px] pt-1.5' : 'text-xs pt-3'">
                                 <span>Data: <span x-text="formatDate(date)" class="text-slate-700"></span></span>
-                                <span x-show="tipo === 'especial' || printDouble" class="uppercase border border-slate-400 py-0.5 rounded-md bg-slate-100" 
+                                <span x-show="tipo === 'especial' || printDouble" class="uppercase border border-slate-400 py-0.5 rounded-md bg-slate-100"
                                       :class="tipo === 'especial' ? 'text-[8px] px-2' : 'text-xs px-3'">1ª VIA</span>
                             </div>
                         </footer>
@@ -572,7 +572,7 @@ app.get('/receituario', (c) => {
 
                     <!-- PAGE 2 (2ª VIA) -->
                     <div x-show="tipo === 'especial' || printDouble" class="h-[148.5mm] w-[210mm] flex flex-col p-[12mm] pt-[6mm]">
-                        
+
                         <!-- Header Compact -->
                         <header class="flex justify-between items-start border-b border-slate-300 pb-1.5 mb-2.5">
                             <!-- Logo 2ª via -->
@@ -599,7 +599,7 @@ app.get('/receituario', (c) => {
                         <div class="flex-grow">
                             <div class="mb-2.5">
                                 <div class="flex items-baseline border-b border-dotted border-slate-400 pb-0.5 mb-0.5">
-                                    <span class="font-bold text-[9px] mr-1.5 text-slate-600 uppercase">Paciente:</span> 
+                                    <span class="font-bold text-[9px] mr-1.5 text-slate-600 uppercase">Paciente:</span>
                                     <span class="text-xs font-bold uppercase text-slate-900" x-text="patient.name || 'NOME DO PACIENTE'"></span>
                                 </div>
                                 <div class="text-[8px] text-slate-600" x-show="patient.cpf || patient.address">
@@ -680,7 +680,7 @@ app.get('/receituario', (c) => {
             </div>
 
         </main>
-        
+
         <script>
             document.addEventListener('alpine:init', () => {
                 Alpine.data('receituarioApp', () => ({
@@ -710,7 +710,7 @@ app.get('/receituario', (c) => {
                                 console.error('Erro ao carregar médico:', e);
                             }
                         }
-                        
+
                         this.$watch('tipo', (val) => {
                             if (val === 'especial') {
                                 this.printDouble = true;
@@ -811,7 +811,7 @@ app.get('/', (c) => {
             ::-webkit-scrollbar-track { background: transparent; }
             ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
             ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-            
+
             .preview-paper {
                 box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             }
@@ -930,7 +930,7 @@ app.get('/', (c) => {
         </header>
 
         <main class="page-content">
-            
+
             <!-- LEFT COLUMN (FORM) -->
             <div class="min-w-0 pb-20">
 
@@ -1004,7 +1004,7 @@ app.get('/', (c) => {
                         <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-sm"><i class="fas fa-user"></i></div>
                         Identificação
                     </h3>
-                    
+
                     <div class="grid grid-cols-12 gap-4 sm:gap-5">
                         <div class="col-span-12 sm:col-span-6">
                             <label class="block text-xs font-bold text-blue-600 mb-2 uppercase tracking-wide ml-0.5 flex items-center gap-2"><i class="fas fa-user"></i> Nome do Paciente</label>
@@ -1041,37 +1041,37 @@ app.get('/', (c) => {
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mb-4">
                             <!-- TABAGISMO -->
                             <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white" :class="form.habits.smoker ? 'border-amber-500 ring-1 ring-amber-500 bg-amber-50/50' : ''">
-                                <input type="checkbox" x-model="form.habits.smoker" @change="if(form.habits.smoker) { form.habits.exSmoker = false; selectedCalc = 'carga_tabagica'; showCalculators = true; }" class="w-4 h-4 text-amber-600 rounded border-slate-300 focus:ring-amber-500">
+                                <input type="checkbox" x-model="form.habits.smoker" @change="if(form.habits.smoker) { form.habits.exSmoker = false; openCalculator('carga_tabagica') }" class="w-4 h-4 text-amber-600 rounded border-slate-300 focus:ring-amber-500">
                                 <span class="text-sm font-medium text-slate-700">Tabagista</span>
                             </label>
                             <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white" :class="form.habits.exSmoker ? 'border-amber-400 ring-1 ring-amber-400 bg-amber-50/30' : ''">
-                                <input type="checkbox" x-model="form.habits.exSmoker" @change="if(form.habits.exSmoker) { form.habits.smoker = false; selectedCalc = 'carga_tabagica'; showCalculators = true; }" class="w-4 h-4 text-amber-500 rounded border-slate-300 focus:ring-amber-500">
+                                <input type="checkbox" x-model="form.habits.exSmoker" @change="if(form.habits.exSmoker) { form.habits.smoker = false; openCalculator('carga_tabagica') }" class="w-4 h-4 text-amber-500 rounded border-slate-300 focus:ring-amber-500">
                                 <span class="text-sm font-medium text-slate-700">Ex-Tabagista</span>
                             </label>
-                            
+
                             <!-- ETILISMO -->
                             <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white" :class="form.habits.alcoholic ? 'border-red-500 ring-1 ring-red-500 bg-red-50/50' : ''">
-                                <input type="checkbox" x-model="form.habits.alcoholic" @change="if(form.habits.alcoholic) { form.habits.exAlcoholic = false; selectedCalc = 'carga_etilica'; showCalculators = true; }" class="w-4 h-4 text-red-600 rounded border-slate-300 focus:ring-red-500">
+                                <input type="checkbox" x-model="form.habits.alcoholic" @change="if(form.habits.alcoholic) { form.habits.exAlcoholic = false; openCalculator('carga_etilica') }" class="w-4 h-4 text-red-600 rounded border-slate-300 focus:ring-red-500">
                                 <span class="text-sm font-medium text-slate-700">Etilista</span>
                             </label>
                             <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white" :class="form.habits.exAlcoholic ? 'border-red-400 ring-1 ring-red-400 bg-red-50/30' : ''">
-                                <input type="checkbox" x-model="form.habits.exAlcoholic" @change="if(form.habits.exAlcoholic) { form.habits.alcoholic = false; selectedCalc = 'carga_etilica'; showCalculators = true; }" class="w-4 h-4 text-red-500 rounded border-slate-300 focus:ring-red-500">
+                                <input type="checkbox" x-model="form.habits.exAlcoholic" @change="if(form.habits.exAlcoholic) { form.habits.alcoholic = false; openCalculator('carga_etilica') }" class="w-4 h-4 text-red-500 rounded border-slate-300 focus:ring-red-500">
                                 <span class="text-sm font-medium text-slate-700">Ex-Etilista</span>
                             </label>
-                            
+
                             <!-- DROGAS -->
                             <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white" :class="form.habits.drugs ? 'border-purple-500 ring-1 ring-purple-500 bg-purple-50/50' : ''">
                                 <input type="checkbox" x-model="form.habits.drugs" class="w-4 h-4 text-purple-600 rounded border-slate-300 focus:ring-purple-500">
                                 <span class="text-sm font-medium text-slate-700">Drogas</span>
                             </label>
-                            
+
                             <!-- SEDENTÁRIO -->
                             <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white" :class="form.habits.sedentary ? 'border-blue-500 ring-1 ring-blue-500 bg-blue-50/50' : ''">
                                 <input type="checkbox" x-model="form.habits.sedentary" class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500">
                                 <span class="text-sm font-medium text-slate-700">Sedentário</span>
                             </label>
                         </div>
-                        
+
                         <!-- CAMPOS ADICIONAIS DE HÁBITOS -->
                         <div class="space-y-3 mt-4">
                             <!-- Carga Tabágica -->
@@ -1079,25 +1079,25 @@ app.get('/', (c) => {
                                 <label class="form-label flex items-center gap-2 mb-2">
                                     <i class="fas fa-smoking text-amber-600"></i>
                                     <span>Carga Tabágica</span>
-                                    <button @click="selectedCalc = 'carga_tabagica'; showCalculators = true" class="ml-auto px-2 py-1 bg-amber-600 text-white text-xs rounded-lg hover:bg-amber-700 transition-all">
+                                    <button @click="openCalculator('carga_tabagica')" class="ml-auto px-2 py-1 bg-amber-600 text-white text-xs rounded-lg hover:bg-amber-700 transition-all">
                                         <i class="fas fa-calculator mr-1"></i> Calcular
                                     </button>
                                 </label>
                                 <input type="text" x-model="form.habits.smokingLoad" class="form-input border-amber-200" placeholder="Ex: 20 anos-maço ou 20 cigarros/dia há 10 anos">
                             </div>
-                            
+
                             <!-- Carga Etílica -->
                             <div x-show="form.habits.alcoholic || form.habits.exAlcoholic" class="bg-red-50/50 border border-red-200 rounded-lg p-4">
                                 <label class="form-label flex items-center gap-2 mb-2">
                                     <i class="fas fa-wine-bottle text-red-600"></i>
                                     <span>Carga Etílica</span>
-                                    <button @click="selectedCalc = 'carga_etilica'; showCalculators = true" class="ml-auto px-2 py-1 bg-red-600 text-white text-xs rounded-lg hover:bg-red-700 transition-all">
+                                    <button @click="openCalculator('carga_etilica')" class="ml-auto px-2 py-1 bg-red-600 text-white text-xs rounded-lg hover:bg-red-700 transition-all">
                                         <i class="fas fa-calculator mr-1"></i> Calcular
                                     </button>
                                 </label>
                                 <input type="text" x-model="form.habits.alcoholLoad" class="form-input border-red-200" placeholder="Ex: 80g/dia ou 4 doses/dia">
                             </div>
-                            
+
                             <!-- Tipo de Drogas -->
                             <div x-show="form.habits.drugs" class="bg-purple-50/50 border border-purple-200 rounded-lg p-4">
                                 <label class="form-label flex items-center gap-2 mb-2">
@@ -1135,7 +1135,7 @@ app.get('/', (c) => {
                         <div class="w-8 h-8 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center text-sm"><i class="fas fa-pills"></i></div>
                         <h3 class="font-bold text-slate-700 text-lg">Medicação em Uso</h3>
                     </div>
-                    
+
                     <div class="bg-indigo-50/50 p-4 rounded-xl border border-indigo-100 mb-4">
                         <div class="flex flex-col sm:flex-row gap-3">
                             <div class="flex-grow">
@@ -1200,35 +1200,35 @@ app.get('/', (c) => {
                         <label class="form-label mb-3 text-slate-400">Sintomas Negados</label>
                         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                             <label class="checkbox-card text-xs font-semibold text-slate-600">
-                                <input type="checkbox" x-model="form.negatives.fever" class="rounded text-cyan-600 focus:ring-cyan-500"> 
+                                <input type="checkbox" x-model="form.negatives.fever" class="rounded text-cyan-600 focus:ring-cyan-500">
                                 <span>Febre</span>
                             </label>
                             <label class="checkbox-card text-xs font-semibold text-slate-600">
-                                <input type="checkbox" x-model="form.negatives.headache" class="rounded text-cyan-600 focus:ring-cyan-500"> 
+                                <input type="checkbox" x-model="form.negatives.headache" class="rounded text-cyan-600 focus:ring-cyan-500">
                                 <span>Cefaleia</span>
                             </label>
                             <label class="checkbox-card text-xs font-semibold text-slate-600">
-                                <input type="checkbox" x-model="form.negatives.dizziness" class="rounded text-cyan-600 focus:ring-cyan-500"> 
+                                <input type="checkbox" x-model="form.negatives.dizziness" class="rounded text-cyan-600 focus:ring-cyan-500">
                                 <span>Tontura</span>
                             </label>
                             <label class="checkbox-card text-xs font-semibold text-slate-600">
-                                <input type="checkbox" x-model="form.negatives.dyspnea" class="rounded text-cyan-600 focus:ring-cyan-500"> 
+                                <input type="checkbox" x-model="form.negatives.dyspnea" class="rounded text-cyan-600 focus:ring-cyan-500">
                                 <span>Falta de Ar</span>
                             </label>
                             <label class="checkbox-card text-xs font-semibold text-slate-600">
-                                <input type="checkbox" x-model="form.negatives.chestPain" class="rounded text-cyan-600 focus:ring-cyan-500"> 
+                                <input type="checkbox" x-model="form.negatives.chestPain" class="rounded text-cyan-600 focus:ring-cyan-500">
                                 <span>Dor Torácica</span>
                             </label>
                             <label class="checkbox-card text-xs font-semibold text-slate-600">
-                                <input type="checkbox" x-model="form.negatives.nausea" class="rounded text-cyan-600 focus:ring-cyan-500"> 
+                                <input type="checkbox" x-model="form.negatives.nausea" class="rounded text-cyan-600 focus:ring-cyan-500">
                                 <span>Náuseas</span>
                             </label>
                             <label class="checkbox-card text-xs font-semibold text-slate-600">
-                                <input type="checkbox" x-model="form.negatives.intestine" class="rounded text-cyan-600 focus:ring-cyan-500"> 
+                                <input type="checkbox" x-model="form.negatives.intestine" class="rounded text-cyan-600 focus:ring-cyan-500">
                                 <span>Alt. Intestinais</span>
                             </label>
                             <label class="checkbox-card text-xs font-semibold text-slate-600">
-                                <input type="checkbox" x-model="form.negatives.urinary" class="rounded text-cyan-600 focus:ring-cyan-500"> 
+                                <input type="checkbox" x-model="form.negatives.urinary" class="rounded text-cyan-600 focus:ring-cyan-500">
                                 <span>Alt. Urinárias</span>
                             </label>
                         </div>
@@ -1244,9 +1244,8 @@ app.get('/', (c) => {
                     </div>
 
                     <div class="bg-emerald-50/50 p-5 rounded-2xl border border-emerald-100/50 mb-8">
-                        <label class="form-label text-emerald-700 mb-4 flex items-center gap-2 text-sm">
-                            <i class="fas fa-heartbeat text-lg"></i> Sinais Vitais
-                        </label>
+                        <div class="pg-section-heading mb-4"><h4 class="form-label mb-0">Sinais Vitais</h4><label class="pg-hide-toggle"><input type="checkbox" :checked="!form.visibility.soapVitals" @change="form.visibility.soapVitals = !$event.target.checked" aria-label="Ocultar sinais vitais do SOAP do texto"> Ocultar do texto</label></div>
+                        <p class="pg-omission-note" x-show="!form.visibility.soapVitals">Sinais vitais omitidos do texto. Os valores abaixo estão preservados.</p>
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
                             <div><label class="text-[10px] font-bold text-emerald-700 mb-1.5 block uppercase tracking-wider flex items-center gap-1"><i class="fas fa-tachometer-alt"></i> PA</label><div class="relative"><input type="text" x-model="form.vitals.pa" class="w-full px-3 py-3 text-center font-bold text-emerald-900 bg-white border border-emerald-200 shadow-sm hover:shadow-md rounded-xl focus:outline-none focus:ring-4 focus:ring-emerald-500/15 focus:border-emerald-500 hover:border-emerald-300 transition-all shadow-sm text-sm" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[9px] font-bold">mmHg</span></div></div>
                             <div><label class="text-[10px] font-bold text-emerald-700 mb-1.5 block uppercase tracking-wider flex items-center gap-1"><i class="fas fa-heartbeat"></i> FC</label><div class="relative"><input type="number" x-model="form.vitals.fc" class="w-full px-3 py-3 text-center font-bold text-emerald-900 bg-white border border-emerald-200 shadow-sm hover:shadow-md rounded-xl focus:outline-none focus:ring-4 focus:ring-emerald-500/15 focus:border-emerald-500 hover:border-emerald-300 transition-all shadow-sm text-sm" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[9px] font-bold">bpm</span></div></div>
@@ -1263,15 +1262,15 @@ app.get('/', (c) => {
                         </h4>
                         <!-- Quick Calculator Buttons -->
                         <div class="flex flex-wrap gap-2">
-                            <button @click="selectedCalc = 'glasgow'; showCalculators = true;" class="text-[10px] px-3 py-1 bg-violet-50 border border-violet-200 text-violet-700 rounded-full hover:bg-violet-100 hover:shadow-sm transition-all font-bold">
+                            <button @click="openCalculator('glasgow')" class="text-[10px] px-3 py-1 bg-violet-50 border border-violet-200 text-violet-700 rounded-full hover:bg-violet-100 hover:shadow-sm transition-all font-bold">
                                 <i class="fas fa-brain mr-1"></i>Glasgow
                             </button>
-                            <button @click="selectedCalc = 'curb65'; showCalculators = true;" class="text-[10px] px-3 py-1 bg-amber-50 border border-amber-200 text-amber-700 rounded-full hover:bg-amber-100 hover:shadow-sm transition-all font-bold">
+                            <button @click="openCalculator('curb65')" class="text-[10px] px-3 py-1 bg-amber-50 border border-amber-200 text-amber-700 rounded-full hover:bg-amber-100 hover:shadow-sm transition-all font-bold">
                                 <i class="fas fa-lungs mr-1"></i>CURB-65
                             </button>
                         </div>
                     </div>
-                    
+
                     <p class="text-xs text-slate-500 mb-4">Use os modelos apenas para achados examinados e revise o texto antes de copiar.</p>
 
                     <div class="space-y-6">
@@ -1291,10 +1290,10 @@ app.get('/', (c) => {
                             <div class="flex justify-between items-center mb-2">
                                 <div class="flex items-center gap-2 flex-wrap">
                                     <label class="text-xs font-bold text-slate-500 uppercase tracking-wide mr-1">Cardíaco</label>
-                                    <button @click="selectedCalc = 'chads'; showCalculators = true;" class="text-[9px] px-2 py-0.5 bg-rose-50 border border-rose-100 text-rose-600 rounded-md hover:bg-rose-100 transition-all font-bold" title="Risco de AVC em FA">
+                                    <button @click="openCalculator('chads')" class="text-[9px] px-2 py-0.5 bg-rose-50 border border-rose-100 text-rose-600 rounded-md hover:bg-rose-100 transition-all font-bold" title="Risco de AVC em FA">
                                         <i class="fas fa-heartbeat"></i> CHADS
                                     </button>
-                                    <button @click="selectedCalc = 'has_bled'; showCalculators = true;" class="text-[9px] px-2 py-0.5 bg-rose-50 border border-rose-100 text-rose-600 rounded-md hover:bg-rose-100 transition-all font-bold" title="Risco de Sangramento">
+                                    <button @click="openCalculator('has_bled')" class="text-[9px] px-2 py-0.5 bg-rose-50 border border-rose-100 text-rose-600 rounded-md hover:bg-rose-100 transition-all font-bold" title="Risco de Sangramento">
                                         <i class="fas fa-tint"></i> HAS-BLED
                                     </button>
                                 </div>
@@ -1310,10 +1309,10 @@ app.get('/', (c) => {
                             <div class="flex justify-between items-center mb-2">
                                 <div class="flex items-center gap-2 flex-wrap">
                                     <label class="text-xs font-bold text-slate-500 uppercase tracking-wide mr-1">Pulmonar</label>
-                                    <button @click="selectedCalc = 'curb65'; showCalculators = true;" class="text-[9px] px-2 py-0.5 bg-amber-50 border border-amber-100 text-amber-600 rounded-md hover:bg-amber-100 transition-all font-bold" title="Pneumonia">
+                                    <button @click="openCalculator('curb65')" class="text-[9px] px-2 py-0.5 bg-amber-50 border border-amber-100 text-amber-600 rounded-md hover:bg-amber-100 transition-all font-bold" title="Pneumonia">
                                         <i class="fas fa-lungs"></i> CURB-65
                                     </button>
-                                    <button @click="selectedCalc = 'perc'; showCalculators = true;" class="text-[9px] px-2 py-0.5 bg-blue-50 border border-blue-100 text-blue-600 rounded-md hover:bg-blue-100 transition-all font-bold" title="Embolia Pulmonar">
+                                    <button @click="openCalculator('perc')" class="text-[9px] px-2 py-0.5 bg-blue-50 border border-blue-100 text-blue-600 rounded-md hover:bg-blue-100 transition-all font-bold" title="Embolia Pulmonar">
                                         <i class="fas fa-check-circle"></i> PERC
                                     </button>
                                 </div>
@@ -1340,10 +1339,10 @@ app.get('/', (c) => {
                             <div class="flex justify-between items-center mb-2">
                                 <div class="flex items-center gap-2 flex-wrap">
                                     <label class="text-xs font-bold text-slate-500 uppercase tracking-wide mr-1">Neurológico</label>
-                                    <button @click="selectedCalc = 'glasgow'; showCalculators = true;" class="text-[9px] px-2 py-0.5 bg-violet-50 border border-violet-100 text-violet-600 rounded-md hover:bg-violet-100 transition-all font-bold" title="Coma">
+                                    <button @click="openCalculator('glasgow')" class="text-[9px] px-2 py-0.5 bg-violet-50 border border-violet-100 text-violet-600 rounded-md hover:bg-violet-100 transition-all font-bold" title="Coma">
                                         <i class="fas fa-brain"></i> Glasgow
                                     </button>
-                                    <button @click="selectedCalc = 'nihss'; showCalculators = true;" class="text-[9px] px-2 py-0.5 bg-violet-50 border border-violet-100 text-violet-600 rounded-md hover:bg-violet-100 transition-all font-bold" title="AVC">
+                                    <button @click="openCalculator('nihss')" class="text-[9px] px-2 py-0.5 bg-violet-50 border border-violet-100 text-violet-600 rounded-md hover:bg-violet-100 transition-all font-bold" title="AVC">
                                         <i class="fas fa-user-injured"></i> NIHSS
                                     </button>
                                 </div>
@@ -1359,7 +1358,7 @@ app.get('/', (c) => {
                             <div class="flex justify-between items-center mb-2">
                                 <div class="flex items-center gap-2 flex-wrap">
                                     <label class="text-xs font-bold text-slate-500 uppercase tracking-wide mr-1">Extremidades</label>
-                                    <button @click="selectedCalc = 'wells_tvp'; showCalculators = true;" class="text-[9px] px-2 py-0.5 bg-indigo-50 border border-indigo-100 text-indigo-600 rounded-md hover:bg-indigo-100 transition-all font-bold" title="Trombose">
+                                    <button @click="openCalculator('wells_tvp')" class="text-[9px] px-2 py-0.5 bg-indigo-50 border border-indigo-100 text-indigo-600 rounded-md hover:bg-indigo-100 transition-all font-bold" title="Trombose">
                                         <i class="fas fa-socks"></i> Wells TVP
                                     </button>
                                 </div>
@@ -1401,7 +1400,7 @@ app.get('/', (c) => {
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="space-y-3">
                             <template x-for="(exam, index) in form.exam.additional" :key="exam.id">
                                 <div class="relative group bg-slate-50 p-4 rounded-xl border border-slate-100 focus-within:ring-2 focus-within:ring-blue-100">
@@ -1422,13 +1421,13 @@ app.get('/', (c) => {
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- 5. COMPLEMENTARY EXAMS -->
-                <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-lg border border-slate-100 mb-6 transition-all duration-300 hover:shadow-xl hover:shadow-blue-900/10 hover:-translate-y-1 relative overflow-hidden transition-all hover:shadow-md">
+                <div class="card pg-form-card bg-white p-5 sm:p-6 rounded-3xl shadow-lg border border-slate-100 mb-6 transition-all duration-300 hover:shadow-xl hover:shadow-blue-900/10 hover:-translate-y-1 relative overflow-hidden transition-all hover:shadow-md">
                      <h4 class="font-bold text-slate-700 mb-4 text-sm uppercase flex items-center gap-2">
                         <i class="fas fa-microscope text-slate-400"></i> Exames Complementares
                      </h4>
-                     
+
                      <div class="space-y-4">
                          <div>
                              <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Laboratoriais</label>
@@ -1448,26 +1447,26 @@ app.get('/', (c) => {
                         <span class="bg-amber-500 text-white font-bold w-8 h-8 flex items-center justify-center rounded-lg text-sm shadow-md shadow-amber-500/20">A</span>
                         <h3 class="font-bold text-base sm:text-lg text-slate-700">Avaliação</h3>
                     </div>
-                    
+
                     <div class="flex flex-col sm:flex-row gap-2 relative mb-4">
                         <div class="flex-grow w-full relative" @click.away="cidResults = []; cidError = ''">
                             <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">
                                 Hipótese Diagnóstica (CID-10)
                             </label>
                             <div class="relative">
-                                <input type="text" 
-                                    x-model="cidSearch" 
-                                    @input.debounce.400ms="searchCID()" 
-                                    class="form-input pl-10" 
+                                <input type="text"
+                                    x-model="cidSearch"
+                                    @input.debounce.400ms="searchCID()"
+                                    class="form-input pl-10"
                                     placeholder="Busca inteligente (ex: J06, pneumonia, IAM)...">
                                 <i class="fas fa-search absolute left-3.5 top-3 text-slate-400"></i>
                                 <div x-show="cidLoading" class="absolute right-3 top-3">
                                     <i class="fas fa-spinner fa-spin text-amber-500"></i>
                                 </div>
                             </div>
-                            
+
                             <!-- CID Dropdown -->
-                            <div x-show="cidResults.length > 0" 
+                            <div x-show="cidResults.length > 0"
                                  x-transition:enter="transition ease-out duration-100"
                                  x-transition:enter-start="opacity-0 transform scale-95"
                                  x-transition:enter-end="opacity-100 transform scale-100"
@@ -1479,7 +1478,7 @@ app.get('/', (c) => {
                                     </span>
                                 </div>
                                 <template x-for="cid in cidResults" :key="cid.code">
-                                    <button @click="selectCID(cid)" 
+                                    <button @click="selectCID(cid)"
                                             class="w-full text-left px-4 py-3 hover:bg-slate-50 text-sm border-b border-slate-50 last:border-0 transition-colors flex items-start gap-3 group">
                                         <span class="font-bold text-amber-600 bg-amber-50 border border-amber-100 px-2 py-0.5 rounded text-xs whitespace-nowrap group-hover:bg-amber-100 transition-colors" x-text="cid.code"></span>
                                         <span class="text-slate-700 flex-grow group-hover:text-slate-900" x-text="cid.name"></span>
@@ -1489,7 +1488,7 @@ app.get('/', (c) => {
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Selected Diagnoses -->
                     <div class="mb-6">
                         <template x-if="form.assessment.diagnoses.length > 0">
@@ -1511,7 +1510,7 @@ app.get('/', (c) => {
                             </div>
                         </template>
                     </div>
-                    
+
                     <div>
                         <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Outros / Diagnóstico Livre</label>
                         <input type="text" x-model="form.assessment.hd" class="form-input bg-white border-slate-300" placeholder="Complemento...">
@@ -1580,7 +1579,7 @@ app.get('/', (c) => {
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="mt-4">
                         <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Observações Adicionais</label>
                         <textarea x-model="form.plan.notes" class="form-input h-20 text-sm" placeholder="Outros detalhes..."></textarea>
@@ -1603,20 +1602,20 @@ app.get('/', (c) => {
                                 Selecione o Tipo de Registro
                             </h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <button 
+                                <button
                                     @click="form.utiTemplate = 'evolucao'"
-                                    :class="form.utiTemplate === 'evolucao' ? 'bg-red-600 text-white shadow-lg scale-105' : 'bg-white text-slate-700 hover:bg-red-50 border border-slate-300 shadow-sm'"
-                                    class="p-6 rounded-xl font-bold transition-all flex flex-col items-center justify-center gap-3">
+                                    :class="form.utiTemplate === 'evolucao' ? 'pg-record-option-active' : ''"
+                                    class="pg-record-option p-6 rounded-xl font-bold transition-all flex flex-col items-center justify-center gap-3">
                                     <i class="fas fa-notes-medical text-3xl"></i>
                                     <div>
-                                        <div class="text-base">Evolução Médica</div>
-                                        <div class="text-xs font-normal opacity-80 mt-1">Paciente já em cuidados intensivos</div>
+                                        <div class="text-base">Admissão médica padrão</div>
+                                        <div class="text-xs font-normal opacity-80 mt-1">Registro inicial por sistemas</div>
                                     </div>
                                 </button>
-                                <button 
+                                <button
                                     @click="form.utiTemplate = 'xabcde'"
-                                    :class="form.utiTemplate === 'xabcde' ? 'bg-red-600 text-white shadow-lg scale-105' : 'bg-white text-slate-700 hover:bg-red-50 border border-slate-300 shadow-sm'"
-                                    class="p-6 rounded-xl font-bold transition-all flex flex-col items-center justify-center gap-3">
+                                    :class="form.utiTemplate === 'xabcde' ? 'pg-record-option-active' : ''"
+                                    class="pg-record-option p-6 rounded-xl font-bold transition-all flex flex-col items-center justify-center gap-3">
                                     <i class="fas fa-ambulance text-3xl"></i>
                                     <div>
                                         <div class="text-base">Admissão XABCDE</div>
@@ -1625,7 +1624,7 @@ app.get('/', (c) => {
                                 </button>
                             </div>
                         </div>
-                    
+
                         <!-- ======================================== -->
                         <!-- TEMPLATE 1: Evolução de Paciente Crítico -->
                         <!-- ======================================== -->
@@ -1639,7 +1638,7 @@ app.get('/', (c) => {
                                         </div>
                                         <h3 class="font-bold text-base sm:text-lg text-slate-700">Dados da Internação</h3>
                                     </div>
-                                    
+
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
                                             <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Data de Admissão</label>
@@ -1655,13 +1654,13 @@ app.get('/', (c) => {
                                             </select>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="mt-4">
                                         <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Motivo da Internação / Transferência</label>
                                         <textarea x-model="form.uti.motivo" class="form-input h-20 border-red-200 focus:ring-red-500/20 focus:border-red-500" placeholder="Descreva o motivo da admissão neste setor..."></textarea>
                                     </div>
                                 </div>
-                    
+
                                 <!-- B. DIAGNÓSTICO PRINCIPAL -->
                                 <div class="card mb-5 border-l-4 border-red-400">
                                     <div class="flex items-center gap-2 mb-4">
@@ -1672,7 +1671,7 @@ app.get('/', (c) => {
                                     </div>
                                     <textarea x-model="form.uti.dx" class="form-input h-24 border-red-200 focus:ring-red-500/20 focus:border-red-500" placeholder="Diagnóstico principal que motivou a internação..."></textarea>
                                 </div>
-                    
+
                                 <!-- C. RASTREIO COVID-19 -->
                                 <div class="card mb-5 border-l-4 border-amber-400 bg-amber-50/30">
                                     <div class="flex items-center gap-2 mb-6">
@@ -1681,7 +1680,7 @@ app.get('/', (c) => {
                                         </div>
                                         <h3 class="font-bold text-base sm:text-lg text-slate-700">Rastreio COVID-19</h3>
                                     </div>
-                                    
+
                                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                         <div>
                                             <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Data do TR COVID-19</label>
@@ -1707,7 +1706,7 @@ app.get('/', (c) => {
                                         </div>
                                     </div>
                                 </div>
-                    
+
                                 <!-- D. ANTIBIOTICOTERAPIA (ATB) - Lista Dinâmica -->
                                 <div class="card mb-5 border-l-4 border-purple-400 bg-purple-50/30">
                                     <div class="flex items-center justify-between mb-6">
@@ -1717,14 +1716,14 @@ app.get('/', (c) => {
                                             </div>
                                             <h3 class="font-bold text-base sm:text-lg text-slate-700">Antibioticoterapia (ATB)</h3>
                                         </div>
-                                        <button 
+                                        <button
                                             @click="form.uti.atb.push({nome:'',horario:'',dataInicio:'',status:'EM USO'})"
                                             class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-all text-sm font-bold flex items-center gap-2 shadow-lg hover:shadow-purple-500/30">
                                             <i class="fas fa-plus"></i>
                                             Adicionar ATB
                                         </button>
                                     </div>
-                    
+
                                     <div class="space-y-3">
                                         <template x-if="form.uti.atb.length === 0">
                                             <div class="text-center py-8 border-2 border-dashed border-purple-200 rounded-xl bg-purple-50/30">
@@ -1733,7 +1732,7 @@ app.get('/', (c) => {
                                                 <p class="text-purple-300 text-xs mt-1">Clique em "Adicionar ATB" para incluir</p>
                                             </div>
                                         </template>
-                    
+
                                         <template x-for="(atb, index) in form.uti.atb" :key="index">
                                             <div class="bg-white p-4 rounded-xl border border-purple-200 shadow-sm hover:shadow-md hover:border-purple-400 transition-all shadow-sm hover:shadow-md">
                                                 <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
@@ -1758,7 +1757,7 @@ app.get('/', (c) => {
                                                         </select>
                                                     </div>
                                                     <div class="md:col-span-1 flex justify-end">
-                                                        <button 
+                                                        <button
                                                             @click="form.uti.atb.splice(index, 1)"
                                                             class="h-[44px] w-[44px] bg-red-100 text-red-600 rounded-lg hover:bg-red-600 hover:text-white transition-all flex items-center justify-center">
                                                             <i class="fas fa-trash"></i>
@@ -1769,7 +1768,7 @@ app.get('/', (c) => {
                                         </template>
                                     </div>
                                 </div>
-                    
+
                                 <!-- E. HISTÓRIA DA DOENÇA ATUAL (HDA) -->
                                 <div class="card mb-5 border-l-4 border-blue-400">
                                     <div class="flex items-center gap-2 mb-4">
@@ -1780,7 +1779,7 @@ app.get('/', (c) => {
                                     </div>
                                     <textarea x-model="form.uti.hda" class="form-input h-32 border-blue-200 focus:ring-blue-500/20 focus:border-blue-500" placeholder="Descreva a história da doença atual do paciente..."></textarea>
                                 </div>
-                    
+
                                 <!-- F. DISPOSITIVOS/ACESSOS (DEVICES) - Lista Dinâmica -->
                                 <div class="card mb-5 border-l-4 border-emerald-400 bg-emerald-50/30">
                                     <div class="flex items-center justify-between mb-6">
@@ -1790,14 +1789,14 @@ app.get('/', (c) => {
                                             </div>
                                             <h3 class="font-bold text-base sm:text-lg text-slate-700">Dispositivos / Acessos (DEVICES)</h3>
                                         </div>
-                                        <button 
+                                        <button
                                             @click="form.uti.devices.push({tipo:'',detalhes:'',dataInsercao:'',status:'EM USO'})"
                                             class="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-all text-sm font-bold flex items-center gap-2 shadow-lg hover:shadow-emerald-500/30">
                                             <i class="fas fa-plus"></i>
                                             Adicionar Device
                                         </button>
                                     </div>
-                    
+
                                     <div class="space-y-3">
                                         <template x-if="form.uti.devices.length === 0">
                                             <div class="text-center py-8 border-2 border-dashed border-emerald-200 rounded-xl bg-emerald-50/30">
@@ -1806,7 +1805,7 @@ app.get('/', (c) => {
                                                 <p class="text-emerald-300 text-xs mt-1">Clique em "Adicionar Device" para incluir</p>
                                             </div>
                                         </template>
-                    
+
                                         <template x-for="(device, index) in form.uti.devices" :key="index">
                                             <div class="bg-white p-4 rounded-xl border border-emerald-200 shadow-sm hover:shadow-md hover:border-emerald-400 transition-all shadow-sm hover:shadow-md">
                                                 <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
@@ -1842,7 +1841,7 @@ app.get('/', (c) => {
                                                         </select>
                                                     </div>
                                                     <div class="md:col-span-1 flex justify-end">
-                                                        <button 
+                                                        <button
                                                             @click="form.uti.devices.splice(index, 1)"
                                                             class="h-[44px] w-[44px] bg-red-100 text-red-600 rounded-lg hover:bg-red-600 hover:text-white transition-all flex items-center justify-center">
                                                             <i class="fas fa-trash"></i>
@@ -1853,18 +1852,22 @@ app.get('/', (c) => {
                                         </template>
                                     </div>
                                 </div>
-                    
+
                                 <!-- G. EVOLUÇÃO POR SISTEMAS -->
                                 <div class="card mb-5 border-l-4 border-cyan-400 bg-cyan-50/30">
                                     <div class="flex items-center gap-2 mb-6">
                                         <div class="w-10 h-10 rounded-full bg-cyan-100 text-cyan-600 flex items-center justify-center">
                                             <i class="fas fa-heartbeat"></i>
                                         </div>
-                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Evolução por Sistemas</h3>
+                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Exame físico por sistemas</h3>
                                     </div>
                                     <p class="text-xs text-slate-500 mb-4">Use os modelos apenas para achados examinados e revise o texto antes de copiar.</p>
-                    
+
                                     <div class="space-y-4">
+                                        <div>
+                                            <div class="pg-section-heading mb-2"><label class="form-label mb-0">Estado geral</label><button type="button" class="pg-model-button" @click="setAdmissionNormal('general')">Normal</button></div>
+                                            <textarea x-model="form.uti.evolucao.general" class="form-input" rows="2" placeholder="Achados do estado geral..."></textarea>
+                                        </div>
                                         <div>
                                             <div class="flex items-center justify-between mb-2">
                                                 <label class="form-label flex items-center gap-2 mb-0">
@@ -1875,14 +1878,14 @@ app.get('/', (c) => {
                                                     <button @click="form.uti.evolucao.neuro = normalExamText('neuro')" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
                                                         <i class="fas fa-check"></i> Normal
                                                     </button>
-                                                    <button @click="selectedCalc = calculators.find(c => c.id === 'glasgow'); showCalculators = true" class="px-3 py-1 bg-cyan-100 text-cyan-700 text-xs font-bold rounded-lg hover:bg-cyan-200 transition-all flex items-center gap-1">
+                                                    <button @click="openCalculator('glasgow')" class="px-3 py-1 bg-cyan-100 text-cyan-700 text-xs font-bold rounded-lg hover:bg-cyan-200 transition-all flex items-center gap-1">
                                                         <i class="fas fa-calculator"></i> Glasgow
                                                     </button>
                                                 </div>
                                             </div>
                                             <textarea x-model="form.uti.evolucao.neuro" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Glasgow, sedação, pupilas, déficits motores..."></textarea>
                                         </div>
-                    
+
                                         <div>
                                             <div class="flex items-center justify-between mb-2">
                                                 <label class="form-label flex items-center gap-2 mb-0">
@@ -1897,7 +1900,7 @@ app.get('/', (c) => {
                                             </div>
                                             <textarea x-model="form.uti.evolucao.scv" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Hemodinâmica, drogas vasoativas, ritmo cardíaco..."></textarea>
                                         </div>
-                    
+
                                         <div>
                                             <div class="flex items-center justify-between mb-2">
                                                 <label class="form-label flex items-center gap-2 mb-0">
@@ -1908,14 +1911,14 @@ app.get('/', (c) => {
                                                     <button @click="form.uti.evolucao.sr = normalExamText('pulmonary')" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
                                                         <i class="fas fa-check"></i> Normal
                                                     </button>
-                                                    <button @click="selectedCalc = calculators.find(c => c.id === 'curb65'); showCalculators = true" class="px-3 py-1 bg-cyan-100 text-cyan-700 text-xs font-bold rounded-lg hover:bg-cyan-200 transition-all flex items-center gap-1">
+                                                    <button @click="openCalculator('curb65')" class="px-3 py-1 bg-cyan-100 text-cyan-700 text-xs font-bold rounded-lg hover:bg-cyan-200 transition-all flex items-center gap-1">
                                                         <i class="fas fa-calculator"></i> CURB-65
                                                     </button>
                                                 </div>
                                             </div>
                                             <textarea x-model="form.uti.evolucao.sr" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Padrão ventilatório, suporte de O2, ausculta..."></textarea>
                                         </div>
-                    
+
                                         <div>
                                             <div class="flex items-center justify-between mb-2">
                                                 <label class="form-label flex items-center gap-2 mb-0">
@@ -1928,32 +1931,36 @@ app.get('/', (c) => {
                                             </div>
                                             <textarea x-model="form.uti.evolucao.tgi" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Dieta, abdome, eliminações intestinais..."></textarea>
                                         </div>
-                    
+
                                         <div>
                                             <div class="flex items-center justify-between mb-2">
                                                 <label class="form-label flex items-center gap-2 mb-0">
                                                     <i class="fas fa-kidneys text-purple-600"></i>
                                                     <span>R/M (Renal/Metabólico)</span>
                                                 </label>
+                                                <button type="button" class="pg-model-button" @click="setAdmissionNormal('rm')">Normal ao exame</button>
                                                 <div class="flex gap-2">
-                                                    <button @click="selectedCalc = calculators.find(c => c.id === 'ckd'); showCalculators = true" class="px-3 py-1 bg-cyan-100 text-cyan-700 text-xs font-bold rounded-lg hover:bg-cyan-200 transition-all flex items-center gap-1">
+                                                    <button @click="openCalculator('ckd')" class="px-3 py-1 bg-cyan-100 text-cyan-700 text-xs font-bold rounded-lg hover:bg-cyan-200 transition-all flex items-center gap-1">
                                                         <i class="fas fa-calculator"></i> TFG
                                                     </button>
                                                 </div>
                                             </div>
                                             <textarea x-model="form.uti.evolucao.rm" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Diurese, função renal, distúrbios hidroeletrolíticos..."></textarea>
+                                            <p class="text-xs text-slate-500 mt-2">Modelo apenas de achados físicos. Registre diurese e resultados laboratoriais conforme avaliação; o botão não informa normalidade desses dados.</p>
                                         </div>
-                    
+
                                         <div>
                                             <div class="flex items-center justify-between mb-2">
                                                 <label class="form-label flex items-center gap-2 mb-0">
                                                     <i class="fas fa-vial text-pink-600"></i>
                                                     <span>H/I (Hematológico/Infeccioso)</span>
                                                 </label>
+                                                <button type="button" class="pg-model-button" @click="setAdmissionNormal('hi')">Normal ao exame</button>
                                             </div>
                                             <textarea x-model="form.uti.evolucao.hi" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Hemograma, coagulograma, culturas, foco infeccioso..."></textarea>
+                                            <p class="text-xs text-slate-500 mt-2">Modelo apenas de achados físicos. Registre diurese e resultados laboratoriais conforme avaliação; o botão não informa normalidade desses dados.</p>
                                         </div>
-                    
+
                                         <div>
                                             <div class="flex items-center justify-between mb-2">
                                                 <label class="form-label flex items-center gap-2 mb-0">
@@ -1968,7 +1975,7 @@ app.get('/', (c) => {
                                         </div>
                                     </div>
                                 </div>
-                    
+
                                 <!-- H. EXAMES COMPLEMENTARES -->
                                 <div class="card mb-5 border-l-4 border-indigo-400">
                                     <div class="flex items-center gap-2 mb-4">
@@ -1979,7 +1986,7 @@ app.get('/', (c) => {
                                     </div>
                                     <textarea x-model="form.uti.exames" class="form-input h-32 border-indigo-200 focus:ring-indigo-500/20 focus:border-indigo-500" placeholder="Exames laboratoriais e de imagem solicitados/aguardando/resultados..."></textarea>
                                 </div>
-                    
+
                                 <!-- I. CONDUTAS -->
                                 <div class="card mb-5 border-l-4 border-rose-400 bg-rose-50/30">
                                     <div class="flex items-center gap-2 mb-6">
@@ -1988,7 +1995,7 @@ app.get('/', (c) => {
                                         </div>
                                         <h3 class="font-bold text-base sm:text-lg text-slate-700">Condutas</h3>
                                     </div>
-                    
+
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
                                         <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white">
                                             <input type="checkbox" x-model="form.uti.condutas.vigilanciaNeuro" class="mr-3">
@@ -2031,7 +2038,7 @@ app.get('/', (c) => {
                                             <i class="fas fa-users text-pink-400"></i>
                                         </label>
                                     </div>
-                    
+
                                     <div>
                                         <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Outras Condutas</label>
                                         <textarea x-model="form.uti.condutas.outras" class="form-input h-24 border-rose-200 focus:ring-rose-500/20 focus:border-rose-500" placeholder="Outras condutas específicas para este caso..."></textarea>
@@ -2039,7 +2046,7 @@ app.get('/', (c) => {
                                 </div>
                             </div>
                         </template>
-                    
+
                         <!-- ======================================== -->
                         <!-- TEMPLATE 2: Admissão XABCDE             -->
                         <!-- (Será implementado no Passo 5)          -->
@@ -2056,7 +2063,7 @@ app.get('/', (c) => {
                                         </div>
                                         <h3 class="font-bold text-base sm:text-lg text-slate-700">Dados da Admissão</h3>
                                     </div>
-                                    
+
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
                                             <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Data/Hora</label>
@@ -2073,7 +2080,7 @@ app.get('/', (c) => {
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <!-- X - HEMORRAGIA -->
                                 <div class="card mb-5 border-l-4 border-red-600">
                                     <div class="flex items-center gap-2 mb-4">
@@ -2111,9 +2118,9 @@ app.get('/', (c) => {
                                         <input type="text" x-model="form.xabcde.x_terapeutica_obs" class="form-input border-red-200" placeholder="Ex: Torniquete no 1/3 médio da coxa direita, aplicado às 14h30">
                                     </div>
                                 </div>
-                                
+
                                 <!-- A - VIA AÉREA -->
-                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-blue-600">
+                                <div class="card pg-form-card bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-blue-600">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-black text-lg">A</div>
                                         <h3 class="font-bold text-base sm:text-lg text-slate-700">Via Aérea</h3>
@@ -2133,9 +2140,9 @@ app.get('/', (c) => {
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <!-- B - VENTILAÇÃO -->
-                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-cyan-600">
+                                <div class="card pg-form-card bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-cyan-600">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-cyan-100 text-cyan-600 flex items-center justify-center font-black text-lg">B</div>
                                         <h3 class="font-bold text-base sm:text-lg text-slate-700">Ventilação</h3>
@@ -2219,9 +2226,9 @@ app.get('/', (c) => {
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <!-- C - CIRCULAÇÃO -->
-                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-rose-600">
+                                <div class="card pg-form-card bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-rose-600">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center font-black text-lg">C</div>
                                         <h3 class="font-bold text-base sm:text-lg text-slate-700">Circulação</h3>
@@ -2331,15 +2338,15 @@ app.get('/', (c) => {
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <!-- D - DÉFICIT NEUROLÓGICO -->
-                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-purple-600">
+                                <div class="card pg-form-card bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-purple-600">
                                     <div class="flex items-center justify-between mb-4">
                                         <div class="flex items-center gap-2">
                                             <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-black text-lg">D</div>
                                             <h3 class="font-bold text-base sm:text-lg text-slate-700">Déficit Neurológico</h3>
                                         </div>
-                                        <button @click="selectedCalc = 'glasgow'; showCalculators = true" class="text-xs px-3 py-1.5 bg-purple-50 border border-purple-200 text-purple-600 rounded-lg hover:bg-purple-100 transition-all font-bold">
+                                        <button @click="openCalculator('glasgow')" class="text-xs px-3 py-1.5 bg-purple-50 border border-purple-200 text-purple-600 rounded-lg hover:bg-purple-100 transition-all font-bold">
                                             <i class="fas fa-calculator mr-1"></i> Glasgow
                                         </button>
                                     </div>
@@ -2431,9 +2438,9 @@ app.get('/', (c) => {
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <!-- E - EXPOSIÇÃO -->
-                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-orange-600">
+                                <div class="card pg-form-card bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-orange-600">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-black text-lg">E</div>
                                         <h3 class="font-bold text-base sm:text-lg text-slate-700">Exposição / Exame Rápido</h3>
@@ -2453,9 +2460,9 @@ app.get('/', (c) => {
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <!-- SINAIS VITAIS INICIAIS (Resumo) -->
-                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-emerald-600">
+                                <div class="card pg-form-card bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-emerald-600">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
                                             <i class="fas fa-heartbeat"></i>
@@ -2489,9 +2496,9 @@ app.get('/', (c) => {
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <!-- IMPRESSÃO CLÍNICA INICIAL -->
-                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-amber-600">
+                                <div class="card pg-form-card bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-amber-600">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center">
                                             <i class="fas fa-stethoscope"></i>
@@ -2514,9 +2521,9 @@ app.get('/', (c) => {
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <!-- CONDUTAS IMEDIATAS -->
-                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-blue-600">
+                                <div class="card pg-form-card bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-blue-600">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
                                             <i class="fas fa-procedures"></i>
@@ -2550,9 +2557,9 @@ app.get('/', (c) => {
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <!-- HISTÓRIA PATOLÓGICA PREGRESSA -->
-                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-slate-600">
+                                <div class="card pg-form-card bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-slate-600">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center">
                                             <i class="fas fa-history"></i>
@@ -2589,9 +2596,9 @@ app.get('/', (c) => {
                                         <p class="text-xs text-blue-700 mb-1"><i class="fas fa-info-circle text-blue-500 mr-1"></i> <strong>Dica:</strong> Se não preencher os campos acima, o sistema usará automaticamente os dados de comorbidades, alergias, cirurgias e medicações da seção de identificação.</p>
                                     </div>
                                 </div>
-                                
+
                                 <!-- FONTE DAS INFORMAÇÕES -->
-                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-indigo-600">
+                                <div class="card pg-form-card bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-indigo-600">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center">
                                             <i class="fas fa-user-friends"></i>
@@ -2600,9 +2607,9 @@ app.get('/', (c) => {
                                     </div>
                                     <textarea x-model="form.xabcde.fonte_info" class="form-input h-20 border-indigo-200" placeholder="Ex: Paciente consciente e orientado / Familiar presente / Bombeiros SAMU / Acompanhante..."></textarea>
                                 </div>
-                                
+
                                 <!-- DESTINO DO PACIENTE -->
-                                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-green-600">
+                                <div class="card pg-form-card bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 mb-6 border-l-4 border-green-600">
                                     <div class="flex items-center gap-2 mb-4">
                                         <div class="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
                                             <i class="fas fa-map-marked-alt"></i>
@@ -2621,10 +2628,10 @@ app.get('/', (c) => {
                     <div class="space-y-5">
 
                         <!-- IA do Consultório -->
-                        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 border-l-4 border-l-emerald-500">
+                        <div class="card pg-form-card bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 border-l-4 border-l-emerald-500">
                             <div class="flex items-center gap-2 mb-4">
                                 <div class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center"><i class="fas fa-robot"></i></div>
-                                <h3 class="font-bold text-base text-slate-700">IA do Consultório</h3>
+                                <h3 class="font-bold text-base text-slate-700">IA do Consultório</h3><label class="pg-hide-toggle"><input type="checkbox" :checked="!form.visibility.paAI" @change="form.visibility.paAI = !$event.target.checked" aria-label="Ocultar IA do Consultório do PA Pro do texto"> Ocultar do texto</label>
                             </div>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
@@ -2645,7 +2652,7 @@ app.get('/', (c) => {
                         </div>
 
                         <!-- QP e HMA -->
-                        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 border-l-4 border-l-blue-500">
+                        <div class="card pg-form-card bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 border-l-4 border-l-blue-500">
                             <div class="flex items-center gap-2 mb-4">
                                 <div class="w-9 h-9 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center"><i class="fas fa-comment-medical"></i></div>
                                 <h3 class="font-bold text-base text-slate-700">Queixa Principal e HMA</h3>
@@ -2680,7 +2687,7 @@ app.get('/', (c) => {
                         </div>
 
                         <!-- AP - Antecedentes -->
-                        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 border-l-4 border-l-orange-400">
+                        <div class="card pg-form-card bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 border-l-4 border-l-orange-400">
                             <div class="flex items-center gap-2 mb-4">
                                 <div class="w-9 h-9 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center"><i class="fas fa-history"></i></div>
                                 <h3 class="font-bold text-base text-slate-700">AP — Antecedentes</h3>
@@ -2703,10 +2710,10 @@ app.get('/', (c) => {
                         </div>
 
                         <!-- SSVV — Sinais Vitais (PA Pro) -->
-                        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 border-l-4 border-l-emerald-400">
+                        <div class="card pg-form-card bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 border-l-4 border-l-emerald-400">
                             <div class="flex items-center gap-2 mb-4">
                                 <div class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center"><i class="fas fa-heartbeat"></i></div>
-                                <h3 class="font-bold text-base text-slate-700">Sinais Vitais</h3>
+                                <h3 class="font-bold text-base text-slate-700">Sinais Vitais</h3><label class="pg-hide-toggle"><input type="checkbox" :checked="!form.visibility.paVitals" @change="form.visibility.paVitals = !$event.target.checked" aria-label="Ocultar Sinais Vitais do PA Pro do texto"> Ocultar do texto</label>
                             </div>
                             <div class="grid grid-cols-4 sm:grid-cols-7 gap-2">
                                 <!-- PAS -->
@@ -2742,80 +2749,94 @@ app.get('/', (c) => {
                             </div>
                         </div>
 
-                        <!-- Exame Físico -->
-                        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 border-l-4 border-l-teal-500">
-                            <div class="flex items-center gap-2 mb-4">
-                                <div class="w-9 h-9 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center"><i class="fas fa-stethoscope"></i></div>
-                                <h3 class="font-bold text-base text-slate-700">Exame Físico</h3>
-                            </div>
+                        <div class="card pg-physical-exam-card mb-5" id="pa-physical-exam">
+                            <h3 class="font-bold text-base text-slate-700 mb-4">Exame Físico</h3>
                             <p class="text-xs text-slate-500 mb-4">Use os modelos apenas para achados examinados e revise o texto antes de copiar.</p>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
-                                <!-- Estado Geral -->
-                                <div>
-                                    <div class="flex items-center justify-between mb-1.5">
-                                        <label class="text-[11px] sm:text-xs font-bold text-slate-600 uppercase tracking-wide">Estado Geral</label>
-                                        <button type="button" @click="setPANormal('geral')" class="text-[10px] px-2 py-0.5 bg-teal-50 text-teal-600 border border-teal-200 rounded-md font-bold hover:bg-teal-100 transition-all">Normal</button>
-                                    </div>
-                                    <input type="text" x-model="form.pa.ef_geral" class="form-input border-teal-200" placeholder="BEG, LOTE, eupneico(a) AA">
+                            <div class="space-y-4">
+                                <div class="pg-exam-field p-4 rounded-xl border">
+                                    <div class="pg-section-heading mb-2"><label class="form-label mb-0" for="pa-exam-geral">Estado Geral</label>
+                                        <button type="button" @click="setPANormal('geral')" class="pg-model-button">Normal</button></div>
+                                    <textarea id="pa-exam-geral" x-model="form.pa.ef_geral" class="form-input" rows="2" placeholder="Descreva os achados examinados..."></textarea>
                                 </div>
-                                <!-- AP -->
-                                <div>
-                                    <div class="flex items-center justify-between mb-1.5">
-                                        <label class="text-[11px] sm:text-xs font-bold text-slate-600 uppercase tracking-wide">AP — Ausculta Pulmonar</label>
-                                        <button type="button" @click="setPANormal('ap')" class="text-[10px] px-2 py-0.5 bg-teal-50 text-teal-600 border border-teal-200 rounded-md font-bold hover:bg-teal-100 transition-all">Normal</button>
-                                    </div>
-                                    <input type="text" x-model="form.pa.ef_ap" class="form-input border-teal-200" placeholder="AR MV+ SRA">
+                                <div class="pg-exam-field p-4 rounded-xl border">
+                                    <div class="pg-section-heading mb-2"><label class="form-label mb-0" for="pa-exam-ac">AC — Ausculta Cardíaca</label>
+                                        <button type="button" @click="setPANormal('ac')" class="pg-model-button">Normal</button></div>
+                                    <textarea id="pa-exam-ac" x-model="form.pa.ef_ac" class="form-input" rows="2" placeholder="Descreva os achados examinados..."></textarea>
                                 </div>
-                                <!-- AC -->
-                                <div>
-                                    <div class="flex items-center justify-between mb-1.5">
-                                        <label class="text-[11px] sm:text-xs font-bold text-slate-600 uppercase tracking-wide">AC — Ausculta Cardíaca</label>
-                                        <button type="button" @click="setPANormal('ac')" class="text-[10px] px-2 py-0.5 bg-teal-50 text-teal-600 border border-teal-200 rounded-md font-bold hover:bg-teal-100 transition-all">Normal</button>
-                                    </div>
-                                    <input type="text" x-model="form.pa.ef_ac" class="form-input border-teal-200" placeholder="ACV RCR 2T BNF">
+                                <div class="pg-exam-field p-4 rounded-xl border">
+                                    <div class="pg-section-heading mb-2"><label class="form-label mb-0" for="pa-exam-ap">AP — Ausculta Pulmonar</label>
+                                        <button type="button" @click="setPANormal('ap')" class="pg-model-button">Normal</button></div>
+                                    <textarea id="pa-exam-ap" x-model="form.pa.ef_ap" class="form-input" rows="2" placeholder="Descreva os achados examinados..."></textarea>
                                 </div>
-                                <!-- ABD -->
-                                <div>
-                                    <div class="flex items-center justify-between mb-1.5">
-                                        <label class="text-[11px] sm:text-xs font-bold text-slate-600 uppercase tracking-wide">ABD — Abdome</label>
-                                        <button type="button" @click="setPANormal('abd')" class="text-[10px] px-2 py-0.5 bg-teal-50 text-teal-600 border border-teal-200 rounded-md font-bold hover:bg-teal-100 transition-all">Normal</button>
-                                    </div>
-                                    <input type="text" x-model="form.pa.ef_abd" class="form-input border-teal-200" placeholder="Plano, macio, indolor, RHA+">
+                                <div class="pg-exam-field p-4 rounded-xl border">
+                                    <div class="pg-section-heading mb-2"><label class="form-label mb-0" for="pa-exam-abd">Abdome</label>
+                                        <button type="button" @click="setPANormal('abd')" class="pg-model-button">Normal</button></div>
+                                    <textarea id="pa-exam-abd" x-model="form.pa.ef_abd" class="form-input" rows="2" placeholder="Descreva os achados examinados..."></textarea>
                                 </div>
-                                <!-- Outros -->
-                                <div class="sm:col-span-2">
-                                    <div class="flex items-center justify-between mb-1.5">
-                                        <label class="text-[11px] sm:text-xs font-bold text-slate-600 uppercase tracking-wide">Outros achados</label>
-                                        <button type="button" @click="setPANormal('outros')" class="text-[10px] px-2 py-0.5 bg-teal-50 text-teal-600 border border-teal-200 rounded-md font-bold hover:bg-teal-100 transition-all">Normal</button>
-                                    </div>
-                                    <input type="text" x-model="form.pa.ef_outros" class="form-input border-teal-200" placeholder="Ex: MMII sem edema, sem adenomegalias...">
+                                <div class="pg-exam-field p-4 rounded-xl border">
+                                    <div class="pg-section-heading mb-2"><label class="form-label mb-0" for="pa-exam-neuro">Neurológico</label>
+                                        <button type="button" @click="setPANormal('neuro')" class="pg-model-button">Normal</button></div>
+                                    <textarea id="pa-exam-neuro" x-model="form.pa.ef_neuro" class="form-input" rows="2" placeholder="Descreva os achados examinados..."></textarea>
+                                </div>
+                                <div class="pg-exam-field p-4 rounded-xl border">
+                                    <div class="pg-section-heading mb-2"><label class="form-label mb-0" for="pa-exam-extremidades">Extremidades</label>
+                                        <button type="button" @click="setPANormal('extremidades')" class="pg-model-button">Normal</button></div>
+                                    <textarea id="pa-exam-extremidades" x-model="form.pa.ef_extremidades" class="form-input" rows="2" placeholder="Descreva os achados examinados..."></textarea>
                                 </div>
                             </div>
-
-                            <!-- Exames Físicos Adicionais -->
-                            <div class="border-t border-teal-100 pt-4">
-                                <div class="flex items-center justify-between mb-3">
-                                    <label class="text-[11px] sm:text-xs font-bold text-teal-700 uppercase tracking-wide flex items-center gap-1.5">
-                                        <i class="fas fa-plus-circle"></i> Exame Físico Adicional
-                                    </label>
-                                    <button type="button" @click="form.pa.ef_adicionais.push({nome:'', resultado:''})"
-                                        class="text-xs px-3 py-1.5 bg-teal-50 border border-teal-200 text-teal-600 rounded-lg hover:bg-teal-100 transition-all font-bold flex items-center gap-1.5">
-                                        <i class="fas fa-plus"></i> Adicionar
+                            <div class="mt-6 border-t pt-4">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="text-xs font-bold text-slate-500 uppercase flex items-center gap-2">
+                                <i class="fas fa-plus-circle text-slate-400"></i> Exame Físico Adicional
+                            </h4>
+                            <div class="relative" x-data="{ open: false }" @keydown.escape.stop="open = false">
+                                <button type="button" aria-controls="pa-exam-menu" :aria-expanded="open.toString()" @click="open = !open" class="text-[10px] px-3 py-1.5 bg-blue-50 border border-blue-200 text-blue-600 rounded-lg hover:bg-blue-100 transition-all font-bold flex items-center gap-2">
+                                    <i class="fas fa-plus"></i> Adicionar
+                                </button>
+                                <!-- Dropdown -->
+                                <div id="pa-exam-menu" x-show="open" @click.away="open = false" style="display: none;"
+                                     x-transition:enter="transition ease-out duration-100"
+                                     x-transition:enter-start="opacity-0 scale-95"
+                                     x-transition:enter-end="opacity-100 scale-100"
+                                     class="pg-exam-menu absolute right-0 mt-2 w-56 bg-white border border-slate-100 rounded-xl shadow-xl z-20 py-2">
+                                    <template x-for="opt in additionalExamOptions" :key="opt.id">
+                                        <button type="button" @click="addPAExam(opt.id, opt.label); open = false;"
+                                                x-show="!form.pa.ef_adicionais.some(e => e.id === opt.id)"
+                                                class="w-full text-left px-4 py-2.5 text-sm hover:bg-slate-50 flex items-center gap-3 text-slate-700">
+                                            <i :class="opt.icon" class="text-slate-400 w-4 text-center"></i>
+                                            <span x-text="opt.label"></span>
+                                        </button>
+                                    </template>
+                                    <button type="button" @click="addPACustomExam(); open = false;" class="w-full text-left px-4 py-2.5 text-sm hover:bg-slate-50 flex items-center gap-3 text-slate-700 border-t border-slate-100">
+                                        <i class="fas fa-pen text-slate-400 w-4 text-center"></i><span>Outro exame...</span>
                                     </button>
                                 </div>
-                                <template x-for="(ex, idx) in form.pa.ef_adicionais" :key="idx">
-                                    <div class="flex gap-2 mb-2 items-center">
-                                        <input type="text" x-model="ex.nome" class="form-input border-teal-200 w-2/5" placeholder="Ex: Neuro, Pele, MMII...">
-                                        <input type="text" x-model="ex.resultado" class="form-input border-teal-200 flex-1" placeholder="Achados">
-                                        <button type="button" @click="form.pa.ef_adicionais.splice(idx,1)" class="text-slate-400 hover:text-red-500 transition-colors px-1.5 flex-shrink-0"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3">
+                            <template x-for="(exam, index) in form.pa.ef_adicionais" :key="exam.id">
+                                <div class="relative group bg-slate-50 p-4 rounded-xl border border-slate-100 focus-within:ring-2 focus-within:ring-blue-100">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <label class="text-[11px] sm:text-xs font-bold text-slate-600 uppercase" x-text="exam.nome"></label>
+                                        <div class="flex items-center gap-2">
+                                            <button type="button" x-show="additionalExamOptions.some(opt => opt.id === exam.id && opt.normal)" @click="setPAAdditionalNormal(index)" class="text-[10px] px-2 py-1 bg-white border border-emerald-200 text-emerald-600 rounded-lg hover:bg-emerald-500 hover:text-white uppercase font-bold transition-all shadow-sm">
+                                                <i class="fas fa-check"></i> Normal
+                                            </button>
+                                            <button type="button" :aria-label="'Remover ' + exam.nome" @click="form.pa.ef_adicionais.splice(index, 1)" class="text-slate-400 hover:text-red-500 transition-colors w-6 h-6 rounded-full hover:bg-red-50 flex items-center justify-center">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                </template>
-                                <p x-show="form.pa.ef_adicionais.length === 0" class="text-[11px] text-slate-400 italic">Clique em "Adicionar" para incluir outros sistemas.</p>
+                                    <input type="text" x-model="exam.resultado" class="form-input bg-white/80 border-slate-200" :placeholder="'Descreva ' + exam.nome + '...'">
+                                </div>
+                            </template>
+                        </div>
                             </div>
                         </div>
 
                         <!-- Avaliação (A) -->
-                        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 border-l-4 border-l-violet-500">
+                        <div class="card pg-form-card bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 border-l-4 border-l-violet-500">
                             <div class="flex items-center gap-2 mb-4">
                                 <div class="w-9 h-9 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center font-black">A</div>
                                 <h3 class="font-bold text-base text-slate-700">Avaliação (A) — Hipótese Diagnóstica</h3>
@@ -2882,7 +2903,7 @@ app.get('/', (c) => {
                         </div>
 
                         <!-- Conduta (C) -->
-                        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 border-l-4 border-l-indigo-500">
+                        <div class="card pg-form-card bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 border-l-4 border-l-indigo-500">
                             <div class="flex items-center gap-2 mb-4">
                                 <div class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center font-black">C</div>
                                 <h3 class="font-bold text-base text-slate-700">Conduta (C)</h3>
@@ -2958,7 +2979,7 @@ app.get('/', (c) => {
                     </div>
                 </div>
             </div>
-            
+
             <!-- MOBILE FLOAT BUTTONS -->
             <div class="fixed bottom-4 right-4 lg:hidden z-50 flex flex-col gap-3" x-data="{ open: false }">
                  <button aria-label="Abrir calculadoras" @click="showCalculators = true" class="pg-floating-action w-14 h-14 bg-white text-blue-600 rounded-2xl shadow-xl shadow-blue-900/20 border border-slate-100 flex items-center justify-center text-xl transition-transform active:scale-90">
@@ -2967,8 +2988,8 @@ app.get('/', (c) => {
                  <button :aria-label="open ? 'Fechar pré-visualização' : 'Abrir pré-visualização'" :aria-expanded="open.toString()" @click="open = !open" class="pg-floating-action pg-floating-primary w-14 h-14 bg-gradient-to-br from-blue-600 to-cyan-500 text-white rounded-2xl shadow-xl shadow-blue-500/40 flex items-center justify-center text-xl transition-transform active:scale-90">
                     <i class="fas" :class="open ? 'fa-times' : 'fa-file-alt'"></i>
                  </button>
-                 
-                 <div x-show="open" class="fixed bottom-20 right-4 w-[calc(100vw-2rem)] sm:w-[450px] max-h-[75vh] flex flex-col bg-white rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden" 
+
+                 <div x-show="open" class="fixed bottom-20 right-4 w-[calc(100vw-2rem)] sm:w-[450px] max-h-[75vh] flex flex-col bg-white rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden"
                       x-transition:enter="transition ease-out duration-200"
                       x-transition:enter-start="opacity-0 translate-y-10 scale-95"
                       x-transition:enter-end="opacity-100 translate-y-0 scale-100">
@@ -2999,22 +3020,23 @@ app.get('/', (c) => {
                                 </button>
                             </div>
 
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 h-[600px]">
+                            <div class="pg-calculator-layout">
                                 <!-- Sidebar List -->
-                                <div class="border-r border-slate-100 pr-6 overflow-y-auto">
+                                <div class="pg-calculator-sidebar">
                                     <div class="relative mb-4">
                                         <input type="text" x-model="calcSearch" placeholder="Buscar calculadora..." class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500/20 outline-none">
                                         <i class="fas fa-search absolute left-3 top-2.5 text-slate-400 text-xs"></i>
                                     </div>
-                                    
+
+                                    <p class="text-sm text-slate-500" x-show="filteredCalculators.length === 0">Nenhuma calculadora encontrada.</p>
                                     <div class="space-y-1">
                                         <template x-for="calc in filteredCalculators" :key="calc.id">
-                                            <button @click="selectedCalc = calc.id; calcResult = null;" 
+                                            <button @click="openCalculator(calc.id)"
                                                 :class="selectedCalc === calc.id ? 'bg-blue-50 text-blue-700 font-bold shadow-sm' : 'text-slate-600 hover:bg-slate-50'"
                                                 class="w-full text-left px-4 py-3 rounded-xl text-sm transition-all flex items-center justify-between group">
                                                 <div>
                                                     <span x-text="calc.name" class="block"></span>
-                                                    <span x-text="calc.category" class="text-[10px] uppercase tracking-wider opacity-60 font-medium"></span>
+                                                    <span x-text="calc.category + (calc.external ? ' · MDCalc ↗' : ' · Local')" class="text-[10px] uppercase tracking-wider opacity-60 font-medium"></span>
                                                 </div>
                                                 <i class="fas fa-chevron-right text-xs opacity-0 group-hover:opacity-100 transition-opacity text-slate-400"></i>
                                             </button>
@@ -3023,9 +3045,10 @@ app.get('/', (c) => {
                                 </div>
 
                                 <!-- Calculator Content -->
-                                <div class="col-span-2 overflow-y-auto pl-2 pr-2">
+                                <div class="pg-calculator-content" @input="calcResult = null; calcResultText = ''">
                                     <template x-if="selectedCalc">
-                                        <div x-html="renderCalculator(selectedCalc)" class="animate-fade-in"></div>
+                                        <div><div x-html="renderCalculator(selectedCalc)" class="animate-fade-in"></div>
+                                            <a x-show="activeCalculator &amp;&amp; !activeCalculator.external" :href="activeCalculator?.source" target="_blank" rel="noopener noreferrer" class="pg-calc-source">Consultar fonte e critérios de aplicação ↗</a></div>
                                     </template>
                                     <template x-if="!selectedCalc">
                                         <div class="h-full flex flex-col items-center justify-center text-slate-300 opacity-60">
@@ -3041,7 +3064,7 @@ app.get('/', (c) => {
             </div>
 
         </main>
-        
+
         <script src="/static/app.js"></script>
     </body>
     </html>
@@ -3073,7 +3096,7 @@ app.get('/prescricoes', (c) => {
         <link href="/static/design-system.css" rel="stylesheet">
     </head>
     <body class="pg-app pg-prescricoes scroll-smooth bg-slate-50 text-slate-800" x-data="prescricoesApp()">
-        
+
         <!-- Header -->
         <header class="pg-subheader bg-white/90 backdrop-blur-xl border-b border-white/50 sticky top-0 z-50 shadow-sm transition-all duration-300 supports-[backdrop-filter]:bg-white/60">
             <div class="max-w-[1800px] mx-auto px-4 lg:px-6 h-16 flex items-center justify-between">
@@ -3088,7 +3111,7 @@ app.get('/prescricoes', (c) => {
                         </div>
                     </a>
                 </div>
-                
+
                 <div class="pg-header-actions flex items-center gap-2 sm:gap-3">
                     <nav aria-label="Navegação principal" class="pg-header-nav flex items-center bg-slate-100 p-1 rounded-xl">
                         <a href="/" class="px-3 sm:px-4 py-1.5 text-xs sm:text-sm whitespace-nowrap font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
@@ -3110,13 +3133,13 @@ app.get('/prescricoes', (c) => {
         </header>
 
         <main class="max-w-[1800px] mx-auto p-3 sm:p-6 lg:p-8">
-            
+
             <!-- Search Hero -->
             <div class="pg-search-hero mb-8 md:mb-12 text-center relative py-6 md:py-10 px-2">
                 <div class="pg-search-glow absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-cyan-500/20 blur-3xl -z-10 rounded-full opacity-70 scale-110"></div>
                 <h2 class="text-4xl font-bold text-slate-800 mb-3 tracking-tight drop-shadow-sm">O que você precisa prescrever hoje?</h2>
                 <p class="text-slate-600 mb-8 text-base font-medium">Busque por patologia, sintoma ou medicação</p>
-                
+
                 <div class="pg-search-control relative max-w-3xl mx-auto group transform transition-all duration-300 hover:scale-[1.01]">
                     <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
                     <input type="text" aria-label="Buscar prescrições"
@@ -3133,7 +3156,7 @@ app.get('/prescricoes', (c) => {
             </div>
 
             <div class="flex flex-col lg:flex-row gap-8">
-                
+
                 <!-- Left Sidebar - Categories -->
                 <div class="lg:w-72 flex-shrink-0">
                     <div class="bg-white rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200 overflow-hidden sticky top-[88px]">
@@ -3143,22 +3166,22 @@ app.get('/prescricoes', (c) => {
                             </h3>
                         </div>
                         <div class="p-3 max-h-[70vh] overflow-y-auto scrollbar-thin space-y-1">
-                            <button @click="selectCategoria(null)" 
+                            <button @click="selectCategoria(null)"
                                     :class="selectedCategoria === null ? 'bg-blue-50 text-blue-700 font-bold' : 'hover:bg-slate-50 text-slate-600'"
                                     class="w-full text-left px-4 py-3 rounded-xl text-sm transition-all flex items-center gap-3">
                                 <div class="w-6 flex justify-center"><i class="fas fa-th-large" :class="selectedCategoria === null ? 'text-blue-500' : 'text-slate-400'"></i></div>
                                 <span>Todas</span>
-                                <span class="ml-auto text-xs font-semibold px-2 py-0.5 rounded-full" 
+                                <span class="ml-auto text-xs font-semibold px-2 py-0.5 rounded-full"
                                       :class="selectedCategoria === null ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-500'"
                                       x-text="db.prescricoes.length"></span>
                             </button>
                             <template x-for="cat in categorias" :key="cat.id">
-                                <button @click="selectCategoria(cat.id)" 
+                                <button @click="selectCategoria(cat.id)"
                                         :class="selectedCategoria === cat.id ? 'bg-blue-50 text-blue-700 font-bold' : 'hover:bg-slate-50 text-slate-600'"
                                         class="w-full text-left px-4 py-3 rounded-xl text-sm transition-all flex items-center gap-3">
                                     <div class="w-6 flex justify-center"><i :class="cat.icone" :style="'color: var(--tw-' + cat.cor + '-500)'"></i></div>
                                     <span x-text="cat.nome" class="truncate"></span>
-                                    <span class="ml-auto text-xs font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-500" 
+                                    <span class="ml-auto text-xs font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-500"
                                           x-text="db.prescricoes.filter(p => p.categoria === cat.id).length"></span>
                                 </button>
                             </template>
@@ -3186,13 +3209,13 @@ app.get('/prescricoes', (c) => {
                                     <span x-text="prescricoesFiltradas.length"></span> resultados
                                 </span>
                             </div>
-                            
+
                             <div class="grid gap-4">
                                 <template x-for="presc in prescricoesFiltradas" :key="presc.id">
                                     <button @click="selectPrescricao(presc)"
                                             class="prescription-item w-full text-left bg-white p-5 rounded-2xl border border-slate-200 group relative overflow-hidden">
                                         <div class="absolute top-0 left-0 w-1 h-full transition-colors" :class="'bg-' + getCategoria(presc.categoria)?.cor + '-500'"></div>
-                                        
+
                                         <div class="flex items-start gap-5">
                                             <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors"
                                                  :class="'bg-' + getCategoria(presc.categoria)?.cor + '-50 text-' + getCategoria(presc.categoria)?.cor + '-500'">
@@ -3222,7 +3245,7 @@ app.get('/prescricoes', (c) => {
                                     </button>
                                 </template>
                             </div>
-                            
+
                             <template x-if="prescricoesFiltradas.length === 0">
                                 <div class="text-center py-20">
                                     <div class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-300">
@@ -3238,11 +3261,11 @@ app.get('/prescricoes', (c) => {
                     <!-- Prescription Detail -->
                     <template x-if="selectedPrescricao">
                         <div class="animate-fade-in-up">
-                            <button @click="selectedPrescricao = null" 
+                            <button @click="selectedPrescricao = null"
                                     class="mb-6 text-slate-500 hover:text-blue-600 font-bold text-sm flex items-center gap-2 transition-colors px-3 py-2 hover:bg-white rounded-lg inline-flex">
                                 <i class="fas fa-arrow-left"></i> Voltar para lista
                             </button>
-                            
+
                             <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
                                 <div class="p-8 border-b border-slate-100 bg-slate-50/50">
                                     <div class="flex items-start gap-6">
@@ -3254,13 +3277,13 @@ app.get('/prescricoes', (c) => {
                                             <span class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1 block" x-text="getCategoria(selectedPrescricao.categoria)?.nome"></span>
                                             <h2 class="text-3xl font-bold text-slate-800 mb-2" x-text="selectedPrescricao.nome"></h2>
                                             <div class="flex gap-2">
-                                                <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-white border border-slate-200 text-slate-600 shadow-sm" 
+                                                <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-white border border-slate-200 text-slate-600 shadow-sm"
                                                       x-text="selectedPrescricao.ambiente === 'hospitalar' || selectedPrescricao.ambiente === 'emergencia' ? '🏥 Hospitalar' : '🏠 Ambulatorial'"></span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="p-8 bg-slate-50 space-y-6">
                                     <template x-for="(presc, index) in selectedPrescricao.prescricoes" :key="index">
                                         <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
@@ -3305,43 +3328,43 @@ app.get('/prescricoes', (c) => {
                             </h3>
                         </div>
                         <div class="p-3 space-y-2">
-                            <button @click="searchTerm = 'dor'; selectedCategoria = null;" 
+                            <button @click="searchTerm = 'dor'; selectedCategoria = null;"
                                     class="w-full text-left px-4 py-3 rounded-xl text-sm hover:bg-slate-50 flex items-center gap-3 transition-colors group">
                                 <div class="w-8 h-8 rounded-lg bg-pink-50 text-pink-500 flex items-center justify-center group-hover:scale-110 transition-transform"><i class="fas fa-prescription"></i></div>
                                 <span class="font-medium text-slate-700">Analgesia / Dor</span>
                             </button>
-                            <button @click="searchTerm = 'pneumonia'; selectedCategoria = null;" 
+                            <button @click="searchTerm = 'pneumonia'; selectedCategoria = null;"
                                     class="w-full text-left px-4 py-3 rounded-xl text-sm hover:bg-slate-50 flex items-center gap-3 transition-colors group">
                                 <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center group-hover:scale-110 transition-transform"><i class="fas fa-lungs"></i></div>
                                 <span class="font-medium text-slate-700">Pneumonia</span>
                             </button>
-                            <button @click="searchTerm = 'itu'; selectedCategoria = null;" 
+                            <button @click="searchTerm = 'itu'; selectedCategoria = null;"
                                     class="w-full text-left px-4 py-3 rounded-xl text-sm hover:bg-slate-50 flex items-center gap-3 transition-colors group">
                                 <div class="w-8 h-8 rounded-lg bg-orange-50 text-orange-500 flex items-center justify-center group-hover:scale-110 transition-transform"><i class="fas fa-kidneys"></i></div>
                                 <span class="font-medium text-slate-700">Infecção Urinária</span>
                             </button>
-                            <button @click="searchTerm = 'sca'; selectedCategoria = null;" 
+                            <button @click="searchTerm = 'sca'; selectedCategoria = null;"
                                     class="w-full text-left px-4 py-3 rounded-xl text-sm hover:bg-slate-50 flex items-center gap-3 transition-colors group">
                                 <div class="w-8 h-8 rounded-lg bg-red-50 text-red-500 flex items-center justify-center group-hover:scale-110 transition-transform"><i class="fas fa-heart"></i></div>
                                 <span class="font-medium text-slate-700">Infarto / SCA</span>
                             </button>
-                            <button @click="searchTerm = 'asma'; selectedCategoria = null;" 
+                            <button @click="searchTerm = 'asma'; selectedCategoria = null;"
                                     class="w-full text-left px-4 py-3 rounded-xl text-sm hover:bg-slate-50 flex items-center gap-3 transition-colors group">
                                 <div class="w-8 h-8 rounded-lg bg-cyan-50 text-cyan-500 flex items-center justify-center group-hover:scale-110 transition-transform"><i class="fas fa-wind"></i></div>
                                 <span class="font-medium text-slate-700">Asma / DPOC</span>
                             </button>
-                            <button @click="searchTerm = 'convulsão'; selectedCategoria = null;" 
+                            <button @click="searchTerm = 'convulsão'; selectedCategoria = null;"
                                     class="w-full text-left px-4 py-3 rounded-xl text-sm hover:bg-slate-50 flex items-center gap-3 transition-colors group">
                                 <div class="w-8 h-8 rounded-lg bg-purple-50 text-purple-500 flex items-center justify-center group-hover:scale-110 transition-transform"><i class="fas fa-brain"></i></div>
                                 <span class="font-medium text-slate-700">Convulsão</span>
                             </button>
-                            <button @click="searchTerm = 'anafilaxia'; selectedCategoria = null;" 
+                            <button @click="searchTerm = 'anafilaxia'; selectedCategoria = null;"
                                     class="w-full text-left px-4 py-3 rounded-xl text-sm hover:bg-slate-50 flex items-center gap-3 transition-colors group">
                                 <div class="w-8 h-8 rounded-lg bg-rose-50 text-rose-500 flex items-center justify-center group-hover:scale-110 transition-transform"><i class="fas fa-ambulance"></i></div>
                                 <span class="font-medium text-slate-700">Anafilaxia</span>
                             </button>
                         </div>
-                        
+
                         <div class="p-5 border-t border-slate-100 bg-slate-50">
                             <div class="text-[10px] text-slate-400 space-y-2 font-medium">
                                 <p class="flex items-center gap-2"><i class="fas fa-info-circle text-blue-400"></i> Uso exclusivo médico</p>
@@ -3353,7 +3376,7 @@ app.get('/prescricoes', (c) => {
             </div>
         </main>
         </div><!-- /.app-shell -->
-        
+
         <script src="/static/prescricoes.js"></script>
     </body>
     </html>
