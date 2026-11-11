@@ -121,18 +121,18 @@ document.addEventListener('alpine:init', () => {
                 local: 'Sala Vermelha',
                 queixaPrincipal: '',
                 // X - Hemorragia
-                x_hemorragia: 'Sem hemorragias externas evidentes',
+                x_hemorragia: '',
                 x_local: '',
                 x_terapeutica: [],
                 x_terapeutica_obs: '',
                 // A - Via Aérea
-                a_pervia: 'Via aérea pérvia',
+                a_pervia: '',
                 a_obstrucao: '',
                 a_dispositivos: '',
                 // B - Ventilação
                 b_fr: '',
                 b_spo2: '',
-                b_o2: 'ar ambiente',
+                b_o2: '',
                 b_padrao: '',
                 b_ausculta: '',
                 b_vm_ativa: false,
@@ -204,10 +204,10 @@ document.addEventListener('alpine:init', () => {
                 ap_comorbidades: '',
                 ap_muc: '',
                 ap_alergias: '',
-                ef_geral: 'BEG, LOTE, eupneico(a) AA',
-                ef_ap: 'AR MV+ SRA',
-                ef_ac: 'ACV RCR 2T BNF',
-                ef_abd: 'indolor',
+                ef_geral: '',
+                ef_ap: '',
+                ef_ac: '',
+                ef_abd: '',
                 ef_outros: '',
                 ef_adicionais: [],
                 pa_diagnoses: [],
@@ -294,18 +294,18 @@ document.addEventListener('alpine:init', () => {
 
         // Opções de exames físicos adicionais
         additionalExamOptions: [
-            { id: 'otoscopia', label: 'Otoscopia', icon: 'fas fa-deaf' },
-            { id: 'oroscopia', label: 'Oroscopia', icon: 'fas fa-teeth-open' },
-            { id: 'rinoscopia', label: 'Rinoscopia', icon: 'fas fa-head-side-mask' },
-            { id: 'oftalmoscopia', label: 'Oftalmoscopia', icon: 'fas fa-eye' },
-            { id: 'pele', label: 'Pele/Tegumentar', icon: 'fas fa-allergies' },
-            { id: 'linfonodos', label: 'Linfonodos', icon: 'fas fa-circle' },
-            { id: 'tireoide', label: 'Tireoide', icon: 'fas fa-neck' },
-            { id: 'mamas', label: 'Mamas', icon: 'fas fa-ribbon' },
-            { id: 'geniturinario', label: 'Geniturinário', icon: 'fas fa-venus-mars' },
-            { id: 'osteoarticular', label: 'Osteoarticular', icon: 'fas fa-bone' },
-            { id: 'vascular', label: 'Vascular Periférico', icon: 'fas fa-wave-square' },
-            { id: 'psiquiatrico', label: 'Psiquiátrico', icon: 'fas fa-brain' }
+            { id: 'otoscopia', label: 'Otoscopia', icon: 'fas fa-deaf', normal: 'Membranas timpânicas visualizadas bilateralmente, íntegras, sem hiperemia ou abaulamento.' },
+            { id: 'oroscopia', label: 'Oroscopia', icon: 'fas fa-teeth-open', normal: 'Orofaringe sem hiperemia ou exsudato. Úvula centralizada.' },
+            { id: 'rinoscopia', label: 'Rinoscopia', icon: 'fas fa-head-side-mask', normal: 'Mucosa nasal sem edema ou secreção visível.' },
+            { id: 'oftalmoscopia', label: 'Oftalmoscopia', icon: 'fas fa-eye', normal: 'Discos ópticos com bordas nítidas, sem hemorragias ou exsudatos visíveis no fundo de olho examinado.' },
+            { id: 'pele', label: 'Pele/Tegumentar', icon: 'fas fa-allergies', normal: 'Pele examinada íntegra, sem lesões visíveis.' },
+            { id: 'linfonodos', label: 'Linfonodos', icon: 'fas fa-circle', normal: 'Sem linfonodomegalias palpáveis nas cadeias examinadas.' },
+            { id: 'tireoide', label: 'Tireoide', icon: 'fas fa-neck', normal: 'Tireoide sem aumento ou nódulos palpáveis, indolor à palpação.' },
+            { id: 'mamas', label: 'Mamas', icon: 'fas fa-ribbon', normal: 'Mamas sem lesões visíveis, retrações ou nódulos palpáveis.' },
+            { id: 'geniturinario', label: 'Geniturinário', icon: 'fas fa-venus-mars', normal: 'Genitália externa examinada sem lesões visíveis.' },
+            { id: 'osteoarticular', label: 'Osteoarticular', icon: 'fas fa-bone', normal: 'Articulações examinadas sem edema ou eritema, com amplitude de movimento preservada.' },
+            { id: 'vascular', label: 'Vascular Periférico', icon: 'fas fa-wave-square', normal: 'Pulsos periféricos examinados palpáveis e simétricos. Extremidades aquecidas, sem edema.' },
+            { id: 'psiquiatrico', label: 'Psiquiátrico', icon: 'fas fa-brain', normal: 'Vigil, com orientação em tempo e espaço preservada e discurso coerente.' }
         ],
 
         get filteredCalculators() {
@@ -871,19 +871,30 @@ document.addEventListener('alpine:init', () => {
             this.form.medications.splice(index, 1);
         },
 
-        setNormal(section) {
+        normalExamText(section) {
             const isMale = this.form.gender === 'Masculino';
             const normals = {
                 general: isMale 
-                    ? 'BEG, LOTE, Corado, Hidratado, Anictérico, Acianótico. Eupneico em ar ambiente.'
-                    : 'BEG, LOTE, Corada, Hidratada, Anictérica, Acianótica. Eupneica em ar ambiente.',
-                cardiac: 'RCR em 2T, BNF, sem sopros. Pulsos cheios e simétricos.',
-                pulmonary: 'MV+ bilateralmente, sem ruídos adventícios. Expansibilidade preservada.',
-                abdominal: 'Plano, flácido, indolor à palpação, RHA+, sem visceromegalias ou massas palpáveis.',
-                neuro: 'Pupilas isocóricas e fotorreagentes, sem déficits focais grosseiros, Glasgow 15.',
-                extremities: 'Sem edema de membros inferiores, panturrilhas livres, pulsos periféricos presentes e simétricos, perfusão periférica preservada.'
+                    ? 'Em bom estado geral, lúcido, orientado, corado, hidratado, anictérico, acianótico e eupneico.'
+                    : 'Em bom estado geral, lúcida, orientada, corada, hidratada, anictérica, acianótica e eupneica.',
+                cardiac: 'Bulhas cardíacas rítmicas e normofonéticas em dois tempos, sem sopros audíveis.',
+                pulmonary: 'Murmúrio vesicular presente bilateralmente, sem ruídos adventícios.',
+                abdominal: 'Abdome flácido e indolor à palpação, com ruídos hidroaéreos presentes, sem massas palpáveis.',
+                neuro: 'Pupilas isocóricas e fotorreagentes. Sem déficits focais evidentes ao exame.',
+                extremities: 'Extremidades aquecidas, sem edema, com pulsos periféricos examinados palpáveis e simétricos.'
             };
-            this.form.exam[section] = normals[section];
+            return normals[section] || '';
+        },
+
+        setNormal(section) {
+            const value = this.normalExamText(section);
+            if (value) this.form.exam[section] = value;
+        },
+
+        setPANormal(section) {
+            const sections = { geral: 'general', ap: 'pulmonary', ac: 'cardiac', abd: 'abdominal', outros: 'extremities' };
+            const field = sections[section];
+            if (field) this.form.pa['ef_' + section] = this.normalExamText(field);
         },
 
         // Exames físicos adicionais
@@ -905,7 +916,7 @@ document.addEventListener('alpine:init', () => {
         addCustomExam() {
             const label = prompt('Nome do exame físico adicional:');
             if (label && label.trim()) {
-                const id = 'custom_' + Date.now();
+                const id = 'custom_' + Date.now() + '_' + Math.random().toString(36).slice(2);
                 this.form.exam.additional.push({
                     id: id,
                     label: label.trim(),
@@ -918,22 +929,8 @@ document.addEventListener('alpine:init', () => {
             const exam = this.form.exam.additional[index];
             if (!exam) return;
             
-            const normalValues = {
-                'otoscopia': 'Membranas timpânicas íntegras, brilhantes, sem sinais de inflamação ou efusão bilateralmente.',
-                'oroscopia': 'Orofaringe sem hiperemia ou hipertrofia amigdaliana, sem placas ou exsudato. Úvula centralizada.',
-                'rinoscopia': 'Mucosa nasal rosada, sem edema ou secreção purulenta, septo centralizado.',
-                'oftalmoscopia': 'Fundo de olho com papila de bordas nítidas, sem hemorragias ou exsudatos. Relação A/V preservada.',
-                'pele': 'Pele íntegra, sem lesões, erupções, petéquias ou equimoses. Turgor preservado.',
-                'linfonodos': 'Sem linfonodomegalias palpáveis em cadeias cervicais, axilares ou inguinais.',
-                'tireoide': 'Tireoide não palpável ou de tamanho normal, sem nódulos, indolor à palpação.',
-                'mamas': 'Mamas simétricas, sem nódulos palpáveis, sem retrações ou abaulamentos. Sem descarga papilar.',
-                'geniturinario': 'Genitália externa sem alterações, sem sinais de infecção ou lesões. Giordano negativo bilateralmente.',
-                'osteoarticular': 'Articulações sem sinais flogísticos, amplitude de movimento preservada, força muscular preservada.',
-                'vascular': 'Pulsos periféricos presentes e simétricos, TEC < 3s, sem sinais de insuficiência venosa ou arterial.',
-                'psiquiatrico': 'Vigil, orientado em tempo e espaço, humor eutímico, pensamento organizado, sem ideação suicida ou delírios.'
-            };
-            
-            this.form.exam.additional[index].value = normalValues[exam.id] || 'Sem alterações.';
+            const option = this.additionalExamOptions.find(item => item.id === exam.id);
+            if (option && option.normal) exam.value = option.normal;
         },
 
         // Open inline calculator
@@ -1979,7 +1976,7 @@ document.addEventListener('alpine:init', () => {
             vitals += ` - FR: ${this.form.vitals.fr || '-'} irpm`;
             vitals += ` - Sat: ${this.form.vitals.sat || '-'}%`;
             if (this.form.vitals.temp) vitals += ` - Tax: ${this.form.vitals.temp}ºC`;
-            if (this.form.vitals.hgt) vitals += ` - HGT: ${this.form.vitals.hgt}`;
+            if (this.form.vitals.hgt !== '' && this.form.vitals.hgt != null) vitals += ` - HGT: ${this.form.vitals.hgt} mg/dL`;
             text += `${vitals}\n`;
 
             text += `GERAL: ${this.form.exam.general || '-'}\n`;
@@ -2238,8 +2235,8 @@ document.addEventListener('alpine:init', () => {
             
             // X - Hemorragia
             text += `[X] HEMORRAGIA EXSANGUINANTE\n`;
-            text += `${this.form.xabcde.x_hemorragia || 'Sem hemorragias externas evidentes'}`;
-            if (this.form.xabcde.x_local) {
+            text += `${this.form.xabcde.x_hemorragia || 'Não informado'}`;
+            if (this.form.xabcde.x_hemorragia === 'Hemorragia presente' && this.form.xabcde.x_local) {
                 text += ` / Hemorragia presente em ${this.form.xabcde.x_local}`;
             }
             text += `\n`;
@@ -2252,7 +2249,7 @@ document.addEventListener('alpine:init', () => {
             
             // A - Via Aérea
             text += `[A] VIA AÉREA\n`;
-            text += `${this.form.xabcde.a_pervia || 'Via aérea pérvia'}`;
+            text += `${this.form.xabcde.a_pervia || 'Não informado'}`;
             if (this.form.xabcde.a_obstrucao) {
                 text += ` / sinais de obstrução: ${this.form.xabcde.a_obstrucao}`;
             }
@@ -2261,7 +2258,7 @@ document.addEventListener('alpine:init', () => {
             
             // B - Ventilação
             text += `[B] VENTILAÇÃO\n`;
-            text += `FR: ${this.form.xabcde.b_fr || '___'} irpm | SpO₂: ${this.form.xabcde.b_spo2 || '___'}% em ${this.form.xabcde.b_o2 || 'ar ambiente'}\n`;
+            text += `FR: ${this.form.xabcde.b_fr || '___'} irpm | SpO₂: ${this.form.xabcde.b_spo2 || '___'}% | Suporte de O₂: ${this.form.xabcde.b_o2 || 'não informado'}\n`;
             text += `Padrão respiratório: ${this.form.xabcde.b_padrao || '______'}\n`;
             text += `Ausculta pulmonar: ${this.form.xabcde.b_ausculta || '______'}\n`;
             if (this.form.xabcde.b_vm_ativa) {
@@ -2449,20 +2446,32 @@ document.addEventListener('alpine:init', () => {
             if (v.fr) svArr.push(`FR ${v.fr} irpm`);
             if (v.sat) svArr.push(`SpO₂ ${v.sat}%`);
             if (v.temp) svArr.push(`Tax ${v.temp}°C`);
-            if (v.hgt) svArr.push(`HGT ${v.hgt}`);
+            if (v.hgt !== '' && v.hgt != null) svArr.push(`HGT ${v.hgt} mg/dL`);
             if (svArr.length > 0) text += `- SSVV: ${svArr.join(' | ')}\n`;
-            text += `- ESTADO GERAL: ${pa.ef_geral || 'BEG, LOTE, eupneico(a) AA'}.\n`;
-            text += `- AP: ${pa.ef_ap || 'AR MV+ SRA'}.\n`;
-            text += `- AC: ${pa.ef_ac || 'ACV RCR 2T BNF'}.\n`;
-            text += `- ABD: ${pa.ef_abd || 'indolor'}.\n`;
-            if (pa.ef_outros) text += `- Outros: ${pa.ef_outros}.\n`;
+            const examLine = (label, value) => {
+                const finding = (value || '').trim();
+                if (!finding) return;
+                text += `- ${label}: ${finding}${/[.!?]$/.test(finding) ? '' : '.'}\n`;
+            };
+            const examFields = [
+                ['ESTADO GERAL', pa.ef_geral],
+                ['AP', pa.ef_ap],
+                ['AC', pa.ef_ac],
+                ['ABD', pa.ef_abd],
+                ['Outros', pa.ef_outros]
+            ];
+            examFields.forEach(([label, value]) => examLine(label, value));
             // Exames adicionais
             if (pa.ef_adicionais && pa.ef_adicionais.length > 0) {
                 pa.ef_adicionais.forEach(ex => {
-                    if (ex.nome) {
-                        text += `- ${ex.nome}${ex.resultado ? ': ' + ex.resultado : ''}.\n`;
-                    }
+                    const nome = (ex.nome || '').trim();
+                    const resultado = (ex.resultado || '').trim();
+                    if (nome || resultado) examLine(nome || 'Outro exame', resultado || 'não informado');
                 });
+            }
+            if (!examFields.some(([, value]) => (value || '').trim()) &&
+                !(pa.ef_adicionais || []).some(ex => (ex.nome || '').trim() || (ex.resultado || '').trim())) {
+                text += `- Achados não informados.\n`;
             }
             text += `\n`;
 
@@ -2532,16 +2541,16 @@ document.addEventListener('alpine:init', () => {
 
             // XABCDE
             this.form.xabcde.queixaPrincipal = '';
-            this.form.xabcde.x_hemorragia = 'Sem hemorragias externas evidentes';
+            this.form.xabcde.x_hemorragia = '';
             this.form.xabcde.x_local = '';
             this.form.xabcde.x_terapeutica = [];
             this.form.xabcde.x_terapeutica_obs = '';
-            this.form.xabcde.a_pervia = 'Via aérea pérvia';
+            this.form.xabcde.a_pervia = '';
             this.form.xabcde.a_obstrucao = '';
             this.form.xabcde.a_dispositivos = '';
             this.form.xabcde.b_fr = '';
             this.form.xabcde.b_spo2 = '';
-            this.form.xabcde.b_o2 = 'ar ambiente';
+            this.form.xabcde.b_o2 = '';
             this.form.xabcde.b_padrao = '';
             this.form.xabcde.b_ausculta = '';
             this.form.xabcde.b_vm_ativa = false;
@@ -2602,9 +2611,8 @@ document.addEventListener('alpine:init', () => {
                 qp: '', hma_inicio: '', hma_descricao: '',
                 alarme_nega: [],
                 ap_comorbidades: '', ap_muc: '', ap_alergias: '',
-                ef_geral: 'BEG, LOTE, eupneico(a) AA',
-                ef_ap: 'AR MV+ SRA', ef_ac: 'ACV RCR 2T BNF',
-                ef_abd: 'indolor', ef_outros: '',
+                ef_geral: '', ef_ap: '', ef_ac: '',
+                ef_abd: '', ef_outros: '',
                 ef_adicionais: [], pa_diagnoses: [],
                 avaliacao: '',
                 condutas_selecionadas: [], conduta_extra: '',

@@ -665,7 +665,7 @@ textarea.form-input { resize: vertical; min-height: 80px; line-height: 1.6; }
 }
 
 /* ── Responsive: collapse sidebar ────────────────────── */
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   .sidebar { transform: translateX(-100%); }
   .sidebar.open { transform: translateX(0); }
   .app-shell { margin-left: 0; }
@@ -677,16 +677,6 @@ textarea.form-input { resize: vertical; min-height: 80px; line-height: 1.6; }
   .form-input { font-size: 16px; }
   .page-content { padding: 12px; }
   .topbar { padding: 0 14px; }
-}
-
-/* Cards auto-padding for legacy sections */
-.card > *:not(.card-header):not(.card-body) {
-  padding: 16px 18px;
-}
-
-/* Overrides for cards that have their own padding already */
-.card .p-3, .card .p-4, .card .p-5, .card .p-6 {
-  padding: inherit;
 }
 
 /* mode-tab active-red and active-green */

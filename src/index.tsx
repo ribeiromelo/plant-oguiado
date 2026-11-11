@@ -38,46 +38,39 @@ app.get('/login', (c) => {
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-        <style>
-            body { font-family: 'Inter', sans-serif; }
-        </style>
+        <link href="/static/design-system.css" rel="stylesheet">
     </head>
-    <body class="scroll-smooth bg-gradient-to-br from-slate-50 to-slate-200 flex items-center justify-center min-h-screen relative overflow-hidden antialiased selection:bg-blue-500 selection:text-white p-4">
-        <!-- Background Decorativo -->
-        <div class="absolute top-0 left-0 w-full h-64 bg-gradient-to-r from-blue-600 to-cyan-500 transform -skew-y-3 origin-top-left -translate-y-10 z-0"></div>
-        
-        <div class="bg-white/80 backdrop-blur-2xl p-8 sm:p-10 rounded-3xl shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] max-w-md w-full border border-white/60 relative z-10 transition-all hover:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.15)] duration-500">
-            <div class="flex flex-col items-center mb-8">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-3xl flex items-center justify-center text-white mb-6 shadow-xl transform -rotate-3 hover:rotate-0 transition-all duration-500">
-                     <i class="fas fa-user-md text-4xl sm:text-5xl"></i>
+    <body class="pg-login">
+        <main class="pg-login-shell">
+            <div class="pg-login-intro">
+                <div class="pg-login-brand"><span class="pg-brand-mark"><i class="fas fa-stethoscope" aria-hidden="true"></i></span><span>Plantão Guiado</span></div>
+                <div class="pg-login-message">
+                    <p class="pg-eyebrow">APOIO À DECISÃO CLÍNICA</p>
+                    <h1>Mais clareza<br>para o seu plantão.</h1>
+                    <p>Um espaço para organizar informações e apoiar sua rotina de atendimento.</p>
                 </div>
-                <h1 class="text-2xl font-bold text-slate-800 tracking-tight">Plantão Guiado</h1>
-                <p class="text-sm text-slate-500 font-medium">Acesso Restrito ao Sistema</p>
+                <p class="pg-login-note">Plantão Guiado <span aria-hidden="true">·</span> Área de acesso</p>
             </div>
-            
-            <form action="/login" method="post" class="space-y-5">
-                <div>
-                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1 ml-1">Usuário</label>
-                    <div class="relative group">
-                        <i class="fas fa-user absolute left-4 top-3.5 text-slate-400 group-focus-within:text-blue-500 transition-colors"></i>
-                        <input type="text" name="username" class="w-full pl-12 pr-4 py-3.5 bg-white border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 hover:border-slate-300 outline-none transition-all font-medium text-slate-700 shadow-sm" placeholder="Seu usuário" required>
-                    </div>
+            <div class="pg-login-content">
+                <div class="pg-login-heading">
+                    <p class="pg-eyebrow">BEM-VINDO</p>
+                    <h2>Acesse sua conta</h2>
+                    <p>Entre com seus dados para continuar.</p>
                 </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1 ml-1">Senha</label>
-                    <div class="relative group">
-                        <i class="fas fa-lock absolute left-4 top-3.5 text-slate-400 group-focus-within:text-blue-500 transition-colors"></i>
-                        <input type="password" name="password" class="w-full pl-12 pr-4 py-3.5 bg-white border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 hover:border-slate-300 outline-none transition-all font-medium text-slate-700 shadow-sm" placeholder="Sua senha" required>
+                <form action="/login" method="post" class="pg-login-form">
+                    <div class="pg-field">
+                        <label for="pg-username">Usuário</label>
+                        <input id="pg-username" type="text" name="username" placeholder="Seu usuário" autocomplete="username" required>
                     </div>
-                </div>
-                <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold py-4 rounded-xl text-lg tracking-wide hover:shadow-xl hover:shadow-blue-500/30 active:scale-95 transition-all duration-200 flex items-center justify-center gap-2">
-                    <span>ENTRAR</span> <i class="fas fa-arrow-right"></i>
-                </button>
-            </form>
-            <div class="mt-8 pt-6 border-t border-slate-100 text-center">
-                <p class="text-xs text-slate-400 font-medium">Sistema de Apoio à Decisão Clínica</p>
+                    <div class="pg-field">
+                        <label for="pg-password">Senha</label>
+                        <input id="pg-password" type="password" name="password" placeholder="Sua senha" autocomplete="current-password" required>
+                    </div>
+                    <button type="submit" class="pg-login-submit"><span>Entrar</span><i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+                </form>
+                <p class="pg-login-footer"><i class="fas fa-lock" aria-hidden="true"></i> Acesso restrito ao sistema</p>
             </div>
-        </div>
+        </main>
     </body>
     </html>
   `)
@@ -176,14 +169,15 @@ app.get('/receituario', (c) => {
                 box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             }
         </style>
+        <link href="/static/design-system.css" rel="stylesheet">
     </head>
-    <body class="scroll-smooth bg-slate-50 text-slate-800" x-data="receituarioApp()">
+    <body class="pg-app pg-receituario scroll-smooth bg-slate-50 text-slate-800" x-data="receituarioApp()">
         
         <!-- Navbar -->
-        <header class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 no-print">
+        <header class="pg-subheader bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 no-print">
             <div class="max-w-[1600px] mx-auto px-4 lg:px-6 h-16 sm:h-20 flex items-center justify-between">
-                <div class="flex items-center gap-2 sm:gap-3">
-                    <div class="w-9 h-9 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-lg flex items-center justify-center text-white shadow-md shadow-blue-500/20">
+                <div class="pg-header-brand flex items-center gap-2 sm:gap-3">
+                    <div class="pg-brand-mark w-9 h-9 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-lg flex items-center justify-center text-white shadow-md shadow-blue-500/20">
                          <i class="fas fa-user-md text-lg"></i>
                     </div>
                     <div>
@@ -192,19 +186,19 @@ app.get('/receituario', (c) => {
                     </div>
                 </div>
                 
-                <div class="flex items-center gap-2 sm:gap-3">
-                    <nav class="flex items-center bg-slate-100/80 backdrop-blur-md p-1 rounded-xl overflow-x-auto max-w-[50vw] sm:max-w-full no-scrollbar">
+                <div class="pg-header-actions flex items-center gap-2 sm:gap-3">
+                    <nav aria-label="Navegação principal" class="pg-header-nav flex items-center bg-slate-100/80 backdrop-blur-md p-1 rounded-xl overflow-x-auto max-w-[50vw] sm:max-w-full no-scrollbar">
                         <a href="/" class="px-3 sm:px-4 py-1.5 text-xs sm:text-sm whitespace-nowrap font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
                             <i class="fas fa-file-medical mr-2"></i>Evolução
                         </a>
                         <a href="/prescricoes" class="px-3 sm:px-4 py-1.5 text-xs sm:text-sm whitespace-nowrap font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
                             <i class="fas fa-prescription mr-2"></i>Prescrições
                         </a>
-                        <a href="/receituario" class="px-3 sm:px-4 py-1.5 text-xs sm:text-sm whitespace-nowrap font-semibold text-blue-700 bg-white shadow-sm rounded-lg transition-all">
+                        <a href="/receituario" aria-current="page" class="px-3 sm:px-4 py-1.5 text-xs sm:text-sm whitespace-nowrap font-semibold text-blue-700 bg-white shadow-sm rounded-lg transition-all">
                             <i class="fas fa-print mr-2"></i>Receituário
                         </a>
                     </nav>
-                    <a href="/logout" class="px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white text-sm font-bold rounded-lg transition-all shadow-sm hover:shadow-md flex items-center gap-2">
+                    <a href="/logout" aria-label="Sair" class="pg-logout px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white text-sm font-bold rounded-lg transition-all shadow-sm hover:shadow-md flex items-center gap-2">
                         <i class="fas fa-sign-out-alt"></i>
                         <span class="hidden sm:inline">Sair</span>
                     </a>
@@ -439,6 +433,7 @@ app.get('/receituario', (c) => {
 
             <!-- RIGHT: PREVIEW -->
             <div class="w-full lg:w-[210mm] flex-shrink-0 mx-auto overflow-x-auto pb-4">
+                <div class="pg-paper-label no-print"><span>Pré-visualização</span><span>Formato A4</span></div>
                 <div id="printable-area" class="bg-white text-slate-900 font-poppins" :class="{'preview-paper rounded-lg': !isPrinting}">
                     
                     <!-- PAGE 1 -->
@@ -821,8 +816,9 @@ app.get('/', (c) => {
                 box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             }
         </style>
+        <link href="/static/design-system.css" rel="stylesheet">
     </head>
-    <body class="scroll-smooth bg-[#F0F4F8] text-slate-900 font-sans antialiased" x-data="medicalForm()">
+    <body class="pg-app pg-evolucao scroll-smooth bg-[#F0F4F8] text-slate-900 font-sans antialiased" x-data="medicalForm()">
 
         <!-- ═══ SIDEBAR ═══ -->
         <aside class="sidebar no-print" id="sidebar">
@@ -839,7 +835,7 @@ app.get('/', (c) => {
             <nav style="padding-top:8px; flex:1; overflow-y:auto;">
                 <div class="sidebar-section-title">Atendimento</div>
 
-                <a href="/" class="sidebar-item active">
+                <a href="/" aria-current="page" class="sidebar-item active">
                     <i class="fas fa-file-medical"></i> Evolução / Admissão
                 </a>
                 <a href="/prescricoes" class="sidebar-item">
@@ -897,7 +893,7 @@ app.get('/', (c) => {
         <!-- Topbar -->
         <header class="topbar no-print">
             <!-- Mobile menu button -->
-            <button class="lg:hidden btn btn-ghost btn-sm mr-2" onclick="document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebar-overlay').classList.toggle('hidden');">
+            <button aria-label="Abrir ou fechar menu" class="lg:hidden btn btn-ghost btn-sm mr-2" onclick="document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebar-overlay').classList.toggle('hidden');">
                 <i class="fas fa-bars"></i>
             </button>
 
@@ -1240,7 +1236,7 @@ app.get('/', (c) => {
                 </div>
 
                 <!-- 4. OBJECTIVE (O) -->
-                <div class="card mb-5">
+                <div class="card pg-physical-exam-card mb-5">
                     <div class="absolute left-0 top-0 w-1.5 h-full bg-emerald-500 rounded-l-lg"></div>
                     <div class="flex items-center gap-2 mb-6">
                         <span class="bg-emerald-500 text-white font-bold w-8 h-8 flex items-center justify-center rounded-lg text-sm shadow-md shadow-emerald-500/20">O</span>
@@ -1257,7 +1253,7 @@ app.get('/', (c) => {
                             <div><label class="text-[10px] font-bold text-emerald-700 mb-1.5 block uppercase tracking-wider flex items-center gap-1"><i class="fas fa-wind"></i> FR</label><div class="relative"><input type="number" x-model="form.vitals.fr" class="w-full px-3 py-3 text-center font-bold text-emerald-900 bg-white border border-emerald-200 shadow-sm hover:shadow-md rounded-xl focus:outline-none focus:ring-4 focus:ring-emerald-500/15 focus:border-emerald-500 hover:border-emerald-300 transition-all shadow-sm text-sm" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[9px] font-bold">irpm</span></div></div>
                             <div><label class="text-[10px] font-bold text-emerald-700 mb-1.5 block uppercase tracking-wider flex items-center gap-1"><i class="fas fa-thermometer-half"></i> Temp</label><div class="relative"><input type="number" step="0.1" x-model="form.vitals.temp" class="w-full px-3 py-3 text-center font-bold text-emerald-900 bg-white border border-emerald-200 shadow-sm hover:shadow-md rounded-xl focus:outline-none focus:ring-4 focus:ring-emerald-500/15 focus:border-emerald-500 hover:border-emerald-300 transition-all shadow-sm text-sm" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[9px] font-bold">°C</span></div></div>
                             <div><label class="text-[10px] font-bold text-emerald-700 mb-1.5 block uppercase tracking-wider flex items-center gap-1"><i class="fas fa-lungs"></i> SatO2</label><div class="relative"><input type="number" x-model="form.vitals.sat" class="w-full px-3 py-3 text-center font-bold text-emerald-900 bg-white border border-emerald-200 shadow-sm hover:shadow-md rounded-xl focus:outline-none focus:ring-4 focus:ring-emerald-500/15 focus:border-emerald-500 hover:border-emerald-300 transition-all shadow-sm text-sm" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[9px] font-bold">%</span></div></div>
-                            <div><label class="text-[10px] font-bold text-emerald-700 mb-1.5 block uppercase tracking-wider flex items-center gap-1"><i class="fas fa-vial"></i> HGT</label><div class="relative"><input type="number" x-model="form.vitals.hgt" class="w-full px-3 py-3 text-center font-bold text-emerald-900 bg-white border border-emerald-200 shadow-sm hover:shadow-md rounded-xl focus:outline-none focus:ring-4 focus:ring-emerald-500/15 focus:border-emerald-500 hover:border-emerald-300 transition-all shadow-sm text-sm" placeholder="-"><span class="absolute right-2 top-3.5 text-emerald-400 text-[9px] font-bold">mg</span></div></div>
+                            <div><label class="text-[10px] font-bold text-emerald-700 mb-1.5 block uppercase tracking-wider flex items-center gap-1"><i class="fas fa-vial"></i> HGT (mg/dL)</label><div class="relative"><input type="number" x-model="form.vitals.hgt" class="w-full px-3 py-3 text-center font-bold text-emerald-900 bg-white border border-emerald-200 shadow-sm hover:shadow-md rounded-xl focus:outline-none focus:ring-4 focus:ring-emerald-500/15 focus:border-emerald-500 hover:border-emerald-300 transition-all shadow-sm text-sm" placeholder="-"></div></div>
                         </div>
                     </div>
 
@@ -1276,6 +1272,8 @@ app.get('/', (c) => {
                         </div>
                     </div>
                     
+                    <p class="text-xs text-slate-500 mb-4">Use os modelos apenas para achados examinados e revise o texto antes de copiar.</p>
+
                     <div class="space-y-6">
                         <!-- Campos de Exame Físico com Design Melhorado -->
                         <div class="relative group bg-slate-50 p-4 rounded-xl border border-slate-100 focus-within:ring-2 focus-within:ring-blue-100 focus-within:border-blue-300 transition-all">
@@ -1379,38 +1377,41 @@ app.get('/', (c) => {
                             <h4 class="text-xs font-bold text-slate-500 uppercase flex items-center gap-2">
                                 <i class="fas fa-plus-circle text-slate-400"></i> Exame Físico Adicional
                             </h4>
-                            <div class="relative" x-data="{ open: false }">
-                                <button @click="open = !open" class="text-[10px] px-3 py-1.5 bg-blue-50 border border-blue-200 text-blue-600 rounded-lg hover:bg-blue-100 transition-all font-bold flex items-center gap-2">
+                            <div class="relative" x-data="{ open: false }" @keydown.escape.stop="open = false">
+                                <button type="button" aria-controls="soap-exam-menu" :aria-expanded="open.toString()" @click="open = !open" class="text-[10px] px-3 py-1.5 bg-blue-50 border border-blue-200 text-blue-600 rounded-lg hover:bg-blue-100 transition-all font-bold flex items-center gap-2">
                                     <i class="fas fa-plus"></i> Adicionar
                                 </button>
                                 <!-- Dropdown -->
-                                <div x-show="open" @click.away="open = false" 
+                                <div id="soap-exam-menu" x-show="open" @click.away="open = false" style="display: none;"
                                      x-transition:enter="transition ease-out duration-100"
                                      x-transition:enter-start="opacity-0 scale-95"
                                      x-transition:enter-end="opacity-100 scale-100"
-                                     class="absolute right-0 mt-2 w-56 bg-white border border-slate-100 rounded-xl shadow-xl z-20 py-2">
+                                     class="pg-exam-menu absolute right-0 mt-2 w-56 bg-white border border-slate-100 rounded-xl shadow-xl z-20 py-2">
                                     <template x-for="opt in additionalExamOptions" :key="opt.id">
-                                        <button @click="addAdditionalExam(opt.id, opt.label); open = false;" 
+                                        <button type="button" @click="addAdditionalExam(opt.id, opt.label); open = false;"
                                                 x-show="!form.exam.additional.some(e => e.id === opt.id)"
                                                 class="w-full text-left px-4 py-2.5 text-sm hover:bg-slate-50 flex items-center gap-3 text-slate-700">
                                             <i :class="opt.icon" class="text-slate-400 w-4 text-center"></i>
                                             <span x-text="opt.label"></span>
                                         </button>
                                     </template>
+                                    <button type="button" @click="addCustomExam(); open = false;" class="w-full text-left px-4 py-2.5 text-sm hover:bg-slate-50 flex items-center gap-3 text-slate-700 border-t border-slate-100">
+                                        <i class="fas fa-pen text-slate-400 w-4 text-center"></i><span>Outro exame...</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="space-y-3">
-                            <template x-for="(exam, index) in form.exam.additional" :key="index">
+                            <template x-for="(exam, index) in form.exam.additional" :key="exam.id">
                                 <div class="relative group bg-slate-50 p-4 rounded-xl border border-slate-100 focus-within:ring-2 focus-within:ring-blue-100">
                                     <div class="flex justify-between items-center mb-2">
                                         <label class="text-[11px] sm:text-xs font-bold text-slate-600 uppercase" x-text="exam.label"></label>
                                         <div class="flex items-center gap-2">
-                                            <button @click="setAdditionalNormal(index)" class="text-[10px] px-2 py-1 bg-white border border-emerald-200 text-emerald-600 rounded-lg hover:bg-emerald-500 hover:text-white uppercase font-bold transition-all shadow-sm">
+                                            <button type="button" x-show="additionalExamOptions.some(opt => opt.id === exam.id && opt.normal)" @click="setAdditionalNormal(index)" class="text-[10px] px-2 py-1 bg-white border border-emerald-200 text-emerald-600 rounded-lg hover:bg-emerald-500 hover:text-white uppercase font-bold transition-all shadow-sm">
                                                 <i class="fas fa-check"></i> Normal
                                             </button>
-                                            <button @click="removeAdditionalExam(index)" class="text-slate-400 hover:text-red-500 transition-colors w-6 h-6 rounded-full hover:bg-red-50 flex items-center justify-center">
+                                            <button type="button" :aria-label="'Remover ' + exam.label" @click="removeAdditionalExam(index)" class="text-slate-400 hover:text-red-500 transition-colors w-6 h-6 rounded-full hover:bg-red-50 flex items-center justify-center">
                                                 <i class="fas fa-times"></i>
                                             </button>
                                         </div>
@@ -1859,6 +1860,7 @@ app.get('/', (c) => {
                                         </div>
                                         <h3 class="font-bold text-base sm:text-lg text-slate-700">Evolução por Sistemas</h3>
                                     </div>
+                                    <p class="text-xs text-slate-500 mb-4">Use os modelos apenas para achados examinados e revise o texto antes de copiar.</p>
                     
                                     <div class="space-y-4">
                                         <div>
@@ -1868,7 +1870,7 @@ app.get('/', (c) => {
                                                     <span>NEURO (Neurológico)</span>
                                                 </label>
                                                 <div class="flex gap-2">
-                                                    <button @click="form.uti.evolucao.neuro = 'Paciente sedado e analgesiado. Glasgow pré-sedação: ___. Pupilas isocóricas e fotorreagentes. Sem déficits motores aparentes.'" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
+                                                    <button @click="form.uti.evolucao.neuro = normalExamText('neuro')" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
                                                         <i class="fas fa-check"></i> Normal
                                                     </button>
                                                     <button @click="selectedCalc = calculators.find(c => c.id === 'glasgow'); showCalculators = true" class="px-3 py-1 bg-cyan-100 text-cyan-700 text-xs font-bold rounded-lg hover:bg-cyan-200 transition-all flex items-center gap-1">
@@ -1886,7 +1888,7 @@ app.get('/', (c) => {
                                                     <span>SCV (Sistema Cardiovascular)</span>
                                                 </label>
                                                 <div class="flex gap-2">
-                                                    <button @click="form.uti.evolucao.scv = 'Hemodinamicamente estável. Ritmo cardíaco regular. Ausculta cardíaca: bulhas rítmicas normofonéticas em 2T, sem sopros. Pulsos periféricos palpáveis e simétricos.'" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
+                                                    <button @click="form.uti.evolucao.scv = normalExamText('cardiac')" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
                                                         <i class="fas fa-check"></i> Normal
                                                     </button>
                                                 </div>
@@ -1901,7 +1903,7 @@ app.get('/', (c) => {
                                                     <span>SR (Sistema Respiratório)</span>
                                                 </label>
                                                 <div class="flex gap-2">
-                                                    <button @click="form.uti.evolucao.sr = 'Padrão respiratório regular. Ausculta pulmonar: murmúrio vesicular presente bilateralmente, sem ruídos adventícios. SpO2 mantida em ar ambiente.'" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
+                                                    <button @click="form.uti.evolucao.sr = normalExamText('pulmonary')" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
                                                         <i class="fas fa-check"></i> Normal
                                                     </button>
                                                     <button @click="selectedCalc = calculators.find(c => c.id === 'curb65'); showCalculators = true" class="px-3 py-1 bg-cyan-100 text-cyan-700 text-xs font-bold rounded-lg hover:bg-cyan-200 transition-all flex items-center gap-1">
@@ -1918,7 +1920,7 @@ app.get('/', (c) => {
                                                     <i class="fas fa-stomach text-amber-600"></i>
                                                     <span>TGI (Trato Gastrointestinal)</span>
                                                 </label>
-                                                <button @click="form.uti.evolucao.tgi = 'Abdome plano, flácido, indolor à palpação. Ruídos hidroaéreos presentes. Sem sinais de irritação peritoneal. Evacuações regulares.'" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
+                                                <button @click="form.uti.evolucao.tgi = normalExamText('abdominal')" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
                                                     <i class="fas fa-check"></i> Normal
                                                 </button>
                                             </div>
@@ -1932,9 +1934,6 @@ app.get('/', (c) => {
                                                     <span>R/M (Renal/Metabólico)</span>
                                                 </label>
                                                 <div class="flex gap-2">
-                                                    <button @click="form.uti.evolucao.rm = 'Diurese preservada. Função renal estável. Eletrólitos dentro dos limites da normalidade. Glicemia controlada.'" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
-                                                        <i class="fas fa-check"></i> Normal
-                                                    </button>
                                                     <button @click="selectedCalc = calculators.find(c => c.id === 'ckd'); showCalculators = true" class="px-3 py-1 bg-cyan-100 text-cyan-700 text-xs font-bold rounded-lg hover:bg-cyan-200 transition-all flex items-center gap-1">
                                                         <i class="fas fa-calculator"></i> TFG
                                                     </button>
@@ -1949,9 +1948,6 @@ app.get('/', (c) => {
                                                     <i class="fas fa-vial text-pink-600"></i>
                                                     <span>H/I (Hematológico/Infeccioso)</span>
                                                 </label>
-                                                <button @click="form.uti.evolucao.hi = 'Hemograma sem alterações significativas. Coagulograma normal. Sem sinais de foco infeccioso ativo. Culturas negativas.'" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
-                                                    <i class="fas fa-check"></i> Normal
-                                                </button>
                                             </div>
                                             <textarea x-model="form.uti.evolucao.hi" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Hemograma, coagulograma, culturas, foco infeccioso..."></textarea>
                                         </div>
@@ -1962,7 +1958,7 @@ app.get('/', (c) => {
                                                     <i class="fas fa-hand-paper text-slate-600"></i>
                                                     <span>EXTR (Extremidades)</span>
                                                 </label>
-                                                <button @click="form.uti.evolucao.extr = 'Perfusão periférica adequada. Pulsos periféricos palpáveis e simétricos. Sem edemas. Sem lesões cutâneas.'" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
+                                                <button @click="form.uti.evolucao.extr = normalExamText('extremities')" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
                                                     <i class="fas fa-check"></i> Normal
                                                 </button>
                                             </div>
@@ -2086,11 +2082,12 @@ app.get('/', (c) => {
                                         <div>
                                             <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Status</label>
                                             <select x-model="form.xabcde.x_hemorragia" class="form-input border-red-200">
+                                                <option value="">Não informado</option>
                                                 <option value="Sem hemorragias externas evidentes">Sem hemorragias externas evidentes</option>
                                                 <option value="Hemorragia presente">Hemorragia presente</option>
                                             </select>
                                         </div>
-                                        <div>
+                                        <div x-show="form.xabcde.x_hemorragia === 'Hemorragia presente'">
                                             <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Local (se presente)</label>
                                             <input type="text" x-model="form.xabcde.x_local" class="form-input border-red-200" placeholder="Ex: membro inferior esquerdo">
                                         </div>
@@ -2735,8 +2732,8 @@ app.get('/', (c) => {
                                     <div class="relative"><input type="number" step="0.1" x-model="form.vitals.temp" class="form-input border-emerald-200 text-center font-bold text-sm" placeholder="36.5"><span class="absolute right-1.5 top-3 text-emerald-400 text-[9px] font-bold">°C</span></div>
                                 </div>
                                 <div>
-                                    <label class="text-[10px] font-bold text-emerald-700 mb-1 block uppercase">HGT</label>
-                                    <div class="relative"><input type="number" x-model="form.vitals.hgt" class="form-input border-emerald-200 text-center font-bold text-sm" placeholder="--"><span class="absolute right-1.5 top-3 text-emerald-400 text-[9px] font-bold">mg</span></div>
+                                    <label class="text-[10px] font-bold text-emerald-700 mb-1 block uppercase">HGT (mg/dL)</label>
+                                    <div class="relative"><input type="number" x-model="form.vitals.hgt" class="form-input border-emerald-200 text-center font-bold text-sm" placeholder="--"></div>
                                 </div>
                             </div>
                         </div>
@@ -2747,12 +2744,13 @@ app.get('/', (c) => {
                                 <div class="w-9 h-9 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center"><i class="fas fa-stethoscope"></i></div>
                                 <h3 class="font-bold text-base text-slate-700">Exame Físico</h3>
                             </div>
+                            <p class="text-xs text-slate-500 mb-4">Use os modelos apenas para achados examinados e revise o texto antes de copiar.</p>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
                                 <!-- Estado Geral -->
                                 <div>
                                     <div class="flex items-center justify-between mb-1.5">
                                         <label class="text-[11px] sm:text-xs font-bold text-slate-600 uppercase tracking-wide">Estado Geral</label>
-                                        <button type="button" @click="form.pa.ef_geral = form.gender === 'Feminino' ? 'BEG, LOTE, eupneica, Corada, Hidratada, Anictérica, Acianótica. AA.' : 'BEG, LOTE, eupneico, Corado, Hidratado, Anictérico, Acianótico. AA.'" class="text-[10px] px-2 py-0.5 bg-teal-50 text-teal-600 border border-teal-200 rounded-md font-bold hover:bg-teal-100 transition-all">Normal</button>
+                                        <button type="button" @click="setPANormal('geral')" class="text-[10px] px-2 py-0.5 bg-teal-50 text-teal-600 border border-teal-200 rounded-md font-bold hover:bg-teal-100 transition-all">Normal</button>
                                     </div>
                                     <input type="text" x-model="form.pa.ef_geral" class="form-input border-teal-200" placeholder="BEG, LOTE, eupneico(a) AA">
                                 </div>
@@ -2760,7 +2758,7 @@ app.get('/', (c) => {
                                 <div>
                                     <div class="flex items-center justify-between mb-1.5">
                                         <label class="text-[11px] sm:text-xs font-bold text-slate-600 uppercase tracking-wide">AP — Ausculta Pulmonar</label>
-                                        <button type="button" @click="form.pa.ef_ap = 'AR MV+ SRA'" class="text-[10px] px-2 py-0.5 bg-teal-50 text-teal-600 border border-teal-200 rounded-md font-bold hover:bg-teal-100 transition-all">Normal</button>
+                                        <button type="button" @click="setPANormal('ap')" class="text-[10px] px-2 py-0.5 bg-teal-50 text-teal-600 border border-teal-200 rounded-md font-bold hover:bg-teal-100 transition-all">Normal</button>
                                     </div>
                                     <input type="text" x-model="form.pa.ef_ap" class="form-input border-teal-200" placeholder="AR MV+ SRA">
                                 </div>
@@ -2768,7 +2766,7 @@ app.get('/', (c) => {
                                 <div>
                                     <div class="flex items-center justify-between mb-1.5">
                                         <label class="text-[11px] sm:text-xs font-bold text-slate-600 uppercase tracking-wide">AC — Ausculta Cardíaca</label>
-                                        <button type="button" @click="form.pa.ef_ac = 'ACV RCR 2T BNF'" class="text-[10px] px-2 py-0.5 bg-teal-50 text-teal-600 border border-teal-200 rounded-md font-bold hover:bg-teal-100 transition-all">Normal</button>
+                                        <button type="button" @click="setPANormal('ac')" class="text-[10px] px-2 py-0.5 bg-teal-50 text-teal-600 border border-teal-200 rounded-md font-bold hover:bg-teal-100 transition-all">Normal</button>
                                     </div>
                                     <input type="text" x-model="form.pa.ef_ac" class="form-input border-teal-200" placeholder="ACV RCR 2T BNF">
                                 </div>
@@ -2776,7 +2774,7 @@ app.get('/', (c) => {
                                 <div>
                                     <div class="flex items-center justify-between mb-1.5">
                                         <label class="text-[11px] sm:text-xs font-bold text-slate-600 uppercase tracking-wide">ABD — Abdome</label>
-                                        <button type="button" @click="form.pa.ef_abd = 'Plano, macio, indolor, RHA+, sem visceromegalias'" class="text-[10px] px-2 py-0.5 bg-teal-50 text-teal-600 border border-teal-200 rounded-md font-bold hover:bg-teal-100 transition-all">Normal</button>
+                                        <button type="button" @click="setPANormal('abd')" class="text-[10px] px-2 py-0.5 bg-teal-50 text-teal-600 border border-teal-200 rounded-md font-bold hover:bg-teal-100 transition-all">Normal</button>
                                     </div>
                                     <input type="text" x-model="form.pa.ef_abd" class="form-input border-teal-200" placeholder="Plano, macio, indolor, RHA+">
                                 </div>
@@ -2784,7 +2782,7 @@ app.get('/', (c) => {
                                 <div class="sm:col-span-2">
                                     <div class="flex items-center justify-between mb-1.5">
                                         <label class="text-[11px] sm:text-xs font-bold text-slate-600 uppercase tracking-wide">Outros achados</label>
-                                        <button type="button" @click="form.pa.ef_outros = 'MMII sem edema, sem linfadenopatias, extremidades aquecidas'" class="text-[10px] px-2 py-0.5 bg-teal-50 text-teal-600 border border-teal-200 rounded-md font-bold hover:bg-teal-100 transition-all">Normal</button>
+                                        <button type="button" @click="setPANormal('outros')" class="text-[10px] px-2 py-0.5 bg-teal-50 text-teal-600 border border-teal-200 rounded-md font-bold hover:bg-teal-100 transition-all">Normal</button>
                                     </div>
                                     <input type="text" x-model="form.pa.ef_outros" class="form-input border-teal-200" placeholder="Ex: MMII sem edema, sem adenomegalias...">
                                 </div>
@@ -2959,10 +2957,10 @@ app.get('/', (c) => {
             
             <!-- MOBILE FLOAT BUTTONS -->
             <div class="fixed bottom-4 right-4 lg:hidden z-50 flex flex-col gap-3" x-data="{ open: false }">
-                 <button @click="showCalculators = true" class="w-14 h-14 bg-white text-blue-600 rounded-2xl shadow-xl shadow-blue-900/20 border border-slate-100 flex items-center justify-center text-xl transition-transform active:scale-90">
+                 <button aria-label="Abrir calculadoras" @click="showCalculators = true" class="pg-floating-action w-14 h-14 bg-white text-blue-600 rounded-2xl shadow-xl shadow-blue-900/20 border border-slate-100 flex items-center justify-center text-xl transition-transform active:scale-90">
                     <i class="fas fa-calculator"></i>
                  </button>
-                 <button @click="open = !open" class="w-14 h-14 bg-gradient-to-br from-blue-600 to-cyan-500 text-white rounded-2xl shadow-xl shadow-blue-500/40 flex items-center justify-center text-xl transition-transform active:scale-90">
+                 <button :aria-label="open ? 'Fechar pré-visualização' : 'Abrir pré-visualização'" :aria-expanded="open.toString()" @click="open = !open" class="pg-floating-action pg-floating-primary w-14 h-14 bg-gradient-to-br from-blue-600 to-cyan-500 text-white rounded-2xl shadow-xl shadow-blue-500/40 flex items-center justify-center text-xl transition-transform active:scale-90">
                     <i class="fas" :class="open ? 'fa-times' : 'fa-file-alt'"></i>
                  </button>
                  
@@ -2992,7 +2990,7 @@ app.get('/', (c) => {
                                     <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center"><i class="fas fa-calculator"></i></div>
                                     Calculadoras Médicas
                                 </h3>
-                                <button @click="showCalculators = false" class="text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center transition-colors">
+                                <button aria-label="Fechar calculadoras" @click="showCalculators = false" class="text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center transition-colors">
                                     <i class="fas fa-times text-lg"></i>
                                 </button>
                             </div>
@@ -3068,15 +3066,16 @@ app.get('/prescricoes', (c) => {
             .prescription-item { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
             .prescription-item:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
         </style>
+        <link href="/static/design-system.css" rel="stylesheet">
     </head>
-    <body class="scroll-smooth bg-slate-50 text-slate-800" x-data="prescricoesApp()">
+    <body class="pg-app pg-prescricoes scroll-smooth bg-slate-50 text-slate-800" x-data="prescricoesApp()">
         
         <!-- Header -->
-        <header class="bg-white/90 backdrop-blur-xl border-b border-white/50 sticky top-0 z-50 shadow-sm transition-all duration-300 supports-[backdrop-filter]:bg-white/60">
+        <header class="pg-subheader bg-white/90 backdrop-blur-xl border-b border-white/50 sticky top-0 z-50 shadow-sm transition-all duration-300 supports-[backdrop-filter]:bg-white/60">
             <div class="max-w-[1800px] mx-auto px-4 lg:px-6 h-16 flex items-center justify-between">
-                <div class="flex items-center gap-4">
+                <div class="pg-header-brand flex items-center gap-4">
                     <a href="/" class="flex items-center gap-3 hover:opacity-80 transition-opacity group">
-                        <div class="w-9 h-9 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-lg flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+                        <div class="pg-brand-mark w-9 h-9 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-lg flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
                             <i class="fas fa-user-md text-lg"></i>
                         </div>
                         <div>
@@ -3086,19 +3085,19 @@ app.get('/prescricoes', (c) => {
                     </a>
                 </div>
                 
-                <div class="flex items-center gap-2 sm:gap-3">
-                    <nav class="flex items-center bg-slate-100 p-1 rounded-xl">
+                <div class="pg-header-actions flex items-center gap-2 sm:gap-3">
+                    <nav aria-label="Navegação principal" class="pg-header-nav flex items-center bg-slate-100 p-1 rounded-xl">
                         <a href="/" class="px-3 sm:px-4 py-1.5 text-xs sm:text-sm whitespace-nowrap font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
                             <i class="fas fa-file-medical mr-2"></i>Evolução
                         </a>
-                        <a href="/prescricoes" class="px-3 sm:px-4 py-1.5 text-xs sm:text-sm whitespace-nowrap font-semibold text-blue-700 bg-white shadow-sm rounded-lg transition-all">
+                        <a href="/prescricoes" aria-current="page" class="px-3 sm:px-4 py-1.5 text-xs sm:text-sm whitespace-nowrap font-semibold text-blue-700 bg-white shadow-sm rounded-lg transition-all">
                             <i class="fas fa-prescription mr-2"></i>Prescrições
                         </a>
                         <a href="/receituario" class="px-3 sm:px-4 py-1.5 text-xs sm:text-sm whitespace-nowrap font-medium text-slate-500 hover:text-slate-700 rounded-lg transition-colors">
                             <i class="fas fa-print mr-2"></i>Receituário
                         </a>
                     </nav>
-                    <a href="/logout" class="px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white text-sm font-bold rounded-lg transition-all shadow-sm hover:shadow-md flex items-center gap-2">
+                    <a href="/logout" aria-label="Sair" class="pg-logout px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white text-sm font-bold rounded-lg transition-all shadow-sm hover:shadow-md flex items-center gap-2">
                         <i class="fas fa-sign-out-alt"></i>
                         <span class="hidden sm:inline">Sair</span>
                     </a>
@@ -3109,14 +3108,14 @@ app.get('/prescricoes', (c) => {
         <main class="max-w-[1800px] mx-auto p-3 sm:p-6 lg:p-8">
             
             <!-- Search Hero -->
-            <div class="mb-8 md:mb-12 text-center relative py-6 md:py-10 px-2">
-                <div class="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-cyan-500/20 blur-3xl -z-10 rounded-full opacity-70 scale-110"></div>
+            <div class="pg-search-hero mb-8 md:mb-12 text-center relative py-6 md:py-10 px-2">
+                <div class="pg-search-glow absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-cyan-500/20 blur-3xl -z-10 rounded-full opacity-70 scale-110"></div>
                 <h2 class="text-4xl font-bold text-slate-800 mb-3 tracking-tight drop-shadow-sm">O que você precisa prescrever hoje?</h2>
                 <p class="text-slate-600 mb-8 text-base font-medium">Busque por patologia, sintoma ou medicação</p>
                 
-                <div class="relative max-w-3xl mx-auto group transform transition-all duration-300 hover:scale-[1.01]">
+                <div class="pg-search-control relative max-w-3xl mx-auto group transform transition-all duration-300 hover:scale-[1.01]">
                     <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-                    <input type="text" 
+                    <input type="text" aria-label="Buscar prescrições"
                            x-model="searchTerm"
                            placeholder="Ex: Pneumonia, Dor, ITU, Fibrilação..."
                            class="relative w-full px-6 md:px-8 py-4 md:py-6 pl-14 md:pl-16 text-base md:text-lg bg-white border-0 rounded-2xl shadow-2xl shadow-blue-900/10 ring-1 ring-slate-200/50 focus:ring-4 focus:ring-blue-500/20 outline-none transition-all placeholder-slate-400 font-medium text-slate-700">
