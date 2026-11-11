@@ -91,7 +91,7 @@ Formato de nota clínica em SOAP para pronto-socorro. Seções:
 Dois sub-templates, selecionados por abas internas:
 
 **Template A — Evolução de Paciente Crítico (por sistemas)**
-- Data de admissão, local, motivo, diagnóstico principal, HDA
+- Data de admissão, local, motivo da internação e História da Moléstia Atual (HMA)
 - HPP (comorbidades, alergias, cirurgias, medicações, hábitos)
 - COVID-19 (TR + RT-PCR)
 - Antibioticoterapia: lista dinâmica (droga, horário, status, data início)
@@ -329,3 +329,4 @@ git push origin main
 | `9f6a6b3` | Implementação completa do protocolo XABCDE + título dinâmico |
 | `963f89f` | Botão Sair em todas as páginas |
 | `d820c79` | CSS customizado e inputs padronizados |
+

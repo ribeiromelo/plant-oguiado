@@ -87,9 +87,13 @@ document.addEventListener('alpine:init', () => {
                 local: 'Sala Vermelha',
                 motivo: '',
                 dx: '',
+                covidColeta: '',
                 covidData: '',
                 covidResultado: '',
                 rtpcr: '',
+                influenzaColeta: '',
+                influenzaData: '',
+                influenzaResultado: '',
                 atb: [],
                 hda: '',
                 devices: [],
@@ -560,6 +564,15 @@ document.addEventListener('alpine:init', () => {
         calcsUsadas: 0,
         horaAtual: '--:--',
         showCID: false,
+        uiConfig: {
+            navigationLayout: 'top',
+            enablePrescriptionBank: false
+        },
+        nav: {
+            mobileOpen: false,
+            atendimentoOpen: false,
+            ferramentasOpen: false
+        },
         
         // CID-10 Logic (SOAP)
         cidSearch: '',
@@ -979,7 +992,7 @@ document.addEventListener('alpine:init', () => {
                 this.cidError = '';
                 return;
             }
-            
+
             this.cidLoading = true;
             this.cidError = '';
             
@@ -2269,7 +2282,7 @@ document.addEventListener('alpine:init', () => {
             // Subjective
             text += `\n# S (SUBJETIVO):\n`;
             text += `QP: ${this.form.subjective.qp || 'Não informada'}\n`;
-            text += `HDA: ${this.form.subjective.hda}\n`;
+            text += `HMA: ${this.form.subjective.hda}\n`;
             
             // Negatives
             let negs = [];
@@ -2375,20 +2388,17 @@ document.addEventListener('alpine:init', () => {
             text += `ADMISSÃO MÉDICA - ${tipoLocal} - ${turno}\n\n`;
             
             text += `PACIENTE: ${this.form.name || '_________'}, ${this.form.age ? this.form.age + ' anos' : '___ anos'}\n`;
-            text += `ADMITIDO EM: ${this.form.uti.dataAdmissao || '__/__/____'} - ${this.form.uti.local || 'Sala Vermelha'}\n`;
-            if (this.form.uti.motivo) {
-                text += `MOTIVO: ${this.form.uti.motivo}\n`;
-            }
-            text += `\n`;
-            
-            // # DIAGNÓSTICO PRINCIPAL
-            if (this.form.uti.dx) {
-                text += `# DIAGNÓSTICO PRINCIPAL:\n${this.form.uti.dx}\n\n`;
-            }
-            
-            // # HISTÓRIA DA DOENÇA ATUAL
+            const rawAdmissionDate = this.form.uti.dataAdmissao;
+            const admissionDate = /^\d{4}-\d{2}-\d{2}$/.test(rawAdmissionDate)
+                ? rawAdmissionDate.split('-').reverse().join('/')
+                : (rawAdmissionDate || '__/__/____');
+            text += `PACIENTE ADMITIDO EM ${admissionDate} NA ${(this.form.uti.local || 'Sala Vermelha').toUpperCase()}.\n\n`;
+            const motivo = String(this.form.uti.motivo || '').trim().replace(/^(?:[-•]\s*)+/, '').trim();
+            if (motivo) text += `MOTIVO DA INTERNAÇÃO:\n- ${motivo}\n\n`;
+
+            // HMA mantém o identificador interno legado `hda` por compatibilidade.
             if (this.form.uti.hda) {
-                text += `# HISTÓRIA DA DOENÇA ATUAL:\n${this.form.uti.hda}\n\n`;
+                text += `HMA:\n${this.form.uti.hda}\n\n`;
             }
             
             // # HISTÓRIA PATOLÓGICA PREGRESSA (HPP)
@@ -2443,10 +2453,26 @@ document.addEventListener('alpine:init', () => {
             }
             text += `\n`;
             
-            // # COVID-19
-            text += `# COVID-19:\n`;
-            text += `- TR COVID-19 (${this.form.uti.covidData || '__/__'}): ${this.form.uti.covidResultado || 'Não informado'}\n`;
-            text += `- RT-PCR: ${this.form.uti.rtpcr || 'Não informado'}\n\n`;
+            // Rastreio COVID-19 / Influenza: somente documenta o fluxo escolhido.
+            const screening = [];
+            if (this.form.uti.covidColeta === 'nao') {
+                screening.push('- COVID-19: não coletado');
+            } else if (this.form.uti.covidColeta === 'sim') {
+                let covid = '- COVID-19: coletado';
+                if (this.form.uti.covidData) covid += ` em ${this.form.uti.covidData}`;
+                if (this.form.uti.covidResultado) covid += ` — ${this.form.uti.covidResultado}`;
+                if (this.form.uti.rtpcr) covid += `; RT-PCR: ${this.form.uti.rtpcr}`;
+                screening.push(covid);
+            }
+            if (this.form.uti.influenzaColeta === 'nao') {
+                screening.push('- Influenza: não coletado');
+            } else if (this.form.uti.influenzaColeta === 'sim') {
+                let influenza = '- Influenza: coletado';
+                if (this.form.uti.influenzaData) influenza += ` em ${this.form.uti.influenzaData}`;
+                if (this.form.uti.influenzaResultado) influenza += ` — ${this.form.uti.influenzaResultado}`;
+                screening.push(influenza);
+            }
+            if (screening.length) text += `# RASTREIO COVID-19 / INFLUENZA:\n${screening.join('\n')}\n\n`;
             
             // # ATB
             if (this.form.uti.atb.length > 0) {
@@ -2834,9 +2860,13 @@ document.addEventListener('alpine:init', () => {
             this.form.uti.devices = [];
             this.form.uti.systems = {};
             this.form.uti.evolucao = { general: '', neuro: '', scv: '', sr: '', tgi: '', rm: '', hi: '', extr: '' };
+            this.form.uti.covidColeta = '';
             this.form.uti.covidData = '';
             this.form.uti.covidResultado = '';
             this.form.uti.rtpcr = '';
+            this.form.uti.influenzaColeta = '';
+            this.form.uti.influenzaData = '';
+            this.form.uti.influenzaResultado = '';
             this.form.uti.exames = '';
             this.form.uti.condutas = { vigilanciaNeuro: false, vigilanciaHemo: false, vigilanciaInfec: false, vigilanciaVent: false, vigilanciaRenal: false, profilaxiaTEV: false, aguardarVaga: false, manterFamilia: false, outras: '' };
 
@@ -2937,3 +2967,4 @@ document.addEventListener('alpine:init', () => {
         }
     }))
 })
+
