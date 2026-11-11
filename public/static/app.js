@@ -2709,11 +2709,8 @@ document.addEventListener('alpine:init', () => {
             text += `QP: ${pa.qp || '______'}\n\n`;
 
             // HMA
-            text += `HMA: Início há ${pa.hma_inicio || '_____'}. Refere ${pa.hma_descricao || '___________________'}.\n`;
-            const alarmes = pa.alarme_nega && pa.alarme_nega.length > 0
-                ? pa.alarme_nega.join(', ')
-                : '';
-            text += alarmes ? `Nega sinais de alarme: (${alarmes}).\n\n` : `Sinais de alarme: não informados.\n\n`;
+            const hma = [pa.hma_inicio ? `Início: ${pa.hma_inicio}` : '', pa.hma_descricao].filter(Boolean).join('. ');
+            text += `HMA: ${hma || 'Não informado'}\n\n`;
 
             // AP — Antecedentes (comorbidades, MUC, alergias, hábitos)
             const comorbidades = pa.ap_comorbidades || this.form.comorbidities || 'Não informado';

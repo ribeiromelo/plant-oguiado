@@ -125,17 +125,19 @@ test('XABCDE distingue dados não informados de achados normais', () => {
     assert.match(form.generateText(), /\[X\] HEMORRAGIA EXSANGUINANTE\nNão informado/);
 });
 
-test('campos vazios não geram negações e PA preserva apenas alarmes selecionados', () => {
+test('campos vazios não geram negações e PA usa HMA livre', () => {
     const form = newForm();
     for (const text of [form.generateText(), form.generatePAPro(), form.generateEvolucaoCritico()]) {
         assert.doesNotMatch(text, /Nega|NÃO REAGENTE|NEGATIVO/);
         assert.match(text, /Não informado/);
     }
-    assert.match(form.generatePAPro(), /Sinais de alarme: não informados/);
+    assert.doesNotMatch(form.generatePAPro(), /Sinais de alarme/);
     form.form.pa.alarme_nega = ['Dor torácica'];
     form.form.pa.ap_alergias = 'Nega';
+    form.form.pa.hma_descricao = 'Paciente relata diarreia há dois dias, sem outros dados.';
     let text = form.generatePAPro();
-    assert.match(text, /Nega sinais de alarme: \(Dor torácica\)/);
+    assert.match(text, /HMA: Paciente relata diarreia há dois dias, sem outros dados\./);
+    assert.doesNotMatch(text, /Dor torácica|Sinais de alarme/);
     assert.doesNotMatch(text, /vômitos persistentes|déficit neurológico/);
     assert.match(text, /Alergias - Nega/);
     form.form.allergies = 'Penicilina';
@@ -276,7 +278,7 @@ test('Outro usa texto real, preserva valores prévios e limpa seleção anterior
 
 test('estrutura da dashboard e da admissão segue a navegação experimental', () => {
  const topNav=indexSource.slice(indexSource.indexOf('<!-- Navegação superior experimental'),indexSource.indexOf('<!-- ═══ APP SHELL'));
- assert.match(topNav,/Atendimento/);assert.match(topNav,/Evolução médica/);assert.match(topNav,/Admissão médica/);assert.match(topNav,/Receituário/);assert.match(topNav,/Ferramentas/);assert.match(topNav,/Calculadoras/);
+ assert.match(topNav,/Atendimento/);assert.doesNotMatch(topNav,/Evolução médica/);assert.match(topNav,/Admissão médica/);assert.match(topNav,/Receituário/);assert.match(topNav,/Ferramentas/);assert.match(topNav,/Calculadoras/);
  assert.doesNotMatch(topNav,/Busca CID/);assert.match(topNav,/enablePrescriptionBank/);
  const admission=indexSource.slice(indexSource.indexOf('<!-- A. CABEÇALHO'),indexSource.indexOf('<!-- H. EXAMES COMPLEMENTARES'));
  const ordered=['Dados da Internação','História da Moléstia Atual (HMA)','Rastreio COVID-19 / Influenza','Antibioticoterapia (ATB)','Dispositivos / Acessos (DEVICES)','Avaliação por sistemas'];

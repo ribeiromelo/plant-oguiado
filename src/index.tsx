@@ -171,7 +171,8 @@ app.get('/receituario', (c) => {
         </style>
         <link href="/static/design-system.css" rel="stylesheet">
     </head>
-    <body class="pg-app pg-receituario scroll-smooth bg-slate-50 text-slate-800" x-data="receituarioApp()">
+    <body class="pg-app pg-receituario scroll-smooth bg-slate-50 text-slate-800" x-data="receituarioApp()" :class="tipo === 'especial' ? 'pg-receita-especial' : ''">
+        <style x-text="tipo === 'especial' ? '@page { size: A4 landscape; margin: 0; }' : '@page { size: A4 portrait; margin: 0; }'"></style>
 
         <!-- Navbar -->
         <header class="pg-subheader bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 no-print">
@@ -426,9 +427,54 @@ app.get('/receituario', (c) => {
             </div>
 
             <!-- RIGHT: PREVIEW -->
-            <div class="w-full lg:w-[210mm] flex-shrink-0 mx-auto overflow-x-auto pb-4">
-                <div class="pg-paper-label no-print"><span>Pré-visualização</span><span>Formato A4</span></div>
+            <div class="w-full lg:w-[210mm] flex-shrink-0 mx-auto overflow-x-auto pb-4" :class="tipo === 'especial' ? 'pg-special-preview' : ''">
+                <div class="pg-paper-label no-print"><span>Pré-visualização</span><span x-text="tipo === 'especial' ? 'A4 horizontal · duas vias' : 'Formato A4'"></span></div>
                 <div id="printable-area" class="bg-white text-slate-900 font-poppins" :class="{'preview-paper rounded-lg': !isPrinting}">
+
+                    <!-- Receita especial física: duas vias equivalentes na mesma folha A4 horizontal. -->
+                    <div x-show="tipo === 'especial'" class="pg-special-sheet" style="display:none;">
+                        <template x-for="via in [1, 2]" :key="via">
+                            <section class="pg-special-copy">
+                                <header class="pg-special-title">
+                                    <strong>Receita de Controle Especial</strong>
+                                    <span x-text="via === 1 ? '1ª via — retenção da farmácia ou drogaria' : '2ª via — orientação ao paciente'"></span>
+                                </header>
+                                <div class="pg-special-identification">
+                                    <div class="pg-special-info-box">
+                                        <h2>Identificação do emitente</h2>
+                                        <p><b>Nome:</b> <span x-text="doctor.name || '________________________________'"></span></p>
+                                        <p><b>CRM/UF:</b> <span x-text="(doctor.crm || '________') + '/' + (doctor.uf || '___')"></span></p>
+                                        <p><b>Endereço:</b> <span x-text="doctor.address || '________________________________'"></span></p>
+                                    </div>
+                                    <div class="pg-special-info-box">
+                                        <h2>Identificação do paciente</h2>
+                                        <p><b>Nome:</b> <span x-text="patient.name || '________________________________'"></span></p>
+                                        <p><b>CPF:</b> <span x-text="patient.cpf || '________________'"></span></p>
+                                        <p><b>Endereço:</b> <span x-text="patient.address || '________________________________'"></span></p>
+                                    </div>
+                                </div>
+                                <div class="pg-special-prescription">
+                                    <h2>Prescrição</h2>
+                                    <template x-for="(med, idx) in meds" :key="idx">
+                                        <div class="pg-special-med">
+                                            <div><b x-text="(idx + 1) + '. ' + med.name"></b><b x-text="med.quantity"></b></div>
+                                            <p x-text="med.instruction"></p>
+                                        </div>
+                                    </template>
+                                </div>
+                                <div class="pg-special-signature">
+                                    <span>Local e data: ______________________, <span x-text="formatDate(date)"></span></span>
+                                    <div class="pg-special-signature-line">Assinatura e carimbo do médico</div>
+                                </div>
+                                <div class="pg-special-dispensation">
+                                    <div><b>Identificação do comprador</b><p>Nome: ____________________________________</p><p>Documento/órgão emissor: _____________________</p><p>Endereço/telefone: __________________________</p></div>
+                                    <div><b>Identificação do fornecedor</b><p>Farmácia: __________________________________</p><p>Data: ____/____/______</p><p>Assinatura do farmacêutico: __________________</p></div>
+                                </div>
+                            </section>
+                        </template>
+                    </div>
+
+                    <div x-show="tipo !== 'especial'">
 
                     <!-- PAGE 1 -->
                     <div class="w-[210mm] flex flex-col" :class="tipo === 'especial' ? 'h-[148.5mm] p-[12mm] pt-[8mm]' : 'min-h-[297mm] h-[297mm] p-[20mm]'">
@@ -670,6 +716,7 @@ app.get('/receituario', (c) => {
 
                     </div>
 
+                    </div>
                 </div>
             </div>
 
@@ -770,10 +817,20 @@ app.get('/receituario', (c) => {
 
                     print() {
                         this.isPrinting = true;
-                        setTimeout(() => {
-                            window.print();
-                            this.isPrinting = false;
-                        }, 100);
+                        this.$nextTick(() => {
+                            if (this.tipo === 'especial') {
+                                const areas = [...document.querySelectorAll('.pg-special-prescription')];
+                                if (areas.some(area => area.scrollHeight > area.clientHeight + 2)) {
+                                    this.isPrinting = false;
+                                    alert('A prescrição excede o espaço das duas vias. Divida os medicamentos em outra receita antes de imprimir.');
+                                    return;
+                                }
+                            }
+                            setTimeout(() => {
+                                window.print();
+                                this.isPrinting = false;
+                            }, 100);
+                        });
                     }
                 }));
             });
@@ -826,16 +883,16 @@ app.get('/', (c) => {
                 <div class="sidebar-section-title">Atendimento</div>
 
                 <a href="/" aria-current="page" class="sidebar-item active">
-                    <i class="fas fa-file-medical"></i> Evolução / Admissão
+                    <i class="fas fa-file-medical"></i> Admissão médica
                 </a>
                 <a x-show="uiConfig.enablePrescriptionBank" href="/prescricoes" class="sidebar-item" style="display:none;">
                     <i class="fas fa-prescription"></i> Banco de Prescrições
                 </a>
+                <div class="sidebar-section-title" style="margin-top:6px;">Ferramentas</div>
+
                 <a href="/receituario" class="sidebar-item">
                     <i class="fas fa-print"></i> Receituário
                 </a>
-
-                <div class="sidebar-section-title" style="margin-top:6px;">Ferramentas</div>
 
                 <button @click="showCalculators = !showCalculators; selectedCalc = showCalculators ? (selectedCalc || 'bmi') : selectedCalc"
                         class="sidebar-item w-full text-left">
@@ -887,9 +944,7 @@ app.get('/', (c) => {
                             Atendimento <i class="fas fa-chevron-down"></i>
                         </button>
                         <div x-show="nav.atendimentoOpen" x-transition class="pg-nav-dropdown" role="menu" style="display:none;">
-                            <button type="button" role="menuitem" @click="form.serviceType = 'clinica'; nav.atendimentoOpen = false; nav.mobileOpen = false" :class="form.serviceType === 'clinica' ? 'active' : ''">Evolução médica</button>
-                            <button type="button" role="menuitem" @click="form.serviceType = 'salavermelha'; form.utiTemplate = 'evolucao'; nav.atendimentoOpen = false; nav.mobileOpen = false" :class="form.serviceType === 'salavermelha' && form.utiTemplate === 'evolucao' ? 'active' : ''">Admissão médica</button>
-                            <a href="/receituario" role="menuitem">Receituário</a>
+                            <button type="button" role="menuitem" @click="form.serviceType = 'clinica'; nav.atendimentoOpen = false; nav.mobileOpen = false" :class="form.serviceType === 'clinica' ? 'active' : ''">Admissão médica</button>
                             <a x-show="uiConfig.enablePrescriptionBank" href="/prescricoes" role="menuitem" style="display:none;">Banco de Prescrições</a>
                         </div>
                     </div>
@@ -899,6 +954,7 @@ app.get('/', (c) => {
                         </button>
                         <div x-show="nav.ferramentasOpen" x-transition class="pg-nav-dropdown" role="menu" style="display:none;">
                             <button type="button" role="menuitem" @click="showCalculators = true; selectedCalc = selectedCalc || 'bmi'; nav.ferramentasOpen = false; nav.mobileOpen = false">Calculadoras</button>
+                            <a href="/receituario" role="menuitem">Receituário</a>
                         </div>
                     </div>
                 </nav>
@@ -2561,26 +2617,9 @@ app.get('/', (c) => {
                                     <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">QP — Queixa Principal</label>
                                     <input type="text" x-model="form.pa.qp" class="form-input border-blue-200" placeholder="Ex: Dor abdominal há 2 dias">
                                 </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                    <div>
-                                        <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">Início</label>
-                                        <input type="text" x-model="form.pa.hma_inicio" class="form-input border-blue-200" placeholder="Ex: há 2 dias, há 6 horas">
-                                    </div>
-                                    <div>
-                                        <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">Descrição do quadro</label>
-                                        <input type="text" x-model="form.pa.hma_descricao" class="form-input border-blue-200" placeholder="Ex: dor em cólica em hipogástrio, sem irradiação">
-                                    </div>
-                                </div>
                                 <div>
-                                    <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide">Sinais de Alarme — Nega:</label>
-                                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                                        <template x-for="sa in ['Febre alta', 'Dor torácica', 'Dispneia', 'Vômitos persistentes', 'Déficit neurológico', 'Sangramento', 'Síncope', 'Dor intensa (EVA ≥8)']" :key="sa">
-                                            <label class="flex items-center gap-2 p-2 rounded-lg border border-blue-100 bg-blue-50 cursor-pointer hover:bg-blue-100 transition-all text-xs font-medium text-blue-800">
-                                                <input type="checkbox" :value="sa" x-model="form.pa.alarme_nega" class="rounded accent-blue-600 shrink-0">
-                                                <span x-text="sa"></span>
-                                            </label>
-                                        </template>
-                                    </div>
+                                    <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">História da Moléstia Atual (HMA)</label>
+                                    <textarea x-model="form.pa.hma_descricao" class="form-input border-blue-200 min-h-40" rows="7" placeholder="Cole ou escreva a HMA completa..."></textarea>
                                 </div>
                             </div>
                         </div>

@@ -545,6 +545,48 @@
   .pg-header-brand .pg-system-logo { width: 150px; }
 }
 
+/* Receita especial impressa em duas vias lado a lado. */
+.pg-receituario.pg-receita-especial .pg-special-preview { width: 297mm; max-width: 100%; }
+.pg-special-sheet {
+  width: 297mm;
+  height: 210mm;
+  padding: 8mm;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  color: #111827;
+  background: #fff;
+  font: 9px/1.35 Arial, sans-serif;
+}
+.pg-special-copy { min-width: 0; height: 194mm; padding: 2mm 5mm; display: flex; flex-direction: column; }
+.pg-special-copy:first-child { border-right: 1px dashed #64748b; padding-right: 7mm; }
+.pg-special-copy:last-child { padding-left: 7mm; }
+.pg-special-title { text-align: center; text-transform: uppercase; padding-bottom: 3mm; }
+.pg-special-title strong { display: block; font-size: 12px; letter-spacing: .02em; }
+.pg-special-title span { display: block; margin-top: 2mm; font-size: 8px; font-weight: 700; }
+.pg-special-identification { display: grid; grid-template-columns: 1fr 1fr; gap: 2mm; }
+.pg-special-info-box { min-width: 0; min-height: 29mm; border: 1px solid #475569; }
+.pg-special-info-box h2, .pg-special-prescription h2 { padding: 1mm 2mm; border-bottom: 1px solid #475569; text-align: center; text-transform: uppercase; font-size: 9px; font-weight: 700; }
+.pg-special-info-box p { margin: 1.5mm 2mm; overflow-wrap: anywhere; }
+.pg-special-prescription { flex: 1; min-height: 0; margin-top: 3mm; border: 1px solid #475569; overflow: hidden; }
+.pg-special-med { padding: 2mm 3mm 1mm; break-inside: avoid; font-size: 9px; }
+.pg-special-med > div { display: flex; justify-content: space-between; gap: 2mm; }
+.pg-special-med b { overflow-wrap: anywhere; }
+.pg-special-med p { margin: 1mm 0 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.pg-special-signature { height: 31mm; flex: 0 0 31mm; padding: 3mm 2mm 0; font-size: 9px; }
+.pg-special-signature-line { width: 70%; margin: 16mm auto 0; padding-top: 1mm; border-top: 1px solid #111827; text-align: center; }
+.pg-special-dispensation { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; min-height: 25mm; border-top: 1px solid #475569; padding-top: 2mm; font-size: 7px; }
+.pg-special-dispensation b { display: block; margin-bottom: 1mm; text-transform: uppercase; font-size: 8px; }
+.pg-special-dispensation p { margin: 1mm 0; }
+@media screen and (max-width: 1599px) {
+  .pg-receituario.pg-receita-especial .pg-special-preview { width: 100%; }
+}
+@media print {
+  .pg-receituario.pg-receita-especial #printable-area { width: 297mm !important; height: 210mm !important; }
+  .pg-receituario.pg-receita-especial .pg-special-sheet { display: grid !important; }
+  .pg-receituario.pg-receita-especial .pg-special-copy { break-inside: avoid; }
+}
+
 @media screen { .pg-app .sidebar-logo .pg-system-logo { background: #fff; border-radius: 8px; padding: 0 6px; } }
 
 /* Top navigation layout: keep the content, context bar and preview on one grid. */
