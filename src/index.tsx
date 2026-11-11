@@ -935,19 +935,15 @@ app.get('/', (c) => {
                     :class="resetDone ? 'bg-green-100 text-green-700' : 'bg-amber-50 text-amber-700 hover:bg-amber-100'"
                     title="Limpar formulário">
                     <i class="fas" :class="resetDone ? 'fa-check' : 'fa-eraser'"></i>
-                    <span class="hidden sm:inline" x-text="resetDone ? 'Limpo!' : 'Resetar'"></span>
+                    <span x-text="resetDone ? 'Limpo!' : 'Resetar'"></span>
                 </button>
 
             </div>
         </header>
 
         <main class="page-content">
-
-            <!-- LEFT COLUMN (FORM) -->
-            <div class="min-w-0 pb-20">
-
                 <!-- Dashboard metrics -->
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+                <div class="pg-dashboard-metrics grid grid-cols-2 sm:grid-cols-4 gap-3">
                     <div class="metric-card">
                         <div class="metric-card-icon" style="background:#EFF6FF;">
                             <i class="fas fa-file-medical" style="color:#0047A1; font-size:18px;"></i>
@@ -985,6 +981,9 @@ app.get('/', (c) => {
                         </div>
                     </div>
                 </div>
+
+            <!-- LEFT COLUMN (FORM) -->
+            <div class="min-w-0 pb-20">
 
                 <!-- Mode selector (tabs) -->
                 <div class="card mb-5">
@@ -2847,14 +2846,14 @@ app.get('/', (c) => {
             <div class="hidden lg:block pg-preview-column">
                 <div class="preview-panel">
                     <div class="preview-panel-header">
-                        <div class="flex items-center gap-2">
+                        <div class="pg-preview-heading flex items-center gap-2">
                             <div class="w-6 h-6 rounded flex items-center justify-center" style="background:#EFF6FF;">
                                 <i class="fas fa-file-alt" style="color:#0047A1; font-size:11px;"></i>
                             </div>
                             <h3>Pré-visualização em tempo real</h3>
                             <span class="pulse-dot w-2 h-2 rounded-full bg-green-500 inline-block ml-1"></span>
                         </div>
-                        <div class="flex items-center gap-2">
+                        <div class="pg-preview-actions flex items-center gap-2">
                             <button @click="showCalculators = true"
                                     class="btn btn-ghost btn-sm">
                                 <i class="fas fa-calculator"></i>
