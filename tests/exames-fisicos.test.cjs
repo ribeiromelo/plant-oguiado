@@ -237,3 +237,22 @@ test('todos os campos dos sete sistemas geram narrativa sem rótulos de formulá
  assert.equal(f.admissionSystemText('hi'),'Aguardando resultado.');
  assert.doesNotMatch(f.admissionSystemText('hi'),/negativ/);
 });
+
+test('condutas correspondem exatamente ao exemplo e ignoram linhas vazias',()=>{
+ const f=newForm();Object.assign(f.form.uti.condutas,{outras:'Solicito exames gerais\r\n\r\n- Solicito parecer da Cardiologia\n',vigilanciaHemo:true,vigilanciaVent:true,profilaxiaTEV:true,manterFamilia:true});
+ const expected='# CONDUTAS\n- Solicito exames gerais\n- Solicito parecer da Cardiologia\n- Vigilância HEMODINÂMICA\n- Vigilância VENTILATÓRIA\n- PROFILAXIA TEV/LAMG\n- Manter família informada\n';
+ assert.ok(f.generateEvolucaoCritico().endsWith(expected));
+ f.form.uti.condutas.vigilanciaVent=false;assert.doesNotMatch(f.admissionConductText(),/VENTILATÓRIA/);
+ f.form.uti.condutas.outras='\n- \n • Solicito ECG\n';assert.ok(f.admissionConductText().startsWith('- Solicito ECG\n'));
+ f.resetForm();assert.equal(f.admissionConductText(),'');
+});
+test('Outro usa texto real, preserva valores prévios e limpa seleção anterior',()=>{
+ const f=newForm();f.setAdmissionValue('neuro','consciencia','Achado prévio');
+ assert.equal(f.admissionChoice('neuro','consciencia'),'__other__');
+ f.chooseAdmission('neuro','consciencia','Sonolento');assert.equal(f.admissionValue('neuro','consciencia'),'Sonolento');
+ f.chooseAdmission('neuro','consciencia','__other__');assert.equal(f.admissionValue('neuro','consciencia'),'');
+ f.setAdmissionValue('neuro','consciencia','Desperta ao chamado');
+ assert.match(f.admissionSystemText('neuro'),/Desperta ao chamado/);assert.doesNotMatch(f.admissionSystemText('neuro'),/Outro|__other__/);
+ f.chooseAdmission('neuro','consciencia','');assert.equal(f.admissionSystemText('neuro'),'');
+ assert.equal(f.admissionOptions['neuro.convulsoes'],undefined);
+});

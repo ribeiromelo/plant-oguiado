@@ -223,6 +223,9 @@ document.addEventListener('alpine:init', () => {
                 atestado_dias: 1
             }
         },
+        admissionOptions: {"general.aspecto": ["Bom", "Regular", "Mau", "Grave", "Gravíssimo"], "general.consciencia": ["Consciente", "Sonolento", "Obnubilado", "Torporoso", "Comatoso"], "neuro.consciencia": ["Consciente", "Sonolento", "Obnubilado", "Torporoso", "Comatoso"], "general.cor": ["Acianótico e anictérico", "Cianótico", "Ictérico", "Hipocorado"], "general.hidratacao": ["Normohidratado", "Desidratado", "Hiper-hidratado"], "general.dor": ["Confortável e sem fácies de dor", "Com fácies de dor", "Agitado", "Desconfortável"], "neuro.pupilas": ["Isocóricas e fotorreagentes", "Isocóricas e não fotorreagentes", "Anisocóricas", "Mióticas", "Midriáticas"], "neuro.motor": ["Sem déficit motor focal ao exame", "Hemiparesia direita", "Hemiparesia esquerda", "Tetraparesia", "Exame motor não avaliável"], "neuro.rass": ["-5", "-4", "-3", "-2", "-1", "0", "1", "2", "3", "4"], "neuro.delirium": ["CAM-ICU negativo", "CAM-ICU positivo", "Não avaliável"], "scv.ritmo": ["Ritmo regular, bulhas normofonéticas, sem sopros", "Ritmo irregular", "Taquicardia regular", "Bradicardia regular"], "scv.perfusao": ["Preservada", "Diminuída", "Extremidades frias", "Enchimento capilar prolongado"], "scv.pulsos": ["Palpáveis e simétricos", "Diminuídos bilateralmente", "Assimétricos"], "scv.edema": ["Ausente", "Edema de membros inferiores", "Edema generalizado"], "sr.via": ["Via aérea pérvia", "Intubado por via orotraqueal", "Traqueostomizado"], "sr.padrao": ["Eupneico", "Taquipneico", "Bradipneico", "Com uso de musculatura acessória", "Respiração paradoxal"], "sr.ausculta": ["Murmúrio vesicular presente bilateralmente, sem ruídos adventícios", "Sibilos difusos", "Estertores bibasais", "Roncos difusos", "Murmúrio vesicular diminuído bilateralmente"], "sr.suporte": ["Ar ambiente"], "tgi.abdome": ["Flácido e indolor à palpação", "Distendido", "Doloroso à palpação", "Com defesa à palpação"], "tgi.ruidos": ["Presentes", "Diminuídos", "Aumentados", "Ausentes"], "tgi.dieta": ["Jejum", "Dieta oral bem tolerada", "Dieta enteral bem tolerada", "Nutrição parenteral"], "tgi.sangramento": ["Ausente", "Melena", "Hematêmese", "Hematoquezia"], "hi.febre": ["Afebril", "Febril"], "hi.sangramento": ["Sem sangramentos visíveis", "Petéquias", "Equimoses", "Sangramento em sítio de punção"]},
+        admissionOther: {},
+        admissionConductGroups: [{"label": "Monitorização e vigilância", "items": [{"id": "vigilanciaNeuro", "text": "Vigilância NEUROLÓGICA"}, {"id": "vigilanciaHemo", "text": "Vigilância HEMODINÂMICA"}, {"id": "vigilanciaInfec", "text": "Vigilância INFECCIOSA"}, {"id": "vigilanciaVent", "text": "Vigilância VENTILATÓRIA"}, {"id": "vigilanciaRenal", "text": "Vigilância RENAL/METABÓLICA"}, {"id": "monitor", "text": "Manter monitorização multiparamétrica contínua"}, {"id": "reavaliar", "text": "Reavaliar sinais vitais e perfusão periférica"}]}, {"label": "Suporte hemodinâmico", "items": [{"id": "acesso", "text": "Manter acesso venoso pérvio"}, {"id": "volume", "text": "Reavaliar volemia e resposta à reposição volêmica"}, {"id": "vasoativo", "text": "Titular suporte vasoativo conforme metas hemodinâmicas individualizadas"}]}, {"label": "Ventilação e vias aéreas", "items": [{"id": "oxigenio", "text": "Titular oxigenoterapia conforme meta de saturação individualizada"}, {"id": "ventilacao", "text": "Reavaliar parâmetros ventilatórios e sincronia paciente-ventilador"}, {"id": "viaaerea", "text": "Reavaliar permeabilidade e proteção da via aérea"}, {"id": "fixacao", "text": "Verificar posição e fixação do dispositivo de via aérea"}, {"id": "desmame", "text": "Avaliar elegibilidade para desmame ventilatório"}]}, {"label": "Metabolismo e função renal", "items": [{"id": "glicemia", "text": "Monitorizar glicemia e ajustar controle conforme protocolo institucional"}, {"id": "eletr", "text": "Monitorizar e corrigir distúrbios hidroeletrolíticos conforme resultados"}, {"id": "diurese", "text": "Controlar diurese e registrar balanço hídrico"}, {"id": "renal", "text": "Reavaliar função renal e adequar doses de medicamentos"}]}, {"label": "Analgesia e sedação", "items": [{"id": "dor", "text": "Reavaliar dor e adequar analgesia"}, {"id": "sedacao", "text": "Titular sedação conforme meta individualizada e reavaliar diariamente"}, {"id": "delirium", "text": "Rastrear delirium e implementar medidas não farmacológicas"}, {"id": "sintomas", "text": "Reavaliar e tratar sintomas conforme necessidade"}]}, {"label": "Profilaxias e cuidados gerais", "items": [{"id": "profilaxiaTEV", "text": "PROFILAXIA TEV/LAMG"}, {"id": "risco", "text": "Reavaliar risco trombótico e hemorrágico e adequação das profilaxias"}, {"id": "lesao", "text": "Implementar prevenção de lesão por pressão"}, {"id": "nutricao", "text": "Reavaliar plano nutricional e tolerância à dieta"}, {"id": "mobilidade", "text": "Avaliar mobilização conforme estabilidade clínica"}, {"id": "dispositivos", "text": "Reavaliar diariamente a necessidade de dispositivos invasivos"}]}, {"label": "Exames e especialidades", "items": [{"id": "labs", "text": "Solicitar exames laboratoriais conforme hipótese clínica"}, {"id": "imagem", "text": "Solicitar exames de imagem conforme indicação clínica"}, {"id": "culturas", "text": "Coletar culturas conforme suspeita infecciosa"}, {"id": "parecer", "text": "Solicitar avaliação especializada conforme necessidade clínica"}, {"id": "resultados", "text": "Reavaliar resultados dos exames e ajustar conduta"}]}, {"label": "Comunicação e destino", "items": [{"id": "aguardarVaga", "text": "Aguardar vaga de UTI/regulação"}, {"id": "manterFamilia", "text": "Manter família informada"}, {"id": "equipe", "text": "Discutir plano terapêutico com a equipe multiprofissional"}, {"id": "passagem", "text": "Realizar passagem de caso com pendências e metas assistenciais"}]}],
         admissionSystems: [
   {
     "id": "general",
@@ -1523,6 +1526,27 @@ document.addEventListener('alpine:init', () => {
             if (option) exam.resultado = option.normal;
         },
 
+        admissionChoice(section, key) {
+            const value = this.admissionValue(section, key);
+            const id = section + '.' + key;
+            if (this.admissionOther[id]) return '__other__';
+            if (!value) return '';
+            return (this.admissionOptions[id] || []).includes(value) ? value : '__other__';
+        },
+        chooseAdmission(section, key, value) {
+            const id = section + '.' + key;
+            this.admissionOther[id] = value === '__other__';
+            this.setAdmissionValue(section, key, value === '__other__' ? '' : value);
+        },
+        admissionConductText() {
+            const values = this.form.uti.condutas;
+            const manual = String(values.outras || '').split(/\r\n|\n|\r/)
+                .map(line => line.trim().replace(/^(?:[-•]\s*)+/, '').trim()).filter(Boolean);
+            const selected = this.admissionConductGroups.flatMap(group => group.items)
+                .filter(item => values[item.id]).map(item => item.text);
+            return [...manual, ...selected].map(line => '- ' + line).join('\n');
+        },
+
         admissionValue(section, key) {
             return this.form.uti.systems[section]?.[key] || '';
         },
@@ -2468,24 +2492,9 @@ document.addEventListener('alpine:init', () => {
             // # CONDUTAS
             text += `# CONDUTAS\n`;
             
-            let condutas = [];
-            if (this.form.uti.condutas.vigilanciaNeuro) condutas.push('- Vigilância NEUROLÓGICA');
-            if (this.form.uti.condutas.vigilanciaHemo) condutas.push('- Vigilância HEMODINÂMICA');
-            if (this.form.uti.condutas.vigilanciaInfec) condutas.push('- Vigilância INFECCIOSA');
-            if (this.form.uti.condutas.vigilanciaVent) condutas.push('- Vigilância VENTILATÓRIA');
-            if (this.form.uti.condutas.vigilanciaRenal) condutas.push('- Vigilância RENAL/METABÓLICA');
-            if (this.form.uti.condutas.profilaxiaTEV) condutas.push('- PROFILAXIA TEV/LAMG');
-            if (this.form.uti.condutas.aguardarVaga) condutas.push('- Aguardar vaga de UTI/regulação');
-            if (this.form.uti.condutas.manterFamilia) condutas.push('- Manter família informada');
-            
-            if (condutas.length > 0) {
-                text += condutas.join('\n') + '\n';
-            }
-            
-            if (this.form.uti.condutas.outras) {
-                text += `\n${this.form.uti.condutas.outras}\n`;
-            }
-            
+            const condutas = this.admissionConductText();
+            if (condutas) text += condutas + '\n';
+
             return text;
         },
 
@@ -2783,6 +2792,7 @@ document.addEventListener('alpine:init', () => {
         },
 
         resetForm() {
+            this.admissionOther = {};
             for (const [id, values] of Object.entries(this.calcInputs)) {
                 for (const key of Object.keys(values)) values[key] = this.scoreDefinitions[id] ? -1 : '';
             }
