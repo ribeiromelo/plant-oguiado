@@ -39,15 +39,15 @@ test('SOAP escreve os exames básicos preenchidos e adapta o estado geral', () =
     assert.match(form.generateText(), /GERAL: Em bom estado geral, lúcida/);
 });
 
-test('os 12 exames adicionais podem ser incluídos, editados e removidos sem duplicação', () => {
+test('os 20 exames adicionais podem ser incluídos, editados e removidos sem duplicação', () => {
     const form = newForm();
-    assert.equal(form.additionalExamOptions.length, 12);
+    assert.equal(form.additionalExamOptions.length, 20);
     for (const option of form.additionalExamOptions) {
         assert.ok(option.normal, option.label + ' precisa ter um modelo');
         form.addAdditionalExam(option.id, option.label);
         form.addAdditionalExam(option.id, option.label);
     }
-    assert.equal(form.form.exam.additional.length, 12);
+    assert.equal(form.form.exam.additional.length, 20);
     for (let index = 0; index < form.form.exam.additional.length; index++) {
         form.setAdditionalNormal(index);
     }
@@ -159,4 +159,40 @@ test('resultados e intervenções exigem seleção e são apagados ao limpar', (
     assert.doesNotMatch(form.generateEvolucaoCritico(), /REAGENTE|POSITIVO|2026-11-11/);
     assert.match(form.generateXABCDE(), /Monitorização multiparamétrica: Não informado/);
     assert.match(form.generateXABCDE(), /Gravidade estimada: não informada/);
+});
+
+test('ocultar preserva valores e controles são independentes', () => {
+ const f=newForm(); f.form.vitals.fc=83; f.form.pa.ia_status='IA TESTE';
+ f.form.visibility.soapVitals=false;
+ assert.doesNotMatch(f.generateText(), /SSVV:/);
+ assert.match(f.generatePAPro(), /FC 83/);
+ f.form.visibility.paVitals=false; f.form.visibility.paAI=false;
+ assert.doesNotMatch(f.generatePAPro(), /SSVV:|IA TESTE/);
+ assert.equal(f.form.vitals.fc,83);
+ f.form.visibility.soapVitals=true; assert.match(f.generateText(),/FC: 83/);
+});
+test('PA tem catálogo completo e modelos básicos compartilhados', () => {
+ const f=newForm();
+ for(const [pa,soap] of Object.entries({geral:'general',ac:'cardiac',ap:'pulmonary',abd:'abdominal',neuro:'neuro',extremidades:'extremities'})){
+ f.setPANormal(pa); assert.equal(f.form.pa['ef_'+pa],f.normalExamText(soap));
+ }
+ for(const o of f.additionalExamOptions){f.addPAExam(o.id,o.label); f.addPAExam(o.id,o.label);}
+ assert.equal(f.form.pa.ef_adicionais.length,20);
+ f.form.pa.ef_adicionais.forEach((e,i)=>f.setPAAdditionalNormal(i));
+ for(const o of f.additionalExamOptions) assert.ok(f.generatePAPro().includes(o.normal));
+ f.resetForm();assert.equal(f.form.pa.ef_neuro,'');
+});
+test('calculadoras exigem respostas e respeitam referências numéricas',()=>{
+ const f=newForm();f.calculateScore('chads');assert.equal(f.calcResult,null);
+ for(const k of Object.keys(f.calcInputs.chads))f.calcInputs.chads[k]=1;
+ f.calcInputs.chads.age=2;f.calculateScore('chads');assert.equal(f.calcResult,9);
+ for(const k of Object.keys(f.calcInputs.perc))f.calcInputs.perc[k]=0;
+ f.calculatePERC();assert.equal(f.calcResult,null);
+ f.calcInputs.perc.lowRisk=1;f.calculatePERC();assert.equal(f.calcResult,0);
+ f.calcInputs.pam={pas:120,pad:80};f.calculateSimple('pam');assert.equal(f.calcResult,'93.3');
+ f.calcInputs.anion_gap={na:140,cl:104,hco3:24};f.calculateSimple('anion_gap');assert.equal(f.calcResult,'12.0');
+ f.calcInputs.glasgow={eye:'4',verbal:'5',motor:'6'};f.calculateGlasgow();assert.equal(f.calcResult,15);
+ f.calcInputs.glasgow.verbal='NT';f.calculateGlasgow();assert.equal(f.calcResult,null);assert.match(f.calcResultText,/VNT/);
+ f.calcInputs.ckd={creat:1,age:17,sex:'male'};f.calculateCKD();assert.equal(f.calcResult,null);
+ f.resetForm();assert.equal(f.calcInputs.chads.age,-1);
 });
