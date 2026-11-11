@@ -812,10 +812,12 @@ app.get('/', (c) => {
         </style>
         <link href="/static/design-system.css" rel="stylesheet">
     </head>
-    <body class="pg-app pg-evolucao scroll-smooth bg-[#F0F4F8] text-slate-900 font-sans antialiased" x-data="medicalForm()">
+    <body class="pg-app pg-evolucao scroll-smooth bg-[#F0F4F8] text-slate-900 font-sans antialiased"
+          :class="uiConfig.navigationLayout === 'top' ? 'pg-layout-top' : 'pg-layout-sidebar'"
+          x-data="medicalForm()">
 
         <!-- ═══ SIDEBAR ═══ -->
-        <aside class="sidebar no-print" id="sidebar">
+        <aside x-show="uiConfig.navigationLayout === 'sidebar'" class="sidebar no-print" id="sidebar" style="display:none;">
             <!-- Logo -->
             <div class="sidebar-logo"><img src="/static/plantguiadologo.png" alt="Plantão Guiado" class="pg-system-logo" width="2172" height="724"></div>
 
@@ -826,7 +828,7 @@ app.get('/', (c) => {
                 <a href="/" aria-current="page" class="sidebar-item active">
                     <i class="fas fa-file-medical"></i> Evolução / Admissão
                 </a>
-                <a href="/prescricoes" class="sidebar-item">
+                <a x-show="uiConfig.enablePrescriptionBank" href="/prescricoes" class="sidebar-item" style="display:none;">
                     <i class="fas fa-prescription"></i> Banco de Prescrições
                 </a>
                 <a href="/receituario" class="sidebar-item">
@@ -839,11 +841,6 @@ app.get('/', (c) => {
                         class="sidebar-item w-full text-left">
                     <i class="fas fa-calculator"></i> Calculadoras
                 </button>
-                <button @click="showCID = !showCID"
-                        class="sidebar-item w-full text-left">
-                    <i class="fas fa-search-plus"></i> Busca CID-10
-                </button>
-
                 <div class="sidebar-section-title" style="margin-top:6px;">Turno</div>
                 <button @click="form.shift = 'PLANTÃO DIURNO'"
                         class="sidebar-item w-full text-left"
@@ -873,15 +870,49 @@ app.get('/', (c) => {
         </aside>
 
         <!-- Mobile sidebar overlay -->
-        <div class="fixed inset-0 bg-black/40 z-40 hidden no-print" id="sidebar-overlay" onclick="document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebar-overlay').classList.add('hidden');"></div>
+        <div x-show="uiConfig.navigationLayout === 'sidebar'" class="fixed inset-0 bg-black/40 z-40 hidden no-print" id="sidebar-overlay" onclick="document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebar-overlay').classList.add('hidden');"></div>
+
+        <!-- Navegação superior experimental. O menu lateral permanece disponível por uiConfig.navigationLayout. -->
+        <header x-show="uiConfig.navigationLayout === 'top'" class="pg-topnav no-print" @keydown.escape.window="nav.atendimentoOpen = false; nav.ferramentasOpen = false; nav.mobileOpen = false">
+            <div class="pg-topnav-inner">
+                <a href="/" class="pg-topnav-brand" aria-label="Plantão Guiado — início">
+                    <img src="/static/plantguiadologo.png" alt="Plantão Guiado" width="2172" height="724">
+                </a>
+                <button type="button" class="pg-topnav-toggle" @click="nav.mobileOpen = !nav.mobileOpen" :aria-expanded="nav.mobileOpen.toString()" aria-controls="top-navigation" aria-label="Abrir ou fechar navegação">
+                    <i class="fas" :class="nav.mobileOpen ? 'fa-times' : 'fa-bars'"></i>
+                </button>
+                <nav id="top-navigation" class="pg-topnav-links" :class="nav.mobileOpen ? 'is-open' : ''" aria-label="Navegação principal">
+                    <div class="pg-nav-group" @click.outside="nav.atendimentoOpen = false">
+                        <button type="button" class="pg-nav-button" :class="['clinica','salavermelha','pa_pro'].includes(form.serviceType) ? 'active' : ''" @click="nav.atendimentoOpen = !nav.atendimentoOpen; nav.ferramentasOpen = false" :aria-expanded="nav.atendimentoOpen.toString()" aria-haspopup="true">
+                            Atendimento <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div x-show="nav.atendimentoOpen" x-transition class="pg-nav-dropdown" role="menu" style="display:none;">
+                            <button type="button" role="menuitem" @click="form.serviceType = 'clinica'; nav.atendimentoOpen = false; nav.mobileOpen = false" :class="form.serviceType === 'clinica' ? 'active' : ''">Evolução médica</button>
+                            <button type="button" role="menuitem" @click="form.serviceType = 'salavermelha'; form.utiTemplate = 'evolucao'; nav.atendimentoOpen = false; nav.mobileOpen = false" :class="form.serviceType === 'salavermelha' && form.utiTemplate === 'evolucao' ? 'active' : ''">Admissão médica</button>
+                            <a href="/receituario" role="menuitem">Receituário</a>
+                            <a x-show="uiConfig.enablePrescriptionBank" href="/prescricoes" role="menuitem" style="display:none;">Banco de Prescrições</a>
+                        </div>
+                    </div>
+                    <div class="pg-nav-group" @click.outside="nav.ferramentasOpen = false">
+                        <button type="button" class="pg-nav-button" @click="nav.ferramentasOpen = !nav.ferramentasOpen; nav.atendimentoOpen = false" :aria-expanded="nav.ferramentasOpen.toString()" aria-haspopup="true">
+                            Ferramentas <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div x-show="nav.ferramentasOpen" x-transition class="pg-nav-dropdown" role="menu" style="display:none;">
+                            <button type="button" role="menuitem" @click="showCalculators = true; selectedCalc = selectedCalc || 'bmi'; nav.ferramentasOpen = false; nav.mobileOpen = false">Calculadoras</button>
+                        </div>
+                    </div>
+                </nav>
+                <a href="/logout" class="pg-topnav-logout"><i class="fas fa-sign-out-alt"></i><span>Sair</span></a>
+            </div>
+        </header>
 
         <!-- ═══ APP SHELL ═══ -->
         <div class="app-shell">
 
         <!-- Topbar -->
-        <header class="topbar no-print">
+        <header class="topbar no-print" aria-label="Modelo e turno atuais">
             <!-- Mobile menu button -->
-            <button aria-label="Abrir ou fechar menu" class="lg:hidden btn btn-ghost btn-sm mr-2" onclick="document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebar-overlay').classList.toggle('hidden');">
+            <button x-show="uiConfig.navigationLayout === 'sidebar'" aria-label="Abrir ou fechar menu" class="lg:hidden btn btn-ghost btn-sm mr-2" onclick="document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebar-overlay').classList.toggle('hidden');">
                 <i class="fas fa-bars"></i>
             </button>
 
@@ -890,14 +921,15 @@ app.get('/', (c) => {
                 <div class="flex items-center gap-2">
                     <span class="text-sm font-bold text-slate-700"
                           x-text="form.serviceType === 'salavermelha' ? 'Sala Vermelha / UTI' : form.serviceType === 'pa_pro' ? 'PA Clínica Médica Pro' : 'PS Clínica Médica - SOAP'"></span>
-                    <span class="badge"
-                          :class="form.serviceType === 'salavermelha' ? 'badge-red' : form.serviceType === 'pa_pro' ? 'badge-green' : 'badge-blue'"
-                          x-text="form.shift === 'PLANTÃO NOTURNO' ? 'Noturno' : 'Diurno'"></span>
                 </div>
             </div>
 
             <!-- Right actions -->
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 sm:gap-3">
+                <div class="pg-shift-control" role="group" aria-label="Turno">
+                    <button type="button" @click="form.shift = 'PLANTÃO DIURNO'" :class="form.shift === 'PLANTÃO DIURNO' ? 'active' : ''" :aria-pressed="(form.shift === 'PLANTÃO DIURNO').toString()"><i class="fas fa-sun"></i><span>Diurno</span></button>
+                    <button type="button" @click="form.shift = 'PLANTÃO NOTURNO'" :class="form.shift === 'PLANTÃO NOTURNO' ? 'active' : ''" :aria-pressed="(form.shift === 'PLANTÃO NOTURNO').toString()"><i class="fas fa-moon"></i><span>Noturno</span></button>
+                </div>
                 <button @click="resetForm()"
                     class="topbar-btn"
                     :class="resetDone ? 'bg-green-100 text-green-700' : 'bg-amber-50 text-amber-700 hover:bg-amber-100'"
@@ -906,14 +938,6 @@ app.get('/', (c) => {
                     <span class="hidden sm:inline" x-text="resetDone ? 'Limpo!' : 'Resetar'"></span>
                 </button>
 
-                <a href="/prescricoes" class="topbar-btn bg-slate-100 text-slate-600 hover:bg-slate-200">
-                    <i class="fas fa-prescription"></i>
-                    <span class="hidden sm:inline">Prescrições</span>
-                </a>
-                <a href="/receituario" class="topbar-btn bg-slate-100 text-slate-600 hover:bg-slate-200">
-                    <i class="fas fa-print"></i>
-                    <span class="hidden sm:inline">Receituário</span>
-                </a>
             </div>
         </header>
 
@@ -1180,7 +1204,7 @@ app.get('/', (c) => {
                     </div>
 
                     <div class="mb-5 relative">
-                        <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">História da Doença Atual (HDA)</label>
+                        <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">História da Moléstia Atual (HMA)</label>
                         <textarea x-model="form.subjective.hda" class="form-input h-32 leading-relaxed" placeholder="Descrição livre da história clínica..."></textarea>
                     </div>
 
@@ -1649,49 +1673,68 @@ app.get('/', (c) => {
                                     </div>
                                 </div>
 
-                                <!-- B. DIAGNÓSTICO PRINCIPAL -->
-                                <div class="card mb-5 border-l-4 border-red-400">
+                                <!-- B. HISTÓRIA DA MOLÉSTIA ATUAL (HMA) -->
+                                <div class="card mb-5 border-l-4 border-blue-400">
                                     <div class="flex items-center gap-2 mb-4">
-                                        <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center">
-                                            <i class="fas fa-stethoscope"></i>
+                                        <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
+                                            <i class="fas fa-file-medical-alt"></i>
                                         </div>
-                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Diagnóstico Principal (DX)</h3>
+                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">História da Moléstia Atual (HMA)</h3>
                                     </div>
-                                    <textarea x-model="form.uti.dx" class="form-input h-24 border-red-200 focus:ring-red-500/20 focus:border-red-500" placeholder="Diagnóstico principal que motivou a internação..."></textarea>
+                                    <textarea x-model="form.uti.hda" class="form-input h-32 border-blue-200 focus:ring-blue-500/20 focus:border-blue-500" placeholder="Descreva a história da moléstia atual do paciente..."></textarea>
                                 </div>
 
-                                <!-- C. RASTREIO COVID-19 -->
+                                <!-- C. RASTREIO COVID-19 / INFLUENZA -->
                                 <div class="card mb-5 border-l-4 border-amber-400 bg-amber-50/30">
                                     <div class="flex items-center gap-2 mb-6">
                                         <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center">
                                             <i class="fas fa-virus"></i>
                                         </div>
-                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Rastreio COVID-19</h3>
+                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Rastreio COVID-19 / Influenza</h3>
                                     </div>
 
-                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                        <div>
-                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Data do TR COVID-19</label>
-                                            <input type="date" x-model="form.uti.covidData" class="form-input border-amber-200 focus:ring-amber-500/20 focus:border-amber-500">
-                                        </div>
-                                        <div>
-                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">Resultado TR COVID-19</label>
-                                            <select x-model="form.uti.covidResultado" class="form-input border-amber-200 focus:ring-amber-500/20 focus:border-amber-500">
-                                                <option value="">Não informado</option>
-                                                <option value="NÃO REAGENTE">NÃO REAGENTE</option>
-                                                <option value="REAGENTE">REAGENTE</option>
-                                                <option value="AGUARDA">AGUARDA</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <label class="block text-[11px] sm:text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide ml-0.5">RT-PCR</label>
-                                            <select x-model="form.uti.rtpcr" class="form-input border-amber-200 focus:ring-amber-500/20 focus:border-amber-500">
-                                                <option value="">Não informado</option>
-                                                <option value="AGUARDA">AGUARDA</option>
-                                                <option value="NEGATIVO">NEGATIVO</option>
-                                                <option value="POSITIVO">POSITIVO</option>
-                                            </select>
-                                        </div>
+                                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                        <fieldset class="pg-screening-test">
+                                            <legend>COVID-19</legend>
+                                            <label>Coleta
+                                                <select x-model="form.uti.covidColeta" class="form-input" data-screening="covid-collection">
+                                                    <option value="">Selecione...</option>
+                                                    <option value="sim">Coletado</option>
+                                                    <option value="nao">Não coletado</option>
+                                                </select>
+                                            </label>
+                                            <div x-show="form.uti.covidColeta === 'sim'" class="pg-screening-details" style="display:none;">
+                                                <label>Data da coleta<input type="date" x-model="form.uti.covidData" class="form-input"></label>
+                                                <label>Resultado
+                                                    <select x-model="form.uti.covidResultado" class="form-input">
+                                                        <option value="">Não informado</option><option value="AGUARDANDO">Aguardando</option><option value="REAGENTE">Reagente</option><option value="NÃO REAGENTE">Não reagente</option>
+                                                    </select>
+                                                </label>
+                                                <label>RT-PCR
+                                                    <select x-model="form.uti.rtpcr" class="form-input">
+                                                        <option value="">Não informado</option><option value="AGUARDANDO">Aguardando</option><option value="POSITIVO">Positivo</option><option value="NEGATIVO">Negativo</option>
+                                                    </select>
+                                                </label>
+                                            </div>
+                                        </fieldset>
+                                        <fieldset class="pg-screening-test">
+                                            <legend>Influenza</legend>
+                                            <label>Coleta
+                                                <select x-model="form.uti.influenzaColeta" class="form-input" data-screening="influenza-collection">
+                                                    <option value="">Selecione...</option>
+                                                    <option value="sim">Coletado</option>
+                                                    <option value="nao">Não coletado</option>
+                                                </select>
+                                            </label>
+                                            <div x-show="form.uti.influenzaColeta === 'sim'" class="pg-screening-details" style="display:none;">
+                                                <label>Data da coleta<input type="date" x-model="form.uti.influenzaData" class="form-input"></label>
+                                                <label>Resultado
+                                                    <select x-model="form.uti.influenzaResultado" class="form-input">
+                                                        <option value="">Não informado</option><option value="AGUARDANDO">Aguardando</option><option value="REAGENTE">Reagente</option><option value="NÃO REAGENTE">Não reagente</option>
+                                                    </select>
+                                                </label>
+                                            </div>
+                                        </fieldset>
                                     </div>
                                 </div>
 
@@ -1757,18 +1800,7 @@ app.get('/', (c) => {
                                     </div>
                                 </div>
 
-                                <!-- E. HISTÓRIA DA DOENÇA ATUAL (HDA) -->
-                                <div class="card mb-5 border-l-4 border-blue-400">
-                                    <div class="flex items-center gap-2 mb-4">
-                                        <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
-                                            <i class="fas fa-file-medical-alt"></i>
-                                        </div>
-                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">História da Doença Atual (HDA)</h3>
-                                    </div>
-                                    <textarea x-model="form.uti.hda" class="form-input h-32 border-blue-200 focus:ring-blue-500/20 focus:border-blue-500" placeholder="Descreva a história da doença atual do paciente..."></textarea>
-                                </div>
-
-                                <!-- F. DISPOSITIVOS/ACESSOS (DEVICES) - Lista Dinâmica -->
+                                <!-- E. DISPOSITIVOS/ACESSOS (DEVICES) - Lista Dinâmica -->
                                 <div class="card mb-5 border-l-4 border-emerald-400 bg-emerald-50/30">
                                     <div class="flex items-center justify-between mb-6">
                                         <div class="flex items-center gap-2">
@@ -1796,8 +1828,8 @@ app.get('/', (c) => {
 
                                         <template x-for="(device, index) in form.uti.devices" :key="index">
                                             <div class="bg-white p-4 rounded-xl border border-emerald-200 shadow-sm hover:shadow-md hover:border-emerald-400 transition-all shadow-sm hover:shadow-md">
-                                                <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
-                                                    <div class="md:col-span-3">
+                                                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-12 gap-3 items-end pg-device-grid">
+                                                    <div class="min-w-0 xl:col-span-3">
                                                         <label class="text-[10px] text-emerald-600 uppercase font-bold mb-1 block">Tipo</label>
                                                         <select x-model="device.tipo" class="form-input border-emerald-200 focus:ring-emerald-500/20 focus:border-emerald-500">
                                                             <option value="">Selecione...</option>
@@ -1812,15 +1844,15 @@ app.get('/', (c) => {
                                                             <option value="Outro">Outro</option>
                                                         </select>
                                                     </div>
-                                                    <div class="md:col-span-4">
+                                                    <div class="min-w-0 xl:col-span-3">
                                                         <label class="text-[10px] text-emerald-600 uppercase font-bold mb-1 block">Detalhes</label>
                                                         <input type="text" x-model="device.detalhes" class="form-input border-emerald-200 focus:ring-emerald-500/20 focus:border-emerald-500" placeholder="Ex: TOT 7.5 / CVC VJIE">
                                                     </div>
-                                                    <div class="md:col-span-3">
+                                                    <div class="min-w-0 xl:col-span-2">
                                                         <label class="text-[10px] text-emerald-600 uppercase font-bold mb-1 block">Data Inserção</label>
                                                         <input type="date" x-model="device.dataInsercao" class="form-input border-emerald-200 focus:ring-emerald-500/20 focus:border-emerald-500">
                                                     </div>
-                                                    <div class="md:col-span-1">
+                                                    <div class="min-w-0 xl:col-span-3">
                                                         <label class="text-[10px] text-emerald-600 uppercase font-bold mb-1 block">Status</label>
                                                         <select x-model="device.status" class="form-input border-emerald-200 focus:ring-emerald-500/20 focus:border-emerald-500">
                                                             <option value="EM USO">EM USO</option>
@@ -1828,7 +1860,7 @@ app.get('/', (c) => {
                                                             <option value="OBSTRUÍDO">OBSTRUÍDO</option>
                                                         </select>
                                                     </div>
-                                                    <div class="md:col-span-1 flex justify-end">
+                                                    <div class="xl:col-span-1 flex justify-end">
                                                         <button
                                                             @click="form.uti.devices.splice(index, 1)"
                                                             class="h-[44px] w-[44px] bg-red-100 text-red-600 rounded-lg hover:bg-red-600 hover:text-white transition-all flex items-center justify-center">
@@ -2812,7 +2844,7 @@ app.get('/', (c) => {
             </div>
 
             <!-- RIGHT COLUMN: PREVIEW (STICKY) -->
-            <div class="hidden lg:block">
+            <div class="hidden lg:block pg-preview-column">
                 <div class="preview-panel">
                     <div class="preview-panel-header">
                         <div class="flex items-center gap-2">
@@ -3246,3 +3278,4 @@ app.get('/prescricoes', (c) => {
 })
 
 export default app
+
