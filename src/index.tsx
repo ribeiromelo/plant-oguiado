@@ -1851,7 +1851,19 @@ app.get('/', (c) => {
                                                 <div class="pg-system-fields">
                                                     <template x-for="field in system.fields" :key="field.key">
                                                         <label class="pg-system-field"><span x-text="field.label + (field.unit ? ' (' + field.unit + ')' : '')"></span>
+                                                            <template x-if="admissionOptions[system.id + '.' + field.key]">
+                                                                <div class="space-y-2">
+                                                                    <select class="form-input" :aria-label="field.label" :value="admissionChoice(system.id, field.key)" @change="chooseAdmission(system.id, field.key, $event.target.value)" :data-admission-select="system.id + '.' + field.key">
+                                                                        <option value="">Não informado</option>
+                                                                        <template x-for="option in admissionOptions[system.id + '.' + field.key]" :key="option"><option :value="option" x-text="option"></option></template>
+                                                                        <option value="__other__">Outro</option>
+                                                                    </select>
+                                                                    <input x-show="admissionChoice(system.id, field.key) === '__other__'" type="text" class="form-input" :aria-label="'Outro — ' + field.label" :value="admissionValue(system.id, field.key)" @input="setAdmissionValue(system.id, field.key, $event.target.value)" :data-admission-other="system.id + '.' + field.key" placeholder="Descreva o achado...">
+                                                                </div>
+                                                            </template>
+                                                            <template x-if="!admissionOptions[system.id + '.' + field.key]">
                                                             <input type="text" class="form-input" :value="admissionValue(system.id, field.key)" @input="setAdmissionValue(system.id, field.key, $event.target.value)" :data-admission-field="system.id + '.' + field.key" placeholder="Não informado">
+                                                            </template>
                                                         </label>
                                                     </template>
                                                 </div>
@@ -1881,47 +1893,18 @@ app.get('/', (c) => {
                                         <h3 class="font-bold text-base sm:text-lg text-slate-700">Condutas</h3>
                                     </div>
 
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
-                                        <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white">
-                                            <input type="checkbox" x-model="form.uti.condutas.vigilanciaNeuro" class="mr-3">
-                                            <span class="flex-1">Vigilância NEUROLÓGICA</span>
-                                            <i class="fas fa-brain text-cyan-400"></i>
-                                        </label>
-                                        <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white">
-                                            <input type="checkbox" x-model="form.uti.condutas.vigilanciaHemo" class="mr-3">
-                                            <span class="flex-1">Vigilância HEMODINÂMICA</span>
-                                            <i class="fas fa-heartbeat text-red-400"></i>
-                                        </label>
-                                        <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white">
-                                            <input type="checkbox" x-model="form.uti.condutas.vigilanciaInfec" class="mr-3">
-                                            <span class="flex-1">Vigilância INFECCIOSA</span>
-                                            <i class="fas fa-shield-virus text-purple-400"></i>
-                                        </label>
-                                        <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white">
-                                            <input type="checkbox" x-model="form.uti.condutas.vigilanciaVent" class="mr-3">
-                                            <span class="flex-1">Vigilância VENTILATÓRIA</span>
-                                            <i class="fas fa-lungs text-blue-400"></i>
-                                        </label>
-                                        <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white">
-                                            <input type="checkbox" x-model="form.uti.condutas.vigilanciaRenal" class="mr-3">
-                                            <span class="flex-1">Vigilância RENAL/METABÓLICA</span>
-                                            <i class="fas fa-kidneys text-amber-400"></i>
-                                        </label>
-                                        <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white">
-                                            <input type="checkbox" x-model="form.uti.condutas.profilaxiaTEV" class="mr-3">
-                                            <span class="flex-1">PROFILAXIA TEV/LAMG</span>
-                                            <i class="fas fa-syringe text-emerald-400"></i>
-                                        </label>
-                                        <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white">
-                                            <input type="checkbox" x-model="form.uti.condutas.aguardarVaga" class="mr-3">
-                                            <span class="flex-1">Aguardar vaga de UTI/regulação</span>
-                                            <i class="fas fa-bed text-indigo-400"></i>
-                                        </label>
-                                        <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors select-none bg-white">
-                                            <input type="checkbox" x-model="form.uti.condutas.manterFamilia" class="mr-3">
-                                            <span class="flex-1">Manter família informada</span>
-                                            <i class="fas fa-users text-pink-400"></i>
-                                        </label>
+                                    <div class="space-y-5 mb-6">
+                                        <template x-for="group in admissionConductGroups" :key="group.label">
+                                            <fieldset><legend class="text-sm font-bold mb-3" x-text="group.label"></legend>
+                                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                                    <template x-for="item in group.items" :key="item.id">
+                                                        <label class="flex items-start gap-2 p-3 rounded-lg border border-slate-200 cursor-pointer text-sm">
+                                                            <input type="checkbox" x-model="form.uti.condutas[item.id]" :data-conduct="item.id" class="mt-1"><span x-text="item.text"></span>
+                                                        </label>
+                                                    </template>
+                                                </div>
+                                            </fieldset>
+                                        </template>
                                     </div>
 
                                     <div>
