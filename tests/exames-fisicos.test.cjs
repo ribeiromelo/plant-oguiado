@@ -5,6 +5,8 @@ const path = require('node:path');
 const vm = require('node:vm');
 
 const source = fs.readFileSync(path.join(__dirname, '../public/static/app.js'), 'utf8');
+const indexSource = fs.readFileSync(path.join(__dirname, '../src/index.tsx'), 'utf8');
+const stylesSource = fs.readFileSync(path.join(__dirname, '../public/static/styles.css'), 'utf8');
 
 function newForm(customName = 'Exame personalizado') {
     let factory;
@@ -146,6 +148,7 @@ test('resultados e intervenções exigem seleção e são apagados ao limpar', (
     const form = newForm();
     assert.match(form.generateXABCDE(), /Monitorização multiparamétrica: Não informado/);
     assert.match(form.generateXABCDE(), /Gravidade estimada: não informada/);
+    form.form.uti.covidColeta = 'sim';
     form.form.uti.covidData = '2026-11-11';
     form.form.uti.covidResultado = 'REAGENTE';
     form.form.uti.rtpcr = 'POSITIVO';
@@ -155,10 +158,24 @@ test('resultados e intervenções exigem seleção e são apagados ao limpar', (
     assert.match(form.generateEvolucaoCritico(), /REAGENTE/);
     assert.match(form.generateXABCDE(), /Monitorização multiparamétrica: instalada/);
     form.resetForm();
+    assert.equal(form.form.uti.covidColeta, '');
     assert.equal(form.form.uti.covidData, '');
     assert.doesNotMatch(form.generateEvolucaoCritico(), /REAGENTE|POSITIVO|2026-11-11/);
     assert.match(form.generateXABCDE(), /Monitorização multiparamétrica: Não informado/);
     assert.match(form.generateXABCDE(), /Gravidade estimada: não informada/);
+});
+
+test('admissão formata motivo, HMA e rastreios sem presumir dados', () => {
+ const f=newForm();f.form.serviceType='salavermelha';f.form.utiTemplate='evolucao';
+ Object.assign(f.form.uti,{dataAdmissao:'2026-11-11',local:'Sala Vermelha',motivo:'- Dispneia e dessaturação a esclarecer.',hda:'Paciente com história de dispneia.'});
+ let text=f.generateEvolucaoCritico();
+ assert.match(text,/PACIENTE ADMITIDO EM 11\/11\/2026 NA SALA VERMELHA\.\n\nMOTIVO DA INTERNAÇÃO:\n- Dispneia e dessaturação a esclarecer\.\n\nHMA:\nPaciente com história de dispneia\./);
+ assert.doesNotMatch(text,/DIAGNÓSTICO PRINCIPAL|# RASTREIO COVID/);
+ f.form.uti.covidColeta='nao';f.form.uti.influenzaColeta='sim';f.form.uti.influenzaResultado='NÃO REAGENTE';
+ text=f.generateEvolucaoCritico();
+ assert.match(text,/- COVID-19: não coletado/);assert.match(text,/- Influenza: coletado — NÃO REAGENTE/);
+ f.form.uti.influenzaColeta='nao';text=f.generateEvolucaoCritico();assert.doesNotMatch(text,/NÃO REAGENTE/);
+ f.form.uti.motivo=' - ';assert.doesNotMatch(f.generateEvolucaoCritico(),/MOTIVO DA INTERNAÇÃO/);
 });
 
 test('ocultar preserva valores e controles são independentes', () => {
@@ -256,3 +273,16 @@ test('Outro usa texto real, preserva valores prévios e limpa seleção anterior
  f.chooseAdmission('neuro','consciencia','');assert.equal(f.admissionSystemText('neuro'),'');
  assert.equal(f.admissionOptions['neuro.convulsoes'],undefined);
 });
+
+test('estrutura da dashboard e da admissão segue a navegação experimental', () => {
+ const topNav=indexSource.slice(indexSource.indexOf('<!-- Navegação superior experimental'),indexSource.indexOf('<!-- ═══ APP SHELL'));
+ assert.match(topNav,/Atendimento/);assert.match(topNav,/Evolução médica/);assert.match(topNav,/Admissão médica/);assert.match(topNav,/Receituário/);assert.match(topNav,/Ferramentas/);assert.match(topNav,/Calculadoras/);
+ assert.doesNotMatch(topNav,/Busca CID/);assert.match(topNav,/enablePrescriptionBank/);
+ const admission=indexSource.slice(indexSource.indexOf('<!-- A. CABEÇALHO'),indexSource.indexOf('<!-- H. EXAMES COMPLEMENTARES'));
+ const ordered=['Dados da Internação','História da Moléstia Atual (HMA)','Rastreio COVID-19 / Influenza','Antibioticoterapia (ATB)','Dispositivos / Acessos (DEVICES)','Avaliação por sistemas'];
+ let cursor=-1;for(const label of ordered){const next=admission.indexOf(label);assert.ok(next>cursor,label+' fora de ordem');cursor=next;}
+ assert.doesNotMatch(admission,/Diagnóstico Principal/);
+ assert.match(indexSource,/pg-shift-control/);assert.match(indexSource,/data-screening="covid-collection"/);assert.match(indexSource,/data-screening="influenza-collection"/);
+ assert.match(stylesSource,/\.pg-preview-column\s*\{[\s\S]*position:\s*sticky/);assert.match(stylesSource,/\.pg-device-grid select\s*\{[\s\S]*min-width:\s*0/);
+});
+
