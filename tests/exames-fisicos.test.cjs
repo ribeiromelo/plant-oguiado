@@ -196,3 +196,19 @@ test('calculadoras exigem respostas e respeitam referências numéricas',()=>{
  f.calcInputs.ckd={creat:1,age:17,sex:'male'};f.calculateCKD();assert.equal(f.calcResult,null);
  f.resetForm();assert.equal(f.calcInputs.chads.age,-1);
 });
+
+test('admissão por sistemas omite vazios, preserva zero, unidade e texto livre',()=>{
+ const f=newForm();assert.doesNotMatch(f.generateEvolucaoCritico(), /AVALIAÇÃO POR SISTEMAS/);
+ f.setAdmissionValue('scv','fc','94');
+ f.setAdmissionValue('neuro','rass','0');
+ f.setAdmissionValue('rm','glicemia','110 mg/dL');
+ f.form.uti.evolucao.sr='Sem esforço respiratório.';
+ const text=f.generateEvolucaoCritico();
+ assert.match(text,/ADMISSÃO MÉDICA -/);assert.doesNotMatch(text,/PADRÃO/);
+ assert.match(text,/NEURO: RASS: 0\./);
+ assert.match(text,/SCV: Frequência cardíaca: 94 bpm\./);
+ assert.match(text,/SR: Sem esforço respiratório\./);
+ assert.doesNotMatch(text,/mg\/dL mg\/dL|H\/I:/);
+ f.setAdmissionValue('scv','fc','');assert.equal(f.admissionSystemText('scv'),'');
+ f.resetForm();assert.doesNotMatch(f.generateEvolucaoCritico(),/AVALIAÇÃO POR SISTEMAS/);
+});
