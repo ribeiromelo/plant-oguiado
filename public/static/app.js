@@ -82,6 +82,7 @@ document.addEventListener('alpine:init', () => {
             // Dados UTI - Template 1 (Evolução Crítico)
             // ========================================
             uti: {
+                systems: {},
                 dataAdmissao: '',
                 local: 'Sala Vermelha',
                 motivo: '',
@@ -222,6 +223,317 @@ document.addEventListener('alpine:init', () => {
                 atestado_dias: 1
             }
         },
+        admissionSystems: [
+  {
+    "id": "general",
+    "label": "Estado geral",
+    "description": "Aspecto global, pele e conforto",
+    "fields": [
+      {
+        "key": "aspecto",
+        "label": "Aspecto geral",
+        "unit": ""
+      },
+      {
+        "key": "consciencia",
+        "label": "Interação e consciência",
+        "unit": ""
+      },
+      {
+        "key": "cor",
+        "label": "Coloração / cianose / icterícia",
+        "unit": ""
+      },
+      {
+        "key": "hidratacao",
+        "label": "Hidratação",
+        "unit": ""
+      },
+      {
+        "key": "temperatura",
+        "label": "Temperatura",
+        "unit": "°C"
+      },
+      {
+        "key": "dor",
+        "label": "Dor e conforto",
+        "unit": ""
+      }
+    ]
+  },
+  {
+    "id": "neuro",
+    "label": "NEURO",
+    "description": "Consciência, exame neurológico e sedação",
+    "fields": [
+      {
+        "key": "consciencia",
+        "label": "Nível de consciência",
+        "unit": ""
+      },
+      {
+        "key": "glasgow",
+        "label": "Glasgow e componentes / NT",
+        "unit": ""
+      },
+      {
+        "key": "pupilas",
+        "label": "Pupilas e fotorreação",
+        "unit": ""
+      },
+      {
+        "key": "motor",
+        "label": "Resposta motora e déficits focais",
+        "unit": ""
+      },
+      {
+        "key": "sedacao",
+        "label": "Sedação / analgesia (droga e dose)",
+        "unit": ""
+      },
+      {
+        "key": "rass",
+        "label": "RASS",
+        "unit": ""
+      },
+      {
+        "key": "delirium",
+        "label": "Avaliação de delirium / CAM-ICU",
+        "unit": ""
+      },
+      {
+        "key": "convulsoes",
+        "label": "Crises ou outros achados",
+        "unit": ""
+      }
+    ]
+  },
+  {
+    "id": "scv",
+    "label": "SCV",
+    "description": "Hemodinâmica e perfusão",
+    "fields": [
+      {
+        "key": "pa",
+        "label": "Pressão arterial",
+        "unit": "mmHg"
+      },
+      {
+        "key": "pam",
+        "label": "PAM",
+        "unit": "mmHg"
+      },
+      {
+        "key": "fc",
+        "label": "Frequência cardíaca",
+        "unit": "bpm"
+      },
+      {
+        "key": "ritmo",
+        "label": "Ritmo e ausculta cardíaca",
+        "unit": ""
+      },
+      {
+        "key": "perfusao",
+        "label": "Perfusão / enchimento capilar",
+        "unit": ""
+      },
+      {
+        "key": "pulsos",
+        "label": "Pulsos periféricos",
+        "unit": ""
+      },
+      {
+        "key": "edema",
+        "label": "Edema",
+        "unit": ""
+      },
+      {
+        "key": "dva",
+        "label": "Drogas vasoativas (droga, dose e unidade)",
+        "unit": ""
+      }
+    ]
+  },
+  {
+    "id": "sr",
+    "label": "SR",
+    "description": "Ventilação, oxigenação e ausculta",
+    "fields": [
+      {
+        "key": "via",
+        "label": "Via aérea / dispositivo",
+        "unit": ""
+      },
+      {
+        "key": "padrao",
+        "label": "Padrão e esforço respiratório",
+        "unit": ""
+      },
+      {
+        "key": "fr",
+        "label": "Frequência respiratória",
+        "unit": "irpm"
+      },
+      {
+        "key": "spo2",
+        "label": "SpO₂",
+        "unit": "%"
+      },
+      {
+        "key": "ausculta",
+        "label": "Ausculta pulmonar",
+        "unit": ""
+      },
+      {
+        "key": "suporte",
+        "label": "Suporte de O₂ / fluxo",
+        "unit": ""
+      },
+      {
+        "key": "vm",
+        "label": "Ventilação mecânica: modo e parâmetros",
+        "unit": ""
+      },
+      {
+        "key": "secrecao",
+        "label": "Secreções / drenos torácicos",
+        "unit": ""
+      },
+      {
+        "key": "gasometria",
+        "label": "Gasometria e horário da coleta",
+        "unit": ""
+      }
+    ]
+  },
+  {
+    "id": "tgi",
+    "label": "TGI",
+    "description": "Abdome, nutrição e eliminações",
+    "fields": [
+      {
+        "key": "abdome",
+        "label": "Inspeção e palpação abdominal",
+        "unit": ""
+      },
+      {
+        "key": "ruidos",
+        "label": "Ruídos hidroaéreos",
+        "unit": ""
+      },
+      {
+        "key": "dieta",
+        "label": "Via da dieta e tolerância",
+        "unit": ""
+      },
+      {
+        "key": "eliminacoes",
+        "label": "Evacuações / última eliminação",
+        "unit": ""
+      },
+      {
+        "key": "sondas",
+        "label": "Sondas, ostomias e débito",
+        "unit": ""
+      },
+      {
+        "key": "sangramento",
+        "label": "Sangramento digestivo",
+        "unit": ""
+      }
+    ]
+  },
+  {
+    "id": "rm",
+    "label": "R/M",
+    "description": "Diurese, balanço e metabolismo",
+    "fields": [
+      {
+        "key": "diurese",
+        "label": "Diurese (volume, unidade e período)",
+        "unit": ""
+      },
+      {
+        "key": "balanco",
+        "label": "Balanço hídrico (volume e período)",
+        "unit": ""
+      },
+      {
+        "key": "renal",
+        "label": "Ureia / creatinina e tendência",
+        "unit": ""
+      },
+      {
+        "key": "eletrolitos",
+        "label": "Eletrólitos e horário da coleta",
+        "unit": ""
+      },
+      {
+        "key": "glicemia",
+        "label": "Glicemia",
+        "unit": "mg/dL"
+      },
+      {
+        "key": "acido",
+        "label": "Equilíbrio ácido-base",
+        "unit": ""
+      },
+      {
+        "key": "dialise",
+        "label": "Terapia renal substitutiva / modalidade",
+        "unit": ""
+      }
+    ]
+  },
+  {
+    "id": "hi",
+    "label": "H/I",
+    "description": "Sangramento e avaliação infecciosa",
+    "fields": [
+      {
+        "key": "febre",
+        "label": "Curva térmica / febre",
+        "unit": ""
+      },
+      {
+        "key": "foco",
+        "label": "Foco suspeito ou identificado",
+        "unit": ""
+      },
+      {
+        "key": "pele",
+        "label": "Pele, feridas e sítios de dispositivos",
+        "unit": ""
+      },
+      {
+        "key": "hemograma",
+        "label": "Hb / leucócitos / plaquetas",
+        "unit": ""
+      },
+      {
+        "key": "coagulacao",
+        "label": "Coagulação",
+        "unit": ""
+      },
+      {
+        "key": "sangramento",
+        "label": "Sangramentos / equimoses / petéquias",
+        "unit": ""
+      },
+      {
+        "key": "culturas",
+        "label": "Culturas (sítio, data e resultado)",
+        "unit": ""
+      },
+      {
+        "key": "antimicrobianos",
+        "label": "Antimicrobianos (indicação e dia de uso)",
+        "unit": ""
+      }
+    ]
+  }
+],
         // Condutas padrão PA Pro
         paCondutasPadrao: [
             'Sigo protocolo institucional.',
@@ -1211,6 +1523,28 @@ document.addEventListener('alpine:init', () => {
             if (option) exam.resultado = option.normal;
         },
 
+        admissionValue(section, key) {
+            return this.form.uti.systems[section]?.[key] || '';
+        },
+        setAdmissionValue(section, key, value) {
+            if (!this.form.uti.systems[section]) this.form.uti.systems[section] = {};
+            this.form.uti.systems[section][key] = value;
+        },
+        admissionSystemText(section) {
+            const definition = this.admissionSystems.find(item => item.id === section);
+            if (!definition) return '';
+            const sentences = [];
+            for (const field of definition.fields) {
+                const value = String(this.admissionValue(section, field.key)).trim();
+                if (!value) continue;
+                const unit = field.unit && !value.toLowerCase().endsWith(field.unit.toLowerCase()) ? ' ' + field.unit : '';
+                sentences.push(field.label + ': ' + value.replace(/[.;]+$/, '') + unit);
+            }
+            const notes = (this.form.uti.evolucao[section] || '').trim();
+            if (notes) sentences.push(notes.replace(/[.;]+$/, ''));
+            return sentences.length ? sentences.join('; ') + '.' : '';
+        },
+
         setAdmissionNormal(section) {
             const sections = { general: 'general', neuro: 'neuro', scv: 'cardiac', sr: 'pulmonary', tgi: 'abdominal', extr: 'extremities' };
             const clinical = {
@@ -1938,7 +2272,7 @@ document.addEventListener('alpine:init', () => {
             // Cabeçalho com tipo de local e turno
             const tipoLocal = (this.form.uti.local || 'SALA VERMELHA').toUpperCase();
             const turno = this.form.shift === 'PLANTÃO DIURNO' ? 'DIURNO' : 'NOTURNO';
-            text += `ADMISSÃO MÉDICA PADRÃO - ${tipoLocal} - ${turno}\n\n`;
+            text += `ADMISSÃO MÉDICA - ${tipoLocal} - ${turno}\n\n`;
             
             text += `PACIENTE: ${this.form.name || '_________'}, ${this.form.age ? this.form.age + ' anos' : '___ anos'}\n`;
             text += `ADMITIDO EM: ${this.form.uti.dataAdmissao || '__/__/____'} - ${this.form.uti.local || 'Sala Vermelha'}\n`;
@@ -2044,33 +2378,12 @@ document.addEventListener('alpine:init', () => {
                 text += `\n`;
             }
             
-            // # EXAME FÍSICO POR SISTEMAS
-            text += `# EXAME FÍSICO POR SISTEMAS\n`;
-            
-            if (this.form.uti.evolucao.general) text += `-GERAL: ${this.form.uti.evolucao.general}\n`;
-            if (this.form.uti.evolucao.neuro) {
-                text += `-NEUROLÓGICO: ${this.form.uti.evolucao.neuro}\n`;
-            }
-            if (this.form.uti.evolucao.scv) {
-                text += `-SCV (Sistema Cardiovascular): ${this.form.uti.evolucao.scv}\n`;
-            }
-            if (this.form.uti.evolucao.sr) {
-                text += `-SR (Sistema Respiratório): ${this.form.uti.evolucao.sr}\n`;
-            }
-            if (this.form.uti.evolucao.tgi) {
-                text += `-TGI (Trato Gastrointestinal): ${this.form.uti.evolucao.tgi}\n`;
-            }
-            if (this.form.uti.evolucao.rm) {
-                text += `-R/M (Renal/Metabólico): ${this.form.uti.evolucao.rm}\n`;
-            }
-            if (this.form.uti.evolucao.hi) {
-                text += `-H/I (Hematológico/Infeccioso): ${this.form.uti.evolucao.hi}\n`;
-            }
-            if (this.form.uti.evolucao.extr) {
-                text += `-EXTREMIDADES: ${this.form.uti.evolucao.extr}\n`;
-            }
-            text += `\n`;
-            
+            const systemsText = this.admissionSystems.map(system => {
+                const finding = this.admissionSystemText(system.id);
+                return finding ? `${system.label.toUpperCase()}: ${finding}` : '';
+            }).filter(Boolean);
+            if (systemsText.length) text += `# AVALIAÇÃO POR SISTEMAS\n${systemsText.join('\n')}\n\n`;
+
             // # Exames
             if (this.form.uti.exames) {
                 text += `# EXAMES COMPLEMENTARES:\n${this.form.uti.exames}\n\n`;
@@ -2433,6 +2746,7 @@ document.addEventListener('alpine:init', () => {
             this.form.uti.hda = '';
             this.form.uti.atb = [];
             this.form.uti.devices = [];
+            this.form.uti.systems = {};
             this.form.uti.evolucao = { general: '', neuro: '', scv: '', sr: '', tgi: '', rm: '', hi: '', extr: '' };
             this.form.uti.covidData = '';
             this.form.uti.covidResultado = '';

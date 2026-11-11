@@ -43,7 +43,7 @@ app.get('/login', (c) => {
     <body class="pg-login">
         <main class="pg-login-shell">
             <div class="pg-login-intro">
-                <div class="pg-login-brand"><span class="pg-brand-mark"><i class="fas fa-stethoscope" aria-hidden="true"></i></span><span>Plantão Guiado</span></div>
+                <div class="pg-login-brand"><img src="/static/plantguiadologo.png" alt="Plantão Guiado" class="pg-system-logo" width="2172" height="724"></div>
                 <div class="pg-login-message">
                     <p class="pg-eyebrow">APOIO À DECISÃO CLÍNICA</p>
                     <h1>Mais clareza<br>para o seu plantão.</h1>
@@ -177,13 +177,7 @@ app.get('/receituario', (c) => {
         <header class="pg-subheader bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 no-print">
             <div class="max-w-[1600px] mx-auto px-4 lg:px-6 h-16 sm:h-20 flex items-center justify-between">
                 <div class="pg-header-brand flex items-center gap-2 sm:gap-3">
-                    <div class="pg-brand-mark w-9 h-9 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-lg flex items-center justify-center text-white shadow-md shadow-blue-500/20">
-                         <i class="fas fa-user-md text-lg"></i>
-                    </div>
-                    <div>
-                        <h1 class="text-sm sm:text-base font-bold text-slate-800 leading-none">Plantão Guiado</h1>
-                        <p class="text-[10px] text-slate-500 font-medium uppercase tracking-wider mt-0.5">Gerador de Receitas</p>
-                    </div>
+                    <img src="/static/plantguiadologo.png" alt="Plantão Guiado" class="pg-system-logo" width="2172" height="724">
                 </div>
 
                 <div class="pg-header-actions flex items-center gap-2 sm:gap-3">
@@ -823,13 +817,7 @@ app.get('/', (c) => {
         <!-- ═══ SIDEBAR ═══ -->
         <aside class="sidebar no-print" id="sidebar">
             <!-- Logo -->
-            <div class="sidebar-logo">
-                <div class="sidebar-logo-icon">
-                    <i class="fas fa-stethoscope"></i>
-                </div>
-                <h2>Plantão Guiado</h2>
-                <p>Sistema Clínico</p>
-            </div>
+            <div class="sidebar-logo"><img src="/static/plantguiadologo.png" alt="Plantão Guiado" class="pg-system-logo" width="2172" height="724"><p>Sistema Clínico</p></div>
 
             <!-- Nav -->
             <nav style="padding-top:8px; flex:1; overflow-y:auto;">
@@ -1608,7 +1596,7 @@ app.get('/', (c) => {
                                     class="pg-record-option p-6 rounded-xl font-bold transition-all flex flex-col items-center justify-center gap-3">
                                     <i class="fas fa-notes-medical text-3xl"></i>
                                     <div>
-                                        <div class="text-base">Admissão médica padrão</div>
+                                        <div class="text-base">Admissão médica</div>
                                         <div class="text-xs font-normal opacity-80 mt-1">Registro inicial por sistemas</div>
                                     </div>
                                 </button>
@@ -1853,126 +1841,23 @@ app.get('/', (c) => {
                                     </div>
                                 </div>
 
-                                <!-- G. EVOLUÇÃO POR SISTEMAS -->
-                                <div class="card mb-5 border-l-4 border-cyan-400 bg-cyan-50/30">
-                                    <div class="flex items-center gap-2 mb-6">
-                                        <div class="w-10 h-10 rounded-full bg-cyan-100 text-cyan-600 flex items-center justify-center">
-                                            <i class="fas fa-heartbeat"></i>
-                                        </div>
-                                        <h3 class="font-bold text-base sm:text-lg text-slate-700">Exame físico por sistemas</h3>
-                                    </div>
-                                    <p class="text-xs text-slate-500 mb-4">Use os modelos apenas para achados examinados e revise o texto antes de copiar.</p>
-
-                                    <div class="space-y-4">
-                                        <div>
-                                            <div class="pg-section-heading mb-2"><label class="form-label mb-0">Estado geral</label><button type="button" class="pg-model-button" @click="setAdmissionNormal('general')">Normal</button></div>
-                                            <textarea x-model="form.uti.evolucao.general" class="form-input" rows="2" placeholder="Achados do estado geral..."></textarea>
-                                        </div>
-                                        <div>
-                                            <div class="flex items-center justify-between mb-2">
-                                                <label class="form-label flex items-center gap-2 mb-0">
-                                                    <i class="fas fa-brain text-cyan-600"></i>
-                                                    <span>NEURO (Neurológico)</span>
-                                                </label>
-                                                <div class="flex gap-2">
-                                                    <button @click="form.uti.evolucao.neuro = normalExamText('neuro')" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
-                                                        <i class="fas fa-check"></i> Normal
-                                                    </button>
-                                                    <button @click="openCalculator('glasgow')" class="px-3 py-1 bg-cyan-100 text-cyan-700 text-xs font-bold rounded-lg hover:bg-cyan-200 transition-all flex items-center gap-1">
-                                                        <i class="fas fa-calculator"></i> Glasgow
-                                                    </button>
+                                <div class="card mb-5 pg-admission-exam">
+                                    <h3 class="font-bold text-lg mb-2">Avaliação por sistemas</h3>
+                                    <p class="text-sm text-slate-500 mb-6">Preencha os achados avaliados e o suporte em uso. Campos vazios não aparecem no texto.</p>
+                                    <div class="pg-system-stack">
+                                        <template x-for="system in admissionSystems" :key="system.id">
+                                            <section class="pg-system-section" :aria-labelledby="'system-' + system.id">
+                                                <div class="pg-system-heading"><div><h4 :id="'system-' + system.id" x-text="system.label"></h4><p x-text="system.description"></p></div></div>
+                                                <div class="pg-system-fields">
+                                                    <template x-for="field in system.fields" :key="field.key">
+                                                        <label class="pg-system-field"><span x-text="field.label + (field.unit ? ' (' + field.unit + ')' : '')"></span>
+                                                            <input type="text" class="form-input" :value="admissionValue(system.id, field.key)" @input="setAdmissionValue(system.id, field.key, $event.target.value)" :data-admission-field="system.id + '.' + field.key" placeholder="Não informado">
+                                                        </label>
+                                                    </template>
                                                 </div>
-                                            </div>
-                                            <textarea x-model="form.uti.evolucao.neuro" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Glasgow, sedação, pupilas, déficits motores..."></textarea>
-                                        </div>
-
-                                        <div>
-                                            <div class="flex items-center justify-between mb-2">
-                                                <label class="form-label flex items-center gap-2 mb-0">
-                                                    <i class="fas fa-heartbeat text-red-600"></i>
-                                                    <span>SCV (Sistema Cardiovascular)</span>
-                                                </label>
-                                                <div class="flex gap-2">
-                                                    <button @click="form.uti.evolucao.scv = normalExamText('cardiac')" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
-                                                        <i class="fas fa-check"></i> Normal
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <textarea x-model="form.uti.evolucao.scv" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Hemodinâmica, drogas vasoativas, ritmo cardíaco..."></textarea>
-                                        </div>
-
-                                        <div>
-                                            <div class="flex items-center justify-between mb-2">
-                                                <label class="form-label flex items-center gap-2 mb-0">
-                                                    <i class="fas fa-lungs text-blue-600"></i>
-                                                    <span>SR (Sistema Respiratório)</span>
-                                                </label>
-                                                <div class="flex gap-2">
-                                                    <button @click="form.uti.evolucao.sr = normalExamText('pulmonary')" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
-                                                        <i class="fas fa-check"></i> Normal
-                                                    </button>
-                                                    <button @click="openCalculator('curb65')" class="px-3 py-1 bg-cyan-100 text-cyan-700 text-xs font-bold rounded-lg hover:bg-cyan-200 transition-all flex items-center gap-1">
-                                                        <i class="fas fa-calculator"></i> CURB-65
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <textarea x-model="form.uti.evolucao.sr" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Padrão ventilatório, suporte de O2, ausculta..."></textarea>
-                                        </div>
-
-                                        <div>
-                                            <div class="flex items-center justify-between mb-2">
-                                                <label class="form-label flex items-center gap-2 mb-0">
-                                                    <i class="fas fa-stomach text-amber-600"></i>
-                                                    <span>TGI (Trato Gastrointestinal)</span>
-                                                </label>
-                                                <button @click="form.uti.evolucao.tgi = normalExamText('abdominal')" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
-                                                    <i class="fas fa-check"></i> Normal
-                                                </button>
-                                            </div>
-                                            <textarea x-model="form.uti.evolucao.tgi" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Dieta, abdome, eliminações intestinais..."></textarea>
-                                        </div>
-
-                                        <div>
-                                            <div class="flex items-center justify-between mb-2">
-                                                <label class="form-label flex items-center gap-2 mb-0">
-                                                    <i class="fas fa-kidneys text-purple-600"></i>
-                                                    <span>R/M (Renal/Metabólico)</span>
-                                                </label>
-                                                <button type="button" class="pg-model-button" @click="setAdmissionNormal('rm')">Normal ao exame</button>
-                                                <div class="flex gap-2">
-                                                    <button @click="openCalculator('ckd')" class="px-3 py-1 bg-cyan-100 text-cyan-700 text-xs font-bold rounded-lg hover:bg-cyan-200 transition-all flex items-center gap-1">
-                                                        <i class="fas fa-calculator"></i> TFG
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <textarea x-model="form.uti.evolucao.rm" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Diurese, função renal, distúrbios hidroeletrolíticos..."></textarea>
-                                            <p class="text-xs text-slate-500 mt-2">Modelo apenas de achados físicos. Registre diurese e resultados laboratoriais conforme avaliação; o botão não informa normalidade desses dados.</p>
-                                        </div>
-
-                                        <div>
-                                            <div class="flex items-center justify-between mb-2">
-                                                <label class="form-label flex items-center gap-2 mb-0">
-                                                    <i class="fas fa-vial text-pink-600"></i>
-                                                    <span>H/I (Hematológico/Infeccioso)</span>
-                                                </label>
-                                                <button type="button" class="pg-model-button" @click="setAdmissionNormal('hi')">Normal ao exame</button>
-                                            </div>
-                                            <textarea x-model="form.uti.evolucao.hi" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Hemograma, coagulograma, culturas, foco infeccioso..."></textarea>
-                                            <p class="text-xs text-slate-500 mt-2">Modelo apenas de achados físicos. Registre diurese e resultados laboratoriais conforme avaliação; o botão não informa normalidade desses dados.</p>
-                                        </div>
-
-                                        <div>
-                                            <div class="flex items-center justify-between mb-2">
-                                                <label class="form-label flex items-center gap-2 mb-0">
-                                                    <i class="fas fa-hand-paper text-slate-600"></i>
-                                                    <span>EXTR (Extremidades)</span>
-                                                </label>
-                                                <button @click="form.uti.evolucao.extr = normalExamText('extremities')" class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg hover:bg-green-200 transition-all flex items-center gap-1">
-                                                    <i class="fas fa-check"></i> Normal
-                                                </button>
-                                            </div>
-                                            <textarea x-model="form.uti.evolucao.extr" class="form-input h-24 border-cyan-200 focus:ring-cyan-500/20 focus:border-cyan-500" placeholder="Perfusão periférica, edemas, pulsos, lesões..."></textarea>
-                                        </div>
+                                                <label class="pg-system-field pg-system-notes"><span>Descrição livre / observações</span><textarea rows="2" class="form-input" x-model="form.uti.evolucao[system.id]" :data-admission-notes="system.id" placeholder="Complemente os achados deste sistema..."></textarea></label>
+                                            </section>
+                                        </template>
                                     </div>
                                 </div>
 
@@ -3102,13 +2987,7 @@ app.get('/prescricoes', (c) => {
             <div class="max-w-[1800px] mx-auto px-4 lg:px-6 h-16 flex items-center justify-between">
                 <div class="pg-header-brand flex items-center gap-4">
                     <a href="/" class="flex items-center gap-3 hover:opacity-80 transition-opacity group">
-                        <div class="pg-brand-mark w-9 h-9 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-lg flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
-                            <i class="fas fa-user-md text-lg"></i>
-                        </div>
-                        <div>
-                            <h1 class="text-sm sm:text-base font-bold text-slate-800 leading-none">Plantão Guiado</h1>
-                            <p class="text-[10px] text-slate-500 font-medium uppercase tracking-wider mt-0.5">Prescrições Médicas</p>
-                        </div>
+                        <img src="/static/plantguiadologo.png" alt="Plantão Guiado" class="pg-system-logo" width="2172" height="724">
                     </a>
                 </div>
 

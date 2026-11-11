@@ -523,3 +523,26 @@
   .pg-evolucao .card > .flex:has(> .pg-hide-toggle) { flex-wrap: wrap; }
   .pg-hide-toggle { min-height: 32px; }
 }
+
+@media screen {
+  .pg-system-logo { display: block; width: 220px; max-width: 100%; height: auto; object-fit: contain; }
+  .pg-login-brand .pg-system-logo { width: 280px; }
+  .pg-app .sidebar-logo .pg-system-logo { width: 205px; margin: 0 auto; }
+  .pg-system-stack { display: grid; gap: 18px; }
+  .pg-system-section { border: 1px solid var(--pg-border); border-radius: 12px; background: #fafbfa; padding: 18px; }
+  .pg-system-heading { padding-bottom: 14px; margin-bottom: 16px; border-bottom: 1px solid var(--pg-border); }
+  .pg-system-heading h4 { font-size: 14px; font-weight: 750; color: var(--pg-ink); }
+  .pg-system-heading p { margin-top: 4px; font-size: 12px; color: var(--pg-muted); }
+  .pg-system-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .pg-system-field { display: grid; gap: 7px; min-width: 0; }
+  .pg-system-field > span { font-size: 11px; font-weight: 650; line-height: 1.5; letter-spacing: 0; }
+  .pg-system-notes { margin-top: 16px; }
+  .pg-system-field .form-input { width: 100%; min-width: 0; font-size: 13px; }
+}
+@media screen and (max-width: 639px) {
+  .pg-system-fields { grid-template-columns: 1fr; }
+  .pg-system-section { padding: 14px; }
+  .pg-header-brand .pg-system-logo { width: 150px; }
+}
+
+@media screen { .pg-app .sidebar-logo .pg-system-logo { background: #fff; border-radius: 8px; padding: 0 6px; } }
